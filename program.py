@@ -179,7 +179,7 @@ class Parser:
         states = Parser.getPreviewStates(outputDirectory)
         logging.debug("Generating states done...")
         staticPreview = PreviewGenerator.createImage(parameters, images, WatchState())
-         
+
         logging.debug("Generating static preview gen done...")
         staticPreview.save(os.path.join(outputDirectory, f"{baseName}_static.png"))
 
@@ -202,14 +202,14 @@ class Parser:
             d = radius
             draw.rectangle((l, t + d, r, b - d), color)
             draw.rectangle((l + d, t, r - d, b), color)
-        
+
         xy = (10,310)
         corner_radius = 38
 
         if Config.isGtsMode():
-            mask = Image.new("RGBA", Config.getPreviewSize(), (255, 255, 255, 0)) 
+            mask = Image.new("RGBA", Config.getPreviewSize(), (255, 255, 255, 0))
             d = ImageDraw.Draw(mask)
-		    
+
             rounded_rectangle(d,(3,3 , new_w -3,new_h-3),corner_radius,(180,180,180,255))
             rounded_rectangle(d,(5,5 , new_w-5,new_h-5),corner_radius,(255,255,255,0))
             im_resized.paste(mask,(0,0),mask)

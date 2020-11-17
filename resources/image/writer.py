@@ -13,11 +13,13 @@ class Writer:
         self._image = image
         self._width = image.size[0]
         self._height = image.size[1]
+        isBigImg = (self._width == 206 and self._height == 640) or (self._width == 152 and self._height == 472)
 
         self._bitsPerPixel = 32
         self._unknown1 = 24
         self._unknown2 = 1
-        if self._width == 206 and self._height == 640:
+
+        if isBigImg:
             self._bitsPerPixel = 16
 
         import math
@@ -26,7 +28,7 @@ class Writer:
         self._writer.write(Writer.signature)
 
         self.writeHeader()
-        if self._width == 206 and self._height == 640:
+        if isBigImg:
             self.writeImage16()
         else:
             self.writeImage()

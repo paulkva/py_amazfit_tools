@@ -23,8 +23,8 @@ class WeekDayElement(ImageSetElement):
         import locale
         nl = locale.getdefaultlocale()
         offset = 0
-        if len(nl)>0 and not nl[0].startswith('zh') and self.getImagesCount()==21:
+        if len(nl)>0 and isinstance(nl[0], str) and not nl[0].startswith('zh') and self.getImagesCount()==21:
             offset = 14
-        if len(nl)>0 and not nl[0].startswith('zh') and self.getImagesCount()==14:
+        if len(nl)>0 and isinstance(nl[0], str) and not nl[0].startswith('zh') and self.getImagesCount()==14:
             offset = 7
         super(WeekDayElement, self).draw3(drawer, resources, state.getTime().weekday() + offset)

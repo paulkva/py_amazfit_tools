@@ -25,6 +25,7 @@ class ImageElement(CoordinatesElement):
     def draw2(self, drawer, images, angle, center = None):
         x = self._x
         y = self._y
+
         if angle is None:
             temp = images[self._imageIndex].getBitmap()
             drawer.paste(temp, (x,y), temp)
@@ -39,7 +40,7 @@ class ImageElement(CoordinatesElement):
             if center is None:
                 drawer.paste(temp, (0,0), temp)
             else:
-                drawer.paste(temp, (center.getX(),center.getY()), temp)			
+                drawer.paste(temp, (center.getX(),center.getY()), temp)
 
 
     def createChildForParameter(self, parameter):

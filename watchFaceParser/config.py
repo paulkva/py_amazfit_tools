@@ -31,11 +31,11 @@ class Config:
                 Config.setGtsMode(True)
             elif deviceId == 0x34:
                 print("Detected T-Rex")
-                Config.setTrexMode(True)  
+                Config.setTrexMode(True)
             elif deviceId == 0x35:
                 print("Detected AmazfitX")
-                Config.setAmazfitXMode(True)      
-            
+                Config.setAmazfitXMode(True)
+
     @staticmethod
     def getDeviceId():
         return Config._deviceId
@@ -43,6 +43,14 @@ class Config:
     @staticmethod
     def getAutodetect():
         return Config._autodetect
+
+    @staticmethod
+    def setXMode(isX):
+        if isX:
+            Config._autodetect = False
+            Config._is_amazfitx = True
+            Config._preview_size = (152, 472)
+
 
     @staticmethod
     def setGtrMode(gtr):

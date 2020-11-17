@@ -1,4 +1,6 @@
-﻿from watchFaceParser.models.elements.basic.containerElement import ContainerElement
+﻿import logging
+
+from watchFaceParser.models.elements.basic.containerElement import ContainerElement
 
 
 class WatchFace(ContainerElement):
@@ -43,7 +45,7 @@ class WatchFace(ContainerElement):
 
 
     def getDaysProgress(self):
-        return self._daysProgress		
+        return self._daysProgress
 
 
     def getStatus(self):
@@ -59,6 +61,7 @@ class WatchFace(ContainerElement):
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
+        logging.debug(f'>>>>>>>>>>>> {parameterId} {parameter}')
         if parameterId == 0:
             pass
         elif parameterId == 2:

@@ -22,6 +22,7 @@ class Reader:
         Config.setDeviceId(header.deviceId)
 
         if not header.isValid():
+            logging.info("Header is not valid!")
             return
 
         logging.info("Reading parameter offsets...")
