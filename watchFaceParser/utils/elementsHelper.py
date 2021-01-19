@@ -1,6 +1,6 @@
 import logging
 
-from watchFaceParser.watchFace import WatchFace
+#from watchFaceParser.watchFace import WatchFace
 from watchFaceParser.attributes.parameterIdAttribute import ParameterIdAttribute
 
 

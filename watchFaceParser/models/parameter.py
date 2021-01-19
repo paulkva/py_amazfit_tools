@@ -148,7 +148,7 @@ class Parameter:
         logging.info("DEBUG ID %d FLAGS %x VALUE %x" % (_id, rawId & 0x07, value))
 #        if value == 1 and flags.hasFlag(ParameterFlags.hasChildren):
 #            value = Parameter.readValue(fileStream, traceOffset)
-##            logging.info("DEBUG                 %02x" % Parameter.readByte(fileStream, traceOffset))
+#            logging.info("DEBUG                 %02x" % Parameter.readByte(fileStream, traceOffset))
 #            pass
         if flags.hasFlag(ParameterFlags.Unknown) or flags.hasFlag(ParameterFlags.Unknown2):
             value = flags.getValue()	

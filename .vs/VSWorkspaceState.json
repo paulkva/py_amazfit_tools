@@ -4,9 +4,11 @@
     "\\resources",
     "\\resources\\image",
     "\\watchFaceParser",
-    "\\watchFaceParser\\elements",
-    "\\watchFaceParser\\models"
+    "\\watchFaceParser\\attributes",
+    "\\watchFaceParser\\helpers",
+    "\\watchFaceParser\\models",
+    "\\watchFaceParser\\models\\elements"
   ],
-  "SelectedNode": "\\watchFaceParser\\config.py",
+  "SelectedNode": "\\main.py",
   "PreviewInSolutionExplorer": false
 }

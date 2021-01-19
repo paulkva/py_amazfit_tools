@@ -1,6 +1,7 @@
 class Config:
     _deviceId = None
     _is_gtr = False
+    _is_gtr2 = False
     _is_gts = False
     _is_trex = False
     _is_amazfitx = False
@@ -65,8 +66,25 @@ class Config:
             Config._preview_size = (266, 266)
 
     @staticmethod
+    def setGtrMode2(gtr2):
+        Config._is_gtr2 = gtr2
+        if Config._is_gtr2 == 47:  
+            Config._autodetect = False
+            Config._image_size = Config._size_gtr_47
+            Config._preview_size = (266, 266)
+        if Config._is_gtr2 == 42: 
+            Config._autodetect = False
+            Config._image_size = Config._size_gtr_42
+            Config._preview_size = (266, 266)
+
+
+    @staticmethod
     def isGtrMode():
         return Config._is_gtr
+
+    @staticmethod
+    def isGtr2Mode():
+        return Config._is_gtr2
 
     @staticmethod
     def isTrexMode():

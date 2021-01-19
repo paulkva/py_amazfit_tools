@@ -36,12 +36,13 @@ class Reader:
         parametersTableLength = mainParam.getChildren()[0].getValue()
         imagesCount = mainParam.getChildren()[1].getValue()
         logging.info(f"ParametersTableLength: {parametersTableLength}, ImagesCount: {imagesCount}")
-
         logging.info("Reading parameters locations...")
         parametersLocations = Parameter.readList(parametersStream)
         logging.info("Watch face parameters locations were read:")
 
         self._parameters = self.readParameters(parametersTableLength, parametersLocations)
+        if Config.isGtr2Mode():
+            imagesCount = imagesCount-1
         from resources.reader import Reader
         self._resources = Reader(self._stream).read(imagesCount)
 
@@ -51,10 +52,16 @@ class Reader:
 
         result = []
         for parameterDescriptor in parametersDescriptors:
-            #print ("parameterDescriptor",parameterDescriptor.getId())
+            print ("parameterDescriptor",parameterDescriptor.getId())
             descriptorOffset = parameterDescriptor.getChildren()[0].getValue()
-            descriptorLength = parameterDescriptor.getChildren()[1].getValue()
-            #print ("parameterDescriptor",parameterDescriptor.getId(),"%02x"%descriptorOffset,descriptorLength)
+            descriptorLength=0
+            try:
+                descriptorLength = parameterDescriptor.getChildren()[1].getValue()
+            except IndexError:
+                descriptorLength = descriptorOffset
+                descriptorOffset = 0
+                print ("parameterDescriptor lenght empty")
+            print ("parameterDescriptor",parameterDescriptor.getId(),"%02x"%descriptorOffset,descriptorLength)
             logging.info(f"Reading descriptor for parameter {parameterDescriptor.getId()}")
             logging.info(f"Descriptor offset: {descriptorOffset}, Descriptor length: {descriptorLength}")
             parametersStream.seek(descriptorOffset)

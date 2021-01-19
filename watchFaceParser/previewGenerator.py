@@ -1,5 +1,8 @@
-from watchFaceParser.models.elements.watchFace import WatchFace
 from watchFaceParser.config import Config
+if Config.isGtr2Mode():  
+    from watchFaceParser.models.elements.watchFace2 import WatchFace
+else:
+    from watchFaceParser.models.elements.watchFace import WatchFace
 
 class PreviewGenerator:
     @staticmethod

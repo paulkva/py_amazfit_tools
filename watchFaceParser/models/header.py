@@ -79,10 +79,17 @@ class Header:
             Header.headerSize = 40 - 16
             Header.unknownPos = 32 - 16
             Header.parametersSizePos = 36 - 16
+        elif Config.isGtr2Mode() :
+            Header.headerSize = 88 - 16
+            Header.unknownPos = 76 - 16
+            Header.parametersSizePos = 80 - 16
         else:
             Header.headerSize = 64 - 16
             Header.unknownPos = 52 - 16
-            Header.parametersSizePos = 56 - 16
+            Header.parametersSizePos = 56 - 16 
+
+        if Config.isGtr2Mode() and not Config._autodetect:
+           Header.dialSignature = b"UIHH\x02\x00\xff"
 
         buffer = stream.read(Header.headerSize)
         header = Header(

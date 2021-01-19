@@ -7,7 +7,7 @@ from watchFaceParser.reader import Reader
 from watchFaceParser.writer import Writer
 from watchFaceParser.utils.parametersConverter import ParametersConverter
 from watchFaceParser.utils.resourcesLoader import ResourcesLoader
-from watchFaceParser.watchFace import WatchFace
+#from watchFaceParser.watchFace import WatchFace
 from watchFaceParser.models.fileDescriptor import FileDescriptor
 from watchFaceParser.models.watchState import WatchState
 from watchFaceParser.previewGenerator import PreviewGenerator
@@ -134,7 +134,8 @@ class Parser:
             return
 
         logging.debug("generatePreviews")
-        Parser.generatePreviews(reader.getParameters(), reader.getImages(), outputDirectory, baseName)
+        #TODO implement models
+        #Parser.generatePreviews(reader.getParameters(), reader.getImages(), outputDirectory, baseName)
         logging.debug("generatePreviews done")
 
         logging.debug("Exporting resources to '%s'" % (outputDirectory, ))
@@ -160,6 +161,10 @@ class Parser:
     @staticmethod
     def parseResources(reader):
         logging.debug("Parsing parameters...")
+        if Config.isGtr2Mode(): 
+            from watchFaceParser.watchFace2 import WatchFace
+        else:
+            from watchFaceParser.watchFace import WatchFace
         try:
             return ParametersConverter.parse(WatchFace, reader.getParameters())
         except Exception as e:

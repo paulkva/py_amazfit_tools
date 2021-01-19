@@ -10,6 +10,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--vergelite', action='store_true', help='force VergeLite watchface')
     parser.add_argument('--gtr', type=int, choices=[42,47], help='force GTR watchface')
+    parser.add_argument('--gtr2', type=int, choices=[42,47], help='force GTR watchface')
     parser.add_argument('--gts', action='store_true', help='force GTS watchface')
     parser.add_argument('--trex', action='store_true', help='force T-REX watchface')
     parser.add_argument('--x', action='store_true', help='force AmazfitX watchface')
@@ -19,6 +20,7 @@ if __name__ == '__main__':
 
     Config.setVergeLiteMode(args.vergelite)
     Config.setGtrMode(args.gtr)
+    Config.setGtrMode2(args.gtr2)
     Config.setGtsMode(args.gts)
     Config.setTrexMode(args.trex)
     Config.setAmazfitXMode(args.x)
