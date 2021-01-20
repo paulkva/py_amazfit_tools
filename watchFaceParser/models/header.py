@@ -19,18 +19,24 @@ class Header:
         return self.signature == Header.dialSignature
 
 
-    def writeTo(self, stream):
-        # verge-specific
-        HeaderSize = 64
-        buffer = bytearray(HeaderSize)
-        for i in range(HeaderSize):
+    def writeTo(self, stream): 
+        if Config.isGtr2Mode() :
+            Header.headerSize = 88
+            Header.unknownPos = 76
+            Header.parametersSizePos = 80
+        else:
+            Header.headerSize = 64
+            Header.unknownPos = 52
+            Header.parametersSizePos = 56  
+        buffer = bytearray(Header.headerSize)
+        for i in range(Header.headerSize):
             buffer[i] = 0xff
         buffer[0:len(self.signature)] = self.signature
         buffer[11] = 0x06 # verge
         t = self.unknown.to_bytes(4, byteorder='little')
-        buffer[52:52+len(t)] = t
+        buffer[Header.unknownPos:Header.unknownPos+len(t)] = t
         t = self.parametersSize.to_bytes(4, byteorder='little')
-        buffer[56:56+len(t)] = t
+        buffer[Header.parametersSizePos:Header.parametersSizePos+len(t)] = t
 
         self.hackBuffer(1, buffer)
         stream.write(buffer)

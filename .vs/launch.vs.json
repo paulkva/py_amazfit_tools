@@ -6,7 +6,7 @@
       "type": "python",
       "interpreter": "(default)",
       "interpreterArguments": "",
-      "scriptArguments": "--gtr2 47 --file GTR/gtr2_simple_pack_with_minute_cover.bin",
+      "scriptArguments": "--gtr2 47 --file GTR/digital_hour_min_sec.bin",
       "env": {},
       "nativeDebug": false,
       "webBrowserUrl": "",

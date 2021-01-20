@@ -1,7 +1,4 @@
-﻿from watchFaceParser.elements.basicElements.coordinates import Coordinates
-from watchFaceParser.elements.basicElements.imageCoord import ImageCoord
-from watchFaceParser.elements.basicElements.sector import Sector
-from watchFaceParser.models.color import Color
+﻿from watchFaceParser.elements.gtr2.basicElements.imageCoord import ImageCoord 
 
 class ClockHand:
     definitions = { 

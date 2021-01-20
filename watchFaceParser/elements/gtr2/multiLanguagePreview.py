@@ -1,4 +1,4 @@
-from watchFaceParser.elements.multiLanguagePreviewImage import MultiLanguagePreviewImage
+from watchFaceParser.elements.gtr2.multiLanguagePreviewImage import MultiLanguagePreviewImage
 
 class MultiLanguagePreview:
     definitions = {

@@ -3,12 +3,11 @@
     "",
     "\\resources",
     "\\resources\\image",
+    "\\resources\\models",
+    "\\scripts",
     "\\watchFaceParser",
-    "\\watchFaceParser\\attributes",
-    "\\watchFaceParser\\helpers",
-    "\\watchFaceParser\\models",
-    "\\watchFaceParser\\models\\elements"
+    "\\watchFaceParser\\models"
   ],
-  "SelectedNode": "\\main.py",
+  "SelectedNode": "\\watchFaceParser\\models\\header.py",
   "PreviewInSolutionExplorer": false
 }

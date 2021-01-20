@@ -1,7 +1,7 @@
 from watchFaceParser.elements.deviceId import DeviceId
-from watchFaceParser.elements.background2 import Background
-from watchFaceParser.screenNormal import ScreenNormal
-from watchFaceParser.screenIdle import ScreenIdle
+from watchFaceParser.elements.gtr2.background import Background
+from watchFaceParser.elements.gtr2.screenNormal import ScreenNormal
+from watchFaceParser.elements.gtr2.screenIdle import ScreenIdle
 
 class WatchFace:
     definitions = {

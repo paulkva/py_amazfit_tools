@@ -162,7 +162,7 @@ class Parser:
     def parseResources(reader):
         logging.debug("Parsing parameters...")
         if Config.isGtr2Mode(): 
-            from watchFaceParser.watchFace2 import WatchFace
+            from watchFaceParser.watchFaceGTR2 import WatchFace
         else:
             from watchFaceParser.watchFace import WatchFace
         try:
