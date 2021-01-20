@@ -1,5 +1,6 @@
 import logging
 import io
+from watchFaceParser.config import Config
 
 from watchFaceParser.models.parameterFlags import ParameterFlags
 
@@ -145,7 +146,7 @@ class Parameter:
             raise IndexError("Parameter with zero Id is invalid.") #ArgumentException
 
         value = Parameter.readValue(fileStream, traceOffset)
-        logging.info("DEBUG ID %d FLAGS %x VALUE %x" % (_id, rawId & 0x07, value))
+        #logging.info("DEBUG ID %d FLAGS %x VALUE %x" % (_id, rawId & 0x07, value))
 #        if value == 1 and flags.hasFlag(ParameterFlags.hasChildren):
 #            value = Parameter.readValue(fileStream, traceOffset)
 #            logging.info("DEBUG                 %02x" % Parameter.readByte(fileStream, traceOffset))
@@ -153,9 +154,10 @@ class Parameter:
         if flags.hasFlag(ParameterFlags.Unknown) or flags.hasFlag(ParameterFlags.Unknown2):
             value = flags.getValue()	
         elif flags.hasFlag(ParameterFlags.hasChildren):
-            if value == 0:
-                logging.info("DEBUG                 %02x" % Parameter.readByte(fileStream, traceOffset))
-                logging.info("DEBUG                 %02x" % Parameter.readByte(fileStream, traceOffset))
+            if not Config.isGtr2Mode():
+                if value == 0:
+                    logging.info("DEBUG                 %02x" % Parameter.readByte(fileStream, traceOffset))
+                    logging.info("DEBUG                 %02x" % Parameter.readByte(fileStream, traceOffset))
             logging.info(Parameter.traceWithOffset(f"{_id} ({rawId:2X}): {value} bytes", traceOffset))
             buffer = fileStream.read(value)
             stream = io.BytesIO(buffer)

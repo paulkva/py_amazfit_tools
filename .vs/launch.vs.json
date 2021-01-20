@@ -6,7 +6,7 @@
       "type": "python",
       "interpreter": "(default)",
       "interpreterArguments": "",
-      "scriptArguments": "--gtr2 47 --file GTR/digital_hour_min_sec.bin",
+      "scriptArguments": "--gtr2 47 --file GTR/hour_min_sec_am-pm.bin",
       "env": {},
       "nativeDebug": false,
       "webBrowserUrl": "",

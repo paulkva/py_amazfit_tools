@@ -6,7 +6,10 @@ from watchFaceParser.models.parameterFlags import ParameterFlags
 from watchFaceParser.models.textAlignment import TextAlignment
 from watchFaceParser.models.color import Color
 from watchFaceParser.models.parameter import Parameter
-from watchFaceParser.config import Config
+from watchFaceParser.config import Config 
+from watchFaceParser.models.gtr2.timeType import TimeType
+from watchFaceParser.models.gtr2.combingModeType import CombingModeType
+from watchFaceParser.models.gtr2.langCodeType import LangCodeType
 
 def ulong2long(n):
     if type(n) == int:
@@ -42,22 +45,27 @@ class ParametersConverter:
             if isinstance(propertyInfo['Type'],list):
                 propertyType = propertyInfo['Type'][0]
             else:
-                propertyType = propertyInfo['Type']
-				
+                propertyType = propertyInfo['Type']			
             propertyValue = ParametersConverter.getValue(propertyInfo, serializable)
 #            print("QUI",propertyInfo['Name'],serializable,propertyValue)
 
             if propertyValue is None:
                 continue
 
-            if propertyType == 'long' or propertyType == 'long?' or propertyType == TextAlignment or propertyType == Color or propertyType == 'bool':
+            if propertyType == 'long' or propertyType == 'long?' or propertyType == TextAlignment or propertyType == Color or propertyType == LangCodeType or propertyType == TimeType or propertyType == CombingModeType or propertyType == 'bool':
                 value = propertyValue
                 if propertyType == 'bool' or type(propertyValue) == bool:
                     value = 1 if propertyValue else 0
                 elif propertyType == TextAlignment:
                     value = TextAlignment.fromJSON(propertyValue)
+                elif propertyType == LangCodeType:
+                    value = LangCodeType.fromJSON(propertyValue)
                 elif propertyType == Color:
                     value = Color.fromJSON(propertyValue)
+                elif propertyType == TimeType:
+                    value = TimeType.fromJSON(propertyValue)
+                elif propertyType == CombingModeType:
+                    value = CombingModeType.fromJSON(propertyValue)
                 elif propertyType == 'long' or propertyType == 'long?':
                     value = int(value)				
 
@@ -166,11 +174,17 @@ class ParametersConverter:
                 propertyType = propertyInfo['Type']
 
             propertyInfoName = propertyInfo['Name']
-            if propertyType == 'long' or propertyType == 'long?' or propertyType == TextAlignment or propertyType == ParameterFlags or propertyType == Color or propertyType == 'bool':
+            if propertyType == 'long' or propertyType == 'long?' or propertyType == TextAlignment or propertyType == ParameterFlags or propertyType == Color or propertyType == LangCodeType or propertyType == TimeType or propertyType == CombingModeType or propertyType == 'bool':
                 if propertyType == TextAlignment:
                     setattr(result, propertyInfoName, TextAlignment(parameter.getValue()))
                 elif propertyType == ParameterFlags:
                     setattr(result, propertyInfoName, ParameterFlags(parameter.getValue()))
+                elif propertyType == TimeType:
+                    setattr(result, propertyInfoName, TimeType(parameter.getValue()))
+                elif propertyType == CombingModeType:
+                    setattr(result, propertyInfoName, CombingModeType(parameter.getValue()))
+                elif propertyType == LangCodeType:
+                    setattr(result, propertyInfoName, LangCodeType(parameter.getValue()))
                 elif propertyType == Color:
                     setattr(result, propertyInfoName, Color(parameter.getValue()))
                 elif propertyType == 'bool':

@@ -59,10 +59,13 @@ class Header:
             42 : [0x2a, 0x00, 0x72, 0xeb, 0x00, 0x00, 0x5c, 0xd3], # gtr 42
             50 : [0x34, 0x00, 0x1e, 0x1c, 0x00, 0x00, 0x49, 0xce], # trex
             53 : [0x35, 0x00, 0x09, 0x00, 0x00, 0x00, 0x4b, 0x9a], # AmazfitX
+            59 : [0x3B, 0x00, 0x81, 0x04, 0x00, 0x00, 0x61, 0x8A], #gtr2
         }
 
         if Config.isGtrMode():
             index = Config.isGtrMode()
+        if Config.isGtr2Mode():
+            index = 59
         if Config.isGtsMode():
             index = Config.isGtsMode()
         if Config.isTrexMode():
@@ -73,7 +76,10 @@ class Header:
         for i in range(len(p_0x10)):
             buffer[0x10 + i] = p_0x10[i]
         # hard coding?
-        buffer[60:60+4] = int(64).to_bytes(4, byteorder='little')
+        if Config.isGtr2Mode():
+            buffer[84:84+4] = int(48).to_bytes(4, byteorder='little')
+        else:
+            buffer[60:60+4] = int(64).to_bytes(4, byteorder='little')
 
 
     @staticmethod

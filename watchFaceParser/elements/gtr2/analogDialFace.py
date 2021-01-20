@@ -1,5 +1,4 @@
-from watchFaceParser.elements.gtr2.analogDialFaceElements.clockHand import ClockHand
-from watchFaceParser.elements.basicElements.image import Image
+from watchFaceParser.elements.gtr2.analogDialFaceElements.clockHand import ClockHand 
 
 class AnalogDialFace:
     definitions = {
