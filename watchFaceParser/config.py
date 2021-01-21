@@ -8,6 +8,8 @@ class Config:
     _image_size = (360, 360)
     _preview_size = (210, 210)
     _autodetect = True
+    _is_to_raw = False
+    _is_from_raw = False
 
     _size_gtr_47 = (454, 454)
     _size_gtr_42 = (390, 390)
@@ -36,6 +38,14 @@ class Config:
             elif deviceId == 0x35:
                 print("Detected AmazfitX")
                 Config.setAmazfitXMode(True)
+
+    @staticmethod
+    def setToRaw(val):
+        Config._is_to_raw = val 
+
+    @staticmethod
+    def setFromRaw(val):
+        Config._is_from_raw = val 
 
     @staticmethod
     def getDeviceId():
@@ -140,3 +150,9 @@ class Config:
         # return (Config._preview_size, Config._preview_size)
         return Config._preview_size
 
+    @staticmethod
+    def isToRaw():
+        return Config._is_to_raw
+    @staticmethod
+    def isFromRaw():
+        return Config._is_from_raw

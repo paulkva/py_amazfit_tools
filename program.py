@@ -6,8 +6,7 @@ import json
 from watchFaceParser.reader import Reader
 from watchFaceParser.writer import Writer
 from watchFaceParser.utils.parametersConverter import ParametersConverter
-from watchFaceParser.utils.resourcesLoader import ResourcesLoader
-#from watchFaceParser.watchFace import WatchFace
+from watchFaceParser.utils.resourcesLoader import ResourcesLoader 
 from watchFaceParser.models.fileDescriptor import FileDescriptor
 from watchFaceParser.models.watchState import WatchState
 from watchFaceParser.previewGenerator import PreviewGenerator
@@ -23,6 +22,8 @@ def dumper(obj):
 
 
 class Parser:
+    raw_header_file_name = "raw_header.bin"
+
     @staticmethod
     def createOutputDirectory(originalFileName):
         path = os.path.dirname(originalFileName)
@@ -57,6 +58,10 @@ class Parser:
         assert(type(outputFileName) == str)
         assert(type(imagesDirectory) == str)
         try:
+            if Config.isGtr2Mode(): 
+                from watchFaceParser.watchFaceGTR2 import WatchFace
+            else:
+                from watchFaceParser.watchFace import WatchFace
             logging.debug(f"Reading referenced images from '{imagesDirectory}'")
             imagesReader = ResourcesLoader(imagesDirectory)
             imagesReader.process(WatchFace, watchFace)
@@ -68,7 +73,8 @@ class Parser:
                 Config.setDeviceId(descriptor.pop(0).getChildren()[0].getValue())
 
             baseName, _ = os.path.splitext(os.path.basename(outputFileName))
-            Parser.generatePreviews(descriptor, imagesReader.getImages(), outputDirectory, baseName)
+            if not Config.isGtr2Mode(): 
+                Parser.generatePreviews(descriptor, imagesReader.getImages(), outputDirectory, baseName) 
 
             logging.debug(f"Writing watch face to '{outputFileName}'")
             with open(outputFileName, 'wb') as fileStream:
@@ -117,6 +123,79 @@ class Parser:
         except Exception as e:
             os.remove(outputFileName)
             raise e
+
+    @staticmethod
+    def packRawWatchFace(inputFileName):
+        assert(type(inputFileName) == str)
+        baseName = os.path.basename(os.path.dirname(inputFileName))
+        outputDirectory = os.path.dirname(inputFileName)
+        outputFileName = os.path.join(outputDirectory, f"{baseName}_packed.bin")
+        Parser.setupLogger(os.path.join(outputDirectory, f'{baseName}_packed.log'))
+
+        try:
+            headerFileName = os.path.join(outputDirectory, f"{Parser.raw_header_file_name}") 
+            with open(headerFileName, 'rb') as f: 
+                logging.info("Reading raw header...")
+                tmpArray = bytearray( f.read() )
+                f.close() 
+                logging.info("Header was read:") 
+        except Exception as e:
+            import traceback
+            traceback.print_stack()
+            logging.exception(e)
+            return None
+         
+        imagesDirectory = os.path.dirname(inputFileName)
+        try:
+            logging.debug(f"Writing watch  to '{outputFileName}'") 
+            with open(outputFileName, 'wb') as fileStream: 
+                fileStream.write(tmpArray)
+                fileStream.flush()
+        except Exception as e:
+            os.remove(outputFileName)
+            raise e
+
+    @staticmethod
+    def unpackRawWatchFace(inputFileName):
+        outputDirectory = Parser.createOutputDirectory(inputFileName)
+        baseName, _ = os.path.splitext(os.path.basename(inputFileName))
+        Parser.setupLogger(os.path.join(outputDirectory, f'{baseName}.log'))
+
+        logging.debug(f"Opening watch face '{inputFileName}'")
+        try:
+            with open(inputFileName, 'rb') as f:
+                logging.info("Reading header...")
+                from watchFaceParser.models.header import Header
+                header = Header.readFrom(f)
+                logging.info("Header was read:")
+                if not header.isValid():
+                    logging.info("Header is not valid!")
+                    return 
+                headeSize = f.tell();
+                f.seek(0) 
+                tmpArray = bytearray(f.read(headeSize + header.parametersSize)) 
+                f.close()
+
+                outputFileName = os.path.join(outputDirectory, f"{Parser.raw_header_file_name}") 
+                logging.debug(f"Writing watch face raw header to '{outputFileName}'") 
+                with open(outputFileName, 'wb') as fileStream: 
+                    fileStream.write(tmpArray)
+                    fileStream.flush()
+        except Exception as e:
+            import traceback
+            traceback.print_stack()
+            logging.exception(e)
+            return None
+
+        reader = Parser.readWatchFace(inputFileName)
+        if not reader:
+            return
+
+        logging.debug("Exporting resources to '%s'" % (outputDirectory, ))
+        reDescriptor = FileDescriptor(Resources = reader.getResources())
+
+        from resources.extractor import extractor
+        extractor(reDescriptor).extract(outputDirectory) 
 
 
     @staticmethod

@@ -10,12 +10,14 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--vergelite', action='store_true', help='force VergeLite watchface')
     parser.add_argument('--gtr', type=int, choices=[42,47], help='force GTR watchface')
-    parser.add_argument('--gtr2', type=int, choices=[42,47], help='force GTR watchface')
+    parser.add_argument('--gtr2', type=int, choices=[42,47], help='force GTR2 watchface')
     parser.add_argument('--gts', action='store_true', help='force GTS watchface')
     parser.add_argument('--trex', action='store_true', help='force T-REX watchface')
     parser.add_argument('--x', action='store_true', help='force AmazfitX watchface')
     parser.add_argument('--file', nargs='+', help='''watchface.bin - unpacks watchface images and config
     watchface.json - packs config and referenced images to bin file''')
+    parser.add_argument('--to_raw', action='store_true', help='save raw header and resources')
+    parser.add_argument('--from_raw', action='store_true', help='generate bin from raw folder')
     args = parser.parse_args()
 
     Config.setVergeLiteMode(args.vergelite)
@@ -25,6 +27,9 @@ if __name__ == '__main__':
     Config.setTrexMode(args.trex)
     Config.setAmazfitXMode(args.x)
 
+    Config.setToRaw(args.to_raw)
+    Config.setFromRaw(args.from_raw)
+
     for inputFileName in args.file:
         isDirectory = os.path.isdir(inputFileName)
         isFile = os.path.isfile(inputFileName)
@@ -32,13 +37,21 @@ if __name__ == '__main__':
             print("File or direcotry %s doesn't exist." % (inputFileName, ))
             continue
         if isDirectory:
-            print("Not supported yet.")
+            if Config.isFromRaw():
+                import program
+                program.Parser.packRawWatchFace(inputFileName)
+                print("Done")
+            else:
+                print("Not supported yet.")
             sys.exit(1)
         _, inputFileExtension = os.path.splitext(inputFileName)
         try:
             import program
             if inputFileExtension == '.bin':
-                program.Parser.unpackWatchFace(inputFileName)
+                if Config.isToRaw(): 
+                    program.Parser.unpackRawWatchFace(inputFileName)
+                else:
+                    program.Parser.unpackWatchFace(inputFileName)
             elif inputFileExtension == '.json':
                 program.Parser.packWatchFace(inputFileName)
             else:

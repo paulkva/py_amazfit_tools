@@ -8,5 +8,6 @@ class WatchFace:
         0: { 'Name': 'Info', 'Type': DeviceId},
         3: { 'Name': 'Background', 'Type': Background},
         4: { 'Name': 'ScreenNormal', 'Type': ScreenNormal},
+        #5: { 'Name': 'Unknow', 'Type': "long"},
         10: { 'Name': 'ScreenIdle', 'Type': ScreenIdle},
     }
