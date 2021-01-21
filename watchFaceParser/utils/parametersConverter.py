@@ -10,6 +10,7 @@ from watchFaceParser.config import Config
 from watchFaceParser.models.gtr2.timeType import TimeType
 from watchFaceParser.models.gtr2.combingModeType import CombingModeType
 from watchFaceParser.models.gtr2.langCodeType import LangCodeType
+from watchFaceParser.models.gtr2.textAlignment import TextAlignmentGTR2
 
 def ulong2long(n):
     if type(n) == int:
@@ -52,12 +53,14 @@ class ParametersConverter:
             if propertyValue is None:
                 continue
 
-            if propertyType == 'long' or propertyType == 'long?' or propertyType == TextAlignment or propertyType == Color or propertyType == LangCodeType or propertyType == TimeType or propertyType == CombingModeType or propertyType == 'bool':
+            if propertyType == 'long' or propertyType == 'long?' or propertyType == TextAlignment or propertyType == TextAlignmentGTR2  or propertyType == Color or propertyType == LangCodeType or propertyType == TimeType or propertyType == CombingModeType or propertyType == 'bool':
                 value = propertyValue
                 if propertyType == 'bool' or type(propertyValue) == bool:
                     value = 1 if propertyValue else 0
                 elif propertyType == TextAlignment:
                     value = TextAlignment.fromJSON(propertyValue)
+                elif propertyType == TextAlignmentGTR2:
+                    value = TextAlignmentGTR2.fromJSON(propertyValue)
                 elif propertyType == LangCodeType:
                     value = LangCodeType.fromJSON(propertyValue)
                 elif propertyType == Color:
@@ -174,9 +177,13 @@ class ParametersConverter:
                 propertyType = propertyInfo['Type']
 
             propertyInfoName = propertyInfo['Name']
-            if propertyType == 'long' or propertyType == 'long?' or propertyType == TextAlignment or propertyType == ParameterFlags or propertyType == Color or propertyType == LangCodeType or propertyType == TimeType or propertyType == CombingModeType or propertyType == 'bool':
+            string = (f"{currentPath}-{propertyInfoName}")
+            logging.debug(string.replace("\\",""))
+            if propertyType == 'long' or propertyType == 'long?' or propertyType == TextAlignment  or propertyType == TextAlignmentGTR2  or propertyType == ParameterFlags or propertyType == Color or propertyType == LangCodeType or propertyType == TimeType or propertyType == CombingModeType or propertyType == 'bool':
                 if propertyType == TextAlignment:
                     setattr(result, propertyInfoName, TextAlignment(parameter.getValue()))
+                elif propertyType == TextAlignmentGTR2:
+                    setattr(result, propertyInfoName, TextAlignmentGTR2(parameter.getValue()))
                 elif propertyType == ParameterFlags:
                     setattr(result, propertyInfoName, ParameterFlags(parameter.getValue()))
                 elif propertyType == TimeType:
@@ -197,9 +204,10 @@ class ParametersConverter:
                 assert(False) # not tested yet
             else:		
                 tmp = propertyType()	
-                childIsList = False
+                #childIsList = False
                 artmp = []
                 for x in parameter.getChildren():
+                    childIsList = False
                     if not childIsList:
                         childIsList = ParametersConverter.childIsList(propertyType, [x], currentPath)
 

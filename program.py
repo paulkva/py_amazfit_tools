@@ -1,7 +1,7 @@
 import os.path
 import logging
 import json
-
+import io
 
 from watchFaceParser.reader import Reader
 from watchFaceParser.writer import Writer
@@ -12,6 +12,7 @@ from watchFaceParser.models.watchState import WatchState
 from watchFaceParser.previewGenerator import PreviewGenerator
 from watchFaceParser.config import Config
 from watchFaceParser.models.weatherCondition import WeatherCondition
+from watchFaceParser.models.parameter import Parameter
 
 
 def dumper(obj):
@@ -127,29 +128,52 @@ class Parser:
     @staticmethod
     def packRawWatchFace(inputFileName):
         assert(type(inputFileName) == str)
-        baseName = os.path.basename(os.path.dirname(inputFileName))
-        outputDirectory = os.path.dirname(inputFileName)
-        outputFileName = os.path.join(outputDirectory, f"{baseName}_packed.bin")
-        Parser.setupLogger(os.path.join(outputDirectory, f'{baseName}_packed.log'))
-
+        baseName, _ = os.path.splitext(os.path.basename(inputFileName))
+        outputFileName = os.path.join(inputFileName, f"{baseName}_packed.bin")
+        Parser.setupLogger(os.path.join(inputFileName, f'{baseName}_packed.log'))
+        imagesCount = 0
         try:
-            headerFileName = os.path.join(outputDirectory, f"{Parser.raw_header_file_name}") 
+            headerFileName = os.path.join(inputFileName, f"{Parser.raw_header_file_name}") 
             with open(headerFileName, 'rb') as f: 
                 logging.info("Reading raw header...")
+                from watchFaceParser.models.header import Header
+                header = Header.readFrom(f)
+                logging.info("Header was read:")
+                if not header.isValid():
+                    logging.info("Header is not valid!")
+                    return                 
+                logging.info("Reading parameter offsets...")
+                tmpArray = bytearray(f.read(header.parametersSize))
+                parametersStream = io.BytesIO(tmpArray) 
+                logging.info("Parameter offsets were read from file")
+
+                logging.info("Reading parameters descriptor...")
+                from watchFaceParser.models.parameter import Parameter
+                mainParam = Parameter.readFrom(parametersStream)
+                logging.info("getParameters descriptor was read:")
+                parametersTableLength = mainParam.getChildren()[0].getValue()
+                imagesCount = mainParam.getChildren()[1].getValue()
+                if Config.isGtr2Mode(): 
+                    imagesCount = imagesCount-1
+                f.seek(0)
                 tmpArray = bytearray( f.read() )
                 f.close() 
-                logging.info("Header was read:") 
+                logging.info("Header was read") 
         except Exception as e:
             import traceback
             traceback.print_stack()
             logging.exception(e)
-            return None
-         
-        imagesDirectory = os.path.dirname(inputFileName)
+            return None 
         try:
             logging.debug(f"Writing watch  to '{outputFileName}'") 
             with open(outputFileName, 'wb') as fileStream: 
-                fileStream.write(tmpArray)
+                fileStream.write(tmpArray) 
+                imagesReader = ResourcesLoader(inputFileName)
+                for i in range(0, imagesCount):
+	                imagesReader.loadImage(i)
+                logging.debug("Writing images...")
+                from resources.writer import Writer
+                Writer(fileStream).write( imagesReader.resources())
                 fileStream.flush()
         except Exception as e:
             os.remove(outputFileName)
@@ -171,9 +195,18 @@ class Parser:
                 if not header.isValid():
                     logging.info("Header is not valid!")
                     return 
+                logging.info("Reading parameter offsets...")
+                tmpArray = bytearray(f.read(header.parametersSize))
+                parametersStream = io.BytesIO(tmpArray) 
+                logging.info("Parameter offsets were read from file")
+
+                logging.info("Reading parameters descriptor...")
+                mainParam = Parameter.readFrom(parametersStream)
+                logging.info("getParameters descriptor was read:")
+                parametersTableLength = mainParam.getChildren()[0].getValue()
                 headeSize = f.tell();
                 f.seek(0) 
-                tmpArray = bytearray(f.read(headeSize + header.parametersSize)) 
+                tmpArray = bytearray(f.read(headeSize + parametersTableLength)) 
                 f.close()
 
                 outputFileName = os.path.join(outputDirectory, f"{Parser.raw_header_file_name}") 

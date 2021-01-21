@@ -1,6 +1,6 @@
 class CombingModeType:
-    Single = 0
-    Follow = 1 
+    Single = 1
+    Follow = 0
 
     Converter = {
         Single : "Single",

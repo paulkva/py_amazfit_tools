@@ -1,5 +1,4 @@
-﻿#from watchFaceParser.models.textAlignment import TextAlignment
-from watchFaceParser.elements.gtr2.basicElements.imageSet import ImageSetGTR2
+﻿from watchFaceParser.elements.gtr2.basicElements.imageSet import ImageSetGTR2
 from watchFaceParser.models.gtr2.langCodeType import LangCodeType
 
 class MultilangImage:
