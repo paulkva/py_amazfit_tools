@@ -8,6 +8,7 @@ from watchFaceParser.models.color import Color
 from watchFaceParser.models.parameter import Parameter
 from watchFaceParser.config import Config 
 from watchFaceParser.models.gtr2.timeType import TimeType
+from watchFaceParser.models.gtr2.dateType import DateType
 from watchFaceParser.models.gtr2.combingModeType import CombingModeType
 from watchFaceParser.models.gtr2.langCodeType import LangCodeType
 from watchFaceParser.models.gtr2.textAlignment import TextAlignmentGTR2
@@ -53,7 +54,7 @@ class ParametersConverter:
             if propertyValue is None:
                 continue
 
-            if propertyType == 'long' or propertyType == 'long?' or propertyType == TextAlignment or propertyType == TextAlignmentGTR2  or propertyType == Color or propertyType == LangCodeType or propertyType == TimeType or propertyType == CombingModeType or propertyType == 'bool':
+            if propertyType == 'long' or propertyType == 'long?' or propertyType == TextAlignment or propertyType == TextAlignmentGTR2  or propertyType == Color or propertyType == LangCodeType or propertyType == TimeType or propertyType == DateType or propertyType == CombingModeType or propertyType == 'bool':
                 value = propertyValue
                 if propertyType == 'bool' or type(propertyValue) == bool:
                     value = 1 if propertyValue else 0
@@ -67,6 +68,8 @@ class ParametersConverter:
                     value = Color.fromJSON(propertyValue)
                 elif propertyType == TimeType:
                     value = TimeType.fromJSON(propertyValue)
+                elif propertyType == DateType:
+                    value = DateType.fromJSON(propertyValue)
                 elif propertyType == CombingModeType:
                     value = CombingModeType.fromJSON(propertyValue)
                 elif propertyType == 'long' or propertyType == 'long?':
@@ -179,7 +182,7 @@ class ParametersConverter:
             propertyInfoName = propertyInfo['Name']
             string = (f"{currentPath}-{propertyInfoName}")
             logging.debug(string.replace("\\",""))
-            if propertyType == 'long' or propertyType == 'long?' or propertyType == TextAlignment  or propertyType == TextAlignmentGTR2  or propertyType == ParameterFlags or propertyType == Color or propertyType == LangCodeType or propertyType == TimeType or propertyType == CombingModeType or propertyType == 'bool':
+            if propertyType == 'long' or propertyType == 'long?' or propertyType == TextAlignment  or propertyType == TextAlignmentGTR2  or propertyType == ParameterFlags or propertyType == Color or propertyType == LangCodeType or propertyType == TimeType or propertyType == DateType or propertyType == CombingModeType or propertyType == 'bool':
                 if propertyType == TextAlignment:
                     setattr(result, propertyInfoName, TextAlignment(parameter.getValue()))
                 elif propertyType == TextAlignmentGTR2:
@@ -188,6 +191,8 @@ class ParametersConverter:
                     setattr(result, propertyInfoName, ParameterFlags(parameter.getValue()))
                 elif propertyType == TimeType:
                     setattr(result, propertyInfoName, TimeType(parameter.getValue()))
+                elif propertyType == DateType:
+                    setattr(result, propertyInfoName, DateType(parameter.getValue()))
                 elif propertyType == CombingModeType:
                     setattr(result, propertyInfoName, CombingModeType(parameter.getValue()))
                 elif propertyType == LangCodeType:
@@ -205,8 +210,8 @@ class ParametersConverter:
             else:		
                 tmp = propertyType()	
                 #childIsList = False
-                artmp = []
                 for x in parameter.getChildren():
+                    artmp = []
                     #if not childIsList:
                         #childIsList = ParametersConverter.childIsList(propertyType, [x], currentPath)
                     childIsList = ParametersConverter.childIsList(propertyType, [x], currentPath)

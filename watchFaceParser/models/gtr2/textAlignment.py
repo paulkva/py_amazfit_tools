@@ -1,7 +1,7 @@
 class TextAlignmentGTR2:
     Left = 0
-    Right = 1
-    Center = 2
+    Center = 1
+    Right = 2
 
     Converter = { 
         Left : "Left",
