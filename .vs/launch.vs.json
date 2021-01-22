@@ -6,7 +6,7 @@
       "type": "python",
       "interpreter": "(default)",
       "interpreterArguments": "",
-      "scriptArguments": "--gtr2 47 --from_raw --file GTR/independed",
+      "scriptArguments": "--gtr2 47 --file GTR/statuses.bin",
       "env": {},
       "nativeDebug": false,
       "webBrowserUrl": "",

@@ -207,9 +207,9 @@ class ParametersConverter:
                 #childIsList = False
                 artmp = []
                 for x in parameter.getChildren():
-                    childIsList = False
-                    if not childIsList:
-                        childIsList = ParametersConverter.childIsList(propertyType, [x], currentPath)
+                    #if not childIsList:
+                        #childIsList = ParametersConverter.childIsList(propertyType, [x], currentPath)
+                    childIsList = ParametersConverter.childIsList(propertyType, [x], currentPath)
 
                     psd = ParametersConverter.parse(propertyType, [x], currentPath)
                     import json
