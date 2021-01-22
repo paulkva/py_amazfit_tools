@@ -8,6 +8,9 @@ class Config:
     _image_size = (360, 360)
     _preview_size = (210, 210)
     _autodetect = True
+
+    _startImageIndex = 0
+
     _is_to_raw = False
     _is_from_raw = False
 
@@ -82,11 +85,12 @@ class Config:
             Config._autodetect = False
             Config._image_size = Config._size_gtr_47
             Config._preview_size = (266, 266)
+            Config._startImageIndex = 1
         if Config._is_gtr2 == 42: 
             Config._autodetect = False
             Config._image_size = Config._size_gtr_42
             Config._preview_size = (266, 266)
-
+            Config._startImageIndex = 1 
 
     @staticmethod
     def isGtrMode():
@@ -138,6 +142,10 @@ class Config:
     @staticmethod
     def getImageSize():
         return Config._image_size
+
+    @staticmethod
+    def getStartImageIndex():
+        return Config._startImageIndex
 
 
     @staticmethod

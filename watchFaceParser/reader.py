@@ -41,8 +41,7 @@ class Reader:
         logging.info("Watch face parameters locations were read:")
 
         self._parameters = self.readParameters(parametersTableLength, parametersLocations)
-        if Config.isGtr2Mode():
-            imagesCount = imagesCount-1
+        #imagesCount = imagesCount - Config.getStartImageIndex()
         from resources.reader import Reader
         self._resources = Reader(self._stream).read(imagesCount)
 

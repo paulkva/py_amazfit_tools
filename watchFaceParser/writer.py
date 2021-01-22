@@ -35,9 +35,9 @@ class Writer:
 #            print ("OFFSET %04x"%offset)
             parametersPositions.append(Parameter(encodedParameterId, [ Parameter(1, offset), Parameter(2, encodedParameterLength) ]))
             offset += encodedParameterLength
-
-
-        parametersPositions.insert(0, Parameter(1, [ Parameter(1, offset), Parameter(2, len(self._images)) ]))
+        from watchFaceParser.config import Config
+        imageCount = len(self._images) + Config.getStartImageIndex()
+        parametersPositions.insert(0, Parameter(1, [ Parameter(1, offset), Parameter(2, imageCount) ]))
 
         encodedParametersPositions = io.BytesIO()
         for parametersPosition in parametersPositions:

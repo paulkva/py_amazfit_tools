@@ -1,16 +1,17 @@
 import logging
 import io
-
+from watchFaceParser.config import Config
+	
 class Reader:
     OffsetTableItemLength = 4
     def __init__(self, stream):
         self._stream = stream
         self._binaryReader = self._stream
 
-    def read(self, resourcesCount):
+    def read(self, resourcesCount):         
+        resourcesCount = resourcesCount - Config.getStartImageIndex()
         offsetsTableLength = resourcesCount * self.OffsetTableItemLength
         logging.info(f"Reading resources offsets table with {resourcesCount} elements ({offsetsTableLength} bytes)")
-
         offsets = []
         for i in range(resourcesCount):
             offset = int.from_bytes(self._binaryReader.read(4), byteorder='little')

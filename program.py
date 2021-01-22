@@ -153,8 +153,6 @@ class Parser:
                 logging.info("getParameters descriptor was read:")
                 parametersTableLength = mainParam.getChildren()[0].getValue()
                 imagesCount = mainParam.getChildren()[1].getValue()
-                if Config.isGtr2Mode(): 
-                    imagesCount = imagesCount-1
                 f.seek(0)
                 tmpArray = bytearray( f.read() )
                 f.close() 
@@ -169,8 +167,9 @@ class Parser:
             with open(outputFileName, 'wb') as fileStream: 
                 fileStream.write(tmpArray) 
                 imagesReader = ResourcesLoader(inputFileName)
-                for i in range(0, imagesCount):
-	                imagesReader.loadImage(i)
+                imageStartIndex = Config.getStartImageIndex()
+                for i in range(imagesCount-imageStartIndex):
+                    imagesReader.loadImage(i+imageStartIndex)
                 logging.debug("Writing images...")
                 from resources.writer import Writer
                 Writer(fileStream).write( imagesReader.resources())

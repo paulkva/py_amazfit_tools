@@ -6,7 +6,7 @@
       "type": "python",
       "interpreter": "(default)",
       "interpreterArguments": "",
-      "scriptArguments": "--gtr2 47 --from_raw --file GTR/7075829e4bf5ea0b28c7f27a6997461f",
+      "scriptArguments": "--gtr2 47 --from_raw --file GTR/independed",
       "env": {},
       "nativeDebug": false,
       "webBrowserUrl": "",

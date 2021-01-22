@@ -3,5 +3,5 @@
 class ImageCoord:
     definitions = {
         1: { 'Name': 'Coordinates', 'Type': Coordinates}, 
-        2: { 'Name': 'Image', 'Type': 'long'},
+        2: { 'Name': 'ImageIndex', 'Type': 'long'},
     }

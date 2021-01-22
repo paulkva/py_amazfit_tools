@@ -1,16 +1,20 @@
 import logging
 
 from watchFaceParser.utils.elementsHelper import ElementsHelper
-
+from watchFaceParser.config import Config
 
 class ResourcesLoader:
     # redundancy
     @staticmethod
     def getValue(propertyInfo, serializable):
         propertyInfoName = propertyInfo['Name']
-        if not propertyInfoName in serializable:
-            return None
-        return serializable[propertyInfoName]
+
+        for item in serializable: 
+            if propertyInfoName == item:
+                return serializable[propertyInfoName]
+            elif propertyInfoName in item:
+                return item[propertyInfoName]
+        return None  
 
     # private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
     # private readonly string _imagesDirectory;
@@ -46,7 +50,7 @@ class ResourcesLoader:
         assert(type(path) == str)
         if path != None and path != '':
             logging.debug(f"Loading resources for {path} '{T}'")
-#        print (f"Loading resources for {path} '{T}'")
+        print (f"Loading resources for {path} '{T}'")
 
         lastImageIndexValue = None
         properties = ElementsHelper.sortedProperties(T)
@@ -61,9 +65,9 @@ class ResourcesLoader:
                 propertyType = propertyInfo['Type']
             propertyValue = ResourcesLoader.getValue(propertyInfo, serializable) # propertyInfo.getValue(serializable, None)
 
-            imageIndexAttribute = ElementsHelper.getCustomAttributeFor('ImageIndex', propertyInfo)
+            imageIndexAttribute = ElementsHelper.getCustomAttributeFor('ImageIndex', propertyInfo) 
             imagesCountAttribute = ElementsHelper.getCustomAttributeFor('ImagesCount', propertyInfo)
-#            print("INDEX",imageIndexAttribute,propertyInfo['Name'],propertyValue)
+            print("INDEX",imageIndexAttribute,propertyInfo['Name'],propertyValue)
 
             if imagesCountAttribute != None and imageIndexAttribute != None:
                 raise IndexError(
@@ -140,16 +144,16 @@ class ResourcesLoader:
 
         logging.debug(f"Request image index {index}...")
         newImageIndex = None
-        for i in range(len(self._resources),index+1):
- 
-            newImageIndex = i
+        startImageIndex = Config.getStartImageIndex()
+        for i in range(len(self._resources)+startImageIndex,index+1): 
+            newImageIndex = i     
             logging.debug(f"Loading image {newImageIndex}...")
-#            print(f"Loading image {newImageIndex}...")
+            #print(f"Loading image {newImageIndex}...")
             from resources.imageLoader import ImageLoader
-            resource = ImageLoader.loadResourceForNumber(self._imagesDirectory, i)
+            resource = ImageLoader.loadResourceForNumber(self._imagesDirectory, i )
             self._resources.append(resource)
-            self._mapping[i] = newImageIndex
-#        print ("XXXX",index,newImageIndex)
+            self._mapping[i ] = newImageIndex
+            #print ("XXXX",index,newImageIndex)
         return newImageIndex
  
     def loadImage_orig(self, index):
