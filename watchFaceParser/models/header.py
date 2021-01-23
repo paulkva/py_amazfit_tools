@@ -20,7 +20,7 @@ class Header:
 
 
     def writeTo(self, stream): 
-        if Config.isGtr2Mode() :
+        if Config.isGtr2Mode() or Config.isGts2Mode():
             Header.headerSize = 88
             Header.unknownPos = 76
             Header.parametersSizePos = 80 
@@ -61,12 +61,15 @@ class Header:
             50 : [0x34, 0x00, 0x1e, 0x1c, 0x00, 0x00, 0x49, 0xce], # trex
             53 : [0x35, 0x00, 0x09, 0x00, 0x00, 0x00, 0x4b, 0x9a], # AmazfitX
             59 : [0x3B, 0x00, 0x81, 0x04, 0x00, 0x00, 0x61, 0x8A], #gtr2
+            65 : [0x41, 0x00, 0x51, 0x04, 0x00, 0x00, 0x43, 0x01], #gts2
         }
 
         if Config.isGtrMode():
             index = Config.isGtrMode()
         if Config.isGtr2Mode():
             index = 59
+        if Config.isGts2Mode():
+            index = 65
         if Config.isGtsMode():
             index = Config.isGtsMode()
         if Config.isTrexMode():
@@ -77,7 +80,7 @@ class Header:
         for i in range(len(p_0x10)):
             buffer[0x10 + i] = p_0x10[i]
         # hard coding?
-        if Config.isGtr2Mode():
+        if Config.isGtr2Mode() or Config.isGts2Mode():
             buffer[84:84+4] = int(48).to_bytes(4, byteorder='little')
         else:
             buffer[60:60+4] = int(64).to_bytes(4, byteorder='little')
@@ -92,7 +95,7 @@ class Header:
             Header.headerSize = 40 - 16
             Header.unknownPos = 32 - 16
             Header.parametersSizePos = 36 - 16
-        elif Config.isGtr2Mode() :
+        elif Config.isGtr2Mode() or Config.isGts2Mode() :
             Header.headerSize = 88 - 16
             Header.unknownPos = 76 - 16
             Header.parametersSizePos = 80 - 16
@@ -101,7 +104,7 @@ class Header:
             Header.unknownPos = 52 - 16
             Header.parametersSizePos = 56 - 16 
 
-        if Config.isGtr2Mode():
+        if Config.isGtr2Mode() or Config.isGts2Mode():
            Header.dialSignature = b"UIHH\x02\x00\xff"
 
         buffer = stream.read(Header.headerSize)

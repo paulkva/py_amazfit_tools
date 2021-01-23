@@ -59,7 +59,7 @@ class Parser:
         assert(type(outputFileName) == str)
         assert(type(imagesDirectory) == str)
         try:
-            if Config.isGtr2Mode(): 
+            if Config.isGtr2Mode() or Config.isGts2Mode(): 
                 from watchFaceParser.watchFaceGTR2 import WatchFace
             else:
                 from watchFaceParser.watchFace import WatchFace
@@ -74,7 +74,7 @@ class Parser:
                 Config.setDeviceId(descriptor.pop(0).getChildren()[0].getValue())
 
             baseName, _ = os.path.splitext(os.path.basename(outputFileName))
-            if not Config.isGtr2Mode(): 
+            if not Config.isGtr2Mode() and not Config.isGts2Mode(): 
                 Parser.generatePreviews(descriptor, imagesReader.getImages(), outputDirectory, baseName) 
 
             logging.debug(f"Writing watch face to '{outputFileName}'")
@@ -272,7 +272,7 @@ class Parser:
     @staticmethod
     def parseResources(reader):
         logging.debug("Parsing parameters...")
-        if Config.isGtr2Mode(): 
+        if Config.isGtr2Mode() or Config.isGts2Mode(): 
             from watchFaceParser.watchFaceGTR2 import WatchFace
         else:
             from watchFaceParser.watchFace import WatchFace

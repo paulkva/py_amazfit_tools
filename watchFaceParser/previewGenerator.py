@@ -1,5 +1,5 @@
 from watchFaceParser.config import Config
-if Config.isGtr2Mode():  
+if Config.isGtr2Mode() or Config.isGts2Mode():  
     from watchFaceParser.models.elements.watchFace2 import WatchFace
 else:
     from watchFaceParser.models.elements.watchFace import WatchFace
