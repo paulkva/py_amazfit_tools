@@ -12,6 +12,7 @@ from watchFaceParser.models.gtr2.dateType import DateType
 from watchFaceParser.models.gtr2.combingModeType import CombingModeType
 from watchFaceParser.models.gtr2.langCodeType import LangCodeType
 from watchFaceParser.models.gtr2.textAlignment import TextAlignmentGTR2
+from watchFaceParser.models.gtr2.activityType import ActivityType
 
 def ulong2long(n):
     if type(n) == int:
@@ -54,7 +55,7 @@ class ParametersConverter:
             if propertyValue is None:
                 continue
 
-            if propertyType == 'long' or propertyType == 'long?' or propertyType == TextAlignment or propertyType == TextAlignmentGTR2  or propertyType == Color or propertyType == LangCodeType or propertyType == TimeType or propertyType == DateType or propertyType == CombingModeType or propertyType == 'bool':
+            if propertyType == 'long' or propertyType == 'long?' or propertyType == TextAlignment or propertyType == TextAlignmentGTR2 or propertyType == ActivityType or propertyType == Color or propertyType == LangCodeType or propertyType == TimeType or propertyType == DateType or propertyType == CombingModeType or propertyType == 'bool':
                 value = propertyValue
                 if propertyType == 'bool' or type(propertyValue) == bool:
                     value = 1 if propertyValue else 0
@@ -66,6 +67,8 @@ class ParametersConverter:
                     value = LangCodeType.fromJSON(propertyValue)
                 elif propertyType == Color:
                     value = Color.fromJSON(propertyValue)
+                elif propertyType == ActivityType:
+                    value = ActivityType.fromJSON(propertyValue)
                 elif propertyType == TimeType:
                     value = TimeType.fromJSON(propertyValue)
                 elif propertyType == DateType:
@@ -182,7 +185,7 @@ class ParametersConverter:
             propertyInfoName = propertyInfo['Name']
             string = (f"{currentPath}-{propertyInfoName}")
             logging.debug(string.replace("\\",""))
-            if propertyType == 'long' or propertyType == 'long?' or propertyType == TextAlignment  or propertyType == TextAlignmentGTR2  or propertyType == ParameterFlags or propertyType == Color or propertyType == LangCodeType or propertyType == TimeType or propertyType == DateType or propertyType == CombingModeType or propertyType == 'bool':
+            if propertyType == 'long' or propertyType == 'long?' or propertyType == TextAlignment  or propertyType == TextAlignmentGTR2 or propertyType == ActivityType or propertyType == ParameterFlags or propertyType == Color or propertyType == LangCodeType or propertyType == TimeType or propertyType == DateType or propertyType == CombingModeType or propertyType == 'bool':
                 if propertyType == TextAlignment:
                     setattr(result, propertyInfoName, TextAlignment(parameter.getValue()))
                 elif propertyType == TextAlignmentGTR2:
@@ -191,6 +194,8 @@ class ParametersConverter:
                     setattr(result, propertyInfoName, ParameterFlags(parameter.getValue()))
                 elif propertyType == TimeType:
                     setattr(result, propertyInfoName, TimeType(parameter.getValue()))
+                elif propertyType == ActivityType:
+                    setattr(result, propertyInfoName, ActivityType(parameter.getValue()))
                 elif propertyType == DateType:
                     setattr(result, propertyInfoName, DateType(parameter.getValue()))
                 elif propertyType == CombingModeType:
@@ -210,8 +215,10 @@ class ParametersConverter:
             else:		
                 tmp = propertyType()	
                 #childIsList = False
+                artmp = []
+                arrDict = {}
                 for x in parameter.getChildren():
-                    artmp = []
+                   
                     #if not childIsList:
                         #childIsList = ParametersConverter.childIsList(propertyType, [x], currentPath)
                     childIsList = ParametersConverter.childIsList(propertyType, [x], currentPath)
@@ -222,10 +229,18 @@ class ParametersConverter:
                     for kk in psd.__dict__:
                         vv = psd.__dict__[kk]
                         if not childIsList:
+                            attr = getattr(tmp, kk, "None")
+                            if (attr != "None"):
+                                 raise IndexError(f"Parameter {kk} already exist and it is not defined as array")
                             setattr(tmp, kk, vv)
                         else:
-                            artmp.append(vv)
-                    if childIsList:
-                        setattr(tmp, kk, artmp)
+                            #artmp.append(vv)
+                            if (not kk in arrDict):
+                                arrDict[kk] = []
+                            arrDict[kk].append(vv)
+                    #if childIsList:
+                    #    setattr(tmp, kk, artmp)
+                for x in arrDict:
+                    setattr(tmp, x, arrDict[x])
                 setattr(result, propertyInfoName, tmp)
         return result

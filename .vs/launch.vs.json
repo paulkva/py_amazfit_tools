@@ -6,7 +6,7 @@
       "type": "python",
       "interpreter": "(default)",
       "interpreterArguments": "",
-      "scriptArguments": "--gtr2 47 --file GTR/data.bin",
+      "scriptArguments": "--gtr2 47 --file GTR/sportelegant/sportelegant.json",
       "env": {},
       "nativeDebug": false,
       "webBrowserUrl": "",
