@@ -20,11 +20,13 @@ class Header:
 
 
     def writeTo(self, stream): 
+        val_11= 0x06
         if Config.isGtr2Mode() :
             Header.headerSize = 88
             Header.unknownPos = 76
             Header.parametersSizePos = 80 
             self.signature = b"UIHH\x02\x00\xff"
+            val_11 = 0x01
         else:
             Header.headerSize = 64
             Header.unknownPos = 52
@@ -33,7 +35,7 @@ class Header:
         for i in range(Header.headerSize):
             buffer[i] = 0xff
         buffer[0:len(self.signature)] = self.signature
-        buffer[11] = 0x06 # verge
+        buffer[11] = val_11 # verge
         t = self.unknown.to_bytes(4, byteorder='little')
         buffer[Header.unknownPos:Header.unknownPos+len(t)] = t
         t = self.parametersSize.to_bytes(4, byteorder='little')
@@ -60,25 +62,27 @@ class Header:
             42 : [0x2a, 0x00, 0x72, 0xeb, 0x00, 0x00, 0x5c, 0xd3], # gtr 42
             50 : [0x34, 0x00, 0x1e, 0x1c, 0x00, 0x00, 0x49, 0xce], # trex
             53 : [0x35, 0x00, 0x09, 0x00, 0x00, 0x00, 0x4b, 0x9a], # AmazfitX
-            59 : [0x3B, 0x00, 0x81, 0x04, 0x00, 0x00, 0x61, 0x8A], #gtr2
+            59 : [0x3B, 0x00, 0x97, 0x04, 0x00, 0x00, 0x97, 0xD1, 0x02, 0x00], #gtr2
         }
 
         if Config.isGtrMode():
             index = Config.isGtrMode()
-        if Config.isGtr2Mode():
+        elif Config.isGtr2Mode():
             index = 59
-        if Config.isGtsMode():
+        elif Config.isGtsMode():
             index = Config.isGtsMode()
-        if Config.isTrexMode():
+        elif Config.isTrexMode():
             index = Config.isTrexMode()
-        if Config.isAmazfitXMode():
+        elif Config.isAmazfitXMode():
             index = Config.isAmazfitXMode()
         p_0x10 = data_0x10[index]
         for i in range(len(p_0x10)):
             buffer[0x10 + i] = p_0x10[i]
         # hard coding?
         if Config.isGtr2Mode():
+            buffer[12:12+4] = int(57305).to_bytes(4, byteorder='little') #some size??
             buffer[84:84+4] = int(48).to_bytes(4, byteorder='little')
+            buffer[75] = 0x01
         else:
             buffer[60:60+4] = int(64).to_bytes(4, byteorder='little')
 

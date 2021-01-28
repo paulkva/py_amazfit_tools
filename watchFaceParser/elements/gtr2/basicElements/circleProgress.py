@@ -1,9 +1,9 @@
-﻿from watchFaceParser.elements.basicElements.image import Image 
+﻿from watchFaceParser.elements.gtr2.basicElements.imageAngle import ImageAngle 
 from watchFaceParser.models.color import Color
  
 class CircleProgress:
     definitions = { 
-        1: { 'Name': 'ImageBG', 'Type': Image},
+        1: { 'Name': 'AngleSettings', 'Type': ImageAngle},
         3: { 'Name': 'Radius', 'Type': 'long'},
         4: { 'Name': 'Color', 'Type': Color},   
         5: { 'Name': 'Width', 'Type': 'long'},   

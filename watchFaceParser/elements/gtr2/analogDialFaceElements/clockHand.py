@@ -8,8 +8,8 @@ class ClockHand:
         3: { 'Name': 'Scale', 'Type': MultilangImageCoord},
         4: { 'Name': 'Pointer', 'Type': ImageCoord},
         5: { 'Name': 'Cover', 'Type': ImageCoord},
-        6: { 'Name': 'Unknown6', 'Type': 'long'},
-        7: { 'Name': 'Unknown7', 'Type': 'long'},
+        6: { 'Name': 'StartAngle', 'Type': 'float'},
+        7: { 'Name': 'EndAngle', 'Type': 'float'},
         16: { 'Name': 'Unknown16', 'Type': 'long'},
     }
 

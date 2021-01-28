@@ -1,6 +1,6 @@
 from watchFaceParser.elements.gtr2.status import Status
 from watchFaceParser.elements.gtr2.activity import Activity
-from watchFaceParser.elements.gtr2.date import Date
+from watchFaceParser.elements.gtr2.date import Date 
 
 class System:
     definitions = {

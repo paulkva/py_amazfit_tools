@@ -54,9 +54,10 @@ class ParametersConverter:
 
             if propertyValue is None:
                 continue
-
-            if propertyType == 'long' or propertyType == 'long?' or propertyType == TextAlignment or propertyType == TextAlignmentGTR2 or propertyType == ActivityType or propertyType == Color or propertyType == LangCodeType or propertyType == TimeType or propertyType == DateType or propertyType == CombingModeType or propertyType == 'bool':
+            
+            if propertyType == 'long' or propertyType == 'long?' or propertyType == 'float' or propertyType == TextAlignment or propertyType == TextAlignmentGTR2 or propertyType == ActivityType or propertyType == Color or propertyType == LangCodeType or propertyType == TimeType or propertyType == DateType or propertyType == CombingModeType or propertyType == 'bool':
                 value = propertyValue
+                flags = None
                 if propertyType == 'bool' or type(propertyValue) == bool:
                     value = 1 if propertyValue else 0
                 elif propertyType == TextAlignment:
@@ -76,8 +77,9 @@ class ParametersConverter:
                 elif propertyType == CombingModeType:
                     value = CombingModeType.fromJSON(propertyValue)
                 elif propertyType == 'long' or propertyType == 'long?':
-                    value = int(value)				
-
+                    value = int(value)	
+                elif propertyType == 'float':
+                    value = float(value)                    
                 logging.debug(f"{currentPath} '{propertyInfo['Name']}': {value}")
                 result.append(Parameter(_id, value))
             #elif isinstance(propertyValue,list): 
@@ -111,8 +113,9 @@ class ParametersConverter:
                             #print ("I0",propertyType, propertyValue)
                             logging.debug(f"{currentPath} '{propertyInfo['Name']}'")
                             result.append(Parameter(_id, innerParameters))
-                        else:
-                            logging.debug(f"{currentPath} '{propertyInfo['Name']}': Skipped because of empty1")
+                        else: 
+                            logging.debug(f"{currentPath} '{propertyInfo['Name']}': empty1")
+                            result.append(Parameter(_id, []))
                     continue
                 innerParameters = ParametersConverter.build(propertyType, propertyValue, currentPath)
  #               print ("2propertyType",propertyType, propertyValue, currentPath )			
@@ -125,7 +128,8 @@ class ParametersConverter:
                     logging.debug(f"{currentPath} '{propertyInfo['Name']}'")
                     result.append(Parameter(_id, innerParameters))
                 else:
-                    logging.debug(f"{currentPath} '{propertyInfo['Name']}': Skipped because of empty2")
+                    logging.debug(f"{currentPath} '{propertyInfo['Name']}': empty2")
+                    result.append(Parameter(_id, []))
  #                   print ("propertyType",propertyType, propertyValue )			
  #                   sys.exit(1)
 
@@ -185,31 +189,33 @@ class ParametersConverter:
             propertyInfoName = propertyInfo['Name']
             string = (f"{currentPath}-{propertyInfoName}")
             logging.debug(string.replace("\\",""))
-            if propertyType == 'long' or propertyType == 'long?' or propertyType == TextAlignment  or propertyType == TextAlignmentGTR2 or propertyType == ActivityType or propertyType == ParameterFlags or propertyType == Color or propertyType == LangCodeType or propertyType == TimeType or propertyType == DateType or propertyType == CombingModeType or propertyType == 'bool':
-                if propertyType == TextAlignment:
-                    setattr(result, propertyInfoName, TextAlignment(parameter.getValue()))
-                elif propertyType == TextAlignmentGTR2:
-                    setattr(result, propertyInfoName, TextAlignmentGTR2(parameter.getValue()))
-                elif propertyType == ParameterFlags:
-                    setattr(result, propertyInfoName, ParameterFlags(parameter.getValue()))
-                elif propertyType == TimeType:
-                    setattr(result, propertyInfoName, TimeType(parameter.getValue()))
-                elif propertyType == ActivityType:
-                    setattr(result, propertyInfoName, ActivityType(parameter.getValue()))
-                elif propertyType == DateType:
-                    setattr(result, propertyInfoName, DateType(parameter.getValue()))
-                elif propertyType == CombingModeType:
-                    setattr(result, propertyInfoName, CombingModeType(parameter.getValue()))
-                elif propertyType == LangCodeType:
-                    setattr(result, propertyInfoName, LangCodeType(parameter.getValue()))
-                elif propertyType == Color:
-                    setattr(result, propertyInfoName, Color(parameter.getValue()))
-                elif propertyType == 'bool':
-                    setattr(result, propertyInfoName, parameter.getValue() > 0)
-                elif propertyType == 'long':
-                    setattr(result, propertyInfoName, ulong2long(parameter.getValue()))
-                else:
-                    setattr(result, propertyInfoName, ulong2long(parameter.getValue() or None))
+             
+            if propertyType == TextAlignment:
+                setattr(result, propertyInfoName, TextAlignment(parameter.getValue()))
+            elif propertyType == TextAlignmentGTR2:
+                setattr(result, propertyInfoName, TextAlignmentGTR2(parameter.getValue()))
+            elif propertyType == ParameterFlags:
+                setattr(result, propertyInfoName, ParameterFlags(parameter.getValue()))
+            elif propertyType == TimeType:
+                setattr(result, propertyInfoName, TimeType(parameter.getValue()))
+            elif propertyType == ActivityType:
+                setattr(result, propertyInfoName, ActivityType(parameter.getValue()))
+            elif propertyType == DateType:
+                setattr(result, propertyInfoName, DateType(parameter.getValue()))
+            elif propertyType == CombingModeType:
+                setattr(result, propertyInfoName, CombingModeType(parameter.getValue()))
+            elif propertyType == LangCodeType:
+                setattr(result, propertyInfoName, LangCodeType(parameter.getValue()))
+            elif propertyType == Color:
+                setattr(result, propertyInfoName, Color(parameter.getValue()))
+            elif propertyType == 'bool':
+                setattr(result, propertyInfoName, parameter.getValue() > 0)
+            elif propertyType == 'long':
+                setattr(result, propertyInfoName, ulong2long(parameter.getValue()))
+            elif propertyType == 'float':
+                setattr(result, propertyInfoName, ulong2long(parameter.getValue()))
+            elif propertyType == 'long?':
+                setattr(result, propertyInfoName, ulong2long(parameter.getValue() or None))
             elif propertyType == '[]':
                 assert(False) # not tested yet
             else:		

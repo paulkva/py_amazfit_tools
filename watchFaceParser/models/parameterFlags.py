@@ -6,11 +6,13 @@ class ParameterFlags:
 
     ModeCircle = Unknown
     ModeColorfulLife = Unknown | hasChildren | Unknown2
+    ModeFloatValue= Unknown | Unknown2
     ModeFluorescence = hasChildren
 
     Converter = {
         Default : "Default",
         ModeColorfulLife : "ModeColorfulLife",
+        ModeFloatValue : "ModeFloatValue",
         ModeCircle : "ModeCircle",
 		ModeFluorescence: "ModeFluorescence",
     }

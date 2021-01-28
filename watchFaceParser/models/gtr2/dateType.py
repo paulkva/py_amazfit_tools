@@ -22,7 +22,7 @@ class DateType:
 
     @staticmethod
     def fromJSON(strFlag):
-        for flag in TimeType.Converter:
+        for flag in DateType.Converter:
             if strFlag == DateType.Converter[flag]:
                 return flag
         return 0
