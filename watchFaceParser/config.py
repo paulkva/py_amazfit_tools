@@ -1,3 +1,4 @@
+import logging
 class Config:
     _deviceId = None
     _is_gtr = False
@@ -45,6 +46,9 @@ class Config:
             elif deviceId == 0x3b:
                 print("Detected GTR2")
                 Config.setGtr2Mode(True)
+            elif deviceId == 0x41:
+                print("Detected GTS2")
+                Config.setGts2Mode(True)
     @staticmethod
     def setToRaw(val):
         Config._is_to_raw = val 
