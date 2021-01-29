@@ -1,4 +1,4 @@
-# py amazfit tool for GTR2
+# py amazfit tool for GTS2
 An python port of valeronm's amazfitbiptools(v.1.0.3.1) with some hacks for verge lite/gtr.
 
 Added support of GTR2 and GTS2 by bigdigital
