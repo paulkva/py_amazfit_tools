@@ -83,7 +83,6 @@ class Header:
             buffer[0x10 + i] = p_0x10[i]
         # hard coding?
         if Config.isGtr2Mode() or Config.isGts2Mode():
-        if Config.isGtr2Mode():
             buffer[12:12+4] = int(57305).to_bytes(4, byteorder='little') #some size??
             buffer[84:84+4] = int(48).to_bytes(4, byteorder='little')
             buffer[75] = 0x01
