@@ -50,6 +50,12 @@ All credit goes to Валерий Миронов(https://bitbucket.org/valeronm/
     * python main.py --gtr2 47 --file WATCH_FACE_FILE.bin
   * to pack 
     * python main.py --gtr2 47 --file WATCH_FACE_FILE.json
+    
+* for GTS2
+  * to unpack 
+    * python main.py --gts2 --file WATCH_FACE_FILE.bin
+  * to pack 
+    * python main.py --gts2 --file WATCH_FACE_FILE.json
 
 Can also unpack and pack watcface resources without parsing header parameters (useful if watchface has some uknnown parapeters)
  * to unpack 
