@@ -67,6 +67,7 @@ class ResourcesLoader:
 
             imageIndexAttribute = ElementsHelper.getCustomAttributeFor('ImageIndex', propertyInfo) 
             imagesCountAttribute = ElementsHelper.getCustomAttributeFor('ImagesCount', propertyInfo)
+            logging.debug(f"INDEX {imageIndexAttribute,propertyInfo['Name']} '{propertyValue}'")
             print("INDEX",imageIndexAttribute,propertyInfo['Name'],propertyValue)
 
             if imagesCountAttribute != None and imageIndexAttribute != None:
