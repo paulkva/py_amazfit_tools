@@ -1,5 +1,7 @@
-# py amazfit tool
+# py amazfit tool for GTR2
 An python port of valeronm's amazfitbiptools(v.1.0.3.1) with some hacks for verge lite/gtr.
+
+Added support of GTR2 and GTS2 by bigdigital
 
 All credit goes to Валерий Миронов(https://bitbucket.org/valeronm/amazfitbiptools/src/master/)
 
@@ -42,6 +44,25 @@ All credit goes to Валерий Миронов(https://bitbucket.org/valeronm/
         * drag & drop WATCH_FACE_FILE.json into main_gtr/main.exe
       * to unpack
         * drag & drop WATCH_FACE_FILE.bin into main_gtr/main.exe
+
+* for GTR2
+  * to unpack 
+    * python main.py --gtr2 47 --file WATCH_FACE_FILE.bin
+  * to pack 
+    * python main.py --gtr2 47 --file WATCH_FACE_FILE.json
+
+Can also unpack and pack watcface resources without parsing header parameters (useful if watchface has some uknnown parapeters)
+ * to unpack 
+    * python main.py --gtr2 --to_raw 47 --file WATCH_FACE_FILE.bin
+  * to pack 
+    * python main.py --gtr2 --from_raw 47 --file WATCH_FACE_FOLDER , where WATCH_FACE_FOLDER is the folder which should contain raw_header.bin file and set of resource images
+
+Also this project contain a GTR2_Packer.exe tool which allow to compress and decompress bin files.
+usage: gtr-packer
+ -cmp <filename>    Compress
+ -cmp2 <filename>   Compress gtr2 format
+ -unc <filename>    Decompress
+ -unc2 <filename>   Decompress gtr2 format
 
 ## known issues in json
 ### Date/Weekday/ImageCount (GTR)

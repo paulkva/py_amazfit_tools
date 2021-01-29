@@ -8,7 +8,7 @@ class WatchFace:
     definitions = {
         0: { 'Name': 'Info', 'Type': DeviceId},
         3: { 'Name': 'Background', 'Type': Background},
-        4: { 'Name': 'ScreenNormal', 'Type': ScreenNormal},
+        4: { 'Name': 'DialFace', 'Type': ScreenNormal},
         5: { 'Name': 'System', 'Type': System},
         10: { 'Name': 'ScreenIdle', 'Type': ScreenIdle},
     }

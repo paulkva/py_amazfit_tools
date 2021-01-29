@@ -42,7 +42,9 @@ class Config:
             elif deviceId == 0x35:
                 print("Detected AmazfitX")
                 Config.setAmazfitXMode(True)
-
+            elif deviceId == 0x3b:
+                print("Detected GTR2")
+                Config.setGtr2Mode(True)
     @staticmethod
     def setToRaw(val):
         Config._is_to_raw = val 
@@ -123,6 +125,12 @@ class Config:
         if trex:
             Config._autodetect = False
             Config._is_trex = 50
+    
+    @staticmethod
+    def setGtr2Mode(gtr2):
+        if gtr2:
+            Config._autodetect = False
+            Config._is_gtr2 = 47
 
     @staticmethod
     def setAmazfitXMode(amazfitx):

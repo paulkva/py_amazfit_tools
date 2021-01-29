@@ -1,6 +1,7 @@
 import logging
 import io
 from watchFaceParser.config import Config
+import struct
 
 from watchFaceParser.models.parameterFlags import ParameterFlags
 
@@ -35,6 +36,11 @@ class Parameter:
             self._value = None
             self._children = value
             self._flags = None
+        elif type(value) == float:
+            self._id = _id
+            self._value = value
+            self._children = None
+            self._flags = ParameterFlags.ModeFloatValue
         else:
             raise Exception(f'invalid type for parameter {value}:{type(value)}')
 
@@ -50,7 +56,8 @@ class Parameter:
         return self._value
 
     def hasChildren(self):
-        return self._children and len(self._children) > 0
+        return self._children is not None
+        #return self._children and len(self._children) > 0
 
     def hasFlags(self):
         return self._flags
@@ -69,19 +76,29 @@ class Parameter:
         rawId = 0xff & ((self.getId() << 3) + flags)
         #Parameter.writeByte(stream, rawId)
         self.writeValue(stream, rawId, traceOffset)
-
+        value = self.getValue()
         size += 1
-        if self.hasFlags():
+        pflags = ParameterFlags(flags)
+        if pflags.hasFlag(ParameterFlags.Unknown) and pflags.hasFlag(ParameterFlags.Unknown2):
+            floatValArr = struct.pack('<f', value)  #little endian 
+            stream.write(floatValArr)
+            hex_string = "".join("%02x " % b for b in floatValArr)
+            logging.info(Parameter.traceWithOffset(f"{self.getId()} ({rawId:2X}): %8.2f ({hex_string}) floatval" % value, traceOffset)) 
+            return size + len(floatValArr)
+        elif self.hasFlags():
     #        print ("EDDI %02x %x %x"% (rawId,flags,(ParameterFlags.Unknown | ParameterFlags.Unknown2| ParameterFlags.hasChildren)))
             logging.debug(("\t" * traceOffset) + f"{size} bytes")
             return size -1
         elif self.hasChildren():
             logging.debug(("\t" * traceOffset) + f"{self.getId()} ({rawId:02X}):")
             size += self.writeList(stream, traceOffset + 1)
-            logging.debug(("\t" * traceOffset) + f"{size} bytes")
+            #logging.debug(("\t" * traceOffset) + f"{size} bytes")
             return size
-        size += self.writeValue(stream, self.getValue(), traceOffset)
-        logging.debug(("\t" * traceOffset) + f"{self.getId()} ({rawId:02X}): {self.getValue()} ({self.getValue():02X})")
+        if value is None:
+            value = 0
+        size += self.writeValue(stream, value, traceOffset)
+        
+        logging.debug(("\t" * traceOffset) + f"{self.getId()} ({rawId:02X}): {value} ({value:02X})")
         return size
 
 
@@ -97,7 +114,7 @@ class Parameter:
         return size
 
 
-    def writeValue(self, stream, value, traceOffset):
+    def writeValue(self, stream, value, traceOffset):        
         assert(type(value) == int)
         assert(type(traceOffset) == int)
         unsignedValue = long2ulong(value)
@@ -136,7 +153,7 @@ class Parameter:
     @staticmethod
     def readFrom(fileStream, traceOffset = 0):
         #rawId = Parameter.readByte(fileStream, traceOffset)
-        rawId = Parameter.readValue(fileStream, traceOffset)
+        rawId = Parameter.readValue(fileStream, traceOffset) 
         _id = (rawId & 0xf8) >> 3
  #       print ("%03x" % rawId, rawId & 0x07)
         flags = ParameterFlags(rawId & 0x07)
@@ -144,16 +161,25 @@ class Parameter:
 
         if _id == 0:
             raise IndexError("Parameter with zero Id is invalid.") #ArgumentException
-
-        value = Parameter.readValue(fileStream, traceOffset)
+          
         #logging.info("DEBUG ID %d FLAGS %x VALUE %x" % (_id, rawId & 0x07, value))
 #        if value == 1 and flags.hasFlag(ParameterFlags.hasChildren):
 #            value = Parameter.readValue(fileStream, traceOffset)
 #            logging.info("DEBUG                 %02x" % Parameter.readByte(fileStream, traceOffset))
-#            pass
-        if flags.hasFlag(ParameterFlags.Unknown) or flags.hasFlag(ParameterFlags.Unknown2):
-            value = flags.getValue()	
+#            pass 
+        value = 0
+        if flags.hasFlag(ParameterFlags.Unknown) and flags.hasFlag(ParameterFlags.Unknown2): 
+            floatValArr = bytearray(fileStream.read(4)) 
+            value = struct.unpack('<f', floatValArr)[0]   #little endian 
+            hex_string = "".join("%02x " % b for b in floatValArr)
+            logging.info(Parameter.traceWithOffset(f"{_id} ({rawId:2X}): %8.2f ({hex_string}) floatval" % value, traceOffset))
+            return Parameter(_id, value)
+        elif flags.hasFlag(ParameterFlags.Unknown2):
+            value = Parameter.readValue(fileStream, traceOffset)
+            value = flags.getValue()
+            logging.info("Warning found Unknown2 flag")
         elif flags.hasFlag(ParameterFlags.hasChildren):
+            value = Parameter.readValue(fileStream, traceOffset)
             if not Config.isGtr2Mode() and not Config.isGts2Mode():
                 if value == 0:
                     logging.info("DEBUG                 %02x" % Parameter.readByte(fileStream, traceOffset))
@@ -164,6 +190,8 @@ class Parameter:
 
             _list = Parameter.readList(stream, traceOffset + 1)
             return Parameter(_id, _list)
+        else:
+            value = Parameter.readValue(fileStream, traceOffset)
         logging.info(Parameter.traceWithOffset(f"{_id} ({rawId:2X}): {value} {value:2X}", traceOffset))
         return Parameter(_id, value)
 
