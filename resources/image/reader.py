@@ -33,16 +33,24 @@ class Reader():
 
     def readImage(self):
         image = Image.new('RGBA', (self._width, self._height))
+        
+        alpha = 0
+        if self._step != 4:
+            alpha = 255
         for y in range(self._height):
             rowBytes = self._reader.read(self._rowLengthInBytes)
             for x in range(self._width):
-                b = rowBytes[x * self._step]
-                g = rowBytes[x * self._step + 1]
-                r = rowBytes[x * self._step + 2]
-                if self._step == 4:
-                    alpha = rowBytes[x * self._step + 3]
-                else:
-                    alpha = 255
+                b = 0
+                g = 0
+                r = 0
+                try: 
+                    b = rowBytes[x * self._step]
+                    g = rowBytes[x * self._step + 1]
+                    r = rowBytes[x * self._step + 2]
+                    if self._step == 4:
+                        alpha = rowBytes[x * self._step + 3] 
+                except Exception as e:
+                    logging.warn(f"missing image bytes x:{x}, y:{y}, skip pixel")
                 color = resources.image.color.Color.fromArgb(alpha, r, g, b)
                 image.putpixel((x,y), color)
         return image
@@ -75,5 +83,6 @@ class Reader():
         self._transparency = False
         logging.info("Image header was read:")
         logging.info(f"Width: {self._width}, Height: {self._height}, RowLength: {self._rowLengthInBytes}")
+        logging.info(f"unknown1: {self._unknown1}, _unknown2: {self._unknown2}, _step: {self._step}")
         logging.info(f"BPP: {self._bitsPerPixel}, Transparency: {self._transparency}")
 

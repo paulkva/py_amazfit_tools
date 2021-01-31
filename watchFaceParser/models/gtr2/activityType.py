@@ -7,7 +7,7 @@ class ActivityType:
     Distance = 6
     UnknownActivity7 = 7
     Weather = 8
-    UnknownActivity9 = 9
+    UVindex = 9
     AirQuality = 10
     Humidity = 11
    
@@ -20,7 +20,7 @@ class ActivityType:
         Weather : "Weather",  
         PAI : "PAI",  
         UnknownActivity7 : "UnknownActivity7",  
-        UnknownActivity9 : "UnknownActivity9",  
+        UVindex : "UVindex",  
         AirQuality : "AirQuality",  
         Humidity : "Humidity",  
     }
