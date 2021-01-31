@@ -302,7 +302,7 @@ class Parser:
         #generate small preview image for Preview section.
         from PIL import Image, ImageDraw, ImageOps
         new_w, new_h = Config.getPreviewSize()
-        if Config.isGtsMode:
+        if Config.isGtsMode() or Config.isGts2Mode():
             im_resized = ImageOps.expand(staticPreview, border=5)
             im_resized = im_resized.resize((new_w, new_h), resample = Image.LANCZOS)
         else:
@@ -322,7 +322,7 @@ class Parser:
         xy = (10,310)
         corner_radius = 38
 
-        if Config.isGtsMode():
+        if Config.isGtsMode() or Config.isGts2Mode():
             mask = Image.new("RGBA", Config.getPreviewSize(), (255, 255, 255, 0))
             d = ImageDraw.Draw(mask)
 
