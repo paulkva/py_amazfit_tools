@@ -6,7 +6,7 @@
       "type": "python",
       "interpreter": "(default)",
       "interpreterArguments": "",
-      "scriptArguments": "--gtr2 47 --file GTR/a239fb779c264a9adf505c3f7280cf10.bin",
+      "scriptArguments": "--gtr2 47 --file GTR/original/original.json",
       "env": {},
       "nativeDebug": false,
       "webBrowserUrl": "",

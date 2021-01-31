@@ -4,17 +4,13 @@ from watchFaceParser.utils.elementsHelper import ElementsHelper
 from watchFaceParser.config import Config
 
 class ResourcesLoader:
-    # redundancy
+    # redundancy  
     @staticmethod
     def getValue(propertyInfo, serializable):
         propertyInfoName = propertyInfo['Name']
-
-        for item in serializable: 
-            if propertyInfoName == item:
-                return serializable[propertyInfoName]
-            elif propertyInfoName in item:
-                return item[propertyInfoName]
-        return None  
+        if not propertyInfoName in serializable:
+            return None
+        return serializable[propertyInfoName]
 
     # private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
     # private readonly string _imagesDirectory;
@@ -103,10 +99,14 @@ class ResourcesLoader:
                 if lastImageIndexValue and isinstance(propertyValue,list):
                     print ("DEBUG",lastImageIndexValue,lastImageIndexValue,propertyValue)
                     for i in range(lastImageIndexValue+1, lastImageIndexValue+len(propertyValue)):
-                        self.loadImage(i)
+                        self.loadImage(i)   
                 if imagesCountAttribute == None and imageIndexAttribute == None:
                     if propertyValue != None:
-                        self.process(propertyType, propertyValue, currentPath)
+                        if isinstance(propertyValue,list):
+                            for i in propertyValue:
+                                self.process(propertyType, i, currentPath)
+                        else:
+                            self.process(propertyType, propertyValue, currentPath)
                 else:
                     raise IndexError(
                         f"Property {propertyInfo} with type {propertyType} can't have ParameterImageIndexAttribute or ParameterImagesCountAttribute")
