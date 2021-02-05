@@ -17,10 +17,11 @@ class Header:
         self.parametersSize = parametersSize
         self.deviceId = deviceId
         import hashlib
-        self.basenamehash = bytearray(hashlib.shake_128(baseName.encode()).digest(8)) # 8 bit hash
-        print("basename " + baseName)
-        print("hash lenght " + str(len(self.basenamehash)))
-        print("basename 8 byte hash " + "".join("%02x" % b for b in self.basenamehash))
+        if baseName is not None:
+            self.basenamehash = bytearray(hashlib.shake_128(baseName.encode()).digest(8)) # 8 bit hash
+            print("basename " + baseName)
+            print("hash lenght " + str(len(self.basenamehash)))
+            print("basename 8 byte hash " + "".join("%02x" % b for b in self.basenamehash))
 
     def isValid(self):
         return self.signature == Header.dialSignature
@@ -125,6 +126,7 @@ class Header:
         header = Header(
             unknown = int.from_bytes(buffer[Header.unknownPos:Header.unknownPos+4], byteorder='little'),
             parametersSize = int.from_bytes(buffer[Header.parametersSizePos:Header.parametersSizePos+4], byteorder='little'),
+            baseName = None,
             deviceId = int.from_bytes(buffer[Header.deviceIdPos:Header.deviceIdPos+1], byteorder='little'))
         header.signature = sig_buffer[0:7]
         return header
