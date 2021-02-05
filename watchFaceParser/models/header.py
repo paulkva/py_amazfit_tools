@@ -88,7 +88,7 @@ class Header:
         p_0x10 = data_0x10[index]
         for i in range(len(p_0x10)):
             buffer[0x10 + i] = p_0x10[i]
-        if Config.isGts2Mode():
+        if Config.isGts2Mode() or Config.isGtr2Mode():
             for i in range(8):
                 buffer[0x12+7-i] = self.basenamehash[len(self.basenamehash)-1-i] 
         # hard coding?
