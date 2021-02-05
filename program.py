@@ -79,7 +79,7 @@ class Parser:
 
             logging.debug(f"Writing watch face to '{outputFileName}'")
             with open(outputFileName, 'wb') as fileStream:
-                writer = Writer(fileStream, imagesReader.resources())
+                writer = Writer(fileStream, imagesReader.resources(), baseName)
                 writer.write(descriptor)
                 fileStream.flush()
         except Exception as e:

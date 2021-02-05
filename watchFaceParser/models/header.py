@@ -9,11 +9,18 @@ class Header:
     unknownPos = 32
     parametersSizePos = 36
 
-    def __init__(self, unknown, parametersSize, deviceId = None):
+    basenamehash = ""
+
+    def __init__(self, unknown, parametersSize, baseName, deviceId = None):
         self.signature = Header.dialSignature
         self.unknown = unknown
         self.parametersSize = parametersSize
         self.deviceId = deviceId
+        import hashlib
+        self.basenamehash = bytearray(hashlib.shake_128(baseName.encode()).digest(8)) # 8 bit hash
+        print("basename " + baseName)
+        print("hash lenght " + str(len(self.basenamehash)))
+        print("basename 8 byte hash " + "".join("%02x" % b for b in self.basenamehash))
 
     def isValid(self):
         return self.signature == Header.dialSignature
@@ -82,8 +89,8 @@ class Header:
         for i in range(len(p_0x10)):
             buffer[0x10 + i] = p_0x10[i]
         if Config.isGts2Mode():
-            import random
-            buffer[0x12:0x12+8] = bytearray(random.getrandbits(8) for i in range(8)) # random watchface signature
+            for i in range(8):
+                buffer[0x12+7-i] = self.basenamehash[len(self.basenamehash)-1-i] 
         # hard coding?
         if Config.isGtr2Mode() or Config.isGts2Mode():
             buffer[12:12+4] = int(57305).to_bytes(4, byteorder='little') #some size??

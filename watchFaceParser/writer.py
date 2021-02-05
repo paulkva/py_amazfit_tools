@@ -3,9 +3,10 @@ import io
 
 
 class Writer:
-    def __init__(self, stream, images):
+    def __init__(self, stream, images, basename):
         self._stream = stream
         self._images = images
+        self._basename = basename
 
 
     def write(self, descriptor):
@@ -46,7 +47,7 @@ class Writer:
 
         logging.debug("Writing header...")
         from watchFaceParser.models.header import Header
-        header = Header(unknown = maxEncodedParametersLength, parametersSize = len(encodedParametersPositions.getbuffer()))
+        header = Header(unknown = maxEncodedParametersLength, parametersSize = len(encodedParametersPositions.getbuffer()), baseName = self._basename)
         header.writeTo(self._stream)
 
         logging.debug("Writing parameters offsets and lengths...")
