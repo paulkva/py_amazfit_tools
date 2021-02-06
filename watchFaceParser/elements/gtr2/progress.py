@@ -4,6 +4,6 @@ class Progress:
     definitions = { 
         1: { 'Name': 'AnalogDialFace', 'Type': ClockHand},
         2: { 'Name': 'Unknown2', 'Type': 'long'},
-        3: { 'Name': 'ClockHand3', 'Type': ClockHand},
+        3: { 'Name': 'ClockHand', 'Type': ClockHand},
     }
 
