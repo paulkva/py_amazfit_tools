@@ -10,6 +10,7 @@ from watchFaceParser.config import Config
 from watchFaceParser.models.gtr2.timeType import TimeType
 from watchFaceParser.models.gtr2.dateType import DateType
 from watchFaceParser.models.gtr2.combingModeType import CombingModeType
+from watchFaceParser.models.gtr2.digitType import DigitType
 from watchFaceParser.models.gtr2.langCodeType import LangCodeType
 from watchFaceParser.models.gtr2.textAlignment import TextAlignmentGTR2
 from watchFaceParser.models.gtr2.activityType import ActivityType
@@ -214,6 +215,8 @@ class ParametersConverter:
                 setattr(result, propertyInfoName, DateType(parameter.getValue()))
             elif propertyType == CombingModeType:
                 setattr(result, propertyInfoName, CombingModeType(parameter.getValue()))
+            elif propertyType == DigitType:
+                setattr(result, propertyInfoName, DigitType(parameter.getValue()))
             elif propertyType == LangCodeType:
                 setattr(result, propertyInfoName, LangCodeType(parameter.getValue()))
             elif propertyType == Color:
