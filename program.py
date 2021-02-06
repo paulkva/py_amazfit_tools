@@ -277,6 +277,7 @@ class Parser:
         else:
             from watchFaceParser.watchFace import WatchFace
         try:
+            ParametersConverter.listParams(reader.getParameters())
             return ParametersConverter.parse(WatchFace, reader.getParameters())
         except Exception as e:
             logging.fatal(e, exc_info=True)

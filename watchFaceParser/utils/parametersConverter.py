@@ -160,6 +160,16 @@ class ParametersConverter:
         return childIsList
 
     @staticmethod
+    def listParams(descriptor, path = ""):
+        for parameter in descriptor:
+            parameterId = parameter.getId()
+            currentPath = str(parameterId) if not path else os.path.join(path, '.', str(parameterId))
+            logging.debug(f"{currentPath} Value: {parameter.getValue()}")
+            if ( parameter.getChildren() is not None):
+                for x in parameter.getChildren():
+                    ParametersConverter.listParams([x], currentPath)
+
+    @staticmethod
     def parse(paramType, descriptor, path = ""):
         assert(type(descriptor) == type([]))
         assert(type(path) == type(""))
