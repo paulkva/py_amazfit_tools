@@ -4,6 +4,7 @@ from watchFaceParser.models.color import Color
 
 class SystemFont:
     definitions = {
+        1: { 'Name': 'Unknown1', 'Type': 'long'}, 
         2: { 'Name': 'Coordinates', 'Type': Coordinates}, 
         3: { 'Name': 'Angle', 'Type': 'long'}, 
         4: { 'Name': 'Size', 'Type': 'long'},

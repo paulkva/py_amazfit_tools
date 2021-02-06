@@ -7,5 +7,6 @@ class Date:
         1: { 'Name': 'DateDigits', 'Type': [DigitalDateDigit] },
         2: { 'Name': 'WeeksDigits', 'Type': DigitalCommonDigit },
         3: { 'Name': 'DateProgress', 'Type': Progress},
+        4: { 'Name': 'Unknown4', 'Type': 'long'},
     }
 
