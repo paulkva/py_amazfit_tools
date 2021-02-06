@@ -1,7 +1,7 @@
 from watchFaceParser.elements.gtr2.basicElements.circleProgress import CircleProgress
 
-class ProgressgDialFace:
+class DateProgressUnknown4:
     definitions = { 
-        1: { 'Name': 'Circle', 'Type': CircleProgress},
+        3: { 'Name': 'Circle', 'Type': CircleProgress},
     }
 
