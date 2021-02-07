@@ -18,14 +18,32 @@ def long2ulong(n):
             n = (0xffffffffffffffff + n + 1) #fix negative integers
     return n
 
+def uint2int(n):
+    if type(n) == int:
+        if n >= 0x7fffffff:
+            return -(0xffffffff - n + 1)
+    return n
+
+def int2uint(n):
+    if type(n) == int:
+        if n < 0: 
+            n = (0xffffffff + n + 1) #fix negative integers
+    return n
+ 
 
 class Parameter:
-    def __init__(self, _id, value, flags = None):
+    def __init__(self, _id, value, flags = None, pType = None):
+        self._pType = pType
         if type(flags) == int:
             self._id = _id
             self._value = None
             self._children = None
-            self._flags = flags
+            self._flags = flags 
+        elif pType == 'int':
+            self._id = _id
+            self._value = uint2int(value)
+            self._children = None
+            self._flags = None
         elif type(value) == int:
             self._id = _id
             self._value = ulong2long(value)
@@ -47,6 +65,9 @@ class Parameter:
     def getId(self):
         return self._id
 
+
+    def getType(self):
+        return self._pType
 
     def getChildren(self):
         return self._children
@@ -75,7 +96,7 @@ class Parameter:
 		
         rawId = 0xff & ((self.getId() << 3) + flags)
         #Parameter.writeByte(stream, rawId)
-        self.writeValue(stream, rawId, traceOffset)
+        self.writeValue(stream, rawId, traceOffset, self.getType())
         value = self.getValue()
         size += 1
         pflags = ParameterFlags(flags)
@@ -96,7 +117,7 @@ class Parameter:
             return size
         if value is None:
             value = 0
-        size += self.writeValue(stream, value, traceOffset)
+        size += self.writeValue(stream, value, traceOffset, self.getType())
         
         logging.debug(("\t" * traceOffset) + f"{self.getId()} ({rawId:02X}): {value} ({value:02X})")
         return size
@@ -107,17 +128,20 @@ class Parameter:
         temporaryStream = io.BytesIO()
         for parameter in self.getChildren():
             parameter.write(temporaryStream, traceOffset)
-        size = self.writeValue(stream, len(temporaryStream.getbuffer()), traceOffset)
+        size = self.writeValue(stream, len(temporaryStream.getbuffer()), traceOffset, self.getType())
         temporaryStream.seek(0, 0)
         stream.write(temporaryStream.read())
         size += len(temporaryStream.getbuffer())
         return size
 
 
-    def writeValue(self, stream, value, traceOffset):        
+    def writeValue(self, stream, value, traceOffset, pType):        
         assert(type(value) == int)
         assert(type(traceOffset) == int)
-        unsignedValue = long2ulong(value)
+        if (pType == 'int'):
+            unsignedValue = int2uint(value)
+        else:
+            unsignedValue = long2ulong(value)
         size = 0
         currentByte = 0
         while unsignedValue >= 0x80:

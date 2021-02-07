@@ -55,8 +55,8 @@ class ParametersConverter:
 
             if propertyValue is None:
                 continue
-            
-            if propertyType == 'long' or propertyType == 'long?' or propertyType == 'float' or propertyType == TextAlignment or propertyType == DigitType or propertyType == TextAlignmentGTR2 or propertyType == ActivityType or propertyType == Color or propertyType == LangCodeType or propertyType == TimeType or propertyType == DateType or propertyType == CombingModeType or propertyType == 'bool':
+           
+            if propertyType == 'long' or propertyType == 'int' or propertyType == 'long?' or propertyType == 'float' or propertyType == TextAlignment or propertyType == DigitType or propertyType == TextAlignmentGTR2 or propertyType == ActivityType or propertyType == Color or propertyType == LangCodeType or propertyType == TimeType or propertyType == DateType or propertyType == CombingModeType or propertyType == 'bool':
                 value = propertyValue
                 flags = None
                 if propertyType == 'bool' or type(propertyValue) == bool:
@@ -81,10 +81,12 @@ class ParametersConverter:
                     value = CombingModeType.fromJSON(propertyValue)
                 elif propertyType == 'long' or propertyType == 'long?':
                     value = int(value)	
+                elif propertyType == 'int':
+                    value = int(value)	 
                 elif propertyType == 'float':
                     value = float(value)                    
                 logging.debug(f"{currentPath} '{propertyInfo['Name']}': {value}")
-                result.append(Parameter(_id, value))
+                result.append(Parameter(_id, value, None, propertyType))
             #elif isinstance(propertyValue,list): 
             #    print ("e' una lista... fai qualcosa",propertyType)
             #    for i in propertyValue:
@@ -217,6 +219,8 @@ class ParametersConverter:
                 setattr(result, propertyInfoName, parameter.getValue() > 0)
             elif propertyType == 'long':
                 setattr(result, propertyInfoName, ulong2long(parameter.getValue()))
+            elif propertyType == 'int':
+                setattr(result, propertyInfoName, uint2int(parameter.getValue()))
             elif propertyType == 'float':
                 setattr(result, propertyInfoName, ulong2long(parameter.getValue()))
             elif propertyType == 'long?':
