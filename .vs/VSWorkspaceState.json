@@ -2,12 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\resources",
-    "\\resources\\image",
-    "\\resources\\models",
-    "\\scripts",
     "\\watchFaceParser",
-    "\\watchFaceParser\\models"
+    "\\watchFaceParser\\elements",
+    "\\watchFaceParser\\elements\\gtr2",
+    "\\watchFaceParser\\elements\\gtr2\\analogDialFaceElements",
+    "\\watchFaceParser\\elements\\gtr2\\basicElements",
+    "\\watchFaceParser\\models",
+    "\\watchFaceParser\\models\\gtr2",
+    "\\watchFaceParser\\utils"
   ],
-  "SelectedNode": "\\watchFaceParser\\models\\header.py",
+  "SelectedNode": "\\watchFaceParser\\elements\\gtr2\\date.py",
   "PreviewInSolutionExplorer": false
 }

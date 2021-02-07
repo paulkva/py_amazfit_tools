@@ -81,7 +81,10 @@ class Parser:
             with open(outputFileName, 'wb') as fileStream:
                 writer = Writer(fileStream, imagesReader.resources())
                 writer.write(descriptor)
-                fileStream.flush()
+                fileStream.flush() 
+            from watchFaceParser.models.header import Header
+            Header.patchHeaderAfter( outputFileName )
+
         except Exception as e:
             logging.fatal(e, exc_info=True)
             os.remove(outputFileName)
