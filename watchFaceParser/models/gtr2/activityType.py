@@ -10,6 +10,7 @@ class ActivityType:
     UVindex = 9
     AirQuality = 10
     Humidity = 11
+    Sunrise = 12 # Two Images possible
    
     Converter = {
         Battery : "Battery",
@@ -23,6 +24,7 @@ class ActivityType:
         UVindex : "UVindex",  
         AirQuality : "AirQuality",  
         Humidity : "Humidity",  
+        Sunrise : "Sunrise", 
     }
 
     def __init__(self, flag):

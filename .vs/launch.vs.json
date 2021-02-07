@@ -6,7 +6,7 @@
       "type": "python",
       "interpreter": "(default)",
       "interpreterArguments": "",
-      "scriptArguments": "--gtr2 47 --file GTR/test_unc/test_unc.json",
+      "scriptArguments": "--gtr2 47 --file GTR/ganges_sand.bin",
       "env": {},
       "nativeDebug": false,
       "webBrowserUrl": "",

@@ -8,8 +8,8 @@ class Widget:
         3: { 'Name': 'Width', 'Type': 'long' },   
         4: { 'Name': 'Height', 'Type': 'long' },   
         5: { 'Name': 'WidgetElement', 'Type': [WidgetElement] },   
-        6: { 'Name': 'Unknown6', 'Type': 'long' },   
-        7: { 'Name': 'Unknown7', 'Type': 'long' },   
+        6: { 'Name': 'BorderActivImageIndex', 'Type': 'long' },   
+        7: { 'Name': 'BorderInactivImageIndex', 'Type': 'long' },   
         8: { 'Name': 'DescriptionImageBackground', 'Type': ImageCoord },   
         9: { 'Name': 'DescriptionWidthCheck', 'Type': 'long' },   
     }
