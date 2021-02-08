@@ -11,6 +11,7 @@ from watchFaceParser.models.gtr2.timeType import TimeType
 from watchFaceParser.models.gtr2.dateType import DateType
 from watchFaceParser.models.gtr2.combingModeType import CombingModeType
 from watchFaceParser.models.gtr2.digitType import DigitType
+from watchFaceParser.models.gtr2.imageprogressDisplayType import ImageProgressDisplayType
 from watchFaceParser.models.gtr2.langCodeType import LangCodeType
 from watchFaceParser.models.gtr2.textAlignment import TextAlignmentGTR2
 from watchFaceParser.models.gtr2.activityType import ActivityType
@@ -67,6 +68,7 @@ class ParametersConverter:
                     propertyType == LangCodeType or 
                     propertyType == TimeType or 
                     propertyType == DigitType or 
+                    propertyType == ImageProgressDisplayType or 
                     propertyType == DateType or 
                     propertyType == CombingModeType or 
                     propertyType == 'bool'
@@ -89,6 +91,8 @@ class ParametersConverter:
                     value = TimeType.fromJSON(propertyValue)
                 elif propertyType == DigitType:
                     value = DigitType.fromJSON(propertyValue)
+                elif propertyType == ImageProgressDisplayType:
+                    value = ImageProgressDisplayType.fromJSON(propertyValue)
                 elif propertyType == DateType:
                     value = DateType.fromJSON(propertyValue)
                 elif propertyType == CombingModeType:
@@ -233,6 +237,8 @@ class ParametersConverter:
                 setattr(result, propertyInfoName, CombingModeType(parameter.getValue()))
             elif propertyType == DigitType:
                 setattr(result, propertyInfoName, DigitType(parameter.getValue()))
+            elif propertyType == ImageProgressDisplayType:
+                setattr(result, propertyInfoName, ImageProgressDisplayType(parameter.getValue()))
             elif propertyType == LangCodeType:
                 setattr(result, propertyInfoName, LangCodeType(parameter.getValue()))
             elif propertyType == Color:
