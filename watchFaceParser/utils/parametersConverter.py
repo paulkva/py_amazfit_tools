@@ -164,7 +164,7 @@ class ParametersConverter:
     def listParams(descriptor, path = ""):
         for parameter in descriptor:
             parameterId = parameter.getId()
-            currentPath = str(parameterId) if not path else os.path.join(path, '.', str(parameterId))
+            currentPath = str(parameterId) if not path else path + '.' + str(parameterId)
             logging.debug(f"{currentPath} Value: {parameter.getValue()}")
             if ( parameter.getChildren() is not None):
                 for x in parameter.getChildren():
