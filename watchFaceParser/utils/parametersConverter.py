@@ -56,7 +56,21 @@ class ParametersConverter:
             if propertyValue is None:
                 continue
             
-            if propertyType == 'long' or propertyType == 'long?' or propertyType == 'float' or propertyType == TextAlignment or propertyType == TextAlignmentGTR2 or propertyType == ActivityType or propertyType == Color or propertyType == LangCodeType or propertyType == TimeType or propertyType == DateType or propertyType == CombingModeType or propertyType == 'bool':
+            if ( 
+                    propertyType == 'long' or 
+                    propertyType == 'long?' or 
+                    propertyType == 'float' or 
+                    propertyType == TextAlignment or 
+                    propertyType == TextAlignmentGTR2 or 
+                    propertyType == ActivityType or 
+                    propertyType == Color or 
+                    propertyType == LangCodeType or 
+                    propertyType == TimeType or 
+                    propertyType == DigitType or 
+                    propertyType == DateType or 
+                    propertyType == CombingModeType or 
+                    propertyType == 'bool'
+                ):
                 value = propertyValue
                 flags = None
                 if propertyType == 'bool' or type(propertyValue) == bool:
@@ -73,6 +87,8 @@ class ParametersConverter:
                     value = ActivityType.fromJSON(propertyValue)
                 elif propertyType == TimeType:
                     value = TimeType.fromJSON(propertyValue)
+                elif propertyType == DigitType:
+                    value = DigitType.fromJSON(propertyValue)
                 elif propertyType == DateType:
                     value = DateType.fromJSON(propertyValue)
                 elif propertyType == CombingModeType:
