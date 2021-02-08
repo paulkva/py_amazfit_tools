@@ -1,5 +1,6 @@
 import logging
 from watchFaceParser.config import Config
+import io
 
 class Header:
     dialSignature = b"HMDIAL\0"
@@ -51,6 +52,7 @@ class Header:
 
         self.hackBuffer(1, buffer)
         stream.write(buffer)
+
 
 
     # from genuine watchfaces
@@ -130,3 +132,40 @@ class Header:
             deviceId = int.from_bytes(buffer[Header.deviceIdPos:Header.deviceIdPos+1], byteorder='little'))
         header.signature = sig_buffer[0:7]
         return header
+    
+    @staticmethod
+    def patchHeaderAfter( outputFileName ):
+        if Config.isGtr2Mode(): 
+            with open(outputFileName, 'rb+') as fileStream:
+                logging.debug(f"Injecting additional header info") 
+                header = bytearray( fileStream.read(40) )       
+                data = bytearray( fileStream.read() )                 
+                #write size
+                size = len(data)
+                header[32:32+4] = int(size).to_bytes(4, byteorder='little')
+                logging.debug(f"Injected size: {size}")
+                #write crc   
+                logging.debug(f"Calculationg crc")
+                crc = Header.crc16(data,0,min(len(data), 5000))
+                logging.debug(f"Injected crc: {crc:02X}")
+                header[18:18+2] = crc.to_bytes(2, byteorder='little')
+                
+                fileStream.seek(0)
+                fileStream.write(header)
+                fileStream.write(data)
+                fileStream.flush()
+    
+    @staticmethod
+    def crc16(data : bytearray, offset , length):
+        if data is None or offset < 0 or offset > len(data)- 1 and offset+length > len(data):
+            return 0
+        crc = 0xFFFF
+        for i in range(0, length):
+            crc ^= data[offset + i] << 8
+            for j in range(0,8):
+                if (crc & 0x8000) > 0:
+                    crc =(crc << 1) ^ 0x1021
+                else:
+                    crc = crc << 1
+        return crc & 0xFFFF
+     

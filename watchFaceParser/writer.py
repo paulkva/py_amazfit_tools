@@ -66,3 +66,4 @@ class Writer:
         logging.debug("Writing images...")
         from resources.writer import Writer
         Writer(self._stream).write(self._images)
+        
