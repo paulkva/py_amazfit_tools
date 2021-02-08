@@ -5,7 +5,7 @@ class ActivityType:
     HeartRate = 4
     PAI = 5
     Distance = 6
-    UnknownActivity7 = 7
+    StandUp = 7
     Weather = 8
     UVindex = 9
     AirQuality = 10
@@ -20,7 +20,7 @@ class ActivityType:
         Distance : "Distance", 
         Weather : "Weather",  
         PAI : "PAI",  
-        UnknownActivity7 : "UnknownActivity7",  
+        StandUp : "StandUp",  
         UVindex : "UVindex",  
         AirQuality : "AirQuality",  
         Humidity : "Humidity",  
