@@ -11,7 +11,7 @@ class ActivityType:
     AirQuality = 10
     Humidity = 11
     Sunrise = 12 # Two Images possible
-    UnknownActivity17 = 17
+    ActivityGoal = 17
     FatBurning = 18
    
     Converter = {
@@ -27,7 +27,7 @@ class ActivityType:
         AirQuality : "AirQuality",  
         Humidity : "Humidity",  
         Sunrise : "Sunrise",  
-        UnknownActivity17 : "UnknownActivity17",
+        ActivityGoal : "ActivityGoal",
         FatBurning  : "FatBurning",
     }
 
