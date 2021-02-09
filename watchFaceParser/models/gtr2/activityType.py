@@ -11,6 +11,8 @@ class ActivityType:
     AirQuality = 10
     Humidity = 11
     Sunrise = 12 # Two Images possible
+    UnknownActivity17 = 17
+    FatBurning = 18
    
     Converter = {
         Battery : "Battery",
@@ -25,6 +27,8 @@ class ActivityType:
         AirQuality : "AirQuality",  
         Humidity : "Humidity",  
         Sunrise : "Sunrise",  
+        UnknownActivity17 : "UnknownActivity17",
+        FatBurning  : "FatBurning",
     }
 
     def __init__(self, flag):
