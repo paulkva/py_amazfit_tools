@@ -57,6 +57,7 @@ class ParametersConverter:
             if propertyValue is None:
                 continue
             if ( 
+                    propertyType == 'int' or 
                     propertyType == 'long' or 
                     propertyType == 'long?' or 
                     propertyType == 'float' or 
