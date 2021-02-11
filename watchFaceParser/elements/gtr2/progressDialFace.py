@@ -1,7 +1,7 @@
-from watchFaceParser.elements.gtr2.basicElements.circleProgress import CircleProgress
+from watchFaceParser.elements.gtr2.basicElements.progressBar import ProgressBar
 
 class ProgressgDialFace:
     definitions = { 
-        1: { 'Name': 'Circle', 'Type': CircleProgress},
+        1: { 'Name': 'ProgressBar', 'Type': ProgressBar},
     }
 
