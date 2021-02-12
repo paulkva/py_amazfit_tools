@@ -11,9 +11,9 @@ class ActivityType:
     AirQuality = 10
     Humidity = 11
     Sunrise = 12 # Two Images possible
-    ActivityUnknown13 = 13
+    WindForce = 13 
     ActivityUnknown14 = 14
-    ActivityUnknown15 = 15
+    AirPressure = 15
     ActivityUnknown16 = 16
     ActivityGoal = 17
     FatBurning = 18
@@ -31,9 +31,9 @@ class ActivityType:
         AirQuality : "AirQuality",  
         Humidity : "Humidity",  
         Sunrise : "Sunrise",  
-        ActivityUnknown13 : "ActivityUnknown13",  
+        WindForce : "WindForce",  
         ActivityUnknown14 : "ActivityUnknown14",  
-        ActivityUnknown15 : "ActivityUnknown15",  
+        AirPressure : "AirPressure",  
         ActivityUnknown16 : "ActivityUnknown16",  
         ActivityGoal : "ActivityGoal",
         FatBurning  : "FatBurning",
