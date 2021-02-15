@@ -12,9 +12,9 @@ class ActivityType:
     Humidity = 11
     Sunrise = 12 # Two Images possible
     WindForce = 13 
-    ActivityUnknown14 = 14
+    Altitude = 14
     AirPressure = 15
-    ActivityUnknown16 = 16
+    Stress = 16
     ActivityGoal = 17
     FatBurning = 18
    
@@ -32,9 +32,9 @@ class ActivityType:
         Humidity : "Humidity",  
         Sunrise : "Sunrise",  
         WindForce : "WindForce",  
-        ActivityUnknown14 : "ActivityUnknown14",  
+        Altitude : "Altitude",  
         AirPressure : "AirPressure",  
-        ActivityUnknown16 : "ActivityUnknown16",  
+        Stress : "Stress",  
         ActivityGoal : "ActivityGoal",
         FatBurning  : "FatBurning",
     }
