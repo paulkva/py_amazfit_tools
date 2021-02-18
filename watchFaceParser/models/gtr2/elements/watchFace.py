@@ -43,21 +43,25 @@ class WatchFace(ContainerElement):
             self._background = BackgroundElement(parameter)
             return self._background
         elif parameterId == 4:
+            pass
             from watchFaceParser.models.gtr2.elements.screenNormalElement import ScreenNormalElement
             self._dialface = ScreenNormalElement(parameter)
             return self._dialface
         elif parameterId == 5:
-            from watchFaceParser.models.gtr2.elements.systemElement import SystemElement
-            self._system = SystemElement(parameter)
-            return self._system
+            pass
+            #from watchFaceParser.models.gtr2.elements.systemElement import SystemElement
+            #self._system = SystemElement(parameter)
+            #return self._system
         elif parameterId == 6:
-            from watchFaceParser.models.gtr2.elements.widgetsElement import WidgetsElement
-            self._widgets = WidgetsElement(parameter)
-            return self._widgets
+            pass
+            #from watchFaceParser.models.gtr2.elements.widgetsElement import WidgetsElement
+            #self._widgets = WidgetsElement(parameter)
+            #return self._widgets
         elif parameterId == 10:
-            from watchFaceParser.models.gtr2.elements.screenIdleElement import ScreenIdleElement
-            self._screenidle = ScreenIdleElement(parameter)
-            return self._screenidle
+            pass
+            #from watchFaceParser.models.gtr2.elements.screenIdleElement import ScreenIdleElement
+            #self._screenidle = ScreenIdleElement(parameter)
+            #return self._screenidle
         else:
             print ("Unknown WatchFace",parameterId)
             return super(WatchFace, self).createChildForParameter(parameter)

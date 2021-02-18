@@ -1,22 +1,20 @@
 ﻿import logging
 
-
-from watchFaceParser.models.gtr2.elements.basic.compositeElement import CompositeElement
+from watchFaceParser.models.elements.common.coordinatesElement import CoordinatesElement
 from watchFaceParser.config import Config
 
 
-class ImageElement(CompositeElement):
+class MultilangImageElement(CoordinatesElement):
     def __init__(self, parameter, parent, name = None):
-        self._imageIndex = None
-        super(ImageElement, self).__init__( parameter = parameter, parent = parent, name = name)
+        self._landcode = None
+        super(MultilangImageElement, self).__init__(parameter = parameter, parent = parent, name = name)
 
 
-    def getImageIndex(self):
-        return self._imageIndex
+    def getLandCode(self):
+        return self._landcode
 
-
-    def setImageIndex(self, imageIndex):
-        self._imageIndex = imageIndex
+    def setLandcode(self, landCode):
+        self._landcode = landCode
 
 
     def draw3(self, drawer, resources, state):
@@ -45,9 +43,16 @@ class ImageElement(CompositeElement):
 
 
     def createChildForParameter(self, parameter):
-        if parameter.getId() == 3:
-            self._imageIndex = parameter.getValue()
-            from watchFaceParser.models.elements.basic.valueElement import ValueElement
-            return ValueElement(parameter, self, '?ImageIndex?')
+        from watchFaceParser.models.gtr2.elements.basic.valueElement import ValueElement
+
+        parameterId = parameter.getId()
+
+        if parameterId == 1:
+            self._landcode = parameter.getValue()
+            return ValueElement(parameter, self, 'LandCode')
+        elif parameterId == 2:
+            from watchFaceParser.models.gtr2.elements.common.imageSetElement import ImageSetElement
+            self._ones = ImageSetElement(parameter, self, 'ImageSet')
+            return self._ones
         else:
-            super(ImageElement, self).createChildForParameter(parameter)
+            super(MultilangImageElement, self).createChildForParameter(parameter)

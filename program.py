@@ -74,8 +74,9 @@ class Parser:
                 Config.setDeviceId(descriptor.pop(0).getChildren()[0].getValue())
 
             baseName, _ = os.path.splitext(os.path.basename(outputFileName))
-            if not Config.isGtr2Mode() and not Config.isGts2Mode(): 
-                Parser.generatePreviews(descriptor, imagesReader.getImages(), outputDirectory, baseName) 
+            #if not Config.isGtr2Mode() and not Config.isGts2Mode(): 
+            #    Parser.generatePreviews(descriptor, imagesReader.getImages(), outputDirectory, baseName) 
+            Parser.generatePreviews(descriptor, imagesReader.getImages(), outputDirectory, baseName) 
 
             logging.debug(f"Writing watch face to '{outputFileName}'")
             with open(outputFileName, 'wb') as fileStream:
@@ -249,7 +250,7 @@ class Parser:
 
         logging.debug("generatePreviews")
         #TODO implement models
-        #Parser.generatePreviews(reader.getParameters(), reader.getImages(), outputDirectory, baseName)
+        Parser.generatePreviews(reader.getParameters(), reader.getImages(), outputDirectory, baseName)
         logging.debug("generatePreviews done")
 
         logging.debug("Exporting resources to '%s'" % (outputDirectory, ))

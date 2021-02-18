@@ -1,31 +1,51 @@
 ﻿import logging
 
-from watchFaceParser.models.elements.basic.containerElement import ContainerElement
+from watchFaceParser.models.gtr2.elements.basic.containerElement import ContainerElement
+from watchFaceParser.config import Config
+from watchFaceParser.models.gtr2.elements.basic.valueElement import ValueElement
+from resources.image.color import Color
 
 class BackgroundElement(ContainerElement):
-    def __init__(self, parameter, parent = None, name = None):
-        super(BackgroundElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
+    def __init__(self, parameter, parent=None, name=None):
+        self._backgroundImageIndex = None
+        self._color = None
+        super(BackgroundElement, self).__init__(parameters=None, parameter=parameter, parent=parent, name=name)
 
+    def getBackgroundImageIndex(self):
+        return self._backgroundImageIndex
 
-    def getImage(self):
-        return self._image
+    def getColor(self):
+        return self._color
 
+    def draw3(self, drawer, resources, state):
+        self.draw2(drawer, resources, None)
 
-    def getFrontImage(self):
-        return self._frontImage
+    def draw2(self, drawer, images, angle, center=None):
+        x = 0
+        y = 0
+
+        from PIL import ImageDraw, Image
+
+        if self._backgroundImageIndex is None:
+            if self._color is None:
+                self._color = Color.fromArgb(0xff000000)
+            size = Config.getImageSize()
+            d = ImageDraw.Draw(drawer)
+            d.rectangle([(x, y), size], fill=self.getColor())
+        else:
+            temp = images[self._backgroundImageIndex].getBitmap()
+            drawer.paste(temp, (x, y), temp)
 
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
         if parameterId == 1:
-            from watchFaceParser.models.elements.common.imageElement import ImageElement
-            self._image = ImageElement(parameter = parameter, parent = self, name = 'Image')
-            return self._image
-        elif parameterId == 3:
             pass
-        elif parameterId == 4:
-            from watchFaceParser.models.elements.common.imageElement import ImageElement
-            self._frontImage = ImageElement(parameter = parameter, parent = self, name = 'FrontImage')
-            return self._frontImage
+        elif parameterId == 2:
+            self._backgroundImageIndex = parameter.getValue() - Config.getStartImageIndex()
+            return ValueElement(parameter, self, '?ImageIndex?')
+        elif parameterId == 3:
+            self._color = Color.fromArgb(0xff000000 | parameter.getValue())
+            return ValueElement(parameter = parameter, parent = self, name = '?_color?')
         else:
             return super(BackgroundElement, self).createChildForParameter(parameter)

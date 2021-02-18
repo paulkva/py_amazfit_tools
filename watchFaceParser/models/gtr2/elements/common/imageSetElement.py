@@ -1,11 +1,11 @@
 ﻿import logging
-from watchFaceParser.models.elements.common.imageElement import ImageElement
+from watchFaceParser.models.gtr2.elements.common.imageElement import ImageElement
 
 
 class ImageSetElement(ImageElement):
     def __init__(self, parameter, parent, name = None):
         self._imagesCount = None
-        super(ImageSetElement, self).__init__(parameter = parameter, parent = parent, name = name)
+        super(ImageSetElement, self).__init__( parameter = parameter, parent = parent, name = name)
 
     def getImagesCount(self):
         return self._imagesCount

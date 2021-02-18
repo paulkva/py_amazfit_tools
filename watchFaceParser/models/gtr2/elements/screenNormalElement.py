@@ -27,16 +27,18 @@ class ScreenNormalElement(ContainerElement):
         parameterId = parameter.getId()
         if parameterId == 1:
             from watchFaceParser.models.gtr2.elements.digitalDialFaceElement import DigitalDialFaceElement
-            self._digitaldialface = DigitalDialFaceElement(parameter = parameter)
+            self._digitaldialface = DigitalDialFaceElement(parameter = parameter, parent = self, name = 'DigitalDialFace')
             return self._digitaldialface
         elif parameterId == 2:
-            from watchFaceParser.models.gtr2.elements.analogDialFaceElement import AnalogDialFaceElement
-            self._analogdialface = AnalogDialFaceElement(parameter = parameter)
-            return self._analogdialface
+            pass
+            #from watchFaceParser.models.gtr2.elements.analogDialFaceElement import AnalogDialFaceElement
+            #self._analogdialface = AnalogDialFaceElement(parameter = parameter, parent = self, name = 'AnalogDialFace')
+            #return self._analogdialface
         elif parameterId == 3:
-            from watchFaceParser.models.gtr2.elements.progressDialFaceElement import ProgressDialFaceElement
-            self._progressdialface = ProgressDialFaceElement(parameter = parameter)
-            return self._progressdialface
+            pass
+            #from watchFaceParser.models.gtr2.elements.progressDialFaceElement import ProgressDialFaceElement
+            #self._progressdialface = ProgressDialFaceElement(parameter = parameter, parent = self, name = 'ProgressDialFace')
+            #return self._progressdialface
         else:
             print ("Unknown ScreenNormalElement",parameterId)
             return super(ScreenNormalElement, self).createChildForParameter(parameter)

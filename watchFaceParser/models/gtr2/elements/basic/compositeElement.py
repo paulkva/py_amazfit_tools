@@ -1,6 +1,6 @@
 ﻿import logging
 
-from watchFaceParser.models.elements.basic.element import Element
+from watchFaceParser.models.gtr2.elements.basic.element import Element
 
 class CompositeElement(Element):
     def __init__(self, parameters, parameter, parent, name):
@@ -26,9 +26,9 @@ class CompositeElement(Element):
 
     def createChildForParameter(self, parameter):
         if parameter.hasChildren():
-            from watchFaceParser.models.elements.basic.containerElement import ContainerElement
+            from watchFaceParser.models.gtr2.elements.basic.containerElement import ContainerElement
             return ContainerElement(parameters = None, parameter = parameter, parent = self, name = '')
-        from watchFaceParser.models.elements.basic.valueElement import ValueElement
+        from watchFaceParser.models.gtr2.elements.basic.valueElement import ValueElement
         return ValueElement(parameter = parameter, parent = self, name = '')
 
 
