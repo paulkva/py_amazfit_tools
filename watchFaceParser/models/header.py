@@ -12,17 +12,11 @@ class Header:
 
     basenamehash = ""
 
-    def __init__(self, unknown, parametersSize, baseName, deviceId = None):
+    def __init__(self, unknown, parametersSize, deviceId = None):
         self.signature = Header.dialSignature
         self.unknown = unknown
         self.parametersSize = parametersSize
         self.deviceId = deviceId
-        import hashlib
-        if baseName is not None:
-            self.basenamehash = bytearray(hashlib.shake_128(baseName.encode()).digest(8)) # 8 bit hash
-            print("basename " + baseName)
-            print("hash lenght " + str(len(self.basenamehash)))
-            print("basename 8 byte hash " + "".join("%02x" % b for b in self.basenamehash))
 
     def isValid(self):
         return self.signature == Header.dialSignature
@@ -91,9 +85,6 @@ class Header:
         p_0x10 = data_0x10[index]
         for i in range(len(p_0x10)):
             buffer[0x10 + i] = p_0x10[i]
-        if Config.isGts2Mode() or Config.isGtr2Mode():
-            for i in range(8):
-                buffer[0x12+7-i] = self.basenamehash[len(self.basenamehash)-1-i] 
         # hard coding?
         if Config.isGtr2Mode() or Config.isGts2Mode():
             buffer[12:12+4] = int(57305).to_bytes(4, byteorder='little') #some size??
@@ -128,14 +119,13 @@ class Header:
         header = Header(
             unknown = int.from_bytes(buffer[Header.unknownPos:Header.unknownPos+4], byteorder='little'),
             parametersSize = int.from_bytes(buffer[Header.parametersSizePos:Header.parametersSizePos+4], byteorder='little'),
-            baseName = None,
             deviceId = int.from_bytes(buffer[Header.deviceIdPos:Header.deviceIdPos+1], byteorder='little'))
         header.signature = sig_buffer[0:7]
         return header
     
     @staticmethod
     def patchHeaderAfter( outputFileName ):
-        if Config.isGtr2Mode(): 
+        if Config.isGtr2Mode() or Config.isGts2Mode(): 
             with open(outputFileName, 'rb+') as fileStream:
                 logging.debug(f"Injecting additional header info") 
                 header = bytearray( fileStream.read(40) )       
@@ -144,11 +134,17 @@ class Header:
                 size = len(data)
                 header[32:32+4] = int(size).to_bytes(4, byteorder='little')
                 logging.debug(f"Injected size: {size}")
-                #write crc   
-                logging.debug(f"Calculationg crc")
-                crc = Header.crc16(data,0,min(len(data), 5000))
-                logging.debug(f"Injected crc: {crc:02X}")
-                header[18:18+2] = crc.to_bytes(2, byteorder='little')
+                
+                # write basename as 7 bit hash
+                import hashlib, os
+                baseName, _ = os.path.splitext(os.path.basename(outputFileName))
+                basenamehash = bytearray(hashlib.shake_128(baseName.encode()).digest(7)) # 7 bit hash
+                logging.debug(f"basename: {baseName}")
+                logging.debug(f"hash lenght: {len(basenamehash)}")
+                logging.debug("basename 7 byte hash " + "".join("%02x" % b for b in basenamehash))
+                header[12:12+2] = basenamehash[0:2]#.to_bytes(2, byteorder='little')
+                header[18:18+2] = basenamehash[2:4]#.to_bytes(2, byteorder='little')
+                header[15:15+3] = basenamehash[4:7]#.to_bytes(3, byteorder='little')
                 
                 fileStream.seek(0)
                 fileStream.write(header)

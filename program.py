@@ -79,7 +79,7 @@ class Parser:
 
             logging.debug(f"Writing watch face to '{outputFileName}'")
             with open(outputFileName, 'wb') as fileStream:
-                writer = Writer(fileStream, imagesReader.resources(), baseName)
+                writer = Writer(fileStream, imagesReader.resources())
                 writer.write(descriptor)
                 fileStream.flush() 
             from watchFaceParser.models.header import Header
