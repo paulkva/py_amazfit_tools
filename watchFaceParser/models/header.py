@@ -144,7 +144,7 @@ class Header:
                 logging.debug("basename 7 byte hash " + "".join("%02x" % b for b in basenamehash))
                 header[12:12+2] = basenamehash[0:2]#.to_bytes(2, byteorder='little')
                 header[18:18+2] = basenamehash[2:4]#.to_bytes(2, byteorder='little')
-                header[15:15+3] = basenamehash[4:7]#.to_bytes(3, byteorder='little')
+                header[22:22+3] = basenamehash[4:7]#.to_bytes(3, byteorder='little')
                 
                 fileStream.seek(0)
                 fileStream.write(header)
