@@ -74,7 +74,7 @@ class Header:
             index = Config.isGtrMode()
         elif Config.isGtr2Mode():
             index = 59
-        if Config.isGts2Mode():
+        elif Config.isGts2Mode():
             index = 65
         elif Config.isGtsMode():
             index = Config.isGtsMode()
