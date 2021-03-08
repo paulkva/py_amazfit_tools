@@ -3,7 +3,7 @@ from watchFaceParser.config import Config
 class PreviewGenerator:
     @staticmethod
     def createAnimation(descriptor, images, states):
-        if not Config.isOldFormat() and (Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode()): 
+        if not Config.isOldFormat() and (Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode()  or Config.isGts2MiniMode()): 
             from watchFaceParser.models.gtr2.elements.watchFace import WatchFace
         else:
             from watchFaceParser.models.elements.watchFace import WatchFace
@@ -16,7 +16,7 @@ class PreviewGenerator:
 
     @staticmethod
     def createImage(descriptor, images, state):
-        if not Config.isOldFormat() and (Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode()): 
+        if not Config.isOldFormat() and (Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode()  or Config.isGts2MiniMode()): 
             from watchFaceParser.models.gtr2.elements.watchFace import WatchFace
         else:
             from watchFaceParser.models.elements.watchFace import WatchFace

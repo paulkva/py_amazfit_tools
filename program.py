@@ -59,7 +59,7 @@ class Parser:
         assert(type(outputFileName) == str)
         assert(type(imagesDirectory) == str)
         try:
-            if not Config.isOldFormat() and (Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode()): 
+            if not Config.isOldFormat() and (Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode()) Config.isGts2MiniMode(): 
                 from watchFaceParser.watchFaceGTR2 import WatchFace
             else:
                 from watchFaceParser.watchFace import WatchFace
@@ -74,7 +74,7 @@ class Parser:
                 Config.setDeviceId(descriptor.pop(0).getChildren()[0].getValue())
 
             baseName, _ = os.path.splitext(os.path.basename(outputFileName))
-            #if not Config.isGtr2Mode() and not Config.isGts2Mode() and not Config.isTrexProMode(): 
+            #if not Config.isGtr2Mode() and not Config.isGts2Mode() and not Config.isTrexProMode() and not Config.isGts2MiniMode(): 
             #    Parser.generatePreviews(descriptor, imagesReader.getImages(), outputDirectory, baseName) 
             Parser.generatePreviews(descriptor, imagesReader.getImages(), outputDirectory, baseName) 
 
@@ -276,8 +276,7 @@ class Parser:
     @staticmethod
     def parseResources(reader):
         logging.debug("Parsing parameters...")
-        print(Config.isOldFormat())
-        if not Config.isOldFormat() and (Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode()): 
+        if not Config.isOldFormat() and (Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode() or Config.isGts2MiniMode()): 
             from watchFaceParser.watchFaceGTR2 import WatchFace
         else:
             from watchFaceParser.watchFace import WatchFace
@@ -359,7 +358,6 @@ class Parser:
         except Exception as e:
             logging.error("Preview Generate Error...")
             logging.error(e, exc_info=True)
-
 
     @staticmethod
     def getPreviewStates(outputDirectory):

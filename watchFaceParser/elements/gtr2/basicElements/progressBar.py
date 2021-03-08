@@ -9,7 +9,7 @@ class ProgressBar:
         3: { 'Name': 'ForegroundImageIndex', 'Type': 'long'},
         4: { 'Name': 'Color', 'Type': Color},   
         5: { 'Name': 'Width', 'Type': 'long'},   
-        6: { 'Name': 'Flatness', 'Type': 'long'}, #0 - flat, 90, triangle, 180 - arc 
+        6: { 'Name': 'Flatness', 'Type': 'long'}, #0 - arc, 90, triangle, 180 - flat 
         7: { 'Name': 'PointerImageIndex', 'Type': 'long'},
         8: { 'Name': 'BackgroundImageIndex', 'Type': 'long'},
     }
