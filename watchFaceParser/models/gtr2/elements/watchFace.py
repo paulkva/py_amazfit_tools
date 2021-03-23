@@ -18,9 +18,7 @@ class WatchFace(ContainerElement):
 
 
     def getDialFace(self):
-        print ("GETDIALFACE")
         return self._dialface
-
 
     def getSystem(self):
         return self._system
