@@ -113,8 +113,8 @@ class ImageElement(CompositeElement):
                     self.addTextWidth(images[imageIndex].getBitmap().size[0])
             else:
                 if self.getDecimalPointImageIndex():
-                    kilometers = int(number / 1000)
-                    decimals = int(number % 1000 / 10)
+                    kilometers = int(int(number) / 1000)
+                    decimals = int(int(number) % 1000 / 10)
                     ar.extend(self.getImagesForNumber2(images, str(kilometers), multilangImage, paddingZero - 2))
                     imageIndex = self.getDecimalPointImageIndex() - 1
                     ar.append(images[imageIndex])
@@ -140,6 +140,7 @@ class ImageElement(CompositeElement):
 
     def getImagesForNumber2(self, images, stringNumber, multilangImage, paddingZero):
         ar = []
+        print(stringNumber)
         for digit in stringNumber:
             if int(digit) < multilangImage.getImageSet().getImagesCount():
                 imageIndex = multilangImage.getImageSet().getImageIndex() + int(digit) - 1
