@@ -27,7 +27,7 @@ class DateElement(ContainerElement):
             for d in self.getDateDigits():
                 d.draw3(drawer, images, state)
         if self.getWeeksDigits():
-            self.getWeeksDigits().draw4(drawer, images, state.getTime().weekday())
+            self.getWeeksDigits().draw4(drawer, images, state.getTime().weekday()+1)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

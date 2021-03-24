@@ -78,19 +78,19 @@ class ImageElement(CompositeElement):
 
         return Box(self._x, self._y, bitmapWidth, bitmapHeight)
 
-    def draw4(self, drawer, images, number, alignment=0, spacing=0, paddingZero=0, displayFormAnalog=False):
+    def draw4(self, drawer, images, number, alignment, spacing, paddingZero, displayFormAnalog):
         if not alignment:
             alignment = 0
         if not paddingZero:
             paddingZero = 0
         if not spacing:
             spacing = 0
-        ar = self.getImagesForNumber(images, number, paddingZero)
-        if not alignment:
-            alignment = 0
+        if not displayFormAnalog:
+            displayFormAnalog = False
+        ar = self.getImagesForNumber(images, number, paddingZero, displayFormAnalog)
         self.drawImages(drawer, ar, spacing, alignment, self.getBox(ar, spacing))
 
-    def getImagesForNumber(self, images, number, paddingZero):
+    def getImagesForNumber(self, images, number, paddingZero, displayFormAnalog):
         ar = []
 
         number.zfill(paddingZero)
@@ -100,17 +100,22 @@ class ImageElement(CompositeElement):
         multilangImageUnitMile = self.getImageUnitMileForLand(2)
 
         if multilangImage:
-            if self.getDecimalPointImageIndex():
-                kilometers = int(number / 1000)
-                decimals = int(number % 1000 / 10)
-                ar.extend(self.getImagesForNumber2(images, str(kilometers), multilangImage))
-                ar.append(images[self.getDecimalPointImageIndex() - 1])
-                ar.extend(self.getImagesForNumber2(images, str(decimals), multilangImage))
-            elif self.getDelimiterImageIndex():
-                ar.append(images[self.getDelimiterImageIndex() - 1])
-                ar.extend(self.getImagesForNumber2(images, number, multilangImage))
+            if displayFormAnalog:
+                if int(number) <= multilangImage.getImageSet().getImagesCount():
+                    imageIndex = multilangImage.getImageSet().getImageIndex() + int(number) - 2
+                    ar.append(images[imageIndex])
             else:
-                ar.extend(self.getImagesForNumber2(images, number, multilangImage))
+                if self.getDecimalPointImageIndex():
+                    kilometers = int(number / 1000)
+                    decimals = int(number % 1000 / 10)
+                    ar.extend(self.getImagesForNumber2(images, str(kilometers), multilangImage))
+                    ar.append(images[self.getDecimalPointImageIndex() - 1])
+                    ar.extend(self.getImagesForNumber2(images, str(decimals), multilangImage))
+                elif self.getDelimiterImageIndex():
+                    ar.append(images[self.getDelimiterImageIndex() - 1])
+                    ar.extend(self.getImagesForNumber2(images, number, multilangImage))
+                else:
+                    ar.extend(self.getImagesForNumber2(images, number, multilangImage))
         if multilangImageUnit:
             ar.append(images[multilangImageUnit.getImageSet().getImageIndex() - 1])
         elif multilangImageUnitMile:
@@ -121,10 +126,8 @@ class ImageElement(CompositeElement):
     def getImagesForNumber2(self, images, stringNumber, multilangImage):
         ar = []
         for digit in stringNumber:
-            print("digit", digit)
             if int(digit) < multilangImage.getImageSet().getImagesCount():
                 imageIndex = multilangImage.getImageSet().getImageIndex() + int(digit) - 1
-                print("imageIndex", imageIndex)
                 ar.append(images[imageIndex])
         return ar
 
