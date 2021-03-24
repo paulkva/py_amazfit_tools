@@ -10,14 +10,11 @@ class SystemElement(ContainerElement):
         self._activity = []
         super(SystemElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
 
-
     def getStatus(self):
         return self._status
 
-
     def getDate(self):
         return self._date
-
 
     def getActivity(self):
         return self._activity
@@ -27,13 +24,12 @@ class SystemElement(ContainerElement):
         parameterId = parameter.getId()
         if parameterId == 1:
             from watchFaceParser.models.gtr2.elements.statusElement import StatusElement
-            self._status = StatusElement(parameter = parameter)
+            self._status = StatusElement(parameter = parameter, parent = self, name = 'Status')
             return self._status
         elif parameterId == 2:
-            pass
-            # from watchFaceParser.models.gtr2.elements.dateElement import DateElement
-            # self._date = DateElement(parameter = parameter)
-            # return self._date
+            from watchFaceParser.models.gtr2.elements.dateElement import DateElement
+            self._date = DateElement(parameter, parent = self, name = 'Date')
+            return self._date
         elif parameterId == 3:
             pass
             # from watchFaceParser.models.gtr2.elements.activityElement import ActivityElement

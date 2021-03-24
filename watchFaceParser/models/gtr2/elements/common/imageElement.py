@@ -78,8 +78,16 @@ class ImageElement(CompositeElement):
 
         return Box(self._x, self._y, bitmapWidth, bitmapHeight)
 
-    def draw4(self, drawer, images, number, alignment = 0, spacing = 0, paddingZero = 0, displayFormAnalog = False):
+    def draw4(self, drawer, images, number, alignment=0, spacing=0, paddingZero=0, displayFormAnalog=False):
+        if not alignment:
+            alignment = 0
+        if not paddingZero:
+            paddingZero = 0
+        if not spacing:
+            spacing = 0
         ar = self.getImagesForNumber(images, number, paddingZero)
+        if not alignment:
+            alignment = 0
         self.drawImages(drawer, ar, spacing, alignment, self.getBox(ar, spacing))
 
     def getImagesForNumber(self, images, number, paddingZero):

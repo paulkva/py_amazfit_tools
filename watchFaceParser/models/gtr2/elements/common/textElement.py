@@ -5,8 +5,6 @@ from watchFaceParser.config import Config
 from watchFaceParser.models.elements.basic.containerElement import ContainerElement
 from watchFaceParser.helpers.drawerHelper import DrawerHelper
 
-
-
 class TextElement(ContainerElement):
     def __init__(self, parameter, parent, name=None):
         self._image = None
