@@ -377,7 +377,7 @@ class Parser:
         time = datetime.datetime.now()
         states = []
 
-        for i in range(10):
+        for i in range(12):
             num = i + 1
             watchState = WatchState(
                 BatteryLevel = 100 - i * 10,
@@ -400,7 +400,7 @@ class Parser:
                 watchState.setCurrentWeather(index)
                 watchState.setCurrentTemperature(-10 + i * 6)
 
-            watchState.setTime(datetime.datetime(year = time.year, month = num, day = num * 2 + 5, hour = i * 2, minute = i * 6, second = i))
+            watchState.setTime(datetime.datetime(year = time.year, month = num, day = num * 2 + 5, hour = i * 2, minute = i * 5, second = i))
             states.append(watchState)
 
         return states
