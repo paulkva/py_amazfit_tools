@@ -44,7 +44,7 @@ class TextElement(ContainerElement):
                 stringNumber, 
                 self._alignment, 
                 self._spacing, 
-                self._paddingZero, 
+                minimumDigits, 
                 self._displayFormAnalog)
         elif self.getSystemFont():
             return

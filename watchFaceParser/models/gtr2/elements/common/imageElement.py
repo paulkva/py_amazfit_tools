@@ -47,6 +47,7 @@ class ImageElement(CompositeElement):
         self._multilangImageUnit = []
         self._delimiterImageIndex = None
         self._multilangImageUnitMile = []
+        self._maxTextWidth = None
         super(ImageElement, self).__init__(parameters=None, parameter = parameter, parent = parent, name = name)
 
     def getX(self):
@@ -75,8 +76,14 @@ class ImageElement(CompositeElement):
 
     def getBox(self, images, spacing):
         (bitmapWidth, bitmapHeight) = DrawerHelper.calculateBounds(images, spacing)
+        if bitmapWidth > self._maxTextWidth:
+            return Box(self._x, self._y, bitmapWidth, bitmapHeight)
+        else:
+            return Box(self._x, self._y, self._maxTextWidth, bitmapHeight)
 
-        return Box(self._x, self._y, bitmapWidth, bitmapHeight)
+
+    def addTextWidth(self, width):
+        self._maxTextWidth += width
 
     def draw4(self, drawer, images, number, alignment, spacing, paddingZero, displayFormAnalog):
         if not alignment:
@@ -92,9 +99,7 @@ class ImageElement(CompositeElement):
 
     def getImagesForNumber(self, images, number, paddingZero, displayFormAnalog):
         ar = []
-
-        if paddingZero > 0:
-            number.zfill(paddingZero)
+        self._maxTextWidth = 0
 
         multilangImage = self.getImageForLand(2)
         multilangImageUnit = self.getImageUnitForLand(2)
@@ -105,31 +110,43 @@ class ImageElement(CompositeElement):
                 if int(number) <= multilangImage.getImageSet().getImagesCount():
                     imageIndex = multilangImage.getImageSet().getImageIndex() + int(number) - 2
                     ar.append(images[imageIndex])
+                    self.addTextWidth(images[imageIndex].getBitmap().size[0])
             else:
                 if self.getDecimalPointImageIndex():
                     kilometers = int(number / 1000)
                     decimals = int(number % 1000 / 10)
-                    ar.extend(self.getImagesForNumber2(images, str(kilometers), multilangImage))
-                    ar.append(images[self.getDecimalPointImageIndex() - 1])
-                    ar.extend(self.getImagesForNumber2(images, str(decimals), multilangImage))
+                    ar.extend(self.getImagesForNumber2(images, str(kilometers), multilangImage, paddingZero - 2))
+                    imageIndex = self.getDecimalPointImageIndex() - 1
+                    ar.append(images[imageIndex])
+                    self.addTextWidth(images[imageIndex].getBitmap().size[0])
+                    ar.extend(self.getImagesForNumber2(images, str(decimals), multilangImage, 2))
                 elif self.getDelimiterImageIndex():
-                    ar.append(images[self.getDelimiterImageIndex() - 1])
-                    ar.extend(self.getImagesForNumber2(images, number, multilangImage))
+                    imageIndex = self.getDelimiterImageIndex() - 1
+                    ar.append(images[imageIndex])
+                    self.addTextWidth(images[imageIndex].getBitmap().size[0])
+                    ar.extend(self.getImagesForNumber2(images, number, multilangImage, paddingZero))
                 else:
-                    ar.extend(self.getImagesForNumber2(images, number, multilangImage))
+                    ar.extend(self.getImagesForNumber2(images, number, multilangImage, paddingZero))
         if multilangImageUnit:
-            ar.append(images[multilangImageUnit.getImageSet().getImageIndex() - 1])
+            imageIndex = multilangImageUnit.getImageSet().getImageIndex() - 1
+            ar.append(images[imageIndex])
+            self.addTextWidth(images[imageIndex].getBitmap().size[0])
         elif multilangImageUnitMile:
-            ar.append(images[multilangImageUnitMile.getImageSet().getImageIndex() - 1])
+            imageIndex = multilangImageUnitMile.getImageSet().getImageIndex() - 1
+            ar.append(images[imageIndex])
+            self.addTextWidth(images[imageIndex].getBitmap().size[0])
 
         return ar
 
-    def getImagesForNumber2(self, images, stringNumber, multilangImage):
+    def getImagesForNumber2(self, images, stringNumber, multilangImage, paddingZero):
         ar = []
         for digit in stringNumber:
             if int(digit) < multilangImage.getImageSet().getImagesCount():
                 imageIndex = multilangImage.getImageSet().getImageIndex() + int(digit) - 1
                 ar.append(images[imageIndex])
+                self.addTextWidth(images[imageIndex].getBitmap().size[0])
+        if len(stringNumber) < paddingZero:
+            self.addTextWidth(images[imageIndex].getBitmap().size[0] * ( paddingZero - len(stringNumber)) )
         return ar
 
     def getImageForLand(self, land = 0):
