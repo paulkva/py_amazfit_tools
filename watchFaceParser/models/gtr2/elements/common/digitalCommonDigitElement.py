@@ -38,7 +38,7 @@ class DigitalCommonDigitElement(ContainerElement):
         if parameterId == 1:
             from watchFaceParser.models.gtr2.elements.basic.valueElement import ValueElement
             self._type = parameter.getValue()
-            return ValueElement(parameter, self, 'TimeType')
+            return ValueElement(parameter, self, 'Type')
         elif parameterId == 2:
             from watchFaceParser.models.gtr2.elements.basic.valueElement import ValueElement
             self._combingMode = parameter.getValue()

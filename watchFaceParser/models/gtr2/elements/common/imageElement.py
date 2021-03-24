@@ -93,7 +93,8 @@ class ImageElement(CompositeElement):
     def getImagesForNumber(self, images, number, paddingZero, displayFormAnalog):
         ar = []
 
-        number.zfill(paddingZero)
+        if paddingZero > 0:
+            number.zfill(paddingZero)
 
         multilangImage = self.getImageForLand(2)
         multilangImageUnit = self.getImageUnitForLand(2)

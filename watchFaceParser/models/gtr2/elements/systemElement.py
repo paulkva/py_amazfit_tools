@@ -19,6 +19,14 @@ class SystemElement(ContainerElement):
     def getActivity(self):
         return self._activity
 
+    def draw3(self, drawer, images, state):
+        if self.getStatus():
+            self.getStatus().draw3(drawer, images, state)
+        if self.getDate():
+            self.getDate().draw3(drawer, images, state)
+        if self.getActivity():
+            for a in self.getActivity():
+                a.draw3(drawer, images, state)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
@@ -31,10 +39,9 @@ class SystemElement(ContainerElement):
             self._date = DateElement(parameter, parent = self, name = 'Date')
             return self._date
         elif parameterId == 3:
-            pass
-            # from watchFaceParser.models.gtr2.elements.activityElement import ActivityElement
-            # self._activity.append(ActivityElement(parameter = parameter))
-            # return self._activity
+            from watchFaceParser.models.gtr2.elements.activityElement import ActivityElement
+            self._activity.append(ActivityElement(parameter = parameter, parent = self, name = 'Activity'))
+            return self._activity
         else:
             print ("Unknown SystemElement",parameterId)
             return super(SystemElement, self).createChildForParameter(parameter)
