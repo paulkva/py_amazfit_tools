@@ -47,9 +47,9 @@ class WatchFace(ContainerElement):
             return self._dialface
         elif parameterId == 5:
             pass
-            #from watchFaceParser.models.gtr2.elements.systemElement import SystemElement
-            #self._system = SystemElement(parameter)
-            #return self._system
+            from watchFaceParser.models.gtr2.elements.systemElement import SystemElement
+            self._system = SystemElement(parameter)
+            return self._system
         elif parameterId == 6:
             pass
             #from watchFaceParser.models.gtr2.elements.widgetsElement import WidgetsElement

@@ -7,7 +7,7 @@ class SystemElement(ContainerElement):
     def __init__(self, parameter, parent = None, name = None):
         self._status = None
         self._date = None
-        self._activity = None
+        self._activity = []
         super(SystemElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
 
 
@@ -30,13 +30,15 @@ class SystemElement(ContainerElement):
             self._status = StatusElement(parameter = parameter)
             return self._status
         elif parameterId == 2:
-            from watchFaceParser.models.gtr2.elements.dateElement import DateElement
-            self._date = DateElement(parameter = parameter)
-            return self._date
+            pass
+            # from watchFaceParser.models.gtr2.elements.dateElement import DateElement
+            # self._date = DateElement(parameter = parameter)
+            # return self._date
         elif parameterId == 3:
-            from watchFaceParser.models.gtr2.elements.activityElement import ActivityElement
-            self._activity = ActivityElement(parameter = parameter)
-            return self._activity
+            pass
+            # from watchFaceParser.models.gtr2.elements.activityElement import ActivityElement
+            # self._activity.append(ActivityElement(parameter = parameter))
+            # return self._activity
         else:
             print ("Unknown SystemElement",parameterId)
             return super(SystemElement, self).createChildForParameter(parameter)
