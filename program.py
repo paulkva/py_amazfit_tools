@@ -380,7 +380,7 @@ class Parser:
         for i in range(12):
             num = i + 1
             watchState = WatchState(
-                BatteryLevel = 100 - i * 10,
+                BatteryLevel = 0 if i >= 10 else (100 - i * 10),
                 Pulse = 60 + num * 12,
                 Steps = num * 1000,
                 Calories = num * 75,
