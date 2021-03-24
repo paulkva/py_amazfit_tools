@@ -25,14 +25,15 @@ class DigitalTimeDigitElement(ContainerElement):
     def getSeparator(self):
         return self._separator
 
-    def draw3(self, drawer, resources, state):
+    def draw4(self, drawer, resources, state, ampm):
         assert(type(resources) == list)
 
         if self.getSeparator():
             self.getSeparator().draw3(drawer, resources, state)
         if self.getDigit():
             if self._timeType == 0:
-                self.getDigit().draw4(drawer, resources, state.getTime().hour, 2)
+                hours = state.getTime().hour if not ampm else state.getTime().hour % 12
+                self.getDigit().draw4(drawer, resources, hours, 2)
             elif self._timeType == 1:
                 self.getDigit().draw4(drawer, resources, state.getTime().minute, 2)
             elif self._timeType == 2:
