@@ -1,5 +1,5 @@
 ﻿import logging
-
+from watchFaceParser.config import Config
 
 from watchFaceParser.models.gtr2.elements.basic.compositeElement import CompositeElement
 from watchFaceParser.models.gtr2.elements.common.multilangImageElement import MultilangImageElement
@@ -108,7 +108,7 @@ class ImageElement(CompositeElement):
         if multilangImage:
             if displayFormAnalog:
                 if int(number) <= multilangImage.getImageSet().getImagesCount():
-                    imageIndex = multilangImage.getImageSet().getImageIndex() + int(number) - 2
+                    imageIndex = multilangImage.getImageSet().getImageIndex() + int(number) - Config.getStartImageIndex() - 1
                     ar.append(images[imageIndex])
                     self.addTextWidth(images[imageIndex].getBitmap().size[0])
             else:
@@ -116,23 +116,23 @@ class ImageElement(CompositeElement):
                     kilometers = int(int(number) / 1000)
                     decimals = int(int(number) % 1000 / 10)
                     ar.extend(self.getImagesForNumber2(images, str(kilometers), multilangImage, paddingZero - 2))
-                    imageIndex = self.getDecimalPointImageIndex() - 1
+                    imageIndex = self.getDecimalPointImageIndex() - Config.getStartImageIndex()
                     ar.append(images[imageIndex])
                     self.addTextWidth(images[imageIndex].getBitmap().size[0])
                     ar.extend(self.getImagesForNumber2(images, str(decimals), multilangImage, 2))
                 elif self.getDelimiterImageIndex():
-                    imageIndex = self.getDelimiterImageIndex() - 1
+                    imageIndex = self.getDelimiterImageIndex() - Config.getStartImageIndex()
                     ar.append(images[imageIndex])
                     self.addTextWidth(images[imageIndex].getBitmap().size[0])
                     ar.extend(self.getImagesForNumber2(images, number, multilangImage, paddingZero))
                 else:
                     ar.extend(self.getImagesForNumber2(images, number, multilangImage, paddingZero))
         if multilangImageUnit:
-            imageIndex = multilangImageUnit.getImageSet().getImageIndex() - 1
+            imageIndex = multilangImageUnit.getImageSet().getImageIndex() - Config.getStartImageIndex()
             ar.append(images[imageIndex])
             self.addTextWidth(images[imageIndex].getBitmap().size[0])
         elif multilangImageUnitMile:
-            imageIndex = multilangImageUnitMile.getImageSet().getImageIndex() - 1
+            imageIndex = multilangImageUnitMile.getImageSet().getImageIndex() - Config.getStartImageIndex()
             ar.append(images[imageIndex])
             self.addTextWidth(images[imageIndex].getBitmap().size[0])
 
@@ -143,7 +143,7 @@ class ImageElement(CompositeElement):
         print(stringNumber)
         for digit in stringNumber:
             if int(digit) < multilangImage.getImageSet().getImagesCount():
-                imageIndex = multilangImage.getImageSet().getImageIndex() + int(digit) - 1
+                imageIndex = multilangImage.getImageSet().getImageIndex() + int(digit) - Config.getStartImageIndex()
                 ar.append(images[imageIndex])
                 self.addTextWidth(images[imageIndex].getBitmap().size[0])
         if len(stringNumber) < paddingZero:

@@ -1,4 +1,4 @@
-﻿from watchFaceParser.models.elements.common.clockHandElement import ClockHandElement
+﻿from watchFaceParser.models.gtr2.elements.common.clockHandElement import ClockHandElement
 
 class MinutesClockHandElement(ClockHandElement):
     def __init__(self, parameter, parent = None, name = None):
@@ -6,4 +6,6 @@ class MinutesClockHandElement(ClockHandElement):
 
     def draw3(self, drawer, resources, state):
         assert(type(resources) == list)
-        super(MinutesClockHandElement, self).draw4(drawer, resources, state.getTime().minute, 60)
+        value = state.getTime().minute
+        maxvalue = 60
+        super(MinutesClockHandElement, self).draw4(drawer, resources, value, maxvalue)

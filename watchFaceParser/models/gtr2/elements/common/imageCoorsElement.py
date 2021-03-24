@@ -30,6 +30,29 @@ class ImageCoordsElement(ContainerElement):
         temp = resources[image_index].getBitmap()
         drawer.paste(temp, (self.getCoordinates().getX(), self.getCoordinates().getY()), temp)
 
+    def draw2(self, drawer, images, angle, center = None):
+        x = self.getCoordinates().getX()
+        y = self.getCoordinates().getY()
+
+        image_index = self.getImageIndex()-Config.getStartImageIndex()
+
+        if angle is None:
+            temp = images[image_index].getBitmap()
+            drawer.paste(temp, (x,y), temp)
+        else:
+            bitmap = images[image_index].getBitmap()
+            from PIL import Image
+
+            temp = Image.new('RGBA', Config.getImageSize())
+            temp.paste(bitmap, (Config.getImageSizeHalf()[0] - x, Config.getImageSizeHalf()[1] - y), bitmap)
+            temp = temp.rotate(angle)
+
+            if center is None:
+                drawer.paste(temp, (0,0), temp)
+            else:
+                width, height = temp.size
+                drawer.paste(temp, ( int(center[0] - width / 2), int(center[1] - height / 2)), temp)
+
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
 
