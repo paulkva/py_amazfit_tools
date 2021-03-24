@@ -23,13 +23,16 @@ class DigitalDialFaceElement(ContainerElement):
     def draw3(self, drawer, images, state):
         assert(type(images) == list)
 
+        if self.getDigits():
+            for d in self.getDigits():
+                if self.getAm() or self.getPm():
+                    d.draw4(drawer, images, state, True )
+                else:
+                    d.draw4(drawer, images, state, False )
         if self.getAm():
             self.getAm().draw3(drawer, images, state)
         if self.getPm():
             self.getPm().draw3(drawer, images, state)
-        if self.getDigits():
-            for d in self.getDigits():
-                d.draw3(drawer, images, state)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
