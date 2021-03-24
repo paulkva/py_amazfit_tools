@@ -49,7 +49,7 @@ class ActivityElement(ContainerElement):
         elif self.getType() == 3 and state.getCalories():
             number = state.getCalories()
             maxNumber = 700
-            maxNumberLength = 5
+            maxNumberLength = 4
         elif self.getType() == 4 and state.getPulse():
             number = state.getPulse()
             maxNumber = 250
@@ -61,7 +61,7 @@ class ActivityElement(ContainerElement):
         elif self.getType() == 6 and state.getDistance(): # Distance
             number = state.getDistance() 
             maxNumber = state.getGoal() / 1000
-            maxNumberLength = 5
+            maxNumberLength = 4
         elif self.getType() == 7: # StandUp
             number = random.randint(0, 12)
             maxNumber = 12
@@ -69,8 +69,8 @@ class ActivityElement(ContainerElement):
         elif self.getType() == 8: # Weather
             # state.getCurrentWeather()
             # state.getCurrentTemperature()
-            number = state.getCurrentTemperature() 
-            maxNumber = 99
+            # number = state.getCurrentTemperature() 
+            # maxNumber = 99
             maxNumberLength = 2
         elif self.getType() == 9: # UVindex
             number = random.randint(0, 12)
@@ -85,6 +85,7 @@ class ActivityElement(ContainerElement):
             maxNumber = 100
             maxNumberLength = 3
         #TODO: other Activity implement
+        
         if number:
             if self.getDigits():
                 for d in self.getDigits():
