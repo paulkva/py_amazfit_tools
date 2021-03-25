@@ -25,6 +25,96 @@ class LinearSettingsElement(CompositeElement):
     def getEndY(self):
         return self._endY
 
+    def draw4(self, drawer, resources,
+              value,
+              total,
+              width,
+              foregroundImageIndex = None,
+              color = None,
+              flatness = None,
+              pointerImageIndex = None,
+              backgroundImageIndex = None
+              ):
+        assert (type(resources) == list)
+        assert (type(value) == int)
+        assert (type(total) == int)
+        if value > total:
+            value = total
+
+        sector_width = int((self.getEndX() - self.getStartX()) * value / total)
+
+        if foregroundImageIndex:
+            temp = resources[foregroundImageIndex - Config.getStartImageIndex()].getBitmap()
+            from PIL import Image
+            mask = Image.new('RGBA', temp.size, (0, 0, 0, 0))
+            from resources.image.color import Color
+            mask_color = Color.fromArgb(0xffffffff)
+
+            from PIL import ImageDraw
+            d = ImageDraw.Draw(mask)  # draw context
+
+            if flatness == 0:
+                # round edges
+                rect = ((width/2, 0), (sector_width-width/2, width))
+                d.rectangle(rect, fill=mask_color)
+                x = int(0)
+                y = int(width / 2)
+                d.ellipse((x, y - width / 2 + 1,
+                           x + width, y + width / 2 - 1), fill=mask_color)
+
+                x = int(sector_width)
+                y = int(width / 2)
+                d.ellipse((x - width, y - width / 2 + 1,
+                           x, y + width / 2 - 1), fill=mask_color)
+            elif flatness == 180:
+                rect = ((0, 0), (sector_width, width))
+                d.rectangle(rect, fill=mask_color)
+                pass
+
+            dX = int(self.getStartX())
+            dY = int(self.getStartY())
+            if backgroundImageIndex:
+                back = resources[backgroundImageIndex - Config.getStartImageIndex()].getBitmap()
+                drawer.paste(back, (dX, dY), back)
+            drawer.paste(temp, (dX, dY), mask)
+        else:
+            from PIL import ImageDraw
+            d = ImageDraw.Draw(drawer)  # draw context
+
+            dX = int(self.getStartX())
+            dY = int(self.getStartY())
+            if backgroundImageIndex:
+                back = resources[backgroundImageIndex - Config.getStartImageIndex()].getBitmap()
+                drawer.paste(back, (dX, dY), back)
+
+            rect = ((self.getStartX(), self.getStartY()),
+                    (self.getStartX() + sector_width, self.getStartY()+width))
+
+            d.rectangle(rect, fill=color)
+
+            if flatness == 0:
+                # round edges
+                x = int(self.getStartX())
+                y = int(self.getStartY() + (width / 2))
+                d.ellipse((x - width / 2 + 1, y - width / 2 + 1, x + width / 2 - 1,
+                           y + width / 2 - 1), fill=color)
+
+                x = int(self.getStartX() + sector_width )
+                y = int(self.getStartY() + (width / 2))
+                d.ellipse((x - width / 2 + 1, y - width / 2 + 1, x + width / 2 - 1,
+                           y + width / 2 - 1), fill=color)
+            elif flatness == 180:
+                pass
+
+        if pointerImageIndex:
+            pointer = resources[pointerImageIndex - Config.getStartImageIndex()].getBitmap()
+            pw, ph = pointer.size
+            px = int(self.getStartX() + sector_width - (pw / 2))
+            py = int(self.getStartY() + (width / 2) - (ph / 2))
+            drawer.paste(pointer, (px, py), pointer)
+
+
+
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
         if parameterId == 1:
