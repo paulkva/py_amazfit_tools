@@ -52,9 +52,9 @@ class WatchFace(ContainerElement):
             return self._system
         elif parameterId == 6:
             pass
-            #from watchFaceParser.models.gtr2.elements.widgetsElement import WidgetsElement
-            #self._widgets = WidgetsElement(parameter)
-            #return self._widgets
+            from watchFaceParser.models.gtr2.elements.widgetsElement import WidgetsElement
+            self._widgets = WidgetsElement(parameter)
+            return self._widgets
         elif parameterId == 10:
             pass
             #from watchFaceParser.models.gtr2.elements.screenIdleElement import ScreenIdleElement
