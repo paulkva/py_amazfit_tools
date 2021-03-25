@@ -2,8 +2,7 @@
 from watchFaceParser.config import Config
 
 from watchFaceParser.models.gtr2.elements.basic.compositeElement import CompositeElement
-from watchFaceParser.models.gtr2.elements.common.multilangImageElement import MultilangImageElement
-from watchFaceParser.helpers.drawerHelper import DrawerHelper
+
 
 class AngleSettingsElement(CompositeElement):
     def __init__(self, parameter, parent, name = None):
@@ -129,6 +128,12 @@ class AngleSettingsElement(CompositeElement):
             from PIL import ImageDraw
             d = ImageDraw.Draw(drawer)  # draw context
             radius = self._radius + int(width / 2)  # patch for PIL arc
+
+            dX = int(self.getX() - radius - int(width / 2))
+            dY = int(self.getY() - radius - int(width / 2))
+            if backgroundImageIndex:
+                back = resources[backgroundImageIndex - Config.getStartImageIndex()].getBitmap()
+                drawer.paste(back, (dX, dY), back)
 
             rect = (int(self.getX() - radius), int(self.getY() - radius),
                     int(self.getX() + radius), int(self.getY() + radius))
