@@ -60,7 +60,7 @@ class ClockHandElement(CompositeElement):
 
         if self.getPointer():
             angle = 360 - _startAngle - int(value * (_endAngle - _startAngle ) / total)
-            print ("value", value, "total",total,"angle",angle)
+            #print ("value", value, "total",total,"angle",angle)
             self.getPointer().draw2(
                 drawer, resources,
                 angle,

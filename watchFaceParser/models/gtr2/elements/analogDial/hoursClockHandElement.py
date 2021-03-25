@@ -1,5 +1,6 @@
 ﻿from watchFaceParser.models.gtr2.elements.common.clockHandElement import ClockHandElement
 
+
 class HoursClockHandElement(ClockHandElement):
     def __init__(self, parameter, parent = None, name = None):
         super(HoursClockHandElement, self).__init__(parameter = parameter, parent = parent, name = name)
