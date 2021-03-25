@@ -102,6 +102,8 @@ class ActivityElement(ContainerElement):
                 self.getPointerProgress().draw4(drawer, images, number, maxNumber)
             if self.getImageProgress():
                 self.getImageProgress().draw3(drawer, images, imageProgressState)
+            if self.getProgressBar():
+                self.getProgressBar().draw4(drawer, images, number, maxNumber)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
@@ -114,8 +116,9 @@ class ActivityElement(ContainerElement):
             self._pointerProgress = ClockHandElement(parameter = parameter, parent = self, name = 'PointerProgress')
             return self._pointerProgress
         elif parameterId == 3:
-            # ProgressBar
-            pass
+            from watchFaceParser.models.gtr2.elements.common.progressBarElement import ProgressBarElement
+            self._progressBar = ProgressBarElement(parameter = parameter, parent = self, name = 'ProgressBar')
+            return self._progressBar
         elif parameterId == 4:
             from watchFaceParser.models.gtr2.elements.common.imageProgressElement import ImageProgressElement
             self._imageProgress = ImageProgressElement(parameter=parameter, parent=self, name='ImageProgress')
