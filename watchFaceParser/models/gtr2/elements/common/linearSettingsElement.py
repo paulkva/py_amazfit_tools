@@ -95,7 +95,7 @@ class LinearSettingsElement(CompositeElement):
                 drawer.paste(back, (dX, dY), back)
 
             rect = ((self.getStartX(), self.getStartY()),
-                    (self.getStartX() + sector_width, self.getStartY()+width))
+                    (self.getStartX() + sector_width, self.getStartY()+width-1))
 
             if flatness == 0 or flatness is None:
                 # round edges
