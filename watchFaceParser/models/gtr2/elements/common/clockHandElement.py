@@ -1,6 +1,7 @@
 ﻿import logging
 
 from watchFaceParser.models.elements.basic.compositeElement import CompositeElement
+from watchFaceParser.config import Config
 
 class ClockHandElement(CompositeElement):
     def __init__(self, parameter, parent, name = None):
@@ -38,6 +39,16 @@ class ClockHandElement(CompositeElement):
     def draw4(self, drawer, resources, value, total):
         assert(type(resources) == list)
 
+        if value > total:
+            value = total
+            
+        if self.getScale():
+            dX = int(self.getScale().getCoordinates().getX())
+            dY = int(self.getScale().getCoordinates().getY())
+            scaleImageIndex = self.getScale().getImageSetForLang(2).getImageSet().getImageIndex()
+            temp = resources[scaleImageIndex - Config.getStartImageIndex()].getBitmap()
+            drawer.paste(temp, (dX, dY), temp)
+
         _startAngle = 0
         _endAngle = 360
         if self.getStartAngle():
@@ -49,13 +60,19 @@ class ClockHandElement(CompositeElement):
 
         if self.getPointer():
             angle = 360 - _startAngle - int(value * (_endAngle - _startAngle ) / total)
-            #print ("value", value, "total",total,"angle",angle)
+            print ("value", value, "total",total,"angle",angle)
             self.getPointer().draw2(
                 drawer, resources,
                 angle,
                 (self.getX(),
                  self.getY()))
 
+        if self.getCover():
+            dX = int(self.getCover().getCoordinates().getX())
+            dY = int(self.getCover().getCoordinates().getY())
+            coverImageIndex = self.getCover().getImageIndex()
+            temp = resources[coverImageIndex - Config.getStartImageIndex()].getBitmap()
+            drawer.paste(temp, (dX, dY), temp)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
