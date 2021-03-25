@@ -74,6 +74,7 @@ class ActivityElement(ContainerElement):
             maxNumberLength = 2
             imageProgressState = (number, maxNumber)
         elif self.getType() == 8: # Weather
+            # TODO: implement Weather activity
             # state.getCurrentWeather()
             # state.getCurrentTemperature()
             # number = state.getCurrentTemperature() 

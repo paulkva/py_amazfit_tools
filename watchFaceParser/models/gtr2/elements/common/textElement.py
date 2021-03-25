@@ -58,6 +58,7 @@ class TextElement(ContainerElement):
             return self._image
         elif parameterId == 2:
             # SystemFont
+            # TODO: SystemFont implement
             pass
         elif parameterId == 3:
             from watchFaceParser.models.gtr2.elements.basic.valueElement import ValueElement

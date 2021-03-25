@@ -48,6 +48,7 @@ class ImageElement(CompositeElement):
         self._delimiterImageIndex = None
         self._multilangImageUnitMile = []
         self._maxTextWidth = None
+        self._box = None
         super(ImageElement, self).__init__(parameters=None, parameter = parameter, parent = parent, name = name)
 
     def getX(self):
@@ -74,12 +75,16 @@ class ImageElement(CompositeElement):
     def getMultilangImageUnitMile(self) -> [MultilangImageElement]:
         return self._multilangImageUnitMile
 
-    def getBox(self, images, spacing):
+    def getBox(self):
+        return self._box
+
+    def setBox(self, images, spacing):
         (bitmapWidth, bitmapHeight) = DrawerHelper.calculateBounds(images, spacing)
         if bitmapWidth > self._maxTextWidth:
-            return Box(self._x, self._y, bitmapWidth, bitmapHeight)
+            self._box = Box(self._x, self._y, bitmapWidth, bitmapHeight)
         else:
-            return Box(self._x, self._y, self._maxTextWidth, bitmapHeight)
+            self._box = Box(self._x, self._y, self._maxTextWidth, bitmapHeight)
+        return self._box
 
 
     def addTextWidth(self, width):
@@ -95,7 +100,8 @@ class ImageElement(CompositeElement):
         if not displayFormAnalog:
             displayFormAnalog = False
         ar = self.getImagesForNumber(images, number, paddingZero, displayFormAnalog)
-        self.drawImages(drawer, ar, spacing, alignment, self.getBox(ar, spacing))
+        self.setBox(ar, spacing)
+        self.drawImages(drawer, ar, spacing, alignment, self.getBox())
 
     def getImagesForNumber(self, images, number, paddingZero, displayFormAnalog):
         ar = []
