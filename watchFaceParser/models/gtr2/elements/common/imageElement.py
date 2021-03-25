@@ -140,7 +140,6 @@ class ImageElement(CompositeElement):
 
     def getImagesForNumber2(self, images, stringNumber, multilangImage, paddingZero):
         ar = []
-        print(stringNumber)
         for digit in stringNumber:
             if int(digit) < multilangImage.getImageSet().getImagesCount():
                 imageIndex = multilangImage.getImageSet().getImageIndex() + int(digit) - Config.getStartImageIndex()
