@@ -390,6 +390,8 @@ class Parser:
                 Alarm = num > 3 and num < 8,
                 DoNotDisturb = num > 4 and num < 9,
                 CurrentTemperature = -15 + 2 * i,
+                Stand=num,
+                PAI=i*10
             )
 
             if num < 3:

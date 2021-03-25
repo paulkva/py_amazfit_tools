@@ -3,7 +3,7 @@ import datetime
 from watchFaceParser.models.weatherCondition import WeatherCondition
 
 class WatchState:
-    def __init__(self, BatteryLevel = 67, Pulse = 62, Steps = 14876, Calories = 764, Distance = 2367, Bluetooth = False, Unlocked = False, Alarm = False, DoNotDisturb = False, CurrentTemperature = -10, Stand = 3):
+    def __init__(self, BatteryLevel = 67, Pulse = 62, Steps = 14876, Calories = 764, Distance = 2367, Bluetooth = False, Unlocked = False, Alarm = False, DoNotDisturb = False, CurrentTemperature = -10, Stand = 3, PAI = 30):
         self._time = datetime.datetime.now().replace(hour = 10, minute = 10, second = 30)
         self._steps = Steps
         self._goal = 8000
@@ -16,6 +16,7 @@ class WatchState:
         self._alarm = Alarm
         self._doNotDisturb = DoNotDisturb
         self._stand = Stand
+        self._pai = PAI
 
         self._currentWeather = WeatherCondition.PartlyCloudy
         self._currentTemperature = CurrentTemperature
@@ -87,6 +88,12 @@ class WatchState:
     def setCurrentTemperature(self, n):
         self._currentTemperature = n
 
+    def getStand(self):
+        return self._stand
+
+    def getPai(self):
+        return self._pai
+
 
     def toJSON(self):
         return {
@@ -104,6 +111,7 @@ class WatchState:
             'CurrentWeather': self._currentWeather,
             'CurrentTemperature': self._currentTemperature,
             'Stand': self._stand,
+            'PAI': self._pai,
         }
 
     def datetimeToJson(self):
@@ -128,5 +136,6 @@ class WatchState:
         w._currentWeather = j['CurrentWeather']
         w._currentTemperature = j['CurrentTemperature']
         w._stand = j['Stand']
+        w._pai = j['Pai']
         return w
 
