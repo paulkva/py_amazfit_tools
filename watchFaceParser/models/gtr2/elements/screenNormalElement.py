@@ -36,9 +36,9 @@ class ScreenNormalElement(ContainerElement):
             return self._analogdialface
         elif parameterId == 3:
             pass
-            #from watchFaceParser.models.gtr2.elements.progressDialFaceElement import ProgressDialFaceElement
-            #self._progressdialface = ProgressDialFaceElement(parameter = parameter, parent = self, name = 'ProgressDialFace')
-            #return self._progressdialface
+            from watchFaceParser.models.gtr2.elements.progressDialFaceElement import ProgressDialFaceElement
+            self._progressdialface = ProgressDialFaceElement(parameter = parameter, parent = self, name = 'ProgressDialFace')
+            return self._progressdialface
         else:
             print ("Unknown ScreenNormalElement",parameterId)
             return super(ScreenNormalElement, self).createChildForParameter(parameter)
