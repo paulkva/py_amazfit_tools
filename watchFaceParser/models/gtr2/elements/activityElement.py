@@ -59,17 +59,17 @@ class ActivityElement(ContainerElement):
             maxNumber = 250
             maxNumberLength = 3
             imageProgressState = (number, maxNumber)
-        elif self.getType() == 5 and state.getCalories() is not None: # PAI
-            number = state.getCalories() 
-            maxNumber = 700
+        elif self.getType() == 5 and state.getPai() is not None: # PAI
+            number = state.getPai()
+            maxNumber = 100
             maxNumberLength = 3
             imageProgressState = (number, maxNumber)
         elif self.getType() == 6 and state.getDistance() is not None: # Distance
             number = state.getDistance() 
             maxNumber = state.getGoal() / 1000
             maxNumberLength = 4
-        elif self.getType() == 7: # StandUp
-            number = random.randint(0, 12)
+        elif self.getType() == 7 and state.getStand() is not None: # StandUp
+            number = state.getStand()
             maxNumber = 12
             maxNumberLength = 2
             imageProgressState = (number, maxNumber)

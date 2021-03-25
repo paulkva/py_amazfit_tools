@@ -63,7 +63,7 @@ class AngleSettingsElement(CompositeElement):
             d.arc(rect, start=-90 + self.getStartAngle(), end=-90 + self.getStartAngle() + sector_angle,
                   fill=mask_color, width=width)
 
-            if flatness == 180:
+            if flatness == 180 and value:
                 # round edges
                 import math
                 x = int(temp.size[0] / 2 + (radius - width / 2) * math.cos(
@@ -79,7 +79,7 @@ class AngleSettingsElement(CompositeElement):
                     math.pi * (self.getStartAngle() + sector_angle - 90) / 180))
                 d.ellipse((x - width / 2 + 1, y - width / 2 + 1, x + width / 2 - 1,
                            y + width / 2 - 1), fill=mask_color)
-            elif flatness == 90:
+            elif flatness == 90 and value:
                 # spike
                 import math
                 x1 = int(temp.size[0] / 2 + (radius - width) * math.cos(
@@ -115,7 +115,7 @@ class AngleSettingsElement(CompositeElement):
                             self.getStartAngle() + sector_angle + width * 360 / (
                                 2 * math.pi * (radius - width / 2)) - 90) / 180))
                 d.polygon([(x1, y1), (x2, y2), (x3, y3)], fill=mask_color)
-            elif flatness == 0:
+            elif flatness == 0 and value:
                 pass
             dX = int(self.getX() - radius - int(width / 2))
             dY = int(self.getY() - radius - int(width / 2))
@@ -141,7 +141,7 @@ class AngleSettingsElement(CompositeElement):
             d.arc(rect, start=-90 + self.getStartAngle(), end=-90 + self.getStartAngle() + sector_angle,
                   fill=color, width=width)
 
-            if flatness == 180:
+            if flatness == 180 and value:
                 # round edges
                 import math
                 x = int(self.getX() + (radius - width / 2) * math.cos(
@@ -157,7 +157,7 @@ class AngleSettingsElement(CompositeElement):
                     math.pi * (self.getStartAngle() + sector_angle - 90) / 180))
                 d.ellipse((x - width / 2 + 1, y - width / 2 + 1, x + width / 2 - 1,
                            y + width / 2 - 1), fill=color)
-            elif flatness == 90:
+            elif flatness == 90 and value:
                 # spike
                 import math
                 x1 = int(self.getX() + (radius - width) * math.cos(

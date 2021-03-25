@@ -53,20 +53,21 @@ class LinearSettingsElement(CompositeElement):
             from PIL import ImageDraw
             d = ImageDraw.Draw(mask)  # draw context
 
-            if flatness == 0:
+            if flatness == 0 or flatness is None:
                 # round edges
-                rect = ((width/2, 0), (sector_width-width/2, width))
-                d.rectangle(rect, fill=mask_color)
-                x = int(0)
-                y = int(width / 2)
-                d.ellipse((x, y - width / 2 + 1,
-                           x + width, y + width / 2 - 1), fill=mask_color)
+                if value:
+                    rect = ((width/2, 0), (sector_width-width/2, width))
+                    d.rectangle(rect, fill=mask_color)
+                    x = int(0)
+                    y = int(width / 2)
+                    d.ellipse((x, y - width / 2 + 1,
+                               x + width, y + width / 2 - 1), fill=mask_color)
 
-                x = int(sector_width)
-                y = int(width / 2)
-                d.ellipse((x - width, y - width / 2 + 1,
-                           x, y + width / 2 - 1), fill=mask_color)
-            elif flatness == 180:
+                    x = int(sector_width)
+                    y = int(width / 2)
+                    d.ellipse((x - width, y - width / 2 + 1,
+                               x, y + width / 2 - 1), fill=mask_color)
+            else:
                 rect = ((0, 0), (sector_width, width))
                 d.rectangle(rect, fill=mask_color)
                 pass
@@ -77,6 +78,12 @@ class LinearSettingsElement(CompositeElement):
                 back = resources[backgroundImageIndex - Config.getStartImageIndex()].getBitmap()
                 drawer.paste(back, (dX, dY), back)
             drawer.paste(temp, (dX, dY), mask)
+            if pointerImageIndex:
+                pointer = resources[pointerImageIndex - Config.getStartImageIndex()].getBitmap()
+                pw, ph = pointer.size
+                px = int(self.getStartX() + sector_width - pw)
+                py = int(self.getStartY() + (width / 2) - (ph / 2))
+                drawer.paste(pointer, (px, py), pointer)
         else:
             from PIL import ImageDraw
             d = ImageDraw.Draw(drawer)  # draw context
@@ -90,30 +97,22 @@ class LinearSettingsElement(CompositeElement):
             rect = ((self.getStartX(), self.getStartY()),
                     (self.getStartX() + sector_width, self.getStartY()+width))
 
-            d.rectangle(rect, fill=color)
-
-            if flatness == 0:
+            if flatness == 0 or flatness is None:
                 # round edges
-                x = int(self.getStartX())
-                y = int(self.getStartY() + (width / 2))
-                d.ellipse((x - width / 2 + 1, y - width / 2 + 1, x + width / 2 - 1,
-                           y + width / 2 - 1), fill=color)
+                if value:
+                    d.rectangle(rect, fill=color)
+                    x = int(self.getStartX())
+                    y = int(self.getStartY() + (width / 2))
+                    d.ellipse((x - width / 2 + 1, y - width / 2 + 1, x + width / 2 - 1,
+                               y + width / 2 - 1), fill=color)
 
-                x = int(self.getStartX() + sector_width )
-                y = int(self.getStartY() + (width / 2))
-                d.ellipse((x - width / 2 + 1, y - width / 2 + 1, x + width / 2 - 1,
-                           y + width / 2 - 1), fill=color)
-            elif flatness == 180:
+                    x = int(self.getStartX() + sector_width )
+                    y = int(self.getStartY() + (width / 2))
+                    d.ellipse((x - width / 2 + 1, y - width / 2 + 1, x + width / 2 - 1,
+                               y + width / 2 - 1), fill=color)
+            elif flatness == 180 and value:
+                d.rectangle(rect, fill=color)
                 pass
-
-        if pointerImageIndex:
-            pointer = resources[pointerImageIndex - Config.getStartImageIndex()].getBitmap()
-            pw, ph = pointer.size
-            px = int(self.getStartX() + sector_width - (pw / 2))
-            py = int(self.getStartY() + (width / 2) - (ph / 2))
-            drawer.paste(pointer, (px, py), pointer)
-
-
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
