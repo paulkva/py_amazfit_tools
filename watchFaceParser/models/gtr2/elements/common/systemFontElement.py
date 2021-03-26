@@ -43,7 +43,7 @@ class SystemFontElement(ContainerElement):
         font_path = os.path.dirname(os.path.realpath(__file__))
         font_path = os.path.abspath(os.path.join(font_path, os.pardir, os.pardir, os.pardir, os.pardir, os.pardir))
         font_path = os.path.abspath(os.path.join(font_path, "font", "OpenSans-Regular.ttf"))
-        print(font_path)
+        #print(font_path)
 
         # TODO: implement FontRotate
 

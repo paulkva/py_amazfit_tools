@@ -112,7 +112,13 @@ class LinearSettingsElement(CompositeElement):
                                y + width / 2 - 1), fill=color)
             elif flatness == 180 and value:
                 d.rectangle(rect, fill=color)
-                pass
+
+            if pointerImageIndex:
+                pointer = resources[pointerImageIndex - Config.getStartImageIndex()].getBitmap()
+                pw, ph = pointer.size
+                px = int(self.getStartX() + sector_width - (pw/2))
+                py = int(self.getStartY() + (width / 2) - (ph / 2))
+                drawer.paste(pointer, (px, py), pointer)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

@@ -60,23 +60,39 @@ class AngleSettingsElement(CompositeElement):
             rect = (0, 0,
                     int(radius * 2), int(radius * 2))
 
-            d.arc(rect, start=-90 + self.getStartAngle(), end=-90 + self.getStartAngle() + sector_angle,
+            start = -90 + self.getStartAngle()
+            end = -90 + self.getStartAngle() + sector_angle
+
+            while start < 0:
+                start = 360 + start
+
+            while end < 0:
+                end = 360 + end
+
+            if start > end:
+                tt = end
+                end = start
+                start = tt
+
+            d.arc(rect,
+                  start,
+                  end,
                   fill=mask_color, width=width)
 
             if flatness == 0 and value:
                 # round edges
                 import math
-                x = int(temp.size[0] / 2 + (radius - width / 2) * math.cos(
-                    math.pi * (self.getStartAngle() - 90) / 180))
-                y = int(temp.size[1] / 2 + (radius - width / 2) * math.sin(
-                    math.pi * (self.getStartAngle() - 90) / 180))
+                x = int(temp.size[0] / 2 + (radius - width / 2) *
+                        math.cos(math.pi * (self.getStartAngle() - 90) / 180))
+                y = int(temp.size[1] / 2 + (radius - width / 2) *
+                        math.sin(math.pi * (self.getStartAngle() - 90) / 180))
                 d.ellipse((x - width / 2 + 1, y - width / 2 + 1, x + width / 2 - 1,
                            y + width / 2 - 1), fill=mask_color)
 
-                x = int(temp.size[0] / 2 + (radius - width / 2) * math.cos(
-                    math.pi * (self.getStartAngle() + sector_angle - 90) / 180))
-                y = int(temp.size[1] / 2 + (radius - width / 2) * math.sin(
-                    math.pi * (self.getStartAngle() + sector_angle - 90) / 180))
+                x = int(temp.size[0] / 2 + (radius - width / 2) *
+                        math.cos(math.pi * (self.getStartAngle() + sector_angle - 90) / 180))
+                y = int(temp.size[1] / 2 + (radius - width / 2) *
+                        math.sin(math.pi * (self.getStartAngle() + sector_angle - 90) / 180))
                 d.ellipse((x - width / 2 + 1, y - width / 2 + 1, x + width / 2 - 1,
                            y + width / 2 - 1), fill=mask_color)
             elif flatness == 90 and value:
@@ -87,8 +103,10 @@ class AngleSettingsElement(CompositeElement):
                 y1 = int(temp.size[1] / 2 + (radius - width) * math.sin(
                     math.pi * (self.getStartAngle() - 90) / 180))
 
-                x2 = int(temp.size[0] / 2 + radius * math.cos(math.pi * (self.getStartAngle() - 90) / 180))
-                y2 = int(temp.size[1] / 2 + radius * math.sin(math.pi * (self.getStartAngle() - 90) / 180))
+                x2 = int(temp.size[0] / 2 + radius *
+                         math.cos(math.pi * (self.getStartAngle() - 90) / 180))
+                y2 = int(temp.size[1] / 2 + radius *
+                         math.sin(math.pi * (self.getStartAngle() - 90) / 180))
 
                 x3 = int(temp.size[0] / 2 + (radius - width / 2) * math.cos(math.pi * (
                             self.getStartAngle() - width * 360 / (
@@ -104,9 +122,11 @@ class AngleSettingsElement(CompositeElement):
                     math.pi * (self.getStartAngle() + sector_angle - 90) / 180))
 
                 x2 = int(
-                    temp.size[0] / 2 + radius * math.cos(math.pi * (self.getStartAngle() + sector_angle - 90) / 180))
+                    temp.size[0] / 2 + radius *
+                    math.cos(math.pi * (self.getStartAngle() + sector_angle - 90) / 180))
                 y2 = int(
-                    temp.size[1] / 2 + radius * math.sin(math.pi * (self.getStartAngle() + sector_angle - 90) / 180))
+                    temp.size[1] / 2 + radius *
+                    math.sin(math.pi * (self.getStartAngle() + sector_angle - 90) / 180))
 
                 x3 = int(temp.size[0] / 2 + (radius - width / 2) * math.cos(math.pi * (
                             self.getStartAngle() + sector_angle + width * 360 / (
@@ -138,41 +158,44 @@ class AngleSettingsElement(CompositeElement):
             rect = (int(self.getX() - radius), int(self.getY() - radius),
                     int(self.getX() + radius), int(self.getY() + radius))
 
-            d.arc(rect, start=-90 + self.getStartAngle(), end=-90 + self.getStartAngle() + sector_angle,
-                  fill=color, width=width)
+            d.arc(rect,
+                  start=-90 + self.getStartAngle(),
+                  end=-90 + self.getStartAngle() + sector_angle,
+                  fill=color,
+                  width=width)
 
             if flatness == 0 and value:
                 # round edges
                 import math
-                x = int(self.getX() + (radius - width / 2) * math.cos(
-                    math.pi * (self.getStartAngle() - 90) / 180))
-                y = int(self.getY() + (radius - width / 2) * math.sin(
-                    math.pi * (self.getStartAngle() - 90) / 180))
+                x = int(self.getX() + (radius - width / 2) *
+                        math.cos(math.pi * (self.getStartAngle() - 90) / 180))
+                y = int(self.getY() + (radius - width / 2) *
+                        math.sin(math.pi * (self.getStartAngle() - 90) / 180))
                 d.ellipse((x - width / 2 + 1, y - width / 2 + 1, x + width / 2 - 1,
                            y + width / 2 - 1), fill=color)
 
-                x = int(self.getX() + (radius - width / 2) * math.cos(
-                    math.pi * (self.getStartAngle() + sector_angle - 90) / 180))
-                y = int(self.getY() + (radius - width / 2) * math.sin(
-                    math.pi * (self.getStartAngle() + sector_angle - 90) / 180))
+                x = int(self.getX() + (radius - width / 2) *
+                        math.cos(math.pi * (self.getStartAngle() + sector_angle - 90) / 180))
+                y = int(self.getY() + (radius - width / 2) *
+                        math.sin(math.pi * (self.getStartAngle() + sector_angle - 90) / 180))
                 d.ellipse((x - width / 2 + 1, y - width / 2 + 1, x + width / 2 - 1,
                            y + width / 2 - 1), fill=color)
             elif flatness == 90 and value:
                 # spike
                 import math
-                x1 = int(self.getX() + (radius - width) * math.cos(
-                    math.pi * (self.getStartAngle() - 90) / 180))
-                y1 = int(self.getY() + (radius - width) * math.sin(
-                    math.pi * (self.getStartAngle() - 90) / 180))
+                x1 = int(self.getX() + (radius - width) *
+                         math.cos(math.pi * (self.getStartAngle() - 90) / 180))
+                y1 = int(self.getY() + (radius - width) *
+                         math.sin(math.pi * (self.getStartAngle() - 90) / 180))
 
                 x2 = int(self.getX() + radius * math.cos(math.pi * (self.getStartAngle() - 90) / 180))
                 y2 = int(self.getY() + radius * math.sin(math.pi * (self.getStartAngle() - 90) / 180))
 
-                x3 = int(self.getX() + (radius - width / 2) * math.cos(math.pi * (
-                            self.getStartAngle() - width * 360 / (
+                x3 = int(self.getX() + (radius - width / 2) *
+                         math.cos(math.pi * (self.getStartAngle() - width * 360 / (
                                 2 * math.pi * (radius - width / 2)) - 90) / 180))
-                y3 = int(self.getY() + (radius - width / 2) * math.sin(math.pi * (
-                            self.getStartAngle() - width * 360 / (
+                y3 = int(self.getY() + (radius - width / 2) *
+                         math.sin(math.pi * (self.getStartAngle() - width * 360 / (
                                 2 * math.pi * (radius - width / 2)) - 90) / 180))
                 d.polygon([(x1, y1), (x2, y2), (x3, y3)], fill=color)
 
@@ -181,14 +204,16 @@ class AngleSettingsElement(CompositeElement):
                 y1 = int(self.getY() + (radius - width) * math.sin(
                     math.pi * (self.getStartAngle() + sector_angle - 90) / 180))
 
-                x2 = int(self.getX() + radius * math.cos(math.pi * (self.getStartAngle() + sector_angle - 90) / 180))
-                y2 = int(self.getY() + radius * math.sin(math.pi * (self.getStartAngle() + sector_angle - 90) / 180))
+                x2 = int(self.getX() + radius *
+                         math.cos(math.pi * (self.getStartAngle() + sector_angle - 90) / 180))
+                y2 = int(self.getY() + radius *
+                         math.sin(math.pi * (self.getStartAngle() + sector_angle - 90) / 180))
 
-                x3 = int(self.getX() + (radius - width / 2) * math.cos(math.pi * (
-                            self.getStartAngle() + sector_angle + width * 360 / (
+                x3 = int(self.getX() + (radius - width / 2) *
+                         math.cos(math.pi * (self.getStartAngle() + sector_angle + width * 360 / (
                                 2 * math.pi * (radius - width / 2)) - 90) / 180))
-                y3 = int(self.getY() + (radius - width / 2) * math.sin(math.pi * (
-                            self.getStartAngle() + sector_angle + width * 360 / (
+                y3 = int(self.getY() + (radius - width / 2) *
+                         math.sin(math.pi * (self.getStartAngle() + sector_angle + width * 360 / (
                                 2 * math.pi * (radius - width / 2)) - 90) / 180))
                 d.polygon([(x1, y1), (x2, y2), (x3, y3)], fill=color)
             elif flatness == 180:

@@ -42,70 +42,67 @@ class ActivityElement(ContainerElement):
         max_number_length = 1
         image_progress_state = None
 
-        from watchFaceParser.models.gtr2.activityType import ActivityType
-        activity_flag = ActivityType(self.getType())
-
-        if activity_flag.hasFlag(ActivityType.Battery) and state.getBatteryLevel() is not None:
+        if self.getType() == 1 and state.getBatteryLevel() is not None:
             number = state.getBatteryLevel()
             max_number = 100
             max_number_length = 3
             image_progress_state = ( number, max_number)
-        elif activity_flag.hasFlag(ActivityType.Steps) and state.getSteps() is not None:
+        elif self.getType() == 2 and state.getSteps() is not None:
             number = state.getSteps()
             max_number = state.getGoal()
             max_number_length = 5
             image_progress_state = (number, max_number)
-        elif activity_flag.hasFlag(ActivityType.Calories) and state.getCalories() is not None:
+        elif self.getType() == 3 and state.getCalories() is not None:
             number = state.getCalories()
             max_number = 700
             max_number_length = 4
             image_progress_state = (number, max_number)
-        elif activity_flag.hasFlag(ActivityType.HeartRate) and state.getPulse() is not None:
+        elif self.getType() == 4 and state.getPulse() is not None:
             number = state.getPulse()
             max_number = 250
             max_number_length = 3
             image_progress_state = (number, max_number)
-        elif activity_flag.hasFlag(ActivityType.PAI) and state.getPai() is not None:
+        elif self.getType() == 5 and state.getPai() is not None:
             number = state.getPai()
             max_number = 100
             max_number_length = 3
             image_progress_state = (number, max_number)
-        elif activity_flag.hasFlag(ActivityType.Distance) and state.getDistance() is not None:
+        elif self.getType() == 6 and state.getDistance() is not None:
             number = state.getDistance() 
             max_number = state.getGoal() / 1000
             max_number_length = 4
-        elif activity_flag.hasFlag(ActivityType.StandUp) and state.getStand() is not None:
+        elif self.getType() == 7 and state.getStand() is not None:
             number = state.getStand()
             max_number = 12
             max_number_length = 2
             image_progress_state = (number, max_number)
-        elif activity_flag.hasFlag(ActivityType.Weather):
+        elif self.getType() == 8:
             number = state.getCurrentTemperature() 
             max_number = 99
             image_progress_state = (state.getCurrentWeather(), 29)
             max_number_length = 2
-        elif activity_flag.hasFlag(ActivityType.UVindex):
+        elif self.getType() == 9:
             number = state.getUVindex()
             max_number = 12
             max_number_length = 2
-        elif activity_flag.hasFlag(ActivityType.AirQuality):
+        elif self.getType() == 10:
             number = random.randint(0, 500)
             max_number = 500
             max_number_length = 3
-        elif activity_flag.hasFlag(ActivityType.Humidity):
+        elif self.getType() == 11:
             number = state.getHumidity()
             max_number = 100
             max_number_length = 3
-        elif activity_flag.hasFlag(ActivityType.Sunrise):
+        elif self.getType() == 12:
             #number = random.randint(1, 2)
             #max_number = 2
             #max_number_length = 1
             image_progress_state = (random.randint(1, 2), 29)
-        elif activity_flag.hasFlag(ActivityType.WindForce):
+        elif self.getType() == 13:
             number = random.randint(1, 12)
             max_number = 12
             max_number_length = 2
-        elif activity_flag.hasFlag(ActivityType.AirPressure):
+        elif self.getType() == 15:
             number = random.randint(1, 999)
             max_number = 999
             max_number_length = 3

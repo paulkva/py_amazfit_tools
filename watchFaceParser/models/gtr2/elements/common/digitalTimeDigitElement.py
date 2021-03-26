@@ -32,14 +32,12 @@ class DigitalTimeDigitElement(ContainerElement):
             self.getSeparator().draw3(drawer, resources, state)
         if self.getDigit():
             # TODO: implement Follow type
-            from watchFaceParser.models.gtr2.timeType import TimeType
-            timetype_flag = TimeType(self._timeType)
             if self._timeType is None or self._timeType == 0:
                 hours = state.getTime().hour if not ampm else state.getTime().hour % 12
                 self.getDigit().draw4(drawer, resources, hours, 2)
-            elif timetype_flag.hasFlag(TimeType.Minute):
+            elif self._timeType == 1:
                 self.getDigit().draw4(drawer, resources, state.getTime().minute, 2)
-            elif timetype_flag.hasFlag(TimeType.Second):
+            elif self._timeType == 2:
                 self.getDigit().draw4(drawer, resources, state.getTime().second, 2)
 
     def createChildForParameter(self, parameter):

@@ -23,13 +23,21 @@ class WatchFace(ContainerElement):
     def getSystem(self):
         return self._system
 
-
     def getWidgets(self):
         return self._widgets
 
-
     def getScreenIdle(self):
         return self._screenidle
+
+    def draw3(self, drawer, images, state):
+        if self.getBackground():
+            self.getBackground().draw3(drawer, images, state)
+        if self.getSystem():
+            self.getSystem().draw3(drawer, images, state)
+        if self.getWidgets():
+            self.getWidgets().draw3(drawer, images, state)
+        if self.getDialFace():
+            self.getDialFace().draw3(drawer, images, state)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
