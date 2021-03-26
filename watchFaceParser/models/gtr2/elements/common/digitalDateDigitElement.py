@@ -31,11 +31,13 @@ class DigitalDateDigitElement(ContainerElement):
         if self.getSeparator():
             self.getSeparator().draw3(drawer, resources, state)
         if self.getDigit():
-            if self._dateType == 0:
+            from watchFaceParser.models.gtr2.dateType import DateType
+            datetype_flag = DateType(self._dateType)
+            if self._dateType is None or datetype_flag.hasFlag(DateType.Year):
                 self.getDigit().draw4(drawer, resources, state.getTime().year, 4)
-            elif self._dateType == 1:
+            if datetype_flag.hasFlag(DateType.Month):
                 self.getDigit().draw4(drawer, resources, state.getTime().month, 2)
-            elif self._dateType == 2:
+            if datetype_flag.hasFlag(DateType.Day):
                 self.getDigit().draw4(drawer, resources, state.getTime().day, 2)
 
     def createChildForParameter(self, parameter):
