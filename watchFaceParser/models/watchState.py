@@ -3,7 +3,7 @@ import datetime
 from watchFaceParser.models.weatherCondition import WeatherCondition
 
 class WatchState:
-    def __init__(self, BatteryLevel = 67, Pulse = 62, Steps = 14876, Calories = 764, Distance = 2367, Bluetooth = False, Unlocked = False, Alarm = False, DoNotDisturb = False, CurrentTemperature = -10, Stand = 3, PAI = 30):
+    def __init__(self, BatteryLevel = 67, Pulse = 62, Steps = 14876, Calories = 764, Distance = 2367, Bluetooth = False, Unlocked = False, Alarm = False, DoNotDisturb = False, CurrentTemperature = -10, Stand = 3, PAI = 30, Humidity = 50, UVindex = 5, AirQuality = 5):
         self._time = datetime.datetime.now().replace(hour = 10, minute = 10, second = 30)
         self._steps = Steps
         self._goal = 8000
@@ -17,6 +17,9 @@ class WatchState:
         self._doNotDisturb = DoNotDisturb
         self._stand = Stand
         self._pai = PAI
+        self._humidity = Humidity
+        self._uvindex = UVindex
+        self._airquality = AirQuality
 
         self._currentWeather = WeatherCondition.PartlyCloudy
         self._currentTemperature = CurrentTemperature
@@ -94,6 +97,14 @@ class WatchState:
     def getPai(self):
         return self._pai
 
+    def getHumidity(self):
+        return  self._humidity
+
+    def getUVindex(self):
+        return  self._uvindex
+
+    def getAirQuality(self):
+        return self._airquality
 
     def toJSON(self):
         return {
@@ -112,6 +123,9 @@ class WatchState:
             'CurrentTemperature': self._currentTemperature,
             'Stand': self._stand,
             'PAI': self._pai,
+            'Humidity': self._humidity,
+            'UVindex': self._uvindex,
+            'AirQuality': self._airquality
         }
 
     def datetimeToJson(self):
@@ -137,5 +151,8 @@ class WatchState:
         w._currentTemperature = j['CurrentTemperature']
         w._stand = j['Stand']
         w._pai = j['Pai']
+        w._humidity = j['Humidity']
+        w._uvindex = j['UVindex']
+        w._airquality = j['AirQuality']
         return w
 

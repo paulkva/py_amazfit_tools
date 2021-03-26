@@ -32,76 +32,95 @@ class ActivityElement(ContainerElement):
     def getIcon(self):
         return self._icon
 
-    def draw3(self, drawer, images, state):
+    from watchFaceParser.models.watchState import WatchState
+
+    def draw3(self, drawer, images, state: WatchState):
         if self.getIcon():
             self.getIcon().draw3(drawer, images, None)
         number = None
-        maxNumber = None
-        maxNumberLength = 1
-        imageProgressState = None
-        if self.getType() == 1 and state.getBatteryLevel() is not None:
+        max_number = None
+        max_number_length = 1
+        image_progress_state = None
+
+        from watchFaceParser.models.gtr2.activityType import ActivityType
+        activity_flag = ActivityType(self.getType())
+
+        if activity_flag.hasFlag(ActivityType.Battery) and state.getBatteryLevel() is not None:
             number = state.getBatteryLevel()
-            maxNumber = 100
-            maxNumberLength = 3
-            imageProgressState = ( number, maxNumber)
-        elif self.getType() == 2 and state.getSteps() is not None:
+            max_number = 100
+            max_number_length = 3
+            image_progress_state = ( number, max_number)
+        elif activity_flag.hasFlag(ActivityType.Steps) and state.getSteps() is not None:
             number = state.getSteps()
-            maxNumber = state.getGoal()
-            maxNumberLength = 5
-            imageProgressState = (number, maxNumber)
-        elif self.getType() == 3 and state.getCalories() is not None:
+            max_number = state.getGoal()
+            max_number_length = 5
+            image_progress_state = (number, max_number)
+        elif activity_flag.hasFlag(ActivityType.Calories) and state.getCalories() is not None:
             number = state.getCalories()
-            maxNumber = 700
-            maxNumberLength = 4
-            imageProgressState = (number, maxNumber)
-        elif self.getType() == 4 and state.getPulse() is not None:
+            max_number = 700
+            max_number_length = 4
+            image_progress_state = (number, max_number)
+        elif activity_flag.hasFlag(ActivityType.HeartRate) and state.getPulse() is not None:
             number = state.getPulse()
-            maxNumber = 250
-            maxNumberLength = 3
-            imageProgressState = (number, maxNumber)
-        elif self.getType() == 5 and state.getPai() is not None: # PAI
+            max_number = 250
+            max_number_length = 3
+            image_progress_state = (number, max_number)
+        elif activity_flag.hasFlag(ActivityType.PAI) and state.getPai() is not None:
             number = state.getPai()
-            maxNumber = 100
-            maxNumberLength = 3
-            imageProgressState = (number, maxNumber)
-        elif self.getType() == 6 and state.getDistance() is not None: # Distance
+            max_number = 100
+            max_number_length = 3
+            image_progress_state = (number, max_number)
+        elif activity_flag.hasFlag(ActivityType.Distance) and state.getDistance() is not None:
             number = state.getDistance() 
-            maxNumber = state.getGoal() / 1000
-            maxNumberLength = 4
-        elif self.getType() == 7 and state.getStand() is not None: # StandUp
+            max_number = state.getGoal() / 1000
+            max_number_length = 4
+        elif activity_flag.hasFlag(ActivityType.StandUp) and state.getStand() is not None:
             number = state.getStand()
-            maxNumber = 12
-            maxNumberLength = 2
-            imageProgressState = (number, maxNumber)
-        elif self.getType() == 8: # Weather
+            max_number = 12
+            max_number_length = 2
+            image_progress_state = (number, max_number)
+        elif activity_flag.hasFlag(ActivityType.Weather):
             number = state.getCurrentTemperature() 
-            maxNumber = 99
-            imageProgressState = (state.getCurrentWeather(), 29)
-            maxNumberLength = 2
-        elif self.getType() == 9: # UVindex
-            number = random.randint(0, 12)
-            maxNumber = 12
-            maxNumberLength = 2
-        elif self.getType() == 10: # AirQuality
+            max_number = 99
+            image_progress_state = (state.getCurrentWeather(), 29)
+            max_number_length = 2
+        elif activity_flag.hasFlag(ActivityType.UVindex):
+            number = state.getUVindex()
+            max_number = 12
+            max_number_length = 2
+        elif activity_flag.hasFlag(ActivityType.AirQuality):
             number = random.randint(0, 500)
-            maxNumber = 500
-            maxNumberLength = 3
-        elif self.getType() == 11: # Humidity
-            number = random.randint(0, 100)
-            maxNumber = 100
-            maxNumberLength = 3
+            max_number = 500
+            max_number_length = 3
+        elif activity_flag.hasFlag(ActivityType.Humidity):
+            number = state.getHumidity()
+            max_number = 100
+            max_number_length = 3
+        elif activity_flag.hasFlag(ActivityType.Sunrise):
+            #number = random.randint(1, 2)
+            #max_number = 2
+            #max_number_length = 1
+            image_progress_state = (random.randint(1, 2), 29)
+        elif activity_flag.hasFlag(ActivityType.WindForce):
+            number = random.randint(1, 12)
+            max_number = 12
+            max_number_length = 2
+        elif activity_flag.hasFlag(ActivityType.AirPressure):
+            number = random.randint(1, 999)
+            max_number = 999
+            max_number_length = 3
         #TODO: other Activity implement
-        
+
         if number is not None:
             if self.getDigits():
                 for d in self.getDigits():
-                    d.draw4(drawer, images, number, maxNumberLength)
+                    d.draw4(drawer, images, number, max_number_length)
             if self.getPointerProgress():
-                self.getPointerProgress().draw4(drawer, images, number, maxNumber)
+                self.getPointerProgress().draw4(drawer, images, number, max_number)
             if self.getImageProgress():
-                self.getImageProgress().draw3(drawer, images, imageProgressState)
+                self.getImageProgress().draw3(drawer, images, image_progress_state)
             if self.getProgressBar():
-                self.getProgressBar().draw4(drawer, images, number, maxNumber)
+                self.getProgressBar().draw4(drawer, images, number, max_number)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

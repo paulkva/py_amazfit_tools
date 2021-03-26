@@ -391,7 +391,10 @@ class Parser:
                 DoNotDisturb = num > 4 and num < 9,
                 CurrentTemperature = -15 + 2 * i,
                 Stand=num,
-                PAI=i*10
+                PAI=i*8,
+                Humidity=i*8,
+                UVindex=i,
+                AirQuality=i*41
             )
 
             if num < 3:
