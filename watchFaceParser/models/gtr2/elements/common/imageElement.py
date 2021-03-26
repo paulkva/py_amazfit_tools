@@ -110,6 +110,9 @@ class ImageElement(CompositeElement):
         multilangImage = self.getImageForLand(2)
         multilangImageUnit = self.getImageUnitForLand(2)
         multilangImageUnitMile = self.getImageUnitMileForLand(2)
+        minusSign = number[0] == "-"
+        if minusSign:
+            number = number[1:]
 
         if multilangImage:
             if displayFormAnalog:
@@ -122,14 +125,15 @@ class ImageElement(CompositeElement):
                     kilometers = int(int(number) / 1000)
                     decimals = int(int(number) % 1000 / 10)
                     ar.extend(self.getImagesForNumber2(images, str(kilometers), multilangImage, paddingZero - 2))
-                    imageIndex = self.getDecimalPointImageIndex() - Config.getStartImageIndex()
-                    ar.append(images[imageIndex])
-                    self.addTextWidth(images[imageIndex].getBitmap().size[0])
+                    decimal_point_image_index = self.getDecimalPointImageIndex() - Config.getStartImageIndex()
+                    ar.append(images[decimal_point_image_index])
+                    self.addTextWidth(images[decimal_point_image_index].getBitmap().size[0])
                     ar.extend(self.getImagesForNumber2(images, str(decimals), multilangImage, 2))
                 elif self.getDelimiterImageIndex():
-                    imageIndex = self.getDelimiterImageIndex() - Config.getStartImageIndex()
-                    ar.append(images[imageIndex])
-                    self.addTextWidth(images[imageIndex].getBitmap().size[0])
+                    delimiter_point_image_index = self.getDelimiterImageIndex() - Config.getStartImageIndex()
+                    self.addTextWidth(images[delimiter_point_image_index].getBitmap().size[0])
+                    if minusSign:
+                        ar.append(images[delimiter_point_image_index])
                     ar.extend(self.getImagesForNumber2(images, number, multilangImage, paddingZero))
                 else:
                     ar.extend(self.getImagesForNumber2(images, number, multilangImage, paddingZero))
