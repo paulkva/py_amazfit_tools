@@ -37,18 +37,24 @@ class TextElement(ContainerElement):
         stringNumber = str(number)
         if self.getPaddingZero():
             stringNumber = str(number).zfill(minimumDigits)
-        if self.getImage():
-            self.getImage().draw4(
-                drawer, 
-                images, 
-                stringNumber, 
-                self._alignment, 
-                self._spacing, 
-                minimumDigits, 
+        if self.getSystemFont():
+            self.getSystemFont().draw4(
+                drawer,
+                images,
+                stringNumber,
+                self._alignment,
+                self._spacing,
+                minimumDigits,
                 self._displayFormAnalog)
-        elif self.getSystemFont():
-            return
-
+        elif self.getImage():
+            self.getImage().draw4(
+                drawer,
+                images,
+                stringNumber,
+                self._alignment,
+                self._spacing,
+                minimumDigits,
+                self._displayFormAnalog)
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
         
@@ -57,9 +63,9 @@ class TextElement(ContainerElement):
             self._image = ImageElement(parameter, self, name='Image')
             return self._image
         elif parameterId == 2:
-            # SystemFont
-            # TODO: SystemFont implement
-            pass
+            from watchFaceParser.models.gtr2.elements.common.systemFontElement import SystemFontElement
+            self._systemFont = SystemFontElement(parameter, self, name='SystemFont')
+            return self._systemFont
         elif parameterId == 3:
             from watchFaceParser.models.gtr2.elements.basic.valueElement import ValueElement
             self._alignment = parameter.getValue()
