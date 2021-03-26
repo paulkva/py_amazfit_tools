@@ -63,7 +63,7 @@ class AngleSettingsElement(CompositeElement):
             d.arc(rect, start=-90 + self.getStartAngle(), end=-90 + self.getStartAngle() + sector_angle,
                   fill=mask_color, width=width)
 
-            if flatness == 180 and value:
+            if flatness == 0 and value:
                 # round edges
                 import math
                 x = int(temp.size[0] / 2 + (radius - width / 2) * math.cos(
@@ -115,10 +115,10 @@ class AngleSettingsElement(CompositeElement):
                             self.getStartAngle() + sector_angle + width * 360 / (
                                 2 * math.pi * (radius - width / 2)) - 90) / 180))
                 d.polygon([(x1, y1), (x2, y2), (x3, y3)], fill=mask_color)
-            elif flatness == 0 and value:
+            elif flatness == 180 and value:
                 pass
-            dX = int(self.getX() - radius - int(width / 2))
-            dY = int(self.getY() - radius - int(width / 2))
+            dX = int(self.getX() - self._radius - (width / 2))
+            dY = int(self.getY() - self._radius - (width / 2))
             if backgroundImageIndex:
                 back = resources[backgroundImageIndex - Config.getStartImageIndex()].getBitmap()
                 drawer.paste(back, (dX, dY), back)
@@ -141,7 +141,7 @@ class AngleSettingsElement(CompositeElement):
             d.arc(rect, start=-90 + self.getStartAngle(), end=-90 + self.getStartAngle() + sector_angle,
                   fill=color, width=width)
 
-            if flatness == 180 and value:
+            if flatness == 0 and value:
                 # round edges
                 import math
                 x = int(self.getX() + (radius - width / 2) * math.cos(
@@ -191,7 +191,7 @@ class AngleSettingsElement(CompositeElement):
                             self.getStartAngle() + sector_angle + width * 360 / (
                                 2 * math.pi * (radius - width / 2)) - 90) / 180))
                 d.polygon([(x1, y1), (x2, y2), (x3, y3)], fill=color)
-            elif flatness == 0:
+            elif flatness == 180:
                 pass
 
     def createChildForParameter(self, parameter):
