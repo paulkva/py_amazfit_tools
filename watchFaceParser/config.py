@@ -158,7 +158,7 @@ class Config:
             Config._autodetect = False
             Config._is_gts2 = 40
             Config._image_size = Config._size_gts
-            Config._preview_size = (242,304)
+            Config._preview_size = (254,323)
             Config._startImageIndex = 1
 
     @staticmethod

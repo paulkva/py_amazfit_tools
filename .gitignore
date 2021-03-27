@@ -107,5 +107,6 @@ venv.bak/
 testgts/
 testgtr/
 test/
+testgts2/
 test-watches/
 .idea/

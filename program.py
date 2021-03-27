@@ -74,8 +74,9 @@ class Parser:
                 Config.setDeviceId(descriptor.pop(0).getChildren()[0].getValue())
 
             baseName, _ = os.path.splitext(os.path.basename(outputFileName))
-            if not Config.isGtr2Mode() and not Config.isGts2Mode(): 
-                Parser.generatePreviews(descriptor, imagesReader.getImages(), outputDirectory, baseName) 
+            #if not Config.isGtr2Mode() and not Config.isGts2Mode(): 
+            #    Parser.generatePreviews(descriptor, imagesReader.getImages(), outputDirectory, baseName) 
+            Parser.generatePreviews(descriptor, imagesReader.getImages(), outputDirectory, baseName) 
 
             logging.debug(f"Writing watch face to '{outputFileName}'")
             with open(outputFileName, 'wb') as fileStream:
@@ -249,7 +250,7 @@ class Parser:
 
         logging.debug("generatePreviews")
         #TODO implement models
-        #Parser.generatePreviews(reader.getParameters(), reader.getImages(), outputDirectory, baseName)
+        Parser.generatePreviews(reader.getParameters(), reader.getImages(), outputDirectory, baseName)
         logging.debug("generatePreviews done")
 
         logging.debug("Exporting resources to '%s'" % (outputDirectory, ))
@@ -376,11 +377,11 @@ class Parser:
         time = datetime.datetime.now()
         states = []
 
-        for i in range(10):
+        for i in range(12):
             num = i + 1
             watchState = WatchState(
-                BatteryLevel = 100 - i * 10,
-                Pulse = 60 + num * 2,
+                BatteryLevel = 0 if i >= 10 else (100 - i * 10),
+                Pulse = 60 + num * 12,
                 Steps = num * 1000,
                 Calories = num * 75,
                 Distance = num * 700,
@@ -389,6 +390,11 @@ class Parser:
                 Alarm = num > 3 and num < 8,
                 DoNotDisturb = num > 4 and num < 9,
                 CurrentTemperature = -15 + 2 * i,
+                Stand=num,
+                PAI=i*8,
+                Humidity=i*8,
+                UVindex=i,
+                AirQuality=i*41
             )
 
             if num < 3:
@@ -399,7 +405,10 @@ class Parser:
                 watchState.setCurrentWeather(index)
                 watchState.setCurrentTemperature(-10 + i * 6)
 
-            watchState.setTime(datetime.datetime(year = time.year, month = num, day = num * 2 + 5, hour = i * 2, minute = i * 6, second = i))
+            watchState.setTime(datetime.datetime(year = time.year, month = num, day = num * 2 + 5, hour = i * 2, minute = i * 5, second = i))
+            watchState.setScreenIdle(None)
             states.append(watchState)
 
+        states[-2].setScreenIdle(True)
+        states[-1].setScreenIdle(True)
         return states
