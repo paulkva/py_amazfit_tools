@@ -33,6 +33,8 @@ class DigitalTimeDigitElement(ContainerElement):
             self.getSeparator().draw3(drawer, resources, state)
 
         if self.getDigit():
+            if self._combingMode == 1: # 1 == Single
+                followx = None
             if self._timeType is None or self._timeType == 0:
                 hours = state.getTime().hour if not ampm else state.getTime().hour % 12
                 return self.getDigit().draw4(drawer, resources, hours, 2)

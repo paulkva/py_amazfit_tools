@@ -31,6 +31,8 @@ class DigitalDateDigitElement(ContainerElement):
         if self.getSeparator():
             self.getSeparator().draw3(drawer, resources, state)
         if self.getDigit():
+            if self._combingMode == 1: # 1 == Single
+                followx = None
             if self._dateType is None or self._dateType == 0:
                 return self.getDigit().draw4(drawer, resources, state.getTime().year % 2000, 2)
             if self._dateType == 1:
