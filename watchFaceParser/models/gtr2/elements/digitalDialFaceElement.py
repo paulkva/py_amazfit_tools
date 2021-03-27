@@ -24,11 +24,12 @@ class DigitalDialFaceElement(ContainerElement):
         assert(type(images) == list)
 
         if self.getDigits():
+            followx = None
             for d in self.getDigits():
                 if self.getAm() or self.getPm():
-                    d.draw4(drawer, images, state, True )
+                    followx = d.draw4(drawer, images, state, True, followx)
                 else:
-                    d.draw4(drawer, images, state, False )
+                    followx = d.draw4(drawer, images, state, False, followx)
         if self.getAm():
             self.getAm().draw3(drawer, images, state)
         if self.getPm():

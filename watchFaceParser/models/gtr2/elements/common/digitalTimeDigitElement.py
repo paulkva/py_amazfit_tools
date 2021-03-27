@@ -11,6 +11,7 @@ class DigitalTimeDigitElement(ContainerElement):
         self._combingMode = None
         self._digit = None
         self._separator = None
+
         super(DigitalTimeDigitElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
 
     def getTimeType(self):
@@ -25,20 +26,20 @@ class DigitalTimeDigitElement(ContainerElement):
     def getSeparator(self):
         return self._separator
 
-    def draw4(self, drawer, resources, state, ampm):
+    def draw4(self, drawer, resources, state, ampm, followx):
         assert(type(resources) == list)
 
         if self.getSeparator():
             self.getSeparator().draw3(drawer, resources, state)
+
         if self.getDigit():
-            # TODO: implement Follow type
             if self._timeType is None or self._timeType == 0:
                 hours = state.getTime().hour if not ampm else state.getTime().hour % 12
-                self.getDigit().draw4(drawer, resources, hours, 2)
+                return self.getDigit().draw4(drawer, resources, hours, 2)
             elif self._timeType == 1:
-                self.getDigit().draw4(drawer, resources, state.getTime().minute, 2)
+                return self.getDigit().draw4(drawer, resources, state.getTime().minute, 2, followx)
             elif self._timeType == 2:
-                self.getDigit().draw4(drawer, resources, state.getTime().second, 2)
+                return self.getDigit().draw4(drawer, resources, state.getTime().second, 2, followx)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

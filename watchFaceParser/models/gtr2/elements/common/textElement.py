@@ -33,7 +33,7 @@ class TextElement(ContainerElement):
     def getDisplayFormAnalog(self):
         return self._displayFormAnalog
 
-    def draw4(self, drawer, images, number, minimumDigits = 1):
+    def draw4(self, drawer, images, number, minimumDigits = 1, followX = None):
         stringNumber = str(number)
         if self.getPaddingZero():
             stringNumber = str(number).zfill(minimumDigits)
@@ -46,15 +46,18 @@ class TextElement(ContainerElement):
                 self._spacing,
                 minimumDigits,
                 self._displayFormAnalog)
+            return
         elif self.getImage():
-            self.getImage().draw4(
+            return self.getImage().draw4(
                 drawer,
                 images,
                 stringNumber,
                 self._alignment,
                 self._spacing,
                 minimumDigits,
-                self._displayFormAnalog)
+                self._displayFormAnalog,
+                followX
+            )
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
         

@@ -25,18 +25,18 @@ class DigitalDateDigitElement(ContainerElement):
     def getSeparator(self):
         return self._separator
     
-    def draw3(self, drawer, resources, state):
+    def draw4(self, drawer, resources, state, followx):
         assert(type(resources) == list)
 
         if self.getSeparator():
             self.getSeparator().draw3(drawer, resources, state)
         if self.getDigit():
             if self._dateType is None or self._dateType == 0:
-                self.getDigit().draw4(drawer, resources, state.getTime().year % 2000, 2)
+                return self.getDigit().draw4(drawer, resources, state.getTime().year % 2000, 2)
             if self._dateType == 1:
-                self.getDigit().draw4(drawer, resources, state.getTime().month, 2)
+                return self.getDigit().draw4(drawer, resources, state.getTime().month, 2, followx)
             if self._dateType == 2:
-                self.getDigit().draw4(drawer, resources, state.getTime().day, 2)
+                return self.getDigit().draw4(drawer, resources, state.getTime().day, 2, followx)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
