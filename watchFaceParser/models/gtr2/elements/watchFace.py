@@ -30,14 +30,34 @@ class WatchFace(ContainerElement):
         return self._screenidle
 
     def draw3(self, drawer, images, state):
-        if self.getBackground():
-            self.getBackground().draw3(drawer, images, state)
-        if self.getSystem():
-            self.getSystem().draw3(drawer, images, state)
-        if self.getWidgets():
-            self.getWidgets().draw3(drawer, images, state)
-        if self.getDialFace():
-            self.getDialFace().draw3(drawer, images, state)
+        if state.getScreenIdle() is None:
+            if self.getBackground():
+                self.getBackground().draw3(drawer, images, state)
+            if self.getSystem():
+                self.getSystem().draw3(drawer, images, state)
+            if self.getWidgets():
+                self.getWidgets().draw3(drawer, images, state)
+            if self.getDialFace():
+                self.getDialFace().draw3(drawer, images, state)
+        else:
+            if self._screenidle:
+                self._screenidle.draw3(drawer, images, state)
+            else:
+                self.drawBackground(drawer)
+            if self._screenidle is None or self._screenidle.getScreenNormal() is None:
+                if self.getDialFace():
+                    self.getDialFace().draw3(drawer, images, state)
+
+    def drawBackground(self, drawer):
+        x = 0
+        y = 0
+        from PIL import ImageDraw, Image
+        from resources.image.color import Color
+        from watchFaceParser.config import Config
+        color = Color.fromArgb(0xff000000)
+        size = Config.getImageSize()
+        d = ImageDraw.Draw(drawer)
+        d.rectangle([(x, y), size], fill=color)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
@@ -64,10 +84,9 @@ class WatchFace(ContainerElement):
             self._widgets = WidgetsElement(parameter)
             return self._widgets
         elif parameterId == 10:
-            pass
-            #from watchFaceParser.models.gtr2.elements.screenIdleElement import ScreenIdleElement
-            #self._screenidle = ScreenIdleElement(parameter)
-            #return self._screenidle
+            from watchFaceParser.models.gtr2.elements.screenIdleElement import ScreenIdleElement
+            self._screenidle = ScreenIdleElement(parameter)
+            return self._screenidle
         else:
             print ("Unknown WatchFace",parameterId)
             return super(WatchFace, self).createChildForParameter(parameter)

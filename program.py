@@ -406,6 +406,9 @@ class Parser:
                 watchState.setCurrentTemperature(-10 + i * 6)
 
             watchState.setTime(datetime.datetime(year = time.year, month = num, day = num * 2 + 5, hour = i * 2, minute = i * 5, second = i))
+            watchState.setScreenIdle(None)
             states.append(watchState)
 
+        states[-2].setScreenIdle(True)
+        states[-1].setScreenIdle(True)
         return states

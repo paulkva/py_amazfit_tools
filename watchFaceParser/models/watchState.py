@@ -20,7 +20,7 @@ class WatchState:
         self._humidity = Humidity
         self._uvindex = UVindex
         self._airquality = AirQuality
-
+        self._screenidle = None
         self._currentWeather = WeatherCondition.PartlyCloudy
         self._currentTemperature = CurrentTemperature
 
@@ -106,6 +106,12 @@ class WatchState:
     def getAirQuality(self):
         return self._airquality
 
+    def getScreenIdle(self):
+        return self._screenidle
+
+    def setScreenIdle(self, screenIdle):
+        self._screenidle = screenIdle
+
     def toJSON(self):
         return {
             'Time': self.datetimeToJson(),
@@ -125,7 +131,8 @@ class WatchState:
             'PAI': self._pai,
             'Humidity': self._humidity,
             'UVindex': self._uvindex,
-            'AirQuality': self._airquality
+            'AirQuality': self._airquality,
+            'ScreenIdle': self._screenidle
         }
 
     def datetimeToJson(self):
@@ -154,5 +161,6 @@ class WatchState:
         w._humidity = j['Humidity']
         w._uvindex = j['UVindex']
         w._airquality = j['AirQuality']
+        w._screenidle = j['ScreenIdle']
         return w
 
