@@ -298,20 +298,24 @@ class Parser:
         logging.debug("Generating previews...")
 
         states = Parser.getPreviewStates(outputDirectory)
-        logging.debug("Generating states done...")
-        staticPreview = PreviewGenerator.createImage(parameters, images, WatchState())
+        import sys
+        try:
+            logging.debug("Generating states done...")
+            staticPreview = PreviewGenerator.createImage(parameters, images, WatchState())
 
-        logging.debug("Generating static preview gen done...")
-        staticPreview.save(os.path.join(outputDirectory, f"{baseName}_static.png"))
+            logging.debug("Generating static preview gen done...")
+            staticPreview.save(os.path.join(outputDirectory, f"{baseName}_static.png"))
 
-        #generate small preview image for Preview section.
-        from PIL import Image, ImageDraw, ImageOps
-        new_w, new_h = Config.getPreviewSize()
-        if Config.isGtsMode() or Config.isGts2Mode():
-            im_resized = ImageOps.expand(staticPreview, border=5)
-            im_resized = im_resized.resize((new_w, new_h), resample = Image.LANCZOS)
-        else:
-            im_resized = staticPreview.resize((new_w, new_h), resample = Image.LANCZOS)
+            #generate small preview image for Preview section.
+            from PIL import Image, ImageDraw, ImageOps
+            new_w, new_h = Config.getPreviewSize()
+            if Config.isGtsMode() or Config.isGts2Mode():
+                im_resized = ImageOps.expand(staticPreview, border=5)
+                im_resized = im_resized.resize((new_w, new_h), resample = Image.LANCZOS)
+            else:
+                im_resized = staticPreview.resize((new_w, new_h), resample = Image.LANCZOS)
+        except:
+            print("Unexpected error:", sys.exc_info()[0])
 
         def rounded_rectangle(draw, box, radius, color):
             l, t, r, b = box
@@ -385,9 +389,9 @@ class Parser:
                 Steps = num * 1000,
                 Calories = num * 75,
                 Distance = num * 700,
-                Bluetooth = num > 1 and num < 6,
-                Unlocked = num > 2 and num < 7,
-                Alarm = num > 3 and num < 8,
+                Bluetooth = num < 6,
+                Unlocked = num < 6,
+                Alarm = num < 8,
                 DoNotDisturb = num > 4 and num < 9,
                 CurrentTemperature = -15 + 2 * i,
                 Stand=num,
