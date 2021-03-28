@@ -9,7 +9,7 @@ class ScreenIdleElement(ContainerElement):
     def __init__(self, parameter, parent = None, name = None):
         self._screennormal = None
         self._date = None
-        self._activity = None
+        self._activity = []
         self._backgroundImageIndex = None
 
         super(ScreenIdleElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
@@ -63,7 +63,7 @@ class ScreenIdleElement(ContainerElement):
             return self._date
         elif parameterId == 3:
             from watchFaceParser.models.gtr2.elements.activityElement import ActivityElement
-            self._activity = ActivityElement(parameter = parameter)
+            self._activity.append(ActivityElement(parameter = parameter))
             return self._activity
         elif parameterId == 4:
             self._backgroundImageIndex = parameter.getValue() - Config.getStartImageIndex()
