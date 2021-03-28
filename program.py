@@ -314,45 +314,46 @@ class Parser:
                 im_resized = im_resized.resize((new_w, new_h), resample = Image.LANCZOS)
             else:
                 im_resized = staticPreview.resize((new_w, new_h), resample = Image.LANCZOS)
-        except:
-            print("Unexpected error:", sys.exc_info()[0])
+                
+            def rounded_rectangle(draw, box, radius, color):
+                l, t, r, b = box
+                d = radius * 2
+                draw.ellipse((l, t, l + d, t + d), color)
+                draw.ellipse((r - d, t, r, t + d), color)
+                draw.ellipse((l, b - d, l + d, b), color)
+                draw.ellipse((r - d, b - d, r, b), color)
+                d = radius
+                draw.rectangle((l, t + d, r, b - d), color)
+                draw.rectangle((l + d, t, r - d, b), color)
 
-        def rounded_rectangle(draw, box, radius, color):
-            l, t, r, b = box
-            d = radius * 2
-            draw.ellipse((l, t, l + d, t + d), color)
-            draw.ellipse((r - d, t, r, t + d), color)
-            draw.ellipse((l, b - d, l + d, b), color)
-            draw.ellipse((r - d, b - d, r, b), color)
-            d = radius
-            draw.rectangle((l, t + d, r, b - d), color)
-            draw.rectangle((l + d, t, r - d, b), color)
+            xy = (10,310)
+            corner_radius = 38
 
-        xy = (10,310)
-        corner_radius = 38
+            if Config.isGtsMode() or Config.isGts2Mode():
+                mask = Image.new("RGBA", Config.getPreviewSize(), (255, 255, 255, 0))
+                d = ImageDraw.Draw(mask)
 
-        if Config.isGtsMode() or Config.isGts2Mode():
-            mask = Image.new("RGBA", Config.getPreviewSize(), (255, 255, 255, 0))
-            d = ImageDraw.Draw(mask)
+                rounded_rectangle(d,(3,3 , new_w -3,new_h-3),corner_radius,(180,180,180,255))
+                rounded_rectangle(d,(5,5 , new_w-5,new_h-5),corner_radius,(255,255,255,0))
+                im_resized.paste(mask,(0,0),mask)
 
-            rounded_rectangle(d,(3,3 , new_w -3,new_h-3),corner_radius,(180,180,180,255))
-            rounded_rectangle(d,(5,5 , new_w-5,new_h-5),corner_radius,(255,255,255,0))
-            im_resized.paste(mask,(0,0),mask)
+            im_resized.save(os.path.join(outputDirectory, f"{baseName}_static_{new_h}.png"))
+            logging.debug("Generating static preview save done...")
 
-        im_resized.save(os.path.join(outputDirectory, f"{baseName}_static_{new_h}.png"))
-        logging.debug("Generating static preview save done...")
+            previewImages = PreviewGenerator.createAnimation(parameters, images, states)
+            logging.debug("Generating anim preview gen done...")
 
-        previewImages = PreviewGenerator.createAnimation(parameters, images, states)
-        logging.debug("Generating anim preview gen done...")
-
-        images = []
-        for previewImage in previewImages:
-            images.append(previewImage)
-        images[0].save(os.path.join(outputDirectory, f"{baseName}_animated.gif"),
-            save_all=True,
-            append_images=images[1:],
-            duration=1000,
-            loop=0)
+            images = []
+            for previewImage in previewImages:
+                images.append(previewImage)
+            images[0].save(os.path.join(outputDirectory, f"{baseName}_animated.gif"),
+                save_all=True,
+                append_images=images[1:],
+                duration=1000,
+                loop=0)
+        except Exception as e:
+            logging.error("Preview Generate Error...")
+            logging.error(e, exc_info=True)
 
 
     @staticmethod
