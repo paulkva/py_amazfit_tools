@@ -47,8 +47,7 @@ class LinearSettingsElement(CompositeElement):
             temp = resources[foregroundImageIndex - Config.getStartImageIndex()].getBitmap()
             from PIL import Image
             mask = Image.new('RGBA', temp.size, (0, 0, 0, 0))
-            from resources.image.color import Color
-            mask_color = Color.fromArgb(0xffffffff)
+            mask_color = (255, 255, 255, 255)
 
             from PIL import ImageDraw
             d = ImageDraw.Draw(mask)  # draw context
@@ -77,7 +76,11 @@ class LinearSettingsElement(CompositeElement):
             if backgroundImageIndex:
                 back = resources[backgroundImageIndex - Config.getStartImageIndex()].getBitmap()
                 drawer.paste(back, (dX, dY), back)
-            drawer.paste(temp, (dX, dY), mask)
+
+            temp2 = Image.new('RGBA', drawer.size, (0, 0, 0, 0))
+            temp2.paste(temp, (dX, dY), mask)
+            drawer.paste(temp2, (0, 0), temp2)
+
             if pointerImageIndex:
                 pointer = resources[pointerImageIndex - Config.getStartImageIndex()].getBitmap()
                 pw, ph = pointer.size
