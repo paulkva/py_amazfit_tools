@@ -112,12 +112,12 @@ class ActivityElement(ContainerElement):
             if self.getDigits():
                 for d in self.getDigits():
                     d.draw4(drawer, images, number, max_number_length)
-            if self.getPointerProgress():
-                self.getPointerProgress().draw4(drawer, images, number, max_number)
             if self.getImageProgress():
                 self.getImageProgress().draw3(drawer, images, image_progress_state)
             if self.getProgressBar():
                 self.getProgressBar().draw4(drawer, images, number, max_number)
+            if self.getPointerProgress():
+                self.getPointerProgress().draw4(drawer, images, number, max_number)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

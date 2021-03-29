@@ -5,13 +5,13 @@ from watchFaceParser.models.gtr2.elements.basic.compositeElement import Composit
 
 
 class AngleSettingsElement(CompositeElement):
-    def __init__(self, parameter, parent, name = None):
+    def __init__(self, parameter, parent, name=None):
         self._x = None
         self._y = None
         self._startAngle = None
         self._endAngle = None
         self._radius = None
-        super(AngleSettingsElement, self).__init__(parameters=None, parameter = parameter, parent = parent, name = name)
+        super(AngleSettingsElement, self).__init__(parameters=None, parameter=parameter, parent=parent, name=name)
 
     def getX(self):
         return self._x
@@ -32,11 +32,11 @@ class AngleSettingsElement(CompositeElement):
               value,
               total,
               width,
-              foregroundImageIndex = None,
-              color = None,
-              flatness = None,
-              pointerImageIndex = None,
-              backgroundImageIndex = None
+              foregroundImageIndex=None,
+              color=None,
+              flatness=None,
+              pointerImageIndex=None,
+              backgroundImageIndex=None
               ):
         assert (type(resources) == list)
         assert (type(value) == int)
@@ -44,6 +44,11 @@ class AngleSettingsElement(CompositeElement):
         if value > total:
             value = total
         sector_angle = int(1.0 * (self.getEndAngle() - self.getStartAngle()) * value / total)
+        start = -90 + self.getStartAngle()
+        end = -90 + self.getStartAngle() + sector_angle
+
+        if start > end:
+            start, end = end, start
 
         if foregroundImageIndex:
             temp = resources[foregroundImageIndex - Config.getStartImageIndex()].getBitmap()
@@ -60,26 +65,12 @@ class AngleSettingsElement(CompositeElement):
             rect = (0, 0,
                     int(radius * 2), int(radius * 2))
 
-            start = -90 + self.getStartAngle()
-            end = -90 + self.getStartAngle() + sector_angle
-
-            while start < 0:
-                start = 360 + start
-
-            while end < 0:
-                end = 360 + end
-
-            if start > end:
-                tt = end
-                end = start
-                start = tt
-
             d.arc(rect,
                   start,
                   end,
                   fill=mask_color, width=width)
 
-            if flatness == 0 and value:
+            if (flatness == 0 or flatness is None) and value:
                 # round edges
                 import math
                 x = int(temp.size[0] / 2 + (radius - width / 2) *
@@ -109,11 +100,11 @@ class AngleSettingsElement(CompositeElement):
                          math.sin(math.pi * (self.getStartAngle() - 90) / 180))
 
                 x3 = int(temp.size[0] / 2 + (radius - width / 2) * math.cos(math.pi * (
-                            self.getStartAngle() - width * 360 / (
-                                2 * math.pi * (radius - width / 2)) - 90) / 180))
+                        self.getStartAngle() - width * 360 / (
+                        2 * math.pi * (radius - width / 2)) - 90) / 180))
                 y3 = int(temp.size[1] / 2 + (radius - width / 2) * math.sin(math.pi * (
-                            self.getStartAngle() - width * 360 / (
-                                2 * math.pi * (radius - width / 2)) - 90) / 180))
+                        self.getStartAngle() - width * 360 / (
+                        2 * math.pi * (radius - width / 2)) - 90) / 180))
                 d.polygon([(x1, y1), (x2, y2), (x3, y3)], fill=mask_color)
 
                 x1 = int(temp.size[0] / 2 + (radius - width) * math.cos(
@@ -129,11 +120,11 @@ class AngleSettingsElement(CompositeElement):
                     math.sin(math.pi * (self.getStartAngle() + sector_angle - 90) / 180))
 
                 x3 = int(temp.size[0] / 2 + (radius - width / 2) * math.cos(math.pi * (
-                            self.getStartAngle() + sector_angle + width * 360 / (
-                                2 * math.pi * (radius - width / 2)) - 90) / 180))
+                        self.getStartAngle() + sector_angle + width * 360 / (
+                        2 * math.pi * (radius - width / 2)) - 90) / 180))
                 y3 = int(temp.size[1] / 2 + (radius - width / 2) * math.sin(math.pi * (
-                            self.getStartAngle() + sector_angle + width * 360 / (
-                                2 * math.pi * (radius - width / 2)) - 90) / 180))
+                        self.getStartAngle() + sector_angle + width * 360 / (
+                        2 * math.pi * (radius - width / 2)) - 90) / 180))
                 d.polygon([(x1, y1), (x2, y2), (x3, y3)], fill=mask_color)
             elif flatness == 180 and value:
                 pass
@@ -143,7 +134,7 @@ class AngleSettingsElement(CompositeElement):
                 back = resources[backgroundImageIndex - Config.getStartImageIndex()].getBitmap()
                 drawer.paste(back, (dX, dY), back)
             drawer.paste(temp, (dX, dY), mask)
-            #drawer.paste(mask, (dX, dY), mask)
+            # drawer.paste(mask, (dX, dY), mask)
         else:
             from PIL import ImageDraw
             d = ImageDraw.Draw(drawer)  # draw context
@@ -159,8 +150,8 @@ class AngleSettingsElement(CompositeElement):
                     int(self.getX() + radius), int(self.getY() + radius))
 
             d.arc(rect,
-                  start=-90 + self.getStartAngle(),
-                  end=-90 + self.getStartAngle() + sector_angle,
+                  start,
+                  end,
                   fill=color,
                   width=width)
 
@@ -193,10 +184,10 @@ class AngleSettingsElement(CompositeElement):
 
                 x3 = int(self.getX() + (radius - width / 2) *
                          math.cos(math.pi * (self.getStartAngle() - width * 360 / (
-                                2 * math.pi * (radius - width / 2)) - 90) / 180))
+                                 2 * math.pi * (radius - width / 2)) - 90) / 180))
                 y3 = int(self.getY() + (radius - width / 2) *
                          math.sin(math.pi * (self.getStartAngle() - width * 360 / (
-                                2 * math.pi * (radius - width / 2)) - 90) / 180))
+                                 2 * math.pi * (radius - width / 2)) - 90) / 180))
                 d.polygon([(x1, y1), (x2, y2), (x3, y3)], fill=color)
 
                 x1 = int(self.getX() + (radius - width) * math.cos(
@@ -211,10 +202,10 @@ class AngleSettingsElement(CompositeElement):
 
                 x3 = int(self.getX() + (radius - width / 2) *
                          math.cos(math.pi * (self.getStartAngle() + sector_angle + width * 360 / (
-                                2 * math.pi * (radius - width / 2)) - 90) / 180))
+                                 2 * math.pi * (radius - width / 2)) - 90) / 180))
                 y3 = int(self.getY() + (radius - width / 2) *
                          math.sin(math.pi * (self.getStartAngle() + sector_angle + width * 360 / (
-                                2 * math.pi * (radius - width / 2)) - 90) / 180))
+                                 2 * math.pi * (radius - width / 2)) - 90) / 180))
                 d.polygon([(x1, y1), (x2, y2), (x3, y3)], fill=color)
             elif flatness == 180:
                 pass
@@ -224,22 +215,22 @@ class AngleSettingsElement(CompositeElement):
         if parameterId == 1:
             from watchFaceParser.models.elements.basic.valueElement import ValueElement
             self._x = parameter.getValue()
-            return ValueElement(parameter = parameter, parent = self, name = 'X')
+            return ValueElement(parameter=parameter, parent=self, name='X')
         elif parameterId == 2:
             from watchFaceParser.models.elements.basic.valueElement import ValueElement
             self._y = parameter.getValue()
-            return ValueElement(parameter = parameter, parent = self, name = 'Y')
+            return ValueElement(parameter=parameter, parent=self, name='Y')
         elif parameterId == 3:
             from watchFaceParser.models.elements.basic.valueElement import ValueElement
             self._startAngle = parameter.getValue()
-            return ValueElement(parameter = parameter, parent = self, name = 'StartAngle')
+            return ValueElement(parameter=parameter, parent=self, name='StartAngle')
         elif parameterId == 4:
             from watchFaceParser.models.elements.basic.valueElement import ValueElement
             self._endAngle = parameter.getValue()
-            return ValueElement(parameter = parameter, parent = self, name = 'EndAngle')
+            return ValueElement(parameter=parameter, parent=self, name='EndAngle')
         elif parameterId == 5:
             from watchFaceParser.models.elements.basic.valueElement import ValueElement
             self._radius = parameter.getValue()
-            return ValueElement(parameter = parameter, parent = self, name = 'Radius')
+            return ValueElement(parameter=parameter, parent=self, name='Radius')
         else:
             super(AngleSettingsElement, self).createChildForParameter(parameter)
