@@ -359,7 +359,7 @@ class Parser:
     @staticmethod
     def getPreviewStates(outputDirectory):
         import os
-        previewStatesPath = os.path.join(outputDirectory, "PreviewStates.json")
+        previewStatesPath = os.path.join(outputDirectory, "Preview.States")
 
         if os.path.exists(previewStatesPath):
             try:
