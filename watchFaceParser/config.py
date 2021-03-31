@@ -91,12 +91,12 @@ class Config:
         if Config._is_gtr2 == 47:  
             Config._autodetect = False
             Config._image_size = Config._size_gtr_47
-            Config._preview_size = (266, 266)
+            Config._preview_size = (306, 306)
             Config._startImageIndex = 1
         if Config._is_gtr2 == 42: 
             Config._autodetect = False
             Config._image_size = Config._size_gtr_42
-            Config._preview_size = (266, 266)
+            Config._preview_size = (306, 306)
             Config._startImageIndex = 1 
 
     @staticmethod

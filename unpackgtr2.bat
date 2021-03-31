@@ -8,7 +8,7 @@ set mPathScript=%~dp0
 
 %mPathScript%\GTR2_Packer.exe -unc2 %1
 ren "%1.unc" "%file%_unpacked.bin"
-python %mPathScript%\main.py --gtr2 42 --file "%mPath%%file%_unpacked.bin"
+python %mPathScript%\main.py --gtr2 47 --file "%mPath%%file%_unpacked.bin"
 
 echo.
 echo Resources and JSON in "%mPath%%file%_unpacked"
