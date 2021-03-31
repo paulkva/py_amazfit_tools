@@ -34,16 +34,14 @@ class TextElement(ContainerElement):
         return self._displayFormAnalog
 
     def draw4(self, drawer, images, number, minimumDigits = 1, followX = None):
-        stringNumber = str(number)
-        if self.getPaddingZero():
-            stringNumber = str(number).zfill(minimumDigits)
         if self.getSystemFont():
             self.getSystemFont().draw4(
                 drawer,
                 images,
-                stringNumber,
+                number,
                 self._alignment,
                 self._spacing,
+                self.getPaddingZero(),
                 minimumDigits,
                 self._displayFormAnalog)
             return
@@ -51,9 +49,10 @@ class TextElement(ContainerElement):
             return self.getImage().draw4(
                 drawer,
                 images,
-                stringNumber,
+                number,
                 self._alignment,
                 self._spacing,
+                self.getPaddingZero(),
                 minimumDigits,
                 self._displayFormAnalog,
                 followX

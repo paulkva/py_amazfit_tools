@@ -92,10 +92,13 @@ class ImageElement(CompositeElement):
         return self._box
 
 
-    def addTextWidth(self, width):
+    def addTextWidth(self, width, spacing):
+        if self._maxTextWidth > 0:
+            self._maxTextWidth += spacing
         self._maxTextWidth += width
 
-    def draw4(self, drawer, images, number, alignment, spacing, paddingZero, displayFormAnalog, followX):
+    def draw4(self, drawer, images, number, alignment, spacing,
+              paddingZero, minimumDigits, displayFormAnalog, followX):
         if not alignment:
             alignment = 0
         if not paddingZero:
@@ -104,66 +107,82 @@ class ImageElement(CompositeElement):
             spacing = 0
         if not displayFormAnalog:
             displayFormAnalog = False
-        ar = self.getImagesForNumber(images, number, paddingZero, displayFormAnalog)
+        ar = self.getImagesForNumber(images, number, alignment, spacing, paddingZero, minimumDigits, displayFormAnalog)
         self.setBox(ar, spacing, followX)
         self.drawImages(drawer, ar, spacing, alignment, self.getBox())
         self._followX = self._box.getX() + self._box.getWidth() + 1
         return self._followX
 
-    def getImagesForNumber(self, images, number, paddingZero, displayFormAnalog):
+    def getImagesForNumber(self, images, number, alignment, spacing, paddingZero, minimumDigits, displayFormAnalog):
         ar = []
         self._maxTextWidth = 0
 
         multilangImage = self.getImageForLand(2)
         multilangImageUnit = self.getImageUnitForLand(2)
         multilangImageUnitMile = self.getImageUnitMileForLand(2)
-        minusSign = number[0] == "-"
-        if minusSign:
-            number = number[1:]
+        minusSign = number < 0
+        number = abs(number)
 
         if multilangImage:
             if displayFormAnalog:
                 if int(number) <= multilangImage.getImageSet().getImagesCount():
-                    imageIndex = multilangImage.getImageSet().getImageIndex() + int(number) - Config.getStartImageIndex() - 1
+                    imageIndex = multilangImage.getImageSet().getImageIndex() + \
+                                 int(number) - Config.getStartImageIndex() - 1
                     ar.append(images[imageIndex])
-                    self.addTextWidth(images[imageIndex].getBitmap().size[0])
+                    self.addTextWidth(images[imageIndex].getBitmap().size[0], spacing)
             else:
                 if self.getDecimalPointImageIndex():
                     kilometers = int(int(number) / 1000)
                     decimals = int(int(number) % 1000 / 10)
-                    ar.extend(self.getImagesForNumber2(images, str(kilometers), multilangImage, paddingZero - 2))
+                    ar.extend(self.getImagesForNumber2(
+                        images, kilometers, multilangImage, alignment, spacing, paddingZero, minimumDigits - 2))
                     decimal_point_image_index = self.getDecimalPointImageIndex() - Config.getStartImageIndex()
                     ar.append(images[decimal_point_image_index])
-                    self.addTextWidth(images[decimal_point_image_index].getBitmap().size[0])
-                    ar.extend(self.getImagesForNumber2(images, str(decimals), multilangImage, 2))
+                    self.addTextWidth(images[decimal_point_image_index].getBitmap().size[0], spacing)
+                    ar.extend(self.getImagesForNumber2(images, str(decimals), multilangImage, alignment, spacing, paddingZero, 2))
                 elif self.getDelimiterImageIndex():
                     delimiter_point_image_index = self.getDelimiterImageIndex() - Config.getStartImageIndex()
-                    self.addTextWidth(images[delimiter_point_image_index].getBitmap().size[0])
+                    self.addTextWidth(images[delimiter_point_image_index].getBitmap().size[0], spacing)
                     if minusSign:
                         ar.append(images[delimiter_point_image_index])
-                    ar.extend(self.getImagesForNumber2(images, number, multilangImage, paddingZero))
+                    ar.extend(self.getImagesForNumber2(images, number, multilangImage, alignment, spacing, paddingZero, minimumDigits))
                 else:
-                    ar.extend(self.getImagesForNumber2(images, number, multilangImage, paddingZero))
+                    ar.extend(self.getImagesForNumber2(images, number, multilangImage, alignment, spacing, paddingZero, minimumDigits))
         if multilangImageUnit:
             imageIndex = multilangImageUnit.getImageSet().getImageIndex() - Config.getStartImageIndex()
             ar.append(images[imageIndex])
-            self.addTextWidth(images[imageIndex].getBitmap().size[0])
+            self.addTextWidth(images[imageIndex].getBitmap().size[0], spacing)
         elif multilangImageUnitMile:
             imageIndex = multilangImageUnitMile.getImageSet().getImageIndex() - Config.getStartImageIndex()
             ar.append(images[imageIndex])
-            self.addTextWidth(images[imageIndex].getBitmap().size[0])
+            self.addTextWidth(images[imageIndex].getBitmap().size[0], spacing)
 
         return ar
 
-    def getImagesForNumber2(self, images, stringNumber, multilangImage, paddingZero):
+    def getImagesForNumber2(self, images, number, multilangImage, alignment, spacing, paddingZero, minimumDigits):
         ar = []
+
+        imageIndex = multilangImage.getImageSet().getImageIndex() - Config.getStartImageIndex()
+        from PIL import Image
+        temp = images[imageIndex].getBitmap()
+        bl = Image.new('RGBA', temp.size)
+
+        from resources.models.image import Image
+        blankImage = Image(bl)
+
+        stringNumber = str(number)
+        if paddingZero:
+            stringNumber = stringNumber.zfill(minimumDigits)
+
         for digit in stringNumber:
             if int(digit) < multilangImage.getImageSet().getImagesCount():
                 imageIndex = multilangImage.getImageSet().getImageIndex() + int(digit) - Config.getStartImageIndex()
                 ar.append(images[imageIndex])
-                self.addTextWidth(images[imageIndex].getBitmap().size[0])
-        if len(stringNumber) < paddingZero:
-            self.addTextWidth(images[imageIndex].getBitmap().size[0] * ( paddingZero - len(stringNumber)) )
+                self.addTextWidth(images[imageIndex].getBitmap().size[0], spacing)
+        i = minimumDigits - len(stringNumber)
+        while i > 0:
+            self.addTextWidth(images[imageIndex].getBitmap().size[0], spacing)
+            i = i - 1
         return ar
 
     def getImageForLand(self, land = 0):
@@ -198,14 +217,11 @@ class ImageElement(CompositeElement):
 
         (bitmapWidth, bitmapHeight) = DrawerHelper.calculateBounds(images, spacing)
 
-        from watchFaceParser.models.gtr2.textAlignment import TextAlignmentGTR2
-        alignmentFlag = TextAlignmentGTR2(alignment)
-
         x = 0
         y = 0
-        if alignmentFlag.hasFlag(TextAlignmentGTR2.Left):
+        if alignment == 0 or alignment is None:
             x = box.getX()
-        elif alignmentFlag.hasFlag(TextAlignmentGTR2.Right):
+        elif alignment == 2:
             x = box.getRight() - bitmapWidth + 1
         else:
             x = (box.getLeft() + box.getRight() - bitmapWidth) >> 1
