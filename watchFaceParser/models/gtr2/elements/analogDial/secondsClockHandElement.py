@@ -7,6 +7,8 @@ class SecondsClockHandElement(ClockHandElement):
 
     def draw3(self, drawer, resources, state):
         assert(type(resources) == list)
+        if state.getScreenIdle():
+            return
         value = state.getTime().second
         maxvalue = 60
         super(SecondsClockHandElement, self).draw4(drawer, resources, value, maxvalue)

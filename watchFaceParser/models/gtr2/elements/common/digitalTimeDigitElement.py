@@ -41,7 +41,8 @@ class DigitalTimeDigitElement(ContainerElement):
             elif self._timeType == 1:
                 return self.getDigit().draw4(drawer, resources, state.getTime().minute, 2, followx)
             elif self._timeType == 2:
-                return self.getDigit().draw4(drawer, resources, state.getTime().second, 2, followx)
+                if not state.getScreenIdle():
+                    return self.getDigit().draw4(drawer, resources, state.getTime().second, 2, followx)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
