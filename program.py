@@ -363,8 +363,17 @@ class Parser:
 
         if os.path.exists(previewStatesPath):
             try:
-                with open(previewStatesPath, 'rb') as stream:
-                    return WatchState.fromJson(json.load(stream))
+                with open(previewStatesPath, 'r') as stream:
+                    data = json.load(stream)
+                    previewStates = []
+                    if isinstance(data, list):
+                        for d in data:
+                            w = WatchState.fromJson(d)
+                            previewStates.append(w)
+                    else:
+                        w = WatchState.fromJson(data)
+                        previewStates.append(w)
+                    return previewStates
             except:
                 pass
 
