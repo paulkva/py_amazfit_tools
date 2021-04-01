@@ -33,7 +33,10 @@ class TextElement(ContainerElement):
     def getDisplayFormAnalog(self):
         return self._displayFormAnalog
 
-    def draw4(self, drawer, images, number, minimumDigits = 1, followX = None):
+    def draw4(self, drawer, images, number, minimumDigits = 1, followX = None, padding_zero = None):
+        if not self.getPaddingZero():
+            self._paddingZero = padding_zero;
+
         if self.getSystemFont():
             self.getSystemFont().draw4(
                 drawer,
