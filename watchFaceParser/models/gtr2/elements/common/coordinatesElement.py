@@ -11,12 +11,10 @@ class CoordinatesElement(CompositeElement):
 
 
     def getX(self):
-        return self._x
-
+        return 0 if self._x is None else self._x
 
     def getY(self):
-        return self._y
-
+        return 0 if self._y is None else self._y
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

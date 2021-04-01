@@ -28,11 +28,13 @@ class ImageCoordsElement(ContainerElement):
     def draw3(self, drawer, resources, state):
         image_index = self.getImageIndex()-1
         temp = resources[image_index].getBitmap()
-        drawer.paste(temp, (self.getCoordinates().getX(), self.getCoordinates().getY()), temp)
+        x = 0 if self.getCoordinates() is None or self.getCoordinates().getX() is None else self.getCoordinates().getX()
+        y = 0 if self.getCoordinates() is None or self.getCoordinates().getY() is None else self.getCoordinates().getY()
+        drawer.paste(temp, (x, y), temp)
 
     def draw2(self, drawer, images, angle, center = None):
-        x = self.getCoordinates().getX()
-        y = self.getCoordinates().getY()
+        x = 0 if self.getCoordinates() is None or self.getCoordinates().getX() is None else self.getCoordinates().getX()
+        y = 0 if self.getCoordinates() is None or self.getCoordinates().getY() is None else self.getCoordinates().getY()
 
         image_index = self.getImageIndex()-Config.getStartImageIndex()
 

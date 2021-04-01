@@ -53,10 +53,10 @@ class ImageElement(CompositeElement):
         super(ImageElement, self).__init__(parameters=None, parameter = parameter, parent = parent, name = name)
 
     def getX(self):
-        return self._x
+        return 0 if self._x is None else self._x
 
     def getY(self):
-        return self._y
+        return 0 if self._y is None else self._y
 
     def getNoDataImageIndex(self):
         return self._noDataImageIndex
@@ -84,11 +84,11 @@ class ImageElement(CompositeElement):
 
     def setBox(self, images, spacing, followX):
         (bitmapWidth, bitmapHeight) = DrawerHelper.calculateBounds(images, spacing)
-        x = self._x if followX is None else followX
+        x = self.getX() if followX is None else followX
         if bitmapWidth > self._maxTextWidth:
-            self._box = Box(x, self._y, bitmapWidth, bitmapHeight)
+            self._box = Box(x, self.getY(), bitmapWidth, bitmapHeight)
         else:
-            self._box = Box(x, self._y, self._maxTextWidth, bitmapHeight)
+            self._box = Box(x, self.getY(), self._maxTextWidth, bitmapHeight)
         return self._box
 
 

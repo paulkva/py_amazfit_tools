@@ -68,7 +68,7 @@ class SystemFontElement(ContainerElement):
         if self._angle:
             temp = temp.rotate(-(self._angle), expand=1)
         w, h = temp.size
-        drawer.paste(temp, (self._coordinates.getX()-int(w/2), self._coordinates.getY()-int(h/2)), temp)
+        drawer.paste(temp, (self.getCoordinates().getX()-int(w/2), self.getCoordinates().getY()-int(h/2)), temp)
         return
 
     def createChildForParameter(self, parameter):

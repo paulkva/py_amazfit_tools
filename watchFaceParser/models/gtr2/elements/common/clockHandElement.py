@@ -41,10 +41,17 @@ class ClockHandElement(CompositeElement):
 
         if value > total:
             value = total
-            
+
+        if self._x is None:
+            self._x = 0
+
+        if self._y is None:
+            self._y = 0
+
         if self.getScale():
-            dX = int(self.getScale().getCoordinates().getX())
-            dY = int(self.getScale().getCoordinates().getY())
+            dX = 0 if self.getScale().getCoordinates() is None or self.getScale().getCoordinates().getX() is None else self.getScale().getCoordinates().getX()
+            dY = 0 if self.getScale().getCoordinates() is None or self.getScale().getCoordinates().getY() is None else self.getScale().getCoordinates().getY()
+
             scaleImageIndex = self.getScale().getImageSetForLang(2).getImageSet().getImageIndex()
             temp = resources[scaleImageIndex - Config.getStartImageIndex()].getBitmap()
             drawer.paste(temp, (dX, dY), temp)
@@ -68,8 +75,9 @@ class ClockHandElement(CompositeElement):
                 center)
 
         if self.getCover():
-            dX = int(self.getCover().getCoordinates().getX())
-            dY = int(self.getCover().getCoordinates().getY())
+            dX = 0 if self.getCover().getCoordinates() is None or self.getScale().getCoordinates().getX() is None else self.getCover().getCoordinates().getX()
+            dY = 0 if self.getCover().getCoordinates() is None or self.getScale().getCoordinates().getY() is None else self.getCover().getCoordinates().getY()
+
             coverImageIndex = self.getCover().getImageIndex()
             temp = resources[coverImageIndex - Config.getStartImageIndex()].getBitmap()
             drawer.paste(temp, (dX, dY), temp)

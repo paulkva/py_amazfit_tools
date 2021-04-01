@@ -34,7 +34,10 @@ class SwitchElement(CompositeElement):
         if imageIndex is None:
             return
         temp = images[imageIndex].getBitmap()
-        drawer.paste(temp, (self.getCoordinates().getX(), self.getCoordinates().getY()), temp)
+        x = 0 if self.getCoordinates() is None or self.getCoordinates().getX() is None else self.getCoordinates().getX()
+        y = 0 if self.getCoordinates() is None or self.getCoordinates().getY() is None else self.getCoordinates().getY()
+
+        drawer.paste(temp, (x, y), temp)
 
 
     def createChildForParameter(self, parameter):
