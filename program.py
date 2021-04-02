@@ -417,13 +417,8 @@ class Parser:
                 AirQuality=i*41
             )
 
-            if num < 3:
-                watchState.setCurrentWeather(WeatherCondition.Unknown)
-                watchState.setCurrentTemperature(None)
-            else:
-                index = num - 2
-                watchState.setCurrentWeather(index)
-                watchState.setCurrentTemperature(-10 + i * 6)
+            watchState.setCurrentWeather(i)
+            watchState.setCurrentTemperature(-23 + i * 6)
 
             watchState.setTime(datetime.datetime(year = time.year, month = num, day = num * 2 + 5, hour = i * 2, minute = i * 5, second = i))
             watchState.setScreenIdle(None)
