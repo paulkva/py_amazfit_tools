@@ -33,10 +33,13 @@ class SystemFontElement(ContainerElement):
     def getShowUnitCheck(self):
         return self._showUnitCheck
 
-    def draw4(self, drawer, images,
-              stringNumber,
+    def draw4(self, 
+              drawer, 
+              images,
+              number,
               alignment,
               spacing,
+              paddingZero,
               minimumDigits,
               displayFormAnalog):
         import os
@@ -50,7 +53,11 @@ class SystemFontElement(ContainerElement):
         from PIL import ImageDraw, Image, ImageFont
         font = ImageFont.truetype(font_path, self._size)
 
-        text_size = ImageDraw.Draw(drawer).textsize(stringNumber, font=font, spacing=spacing)
+        stringNumber = str(number)
+        if paddingZero:
+            stringNumber.zfill(minimumDigits)
+
+        text_size = ImageDraw.Draw(drawer).textsize(stringNumber, font=font)
         temp = Image.new('RGBA', (text_size[0]*4,text_size[0]*4) , (0, 0, 0, 0))
         draw = ImageDraw.Draw(temp)
         draw.text( ( text_size[0] * 2, text_size[0]*2 - text_size[1]), stringNumber,
@@ -68,7 +75,8 @@ class SystemFontElement(ContainerElement):
         if self._angle:
             temp = temp.rotate(-(self._angle), expand=1)
         w, h = temp.size
-        drawer.paste(temp, (self.getCoordinates().getX()-int(w/2), self.getCoordinates().getY()-int(h/2)), temp)
+        if self.getCoordinates():
+            drawer.paste(temp, (self.getCoordinates().getX()-int(w/2), self.getCoordinates().getY()-int(h/2)), temp)
         return
 
     def createChildForParameter(self, parameter):
@@ -77,7 +85,7 @@ class SystemFontElement(ContainerElement):
         if parameterId == 1:
             from watchFaceParser.models.gtr2.elements.common.fontRotateElement import FontRotateElement
             self._fontRotate = FontRotateElement(parameter, self, name='FontRotate')
-            return self._image
+            return self._fontRotate
         elif parameterId == 2:
             from watchFaceParser.models.gtr2.elements.common.coordinatesElement import CoordinatesElement
             self._coordinates = CoordinatesElement(parameter, self, 'Coordinates')
