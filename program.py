@@ -344,13 +344,17 @@ class Parser:
             logging.debug("Generating anim preview gen done...")
 
             images = []
+
             for previewImage in previewImages:
                 images.append(previewImage)
-            images[0].save(os.path.join(outputDirectory, f"{baseName}_animated.gif"),
-                save_all=True,
-                append_images=images[1:],
-                duration=1000,
-                loop=0)
+            if len(images) > 0:
+                images[0].save(os.path.join(outputDirectory, f"{baseName}_animated.gif"),
+                               save_all=True,
+                               append_images=images[1:],
+                               duration=1000,
+                               loop=0)
+            else:
+                logging.debug("Nothing to save in animated gif...")
         except Exception as e:
             logging.error("Preview Generate Error...")
             logging.error(e, exc_info=True)
@@ -359,30 +363,32 @@ class Parser:
     @staticmethod
     def getPreviewStates(outputDirectory):
         import os
-        previewStatesPath = os.path.join(outputDirectory, "Preview.States")
+        preview_states_path = os.path.join(outputDirectory, "Preview.States")
 
-        if os.path.exists(previewStatesPath):
+        if os.path.exists(preview_states_path):
+            preview_states = []
             try:
-                with open(previewStatesPath, 'r') as stream:
+                with open(preview_states_path, 'rb') as stream:
                     data = json.load(stream)
-                    previewStates = []
                     if isinstance(data, list):
                         for d in data:
                             w = WatchState.fromJson(d)
-                            previewStates.append(w)
+                            preview_states.append(w)
                     else:
                         w = WatchState.fromJson(data)
-                        previewStates.append(w)
-                    return previewStates
-            except:
-                pass
+                        preview_states.append(w)
+                    return preview_states
+            except Exception as e:
+                logging.error("States Parse Error...")
+                logging.error(e, exc_info=True)
+                return preview_states
 
-        previewStates = Parser.generateSampleStates()
-        with open(previewStatesPath, 'w') as stream:
-            stream.write(json.dumps(previewStates, default=dumper, indent = 2))
+        preview_states = Parser.generateSampleStates()
+        with open(preview_states_path, 'w') as stream:
+            stream.write(json.dumps(preview_states, default=dumper, indent = 2))
             stream.flush()
 
-        return previewStates
+        return preview_states
 
 
     @staticmethod
