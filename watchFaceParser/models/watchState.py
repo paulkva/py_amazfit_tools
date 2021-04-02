@@ -128,32 +128,34 @@ class WatchState:
         return {'Year': t.year, 'Month': t.month, 'Day': t.day, 'Hour': t.hour, 'Minute': t.minute, 'Second': t.second}
 
     @staticmethod
-    def fromJson(j):
-        w = WatchState()
-        t = j['Time']
-        w._time = datetime.datetime.now().replace(
-            year=t['Year'],
-            month=t['Month'],
-            day=t['Day'],
-            hour=t['Hour'],
-            minute=t['Minute'],
-            second=t['Second'])
-        w._steps = j['Steps']
-        w._goal = j['Goal']
-        w._pulse = j['Pulse']
-        w._batteryLevel = j['BatteryLevel']
-        w._distance = j['Distance']
-        w._calories = j['Calories']
-        w._bluetooth = j['Bluetooth']
-        w._unlocked = j['Unlocked']
-        w._alarm = j['Alarm']
-        w._doNotDisturb = j['DoNotDisturb']
-        w._currentWeather = j['CurrentWeather']
-        w._currentTemperature = j['CurrentTemperature']
-        w._stand = j['Stand']
-        w._pai = j['PAI']
-        w._humidity = j['Humidity']
-        w._uvindex = j['UVindex']
-        w._airquality = j['AirQuality']
-        w._screenidle = j['ScreenIdle']
-        return w
+    def fromJson(json):
+        watch_state = WatchState()
+        if 'Time' in json:
+            time = json['Time']
+            watch_state._time = datetime.datetime.now().replace(
+                year=time['Year'] if 'Year' in time else watch_state._time.year,
+                month=time['Month'] if 'Month' in time else watch_state._time.month,
+                day=time['Day'] if 'Day' in time else watch_state._time.day,
+                hour=time['Hour'] if 'Hour' in time else watch_state._time.hour,
+                minute=time['Minute'] if 'Minute' in time else watch_state._time.minute,
+                second=time['Second']) if 'Second' in time else watch_state._time.second
+        watch_state._steps = json['Steps'] if 'Steps' in json else watch_state._steps
+        watch_state._goal = json['Goal'] if 'Goal' in json else watch_state._goal
+        watch_state._pulse = json['Pulse'] if 'Pulse' in json else watch_state._pulse
+        watch_state._batteryLevel = json['BatteryLevel'] if 'BatteryLevel' in json else watch_state._batteryLevel
+        watch_state._distance = json['Distance'] if 'Distance' in json else watch_state._distance
+        watch_state._calories = json['Calories'] if 'Calories' in json else watch_state._calories
+        watch_state._bluetooth = json['Bluetooth'] if 'Bluetooth' in json else watch_state._bluetooth
+        watch_state._unlocked = json['Unlocked'] if 'Unlocked' in json else watch_state._unlocked
+        watch_state._alarm = json['Alarm'] if 'Alarm' in json else watch_state._alarm
+        watch_state._doNotDisturb = json['DoNotDisturb'] if 'DoNotDisturb' in json else watch_state._doNotDisturb
+        watch_state._currentWeather = json['CurrentWeather'] if 'CurrentWeather' in json else watch_state._currentWeather
+        watch_state._currentTemperature = json['CurrentTemperature'] if 'CurrentTemperature' in json else watch_state._currentTemperature
+        watch_state._stand = json['Stand'] if 'Stand' in json else watch_state._stand
+        watch_state._pai = json['PAI'] if 'PAI' in json else watch_state._pai
+        watch_state._humidity = json['Humidity'] if 'Humidity' in json else watch_state._humidity
+        watch_state._uvindex = json['UVindex'] if 'UVindex' in json else watch_state._uvindex
+        watch_state._airquality = json['AirQuality'] if 'AirQuality' in json else watch_state._airquality
+        watch_state._screenidle = json['ScreenIdle'] if 'ScreenIdle' in json else watch_state._screenidle
+        return watch_state
+
