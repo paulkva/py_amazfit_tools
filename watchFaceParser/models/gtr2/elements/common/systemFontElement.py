@@ -22,13 +22,13 @@ class SystemFontElement(ContainerElement):
         return self._coordinates
 
     def getAngle(self):
-        return self._angle
+        return 0 if self._angle is None else self._angle
 
     def getSize(self):
-        return self._size
+        return 10 if self._size is None else self._size
     
     def getColor(self):
-        return self._color
+        return (0) if self._color is None else self._color
 
     def getShowUnitCheck(self):
         return self._showUnitCheck
@@ -38,30 +38,39 @@ class SystemFontElement(ContainerElement):
               images,
               number,
               alignment,
-              spacing,
-              paddingZero,
-              minimumDigits,
-              displayFormAnalog):
+              spacing = 1,
+              paddingZero = False,
+              minimumDigits = 1,
+              displayFormAnalog = False,
+              unit = ''):
+
+        stringNumber = number if isinstance(number, str) else str(abs(number))
+        if paddingZero:
+            stringNumber = stringNumber.zfill(minimumDigits)
+        if not isinstance(number, str) and number < 0:
+            stringNumber = '-' + stringNumber
+        if self._showUnitCheck == 1:
+            stringNumber = stringNumber + unit
+
+        if self.getFontRotate():
+            self.getFontRotate().draw4(drawer, stringNumber, self.getAngle(), self.getSize(), self.getColor(), spacing)
+        else:
+            self.drawLinear(drawer, stringNumber, spacing)
+    
+    def drawLinear(self, drawer, stringNumber, spacing = 0):
+        from PIL import ImageDraw, Image, ImageFont
         import os
         font_path = os.path.dirname(os.path.realpath(__file__))
         font_path = os.path.abspath(os.path.join(font_path, os.pardir, os.pardir, os.pardir, os.pardir, os.pardir))
-        font_path = os.path.abspath(os.path.join(font_path, "font", "OpenSans-Regular.ttf"))
+        font_path = os.path.abspath(os.path.join(font_path, "font", "roboto-condensed.regular.ttf"))
         #print(font_path)
-
-        # TODO: implement FontRotate
-
-        from PIL import ImageDraw, Image, ImageFont
-        font = ImageFont.truetype(font_path, self._size)
-
-        stringNumber = str(number)
-        if paddingZero:
-            stringNumber.zfill(minimumDigits)
+        font = ImageFont.truetype(font_path, self.getSize())
 
         text_size = ImageDraw.Draw(drawer).textsize(stringNumber, font=font)
         temp = Image.new('RGBA', (text_size[0]*4,text_size[0]*4) , (0, 0, 0, 0))
         draw = ImageDraw.Draw(temp)
         draw.text( ( text_size[0] * 2, text_size[0]*2 - text_size[1]), stringNumber,
-               fill=self._color,
+               fill=self.getColor(),
                font=font,
                anchor=None,
                spacing=spacing,
@@ -74,10 +83,9 @@ class SystemFontElement(ContainerElement):
                embedded_color=False)
         if self._angle:
             temp = temp.rotate(-(self._angle), expand=1)
-        w, h = temp.size
         if self.getCoordinates():
+            w, h = temp.size
             drawer.paste(temp, (self.getCoordinates().getX()-int(w/2), self.getCoordinates().getY()-int(h/2)), temp)
-        return
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

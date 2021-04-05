@@ -1,4 +1,5 @@
 class ActivityType:
+    Date = 0
     Battery = 1
     Steps = 2
     Calories = 3
@@ -19,6 +20,7 @@ class ActivityType:
     FatBurning = 18
    
     Converter = {
+        Date: 'Date',
         Battery : "Battery",
         Steps : "Steps", 
         Calories : "Calories", 

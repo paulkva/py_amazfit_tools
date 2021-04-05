@@ -75,8 +75,8 @@ class ClockHandElement(CompositeElement):
                 center)
 
         if self.getCover():
-            dX = 0 if self.getCover().getCoordinates() is None or self.getScale().getCoordinates().getX() is None else self.getCover().getCoordinates().getX()
-            dY = 0 if self.getCover().getCoordinates() is None or self.getScale().getCoordinates().getY() is None else self.getCover().getCoordinates().getY()
+            dX = 0 if self.getCover().getCoordinates() is None or self.getCover().getCoordinates().getX() is None else self.getCover().getCoordinates().getX()
+            dY = 0 if self.getCover().getCoordinates() is None or self.getCover().getCoordinates().getX() is None else self.getCover().getCoordinates().getY()
 
             coverImageIndex = self.getCover().getImageIndex()
             temp = resources[coverImageIndex - Config.getStartImageIndex()].getBitmap()

@@ -38,80 +38,105 @@ class ActivityElement(ContainerElement):
         if self.getIcon():
             self.getIcon().draw3(drawer, images, None)
         number = None
+        numberMin = None
+        numberMax = None
         max_number = None
         max_number_length = 1
         image_progress_state = None
-
-        if self.getType() == 1 and state.getBatteryLevel() is not None:
+        unit = ''
+        if self.getType() == 1 and state.getBatteryLevel() is not None: # Battery
             number = state.getBatteryLevel()
             max_number = 100
             max_number_length = 3
             image_progress_state = ( number, max_number)
-        elif self.getType() == 2 and state.getSteps() is not None:
+        elif self.getType() == 2 and state.getSteps() is not None:      # Steps
             number = state.getSteps()
             max_number = state.getGoal()
             max_number_length = 5
             image_progress_state = (number, max_number)
-        elif self.getType() == 3 and state.getCalories() is not None:
+        elif self.getType() == 3 and state.getCalories() is not None:   # Calories
             number = state.getCalories()
             max_number = 700
             max_number_length = 4
             image_progress_state = (number, max_number)
-        elif self.getType() == 4 and state.getPulse() is not None:
+        elif self.getType() == 4 and state.getPulse() is not None:      # Pulse
             number = state.getPulse()
             max_number = 250
             max_number_length = 3
             image_progress_state = (number, max_number)
-        elif self.getType() == 5 and state.getPai() is not None:
+        elif self.getType() == 5 and state.getPai() is not None:        # PAI
             number = state.getPai()
             max_number = 100
             max_number_length = 3
             image_progress_state = (number, max_number)
-        elif self.getType() == 6 and state.getDistance() is not None:
+        elif self.getType() == 6 and state.getDistance() is not None:   # Distance
             number = state.getDistance() 
             max_number = state.getGoal() / 1000
             max_number_length = 4
-        elif self.getType() == 7 and state.getStand() is not None:
+        elif self.getType() == 7 and state.getStand() is not None:      # Stand
             number = state.getStand()
             max_number = 12
             max_number_length = 2
             image_progress_state = (number, max_number)
-        elif self.getType() == 8:
+        elif self.getType() == 8:                                       # Weather
             number = state.getCurrentTemperature() 
+            numberMin = state.getCurrentTemperature() - 10
+            numberMax = state.getCurrentTemperature() + 10
             max_number = 99
             image_progress_state = (state.getCurrentWeather(), 29)
             max_number_length = 2
-        elif self.getType() == 9:
+            unit = "°C"
+        elif self.getType() == 9:                                       # UV Index
             number = state.getUVindex()
             max_number = 12
             max_number_length = 2
-        elif self.getType() == 10:
-            number = random.randint(0, 500)
+        elif self.getType() == 10:                                      # AirQuality
+            number = state.getUVindex() * 40
             max_number = 500
             max_number_length = 3
-        elif self.getType() == 11:
+        elif self.getType() == 11:                                      # Humidity
             number = state.getHumidity()
             max_number = 100
             max_number_length = 3
-        elif self.getType() == 12:
-            #number = random.randint(1, 2)
-            #max_number = 2
-            #max_number_length = 1
+        elif self.getType() == 12:                                      # Sunrise
+            number = random.randint(1, 2)
+            number = "06:33"
+            numberMin = "06:33"
+            numberMax = "19:42"
+            max_number = 2
+            max_number_length = 5
             image_progress_state = (random.randint(1, 2), 29)
-        elif self.getType() == 13:
+        elif self.getType() == 13:                                      # WindForce
             number = random.randint(1, 12)
             max_number = 12
             max_number_length = 2
-        elif self.getType() == 15:
+        elif self.getType() == 14:                                      # Altitude
             number = random.randint(1, 999)
             max_number = 999
             max_number_length = 3
-        #TODO: other Activity implement
+        elif self.getType() == 15:                                      # AirPressure
+            number = random.randint(1, 999)
+            max_number = 999
+            max_number_length = 3
+        elif self.getType() == 16:                                      # Stress
+            number = random.randint(1, 999)
+            max_number = 999
+            max_number_length = 3
+        elif self.getType() == 17:                                      # ActivityGoal
+            number = random.randint(1, 999)
+            max_number = 999
+            max_number_length = 3
+        elif self.getType() == 18:                                      # FatBurning
+            number = random.randint(1, 99)
+            max_number = 99
+            max_number_length = 3
 
+        if self.getIcon():
+            self.getIcon().draw3(drawer, images, None)
         if number is not None:
             if self.getDigits():
                 for d in self.getDigits():
-                    d.draw4(drawer, images, number, max_number_length)
+                    d.draw4(drawer, images, number, numberMin, numberMax, max_number_length, unit)
             if self.getImageProgress():
                 self.getImageProgress().draw3(drawer, images, image_progress_state)
             if self.getProgressBar():

@@ -233,7 +233,8 @@ class ImageElement(CompositeElement):
 
         for image in images:
             temp = image.getBitmap()
-            drawer.paste(temp, (x,y), temp)
+            print('x', x, 'y', y, 'box', box.getLeft())
+            drawer.paste(temp, (x, y), temp)
 
             imageWidth = image.getBitmap().size[0]
             x += imageWidth + int(spacing)

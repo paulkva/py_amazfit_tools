@@ -5,6 +5,7 @@ from watchFaceParser.config import Config
 from watchFaceParser.models.elements.basic.containerElement import ContainerElement
 from watchFaceParser.helpers.drawerHelper import DrawerHelper
 
+
 class TextElement(ContainerElement):
     def __init__(self, parameter, parent, name=None):
         self._image = None
@@ -13,7 +14,7 @@ class TextElement(ContainerElement):
         self._spacing = None
         self._paddingZero = None
         self._displayFormAnalog = None
-        super(TextElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
+        super(TextElement, self).__init__(parameters=None, parameter=parameter, parent=parent, name=name)
 
     def getImage(self):
         return self._image
@@ -33,9 +34,9 @@ class TextElement(ContainerElement):
     def getDisplayFormAnalog(self):
         return self._displayFormAnalog
 
-    def draw4(self, drawer, images, number, minimumDigits = 1, followX = None, padding_zero = None):
+    def draw4(self, drawer, images, number, minimumDigits=1, followX=None, padding_zero=None, unit=''):
         if not self.getPaddingZero():
-            self._paddingZero = padding_zero;
+            self._paddingZero = padding_zero
 
         if self.getSystemFont():
             self.getSystemFont().draw4(
@@ -46,7 +47,8 @@ class TextElement(ContainerElement):
                 self._spacing,
                 self.getPaddingZero(),
                 minimumDigits,
-                self._displayFormAnalog)
+                self._displayFormAnalog,
+                unit)
             return
         elif self.getImage():
             return self.getImage().draw4(
@@ -60,9 +62,10 @@ class TextElement(ContainerElement):
                 self._displayFormAnalog,
                 followX
             )
+
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
-        
+
         if parameterId == 1:
             from watchFaceParser.models.gtr2.elements.common.imageElement import ImageElement
             self._image = ImageElement(parameter, self, name='Image')
