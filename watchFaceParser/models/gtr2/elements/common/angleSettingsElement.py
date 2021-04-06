@@ -6,10 +6,10 @@ from watchFaceParser.models.gtr2.elements.basic.compositeElement import Composit
 
 class AngleSettingsElement(CompositeElement):
     def __init__(self, parameter, parent, name=None):
-        self._x = None
-        self._y = None
-        self._startAngle = None
-        self._endAngle = None
+        self._x = 0
+        self._y = 0
+        self._startAngle = 0
+        self._endAngle = 0
         self._radius = None
         super(AngleSettingsElement, self).__init__(parameters=None, parameter=parameter, parent=parent, name=name)
 
