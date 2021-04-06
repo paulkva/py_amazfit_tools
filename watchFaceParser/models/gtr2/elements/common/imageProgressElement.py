@@ -36,8 +36,8 @@ class ImageProgressElement(CoordinatesElement):
         if not self.getDisplayType():
             initial = s
         for i in range(initial, s + 1):
-            x = self.getCoordinates()[i]._x if i < len(self.getCoordinates()) else self.getCoordinates()[-1]._x
-            y = self.getCoordinates()[i]._y if i < len(self.getCoordinates()) else self.getCoordinates()[-1]._y
+            x = self.getCoordinates()[i].getX() if i < len(self.getCoordinates()) else self.getCoordinates()[-1].getX()
+            y = self.getCoordinates()[i].getY() if i < len(self.getCoordinates()) else self.getCoordinates()[-1].getY()
             imageIndex = self.getImageSet().getImageIndex() + i - Config.getStartImageIndex()
             temp = images[imageIndex].getBitmap()
             print(x, y, imageIndex, state)
