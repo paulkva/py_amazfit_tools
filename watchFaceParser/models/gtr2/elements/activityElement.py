@@ -90,14 +90,17 @@ class ActivityElement(ContainerElement):
             number = state.getUVindex()
             max_number = 12
             max_number_length = 2
+            image_progress_state = (number, max_number)
         elif self.getType() == 10:                                      # AirQuality
             number = state.getUVindex() * 40
             max_number = 500
             max_number_length = 3
+            image_progress_state = (number, max_number)
         elif self.getType() == 11:                                      # Humidity
             number = state.getHumidity()
             max_number = 100
             max_number_length = 3
+            image_progress_state = (number, max_number)
         elif self.getType() == 12:                                      # Sunrise
             number = random.randint(1, 2)
             number = "06:33"
@@ -110,27 +113,33 @@ class ActivityElement(ContainerElement):
             number = random.randint(1, 12)
             max_number = 12
             max_number_length = 2
+            image_progress_state = (number, max_number)
         elif self.getType() == 14:                                      # Altitude
             number = random.randint(1, 999)
             max_number = 999
             max_number_length = 3
+            image_progress_state = (number, max_number)
         elif self.getType() == 15:                                      # AirPressure
             number = random.randint(1, 999)
             max_number = 999
             max_number_length = 3
+            image_progress_state = (number, max_number)
         elif self.getType() == 16:                                      # Stress
             number = random.randint(1, 999)
             max_number = 999
             max_number_length = 3
+            image_progress_state = (number, max_number)
         elif self.getType() == 17:                                      # ActivityGoal
             number = random.randint(1, 999)
             max_number = 999
             max_number_length = 3
+            image_progress_state = (number, max_number)
         elif self.getType() == 18:                                      # FatBurning
             number = random.randint(1, 99)
             max_number = 99
             max_number_length = 3
-
+            image_progress_state = (number, max_number)
+            
         if self.getIcon():
             self.getIcon().draw3(drawer, images, None)
         if number is not None:
