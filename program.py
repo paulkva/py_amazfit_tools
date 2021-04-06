@@ -59,7 +59,7 @@ class Parser:
         assert(type(outputFileName) == str)
         assert(type(imagesDirectory) == str)
         try:
-            if Config.isGtr2Mode() or Config.isGts2Mode(): 
+            if not Config.isOldFormat() and (Config.isGtr2Mode() or Config.isGts2Mode()): 
                 from watchFaceParser.watchFaceGTR2 import WatchFace
             else:
                 from watchFaceParser.watchFace import WatchFace
@@ -276,7 +276,8 @@ class Parser:
     @staticmethod
     def parseResources(reader):
         logging.debug("Parsing parameters...")
-        if Config.isGtr2Mode() or Config.isGts2Mode(): 
+        print(Config.isOldFormat())
+        if not Config.isOldFormat() and (Config.isGtr2Mode() or Config.isGts2Mode()): 
             from watchFaceParser.watchFaceGTR2 import WatchFace
         else:
             from watchFaceParser.watchFace import WatchFace

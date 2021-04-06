@@ -20,6 +20,7 @@ class Config:
     _size_gtr_42 = (390, 390)
     _size_gts = (348,442)
     _size_amazfitx = (206,640)
+    _oldformat = False
 
     @staticmethod
     def setDeviceId(deviceId):
@@ -86,18 +87,22 @@ class Config:
             Config._preview_size = (266, 266)
 
     @staticmethod
-    def setGtrMode2(gtr2):
+    def setGtrMode2(gtr2, oldformat):
+        if oldformat:
+            Config._oldformat = True
         Config._is_gtr2 = gtr2
         if Config._is_gtr2 == 47:  
             Config._autodetect = False
             Config._image_size = Config._size_gtr_47
             Config._preview_size = (306, 306)
-            Config._startImageIndex = 1
+            if not oldformat:
+                Config._startImageIndex = 1
         if Config._is_gtr2 == 42: 
             Config._autodetect = False
             Config._image_size = Config._size_gtr_42
             Config._preview_size = (306, 306)
-            Config._startImageIndex = 1 
+            if not oldformat:
+                Config._startImageIndex = 1 
 
     @staticmethod
     def isGtrMode():
@@ -153,13 +158,26 @@ class Config:
             Config._preview_size = (242,304)
 
     @staticmethod
-    def setGts2Mode(gts2):
+    def setGts2Mode(gts2, oldformat):
+        if oldformat:
+            Config._oldformat = True
         if gts2:
             Config._autodetect = False
             Config._is_gts2 = 40
             Config._image_size = Config._size_gts
             Config._preview_size = (254,323)
-            Config._startImageIndex = 1
+            if not oldformat:
+                 Config._startImageIndex = 1
+    
+    @staticmethod
+    def isOldFormat():
+        return Config._oldformat
+    
+    @staticmethod
+    def setOldFormat(oldformat):
+        Config._oldformat = oldformat
+        if oldformat == True:
+            Config._startImageIndex = 0
 
     @staticmethod
     def isGtsMode():

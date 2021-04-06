@@ -89,7 +89,10 @@ class Header:
         if Config.isGtr2Mode() or Config.isGts2Mode():
             buffer[12:12+4] = int(57305).to_bytes(4, byteorder='little') #some size??
             buffer[84:84+4] = int(48).to_bytes(4, byteorder='little')
-            buffer[75] = 0x01
+            if Config._oldformat:
+                buffer[75] = 0x00
+            else:
+                buffer[75] = 0x01
         else:
             buffer[60:60+4] = int(64).to_bytes(4, byteorder='little')
 
@@ -121,6 +124,10 @@ class Header:
             parametersSize = int.from_bytes(buffer[Header.parametersSizePos:Header.parametersSizePos+4], byteorder='little'),
             deviceId = int.from_bytes(buffer[Header.deviceIdPos:Header.deviceIdPos+1], byteorder='little'))
         header.signature = sig_buffer[0:7]
+
+        if  Config.isGtr2Mode() or Config.isGts2Mode():
+            if buffer[75-16] == 0x00:
+                Config.setOldFormat(True)
         return header
     
     @staticmethod
