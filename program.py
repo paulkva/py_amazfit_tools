@@ -59,7 +59,7 @@ class Parser:
         assert(type(outputFileName) == str)
         assert(type(imagesDirectory) == str)
         try:
-            if not Config.isOldFormat() and (Config.isGtr2Mode() or Config.isGts2Mode()): 
+            if not Config.isOldFormat() and (Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode()): 
                 from watchFaceParser.watchFaceGTR2 import WatchFace
             else:
                 from watchFaceParser.watchFace import WatchFace
@@ -74,7 +74,7 @@ class Parser:
                 Config.setDeviceId(descriptor.pop(0).getChildren()[0].getValue())
 
             baseName, _ = os.path.splitext(os.path.basename(outputFileName))
-            #if not Config.isGtr2Mode() and not Config.isGts2Mode(): 
+            #if not Config.isGtr2Mode() and not Config.isGts2Mode() and not Config.isTrexProMode(): 
             #    Parser.generatePreviews(descriptor, imagesReader.getImages(), outputDirectory, baseName) 
             Parser.generatePreviews(descriptor, imagesReader.getImages(), outputDirectory, baseName) 
 
@@ -277,7 +277,7 @@ class Parser:
     def parseResources(reader):
         logging.debug("Parsing parameters...")
         print(Config.isOldFormat())
-        if not Config.isOldFormat() and (Config.isGtr2Mode() or Config.isGts2Mode()): 
+        if not Config.isOldFormat() and (Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode()): 
             from watchFaceParser.watchFaceGTR2 import WatchFace
         else:
             from watchFaceParser.watchFace import WatchFace
@@ -330,7 +330,7 @@ class Parser:
             xy = (10,310)
             corner_radius = 38
 
-            if Config.isGtsMode() or Config.isGts2Mode():
+            if Config.isGtsMode():
                 mask = Image.new("RGBA", Config.getPreviewSize(), (255, 255, 255, 0))
                 d = ImageDraw.Draw(mask)
 
