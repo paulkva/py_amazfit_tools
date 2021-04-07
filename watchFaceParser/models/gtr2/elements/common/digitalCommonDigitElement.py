@@ -33,7 +33,7 @@ class DigitalCommonDigitElement(ContainerElement):
         if self.getSeparator():
             self.getSeparator().draw3(drawer, images, None)
         if self.getDigit():
-            self.getDigit().draw4(drawer, images, number, minimumDigits, followX = None, padding_zero = None, unit=unit)
+            self.getDigit().draw4(drawer, images, number, minimumDigits, followxy = None, padding_zero = None, unit=unit)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

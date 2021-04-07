@@ -49,7 +49,7 @@ class ImageElement(CompositeElement):
         self._multilangImageUnitMile = []
         self._maxTextWidth = None
         self._box = None
-        self._followX = None
+        self._followxy = None
         super(ImageElement, self).__init__(parameters=None, parameter = parameter, parent = parent, name = name)
 
     def getX(self):
@@ -79,16 +79,17 @@ class ImageElement(CompositeElement):
     def getBox(self):
         return self._box
 
-    def getFollowX(self):
-        return self._followX
+    def getFollowXY(self):
+        return self._followxy
 
-    def setBox(self, images, spacing, followX):
+    def setBox(self, images, spacing, followxy):
         (bitmapWidth, bitmapHeight) = DrawerHelper.calculateBounds(images, spacing)
-        x = self.getX() if followX is None else followX
+        x = self.getX() if followxy is None else followxy[0]
+        y = self.getY() if followxy is None else followxy[1]
         if bitmapWidth > self._maxTextWidth:
-            self._box = Box(x, self.getY(), bitmapWidth, bitmapHeight)
+            self._box = Box(x, y, bitmapWidth, bitmapHeight)
         else:
-            self._box = Box(x, self.getY(), self._maxTextWidth, bitmapHeight)
+            self._box = Box(x, y, self._maxTextWidth, bitmapHeight)
         return self._box
 
 
@@ -98,7 +99,7 @@ class ImageElement(CompositeElement):
         self._maxTextWidth += width
 
     def draw4(self, drawer, images, number, alignment, spacing,
-              paddingZero, minimumDigits, displayFormAnalog, followX):
+              paddingZero, minimumDigits, displayFormAnalog, followxy):
         if not alignment:
             alignment = 0
         if not paddingZero:
@@ -108,10 +109,10 @@ class ImageElement(CompositeElement):
         if not displayFormAnalog:
             displayFormAnalog = False
         ar = self.getImagesForNumber(images, number, alignment, spacing, paddingZero, minimumDigits, displayFormAnalog)
-        self.setBox(ar, spacing, followX)
+        self.setBox(ar, spacing, followxy)
         self.drawImages(drawer, ar, spacing, alignment, self.getBox())
-        self._followX = self._box.getX() + self._box.getWidth() + 1
-        return self._followX
+        self._followxy = (self._box.getX() + self._box.getWidth() + 1, self._box.getY())
+        return self._followxy
 
     def getImagesForNumber(self, images, number, alignment, spacing, paddingZero, minimumDigits, displayFormAnalog):
         ar = []

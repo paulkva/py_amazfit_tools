@@ -24,9 +24,9 @@ class DateElement(ContainerElement):
 
     def draw3(self, drawer, images, state):
         if self.getDateDigits():
-            followx = None
+            followxy = None
             for d in self.getDateDigits():
-                followx = d.draw4(drawer, images, state, followx)
+                followxy = d.draw4(drawer, images, state, followxy)
         if self.getWeeksDigits():
             self.getWeeksDigits().draw4(drawer, images, state.getTime().weekday()+1)
 

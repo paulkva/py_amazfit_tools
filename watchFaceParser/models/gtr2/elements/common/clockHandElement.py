@@ -5,13 +5,13 @@ from watchFaceParser.config import Config
 
 class ClockHandElement(CompositeElement):
     def __init__(self, parameter, parent, name = None):
-        self._x = False
-        self._y = None
+        self._x = 0
+        self._y = 0
         self._scale = None
         self._pointer = None # pointerX, pointerY - rotateCenter
         self._cover = None
-        self._startAngle = None
-        self._endAngle = None
+        self._startAngle = 0
+        self._endAngle = 0
         super(ClockHandElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
 
 
@@ -79,8 +79,9 @@ class ClockHandElement(CompositeElement):
             dY = 0 if self.getCover().getCoordinates() is None or self.getCover().getCoordinates().getX() is None else self.getCover().getCoordinates().getY()
 
             coverImageIndex = self.getCover().getImageIndex()
-            temp = resources[coverImageIndex - Config.getStartImageIndex()].getBitmap()
-            drawer.paste(temp, (dX, dY), temp)
+            if coverImageIndex:
+                temp = resources[coverImageIndex - Config.getStartImageIndex()].getBitmap()
+                drawer.paste(temp, (dX, dY), temp)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
