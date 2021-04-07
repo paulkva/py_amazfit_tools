@@ -59,7 +59,7 @@ class Parser:
         assert(type(outputFileName) == str)
         assert(type(imagesDirectory) == str)
         try:
-            if not Config.isOldFormat() and (Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode()) Config.isGts2MiniMode(): 
+            if not Config.isOldFormat() and (Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode() or Config.isGts2MiniMode()): 
                 from watchFaceParser.watchFaceGTR2 import WatchFace
             else:
                 from watchFaceParser.watchFace import WatchFace
