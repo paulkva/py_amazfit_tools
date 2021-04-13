@@ -5,7 +5,7 @@ from watchFaceParser.models.weatherCondition import WeatherCondition
 
 class WatchState:
     def __init__(self, BatteryLevel=67, Pulse=62, Steps=14876, Calories=764, Distance=2367,
-                 Bluetooth=True, Unlocked=True, Alarm=True, DoNotDisturb=True,
+                 Bluetooth=False, Unlocked=True, Alarm=True, DoNotDisturb=True,
                  CurrentTemperature=-10, Stand=3, PAI=30, Humidity=50, UVindex=5, AirQuality=5):
         # self._time = datetime.datetime.now().replace(hour = 10, minute = 10, second = 30)
         self._time = datetime.datetime.now()
