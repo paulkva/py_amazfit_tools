@@ -19,6 +19,14 @@ class AnalogDialElement(ContainerElement):
     def getSeconds(self):
         return self._seconds
 
+    def draw3(self, drawer, resources, state):
+        if self.getSeconds():
+            self.getSeconds().draw3(drawer, resources, state)
+        if self.getHours():
+            self.getHours().draw3(drawer, resources, state)
+        if self.getMinutes():
+            self.getMinutes().draw3(drawer, resources, state)
+
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
         if parameterId == 1:
