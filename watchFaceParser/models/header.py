@@ -89,7 +89,7 @@ class Header:
         for i in range(len(p_0x10)):
             buffer[0x10 + i] = p_0x10[i]
         # hard coding?
-        if Config.isGtr2Mode() or Config.isGts2Mode():
+        if Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode():
             buffer[12:12+4] = int(57305).to_bytes(4, byteorder='little') #some size??
             buffer[84:84+4] = int(48).to_bytes(4, byteorder='little')
             if Config._oldformat:
