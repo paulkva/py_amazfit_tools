@@ -37,12 +37,12 @@ class DigitalTimeDigitElement(ContainerElement):
                 followxy = None
             if self._timeType is None or self._timeType == 0:
                 hours = state.getTime().hour if not ampm else state.getTime().hour % 12
-                return self.getDigit().draw4(drawer, resources, hours, minimumDigits=2)
+                return self.getDigit().draw4(drawer, resources, hours, minimumDigits=2, paddingZeroLength=2)
             elif self._timeType == 1:
-                return self.getDigit().draw4(drawer, resources, state.getTime().minute, minimumDigits=2, followxy=followxy, padding_zero=True)
+                return self.getDigit().draw4(drawer, resources, state.getTime().minute, minimumDigits=2, paddingZeroLength=2, followxy=followxy, padding_zero=True)
             elif self._timeType == 2:
                 if not state.getScreenIdle():
-                    return self.getDigit().draw4(drawer, resources, state.getTime().second, minimumDigits=2, followxy=followxy, padding_zero=True)
+                    return self.getDigit().draw4(drawer, resources, state.getTime().second, minimumDigits=2, paddingZeroLength=2, followxy=followxy, padding_zero=True)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

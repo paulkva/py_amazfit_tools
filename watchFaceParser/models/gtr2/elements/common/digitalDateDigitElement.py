@@ -40,13 +40,13 @@ class DigitalDateDigitElement(ContainerElement):
                 #   PaddingZero = false -> year has 4 digits
                 #
                 if self.getDigit().getPaddingZero():
-                    return self.getDigit().draw4(drawer, resources, state.getTime().year % 2000, 2)
+                    return self.getDigit().draw4(drawer, resources, state.getTime().year % 2000, 2, 2)
                 else:
-                    return self.getDigit().draw4(drawer, resources, state.getTime().year, 4)
+                    return self.getDigit().draw4(drawer, resources, state.getTime().year, 4, 4)
             if self._dateType == 1:
-                return self.getDigit().draw4(drawer, resources, state.getTime().month, 2, followxy)
+                return self.getDigit().draw4(drawer, resources, state.getTime().month, 2, 2, followxy)
             if self._dateType == 2:
-                return self.getDigit().draw4(drawer, resources, state.getTime().day, 2, followxy)
+                return self.getDigit().draw4(drawer, resources, state.getTime().day, 2, 2, followxy)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

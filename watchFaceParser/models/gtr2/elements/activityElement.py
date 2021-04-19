@@ -42,6 +42,7 @@ class ActivityElement(ContainerElement):
         numberMax = None
         max_number = None
         max_number_length = 1
+        padding_zero_length = None
         image_progress_state = None
         unit = ''
         if self.getType() == 1 and state.getBatteryLevel() is not None: # Battery
@@ -85,6 +86,7 @@ class ActivityElement(ContainerElement):
             max_number = 99
             image_progress_state = (state.getCurrentWeather(), 29)
             max_number_length = 2
+            padding_zero_length = 3
             unit = "°C"
         elif self.getType() == 9:                                       # UV Index
             number = state.getUVindex()
@@ -133,12 +135,16 @@ class ActivityElement(ContainerElement):
             number = random.randint(1, 999)
             max_number = 999
             max_number_length = 3
+            padding_zero_length = 4
             image_progress_state = (number, max_number)
         elif self.getType() == 18:                                      # FatBurning
             number = random.randint(1, 99)
             max_number = 99
             max_number_length = 3
             image_progress_state = (number, max_number)
+
+        if padding_zero_length is None:
+            padding_zero_length = max_number_length
             
         if self.getIcon():
             self.getIcon().draw3(drawer, images, None)
@@ -151,7 +157,7 @@ class ActivityElement(ContainerElement):
                 self.getPointerProgress().draw4(drawer, images, number, max_number)
             if self.getDigits():
                 for d in self.getDigits():
-                    d.draw4(drawer, images, number, numberMin, numberMax, max_number_length, unit)
+                    d.draw4(drawer, images, number, numberMin, numberMax, max_number_length, padding_zero_length, unit)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

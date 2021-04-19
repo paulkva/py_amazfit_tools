@@ -34,7 +34,7 @@ class TextElement(ContainerElement):
     def getDisplayFormAnalog(self):
         return self._displayFormAnalog
 
-    def draw4(self, drawer, images, number, minimumDigits=1, followxy=None, padding_zero=None, unit=''):
+    def draw4(self, drawer, images, number, minimumDigits=1, paddingZeroLength=1, followxy=None, padding_zero=None, unit=''):
         if not self.getPaddingZero():
             self._paddingZero = padding_zero
 
@@ -47,6 +47,7 @@ class TextElement(ContainerElement):
                 self._spacing,
                 self.getPaddingZero(),
                 minimumDigits,
+                paddingZeroLength,
                 self._displayFormAnalog,
                 unit)
             return
@@ -59,6 +60,7 @@ class TextElement(ContainerElement):
                 self._spacing,
                 self.getPaddingZero(),
                 minimumDigits,
+                paddingZeroLength,
                 self._displayFormAnalog,
                 followxy
             )
