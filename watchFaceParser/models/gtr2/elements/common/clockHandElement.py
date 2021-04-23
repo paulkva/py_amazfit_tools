@@ -16,10 +16,10 @@ class ClockHandElement(CompositeElement):
 
 
     def getX(self):
-        return self._x
+        return self._x if self._x else int(Config.getImageSize()[0]/2) # if None or 0 - set to Center
 
     def getY(self):
-        return self._y
+        return self._y if self._y else int(Config.getImageSize()[1]/2) # if None or 0 - set to Center
 
     def getScale(self):
         return self._scale
