@@ -327,7 +327,6 @@ class Parser:
                 draw.rectangle((l, t + d, r, b - d), color)
                 draw.rectangle((l + d, t, r - d, b), color)
 
-            xy = (10,310)
             corner_radius = 38
 
             if Config.isGtsMode():
@@ -353,7 +352,8 @@ class Parser:
                                save_all=True,
                                append_images=images[1:],
                                duration=1000,
-                               loop=0)
+                               loop=0,
+                               transparency=1)
             else:
                 logging.debug("Nothing to save in animated gif...")
         except Exception as e:
