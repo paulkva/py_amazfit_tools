@@ -352,8 +352,7 @@ class Parser:
                                save_all=True,
                                append_images=images[1:],
                                duration=1000,
-                               loop=0,
-                               transparency=1)
+                               loop=0)
             else:
                 logging.debug("Nothing to save in animated gif...")
         except Exception as e:
