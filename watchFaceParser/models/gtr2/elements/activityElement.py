@@ -52,6 +52,8 @@ class ActivityElement(ContainerElement):
             image_progress_state = ( number, max_number)
         elif self.getType() == 2 and state.getSteps() is not None:      # Steps
             number = state.getSteps()
+            numberMin = state.getGoal()
+            numberMax = state.getGoal()
             max_number = state.getGoal()
             max_number_length = 5
             image_progress_state = (number, max_number)
