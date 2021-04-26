@@ -100,6 +100,8 @@ class ImageElement(CompositeElement):
 
     def draw4(self, drawer, images, number, alignment, spacing,
               paddingZero, paddingZeroDigits, paddingZeroLength, displayFormAnalog, followxy):
+        if number is None: return
+        
         if not alignment:
             alignment = 0
         if not paddingZero:
