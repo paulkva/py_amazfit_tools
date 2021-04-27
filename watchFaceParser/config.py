@@ -24,6 +24,8 @@ class Config:
     _size_amazfitx = (206,640)
     _oldformat = False
 
+    _border_alignment = False
+
     @staticmethod
     def setDeviceId(deviceId):
         Config._deviceId = deviceId
@@ -229,3 +231,11 @@ class Config:
     @staticmethod
     def isFromRaw():
         return Config._is_from_raw
+
+    @staticmethod
+    def setBorderAlignment(border_alignment):
+        Config._border_alignment = border_alignment
+
+    @staticmethod
+    def getBorderAlignment():
+        return Config._border_alignment
