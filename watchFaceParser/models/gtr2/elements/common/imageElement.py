@@ -95,7 +95,8 @@ class ImageElement(CompositeElement):
 
     def addTextWidth(self, width, spacing):
         if self._maxTextWidth > 0:
-            self._maxTextWidth += spacing
+            if spacing > 0:
+                self._maxTextWidth += spacing
         self._maxTextWidth += width
 
     def draw4(self, drawer, images, number, alignment, spacing,
@@ -110,6 +111,9 @@ class ImageElement(CompositeElement):
             spacing = 0
         if not displayFormAnalog:
             displayFormAnalog = False
+
+        print("Number", number)
+
         ar = self.getImagesForNumber(images, number, alignment, spacing, paddingZero, paddingZeroDigits, paddingZeroLength, displayFormAnalog)
         self.setBox(ar, spacing, followxy)
         self.drawImages(drawer, ar, spacing, alignment, self.getBox())
@@ -236,6 +240,11 @@ class ImageElement(CompositeElement):
 
             imageWidth = image.getBitmap().size[0]
             x += imageWidth + int(spacing)
+
+        if Config.getBorderAlignment():
+            from PIL import ImageDraw
+            d = ImageDraw.Draw(drawer)
+            d.rectangle((box.getLeft(),box.getTop(),box.getRight(), box.getBottom()), outline=(200, 200, 200))
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
