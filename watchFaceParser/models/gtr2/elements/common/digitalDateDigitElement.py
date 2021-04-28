@@ -34,11 +34,19 @@ class DigitalDateDigitElement(ContainerElement):
             if self._combingMode == 1: # 1 == Single
                 followxy = None
             if self._dateType is None or self._dateType == 0:
-                return self.getDigit().draw4(drawer, resources, state.getTime().year % 2000, 2)
+                #
+                #  weird logic from Huami (GTS2):
+                #   PaddingZero = true -> year has only 2 digits
+                #   PaddingZero = false -> year has 4 digits
+                #
+                if self.getDigit().getPaddingZero():
+                    return self.getDigit().draw4(drawer, resources, state.getTime().year % 2000, 2, 2)
+                else:
+                    return self.getDigit().draw4(drawer, resources, state.getTime().year, 4, 4)
             if self._dateType == 1:
-                return self.getDigit().draw4(drawer, resources, state.getTime().month, 2, followxy)
+                return self.getDigit().draw4(drawer, resources, state.getTime().month, 2, 2, followxy)
             if self._dateType == 2:
-                return self.getDigit().draw4(drawer, resources, state.getTime().day, 2, followxy)
+                return self.getDigit().draw4(drawer, resources, state.getTime().day, 2, 2, followxy)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

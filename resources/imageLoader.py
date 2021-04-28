@@ -18,7 +18,7 @@ class ImageLoader:
             if resource != None:
                 return resource
 
-        raise FileNotFoundException(f"File referenced by index {index} not found.")
+        raise Exception(f"File referenced by index {index} not found.")
 
 
     @staticmethod

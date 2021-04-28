@@ -22,6 +22,7 @@ if __name__ == '__main__':
     watchface.json - packs config and referenced images to bin file''')
     parser.add_argument('--to_raw', action='store_true', help='save raw header and resources')
     parser.add_argument('--from_raw', action='store_true', help='generate bin from raw folder')
+    parser.add_argument('--border_alignment', action='store_true', help='draw border around aligned objects in preview')
     args = parser.parse_args()
 
     Config.setVergeLiteMode(args.vergelite)
@@ -37,6 +38,8 @@ if __name__ == '__main__':
 
     Config.setToRaw(args.to_raw)
     Config.setFromRaw(args.from_raw)
+
+    Config.setBorderAlignment(args.border_alignment)
 
     for inputFileName in args.file:
         isDirectory = os.path.isdir(inputFileName)

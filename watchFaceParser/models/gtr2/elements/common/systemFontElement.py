@@ -41,6 +41,7 @@ class SystemFontElement(ContainerElement):
               spacing = 1,
               paddingZero = False,
               minimumDigits = 1,
+              paddingZeroLength = 1,
               displayFormAnalog = False,
               unit = ''):
 

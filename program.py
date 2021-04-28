@@ -326,7 +326,6 @@ class Parser:
                 draw.rectangle((l, t + d, r, b - d), color)
                 draw.rectangle((l + d, t, r - d, b), color)
 
-            xy = (10,310)
             corner_radius = 38
 
             if Config.isGtsMode():

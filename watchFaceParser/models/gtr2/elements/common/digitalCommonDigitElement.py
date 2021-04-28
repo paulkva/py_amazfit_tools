@@ -25,7 +25,15 @@ class DigitalCommonDigitElement(ContainerElement):
     def getSeparator(self):
         return self._separator
 
-    def draw4(self, drawer, images, number, numberMin = None, numberMax = None, minimumDigits = 1, unit = ''):
+    def draw4(self,
+              drawer,
+              images,
+              number,
+              numberMin = None,
+              numberMax = None,
+              minimumDigits = 1,
+              paddingZeroLength = 1,
+              unit = ''):
         assert(type(images) == list)
 
         number = numberMax if self._type == 2 else numberMin if self._type == 1 else number
@@ -33,7 +41,15 @@ class DigitalCommonDigitElement(ContainerElement):
         if self.getSeparator():
             self.getSeparator().draw3(drawer, images, None)
         if self.getDigit():
-            self.getDigit().draw4(drawer, images, number, minimumDigits, followxy = None, padding_zero = None, unit=unit)
+            self.getDigit().draw4(drawer,
+                                  images,
+                                  number,
+                                  minimumDigits,
+                                  paddingZeroLength,
+                                  followxy = None,
+                                  padding_zero = None,
+                                  unit=unit,
+                                  checkDisplayFormAnalog=False)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

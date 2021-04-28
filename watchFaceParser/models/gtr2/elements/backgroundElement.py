@@ -45,7 +45,7 @@ class BackgroundElement(ContainerElement):
             self._backgroundImageIndex = parameter.getValue() - Config.getStartImageIndex()
             return ValueElement(parameter, self, '?ImageIndex?')
         elif parameterId == 3:
-            self._color = Color.fromArgb(0xff000000 | parameter.getValue())
+            self._color = Color.fromArgdBackground(0xff0000 | parameter.getValue())
             return ValueElement(parameter = parameter, parent = self, name = '?_color?')
         else:
             return super(BackgroundElement, self).createChildForParameter(parameter)
