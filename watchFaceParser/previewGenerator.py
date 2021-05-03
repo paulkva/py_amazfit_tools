@@ -36,7 +36,7 @@ class PreviewGenerator:
         if Config.isGtrMode() or Config.isGtr2Mode() or Config.isTrexMode() or Config.isTrexProMode():
             graphics = PreviewGenerator.cutCircled(graphics)
         elif Config.isGtsMode() or Config.isGts2Mode():
-            graphics = PreviewGenerator.cutRoudedRectangle(graphics, 38)
+            graphics = PreviewGenerator.cutRoudedRectangle(graphics, 58)
 
         #graphics.show()
         return graphics
