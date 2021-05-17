@@ -133,8 +133,7 @@ class ImageElement(CompositeElement):
         if multilangImage:
             if displayFormAnalog:
                 if int(number) <= multilangImage.getImageSet().getImagesCount():
-                    imageIndex = multilangImage.getImageSet().getImageIndex() + \
-                                 int(number) - Config.getStartImageIndex() - 1
+                    imageIndex = multilangImage.getImageSet().getImageIndex() + int(number) - Config.getStartImageIndex()
                     ar.append(images[imageIndex])
                     self.addTextWidth(images[imageIndex].getBitmap().size[0], spacing)
             else:
