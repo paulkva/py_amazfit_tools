@@ -112,6 +112,9 @@ class ImageElement(CompositeElement):
         if not displayFormAnalog:
             displayFormAnalog = False
 
+        if displayFormAnalog:
+            number = number - 1
+            
         print("Number", number)
 
         ar = self.getImagesForNumber(images, number, alignment, spacing, paddingZero, paddingZeroDigits, paddingZeroLength, displayFormAnalog)
