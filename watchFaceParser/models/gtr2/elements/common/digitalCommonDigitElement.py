@@ -33,7 +33,7 @@ class DigitalCommonDigitElement(ContainerElement):
               numberMax = None,
               minimumDigits = 1,
               paddingZeroLength = 1,
-              unit = ''):
+              unit = ('', '')):
         assert(type(images) == list)
 
         number = numberMax if self._type == 2 else numberMin if self._type == 1 else number

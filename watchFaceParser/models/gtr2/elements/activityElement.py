@@ -44,12 +44,13 @@ class ActivityElement(ContainerElement):
         max_number_length = 1
         padding_zero_length = None
         image_progress_state = None
-        unit = ''
+        unit = ('', '')
         if self.getType() == 1 and state.getBatteryLevel() is not None: # Battery
             number = state.getBatteryLevel()
             max_number = 100
             max_number_length = 3
             image_progress_state = ( number, max_number)
+            unit = ("%", '%')
         elif self.getType() == 2 and state.getSteps() is not None:      # Steps
             number = state.getSteps()
             numberMin = state.getGoal()
@@ -57,16 +58,19 @@ class ActivityElement(ContainerElement):
             max_number = state.getGoal()
             max_number_length = 5
             image_progress_state = (number, max_number)
+            unit = ("Steps", 'STEPS')
         elif self.getType() == 3 and state.getCalories() is not None:   # Calories
             number = state.getCalories()
             max_number = 700
             max_number_length = 4
             image_progress_state = (number, max_number)
+            unit = ("kcal", 'Cal')
         elif self.getType() == 4 and state.getPulse() is not None:      # Pulse
             number = state.getPulse()
             max_number = 250
             max_number_length = 3
             image_progress_state = (number, max_number)
+            unit = ("bpm", 'BPM')
         elif self.getType() == 5 and state.getPai() is not None:        # PAI
             number = state.getPai()
             max_number = 100
@@ -76,6 +80,7 @@ class ActivityElement(ContainerElement):
             number = state.getDistance() 
             max_number = state.getGoal() / 1000
             max_number_length = 4
+            unit = ("km", 'KM')
         elif self.getType() == 7 and state.getStand() is not None:      # Stand
             number = state.getStand()
             max_number = 12
@@ -89,7 +94,7 @@ class ActivityElement(ContainerElement):
             image_progress_state = (state.getCurrentWeather(), 29)
             max_number_length = 2
             padding_zero_length = 3
-            unit = "°C"
+            unit = ('°C', '°C')
         elif self.getType() == 9:                                       # UV Index
             number = state.getUVindex()
             max_number = 12

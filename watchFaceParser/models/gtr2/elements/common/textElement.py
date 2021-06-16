@@ -42,7 +42,7 @@ class TextElement(ContainerElement):
               paddingZeroLength=1,
               followxy=None,
               padding_zero=None,
-              unit='',
+              unit={'', ''},
               checkDisplayFormAnalog=True):
         if not self.getPaddingZero():
             self._paddingZero = padding_zero

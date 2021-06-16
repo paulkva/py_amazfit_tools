@@ -43,7 +43,7 @@ class SystemFontElement(ContainerElement):
               minimumDigits = 1,
               paddingZeroLength = 1,
               displayFormAnalog = False,
-              unit = ''):
+              unit = ('', '')):
 
         stringNumber = number if isinstance(number, str) else str(abs(number))
         if paddingZero:
@@ -51,7 +51,9 @@ class SystemFontElement(ContainerElement):
         if not isinstance(number, str) and number < 0:
             stringNumber = '-' + stringNumber
         if self._showUnitCheck == 1:
-            stringNumber = stringNumber + unit
+            stringNumber = stringNumber + unit[0]
+        elif self._showUnitCheck == 2:
+            stringNumber = stringNumber + unit[1]
 
         if self.getFontRotate():
             self.getFontRotate().draw4(drawer, stringNumber, self.getAngle(), self.getSize(), self.getColor(), spacing)
