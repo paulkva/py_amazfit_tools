@@ -128,7 +128,7 @@ class Header:
             deviceId = int.from_bytes(buffer[Header.deviceIdPos:Header.deviceIdPos+1], byteorder='little'))
         header.signature = sig_buffer[0:7]
 
-        if  Config.isGtr2Mode() or Config.isGts2Mode():
+        if  Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode():
             if buffer[75-16] == 0x00:
                 Config.setOldFormat(True)
         return header
