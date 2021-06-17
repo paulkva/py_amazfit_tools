@@ -13,6 +13,5 @@ class WatchFace:
         4: { 'Name': 'DialFace', 'Type': ScreenNormal},
         5: { 'Name': 'System', 'Type': System},
         6: { 'Name': 'Widgets', 'Type': Widgets},
-        7: { 'Name': 'Shortcuts', 'Type': Shortcuts }, 
         10: { 'Name': 'ScreenIdle', 'Type': ScreenIdle},
     }
