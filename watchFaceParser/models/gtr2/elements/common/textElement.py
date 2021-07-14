@@ -4,6 +4,7 @@ from watchFaceParser.config import Config
 
 from watchFaceParser.models.elements.basic.containerElement import ContainerElement
 from watchFaceParser.helpers.drawerHelper import DrawerHelper
+from watchFaceParser.models.gtr2.elements.common.followObject import FollowObject
 
 
 class TextElement(ContainerElement):
@@ -34,44 +35,44 @@ class TextElement(ContainerElement):
     def getDisplayFormAnalog(self):
         return self._displayFormAnalog
 
-    def draw4(self,
-              drawer,
-              images,
-              number,
-              minimumDigits=1,
-              paddingZeroLength=1,
-              followxy=None,
-              padding_zero=None,
-              unit={'', ''},
-              checkDisplayFormAnalog=True):
+    def drawTextElement(self,
+                        drawer,
+                        images,
+                        number,
+                        minimum_digits=1,
+                        padding_zero_length=1,
+                        follow_object=FollowObject(),
+                        padding_zero=None,
+                        unit=('', ''),
+                        check_display_form_analog=True,
+                        separator=False) -> FollowObject:
+
         if not self.getPaddingZero():
             self._paddingZero = padding_zero
 
         if self.getSystemFont():
-            self.getSystemFont().draw4(
+            return self.getSystemFont().drawSystemFont(
                 drawer,
-                images,
                 number,
-                self._alignment,
                 self._spacing,
                 self.getPaddingZero(),
-                minimumDigits,
-                paddingZeroLength,
-                self._displayFormAnalog and checkDisplayFormAnalog,
-                unit)
-            return
+                minimum_digits=minimum_digits,
+                unit=unit,
+                separator=separator,
+                follow_object=follow_object)
+
         elif self.getImage():
-            return self.getImage().draw4(
+            return self.getImage().drawImageElement(
                 drawer,
                 images,
                 number,
                 self._alignment,
                 self._spacing,
                 self.getPaddingZero(),
-                minimumDigits,
-                paddingZeroLength,
-                self._displayFormAnalog and checkDisplayFormAnalog,
-                followxy
+                minimum_digits,
+                padding_zero_length,
+                self._displayFormAnalog and check_display_form_analog,
+                follow_object
             )
 
     def createChildForParameter(self, parameter):

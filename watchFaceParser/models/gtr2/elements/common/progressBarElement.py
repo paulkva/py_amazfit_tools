@@ -40,9 +40,9 @@ class ProgressBarElement(CoordinatesElement):
     def getBackgroundImageIndex(self):
         return self._backgroundImageIndex
 
-    def draw4(self, drawer, images, value, total):
+    def drawProgressBarElement(self, drawer, images, value, total):
         if self.getAngleSettings():
-            self.getAngleSettings().draw4(drawer, images, value, total,
+            self.getAngleSettings().drawAngleSettingsElement(drawer, images, value, total,
                                           self.getWidth(),
                                           self.getForegroundImageIndex(),
                                           self.getColor(),
@@ -51,7 +51,7 @@ class ProgressBarElement(CoordinatesElement):
                                           self.getBackgroundImageIndex()
                                           )
         if self.getLinearSettings():
-            self.getLinearSettings().draw4(drawer, images, value, total,
+            self.getLinearSettings().drawLinearSettingsElement(drawer, images, value, total,
                                            self.getWidth(),
                                            self.getForegroundImageIndex(),
                                            self.getColor(),

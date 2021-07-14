@@ -11,11 +11,14 @@ class ProgressDialFaceElement(ContainerElement):
     def getProgressBar(self):
         return self._progressBar
 
+    def drawProgressDialFaceElement(self, drawer, images, state):
+        self.draw3(drawer, images, state)
+
     def draw3(self, drawer, images, state):
         if self.getProgressBar():
             value = state.getTime().hour % 12 + state.getTime().minute / 60.
             maxvalue = 12
-            self.getProgressBar().draw4(self, drawer, images, value, maxvalue)
+            self.getProgressBar().drawProgressBarElement(self, drawer, images, value, maxvalue)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

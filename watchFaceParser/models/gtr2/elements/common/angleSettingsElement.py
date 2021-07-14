@@ -28,7 +28,7 @@ class AngleSettingsElement(CompositeElement):
     def getRadius(self):
         return self._radius
 
-    def draw4(self, drawer, resources,
+    def drawAngleSettingsElement(self, drawer, resources,
               value,
               total,
               width,

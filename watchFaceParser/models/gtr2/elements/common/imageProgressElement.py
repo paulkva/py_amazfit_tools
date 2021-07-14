@@ -20,7 +20,7 @@ class ImageProgressElement(CoordinatesElement):
     def getDisplayType(self):
         return self._displayType
 
-    def draw3(self, drawer, resources, state):
+    def drawImageProgressElement(self, drawer, resources, state):
         self.draw2(drawer, resources, state)
 
     def draw2(self, drawer, images, state):

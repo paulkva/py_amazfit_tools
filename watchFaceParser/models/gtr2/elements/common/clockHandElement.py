@@ -36,7 +36,7 @@ class ClockHandElement(CompositeElement):
     def getEndAngle(self):
         return self._endAngle
 
-    def draw4(self, drawer, resources, value, total):
+    def drawClockHandElement(self, drawer, resources, value, total):
         assert(type(resources) == list)
 
         if value > total:

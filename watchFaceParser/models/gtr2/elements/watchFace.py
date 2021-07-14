@@ -32,21 +32,21 @@ class WatchFace(ContainerElement):
     def draw3(self, drawer, images, state):
         if state.getScreenIdle() is None:
             if self.getBackground():
-                self.getBackground().draw3(drawer, images, state)
+                self.getBackground().drawBackgroundElement(drawer, images, state)
             if self.getSystem():
-                self.getSystem().draw3(drawer, images, state)
+                self.getSystem().drawSystemElement(drawer, images, state)
             if self.getWidgets():
-                self.getWidgets().draw3(drawer, images, state)
+                self.getWidgets().drawWidgetsElement(drawer, images, state)
             if self.getDialFace():
-                self.getDialFace().draw3(drawer, images, state)
+                self.getDialFace().drawScreenNormalElement(drawer, images, state)
         else:
             if self._screenidle:
-                self._screenidle.draw3(drawer, images, state)
+                self._screenidle.drawScreenIdleElement(drawer, images, state)
             else:
                 self.drawBackground(drawer)
             if self._screenidle is None or self._screenidle.getScreenNormal() is None:
                 if self.getDialFace():
-                    self.getDialFace().draw3(drawer, images, state)
+                    self.getDialFace().drawScreenNormalElement(drawer, images, state)
 
     def drawBackground(self, drawer):
         x = 0

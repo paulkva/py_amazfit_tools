@@ -8,7 +8,7 @@ class AmMultilangImageCoordsElement(MultilangImageCoordsElement):
     def __init__(self, parameter, parent, name = None):
         super(AmMultilangImageCoordsElement, self).__init__(parameter = parameter, parent = parent, name = name)
 
-    def draw3(self, drawer, resources, state):
+    def drawAmMultilangImageCoordsElement(self, drawer, resources, state):
         assert(type(resources) == list)
 
         x = 0 if self.getCoordinates() is None or self.getCoordinates().getX() is None else self.getCoordinates().getX()

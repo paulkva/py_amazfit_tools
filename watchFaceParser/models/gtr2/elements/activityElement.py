@@ -2,6 +2,7 @@
 import random
 
 from watchFaceParser.models.elements.basic.containerElement import ContainerElement
+from watchFaceParser.models.gtr2.elements.common.followObject import FollowObject
 
 
 class ActivityElement(ContainerElement):
@@ -34,6 +35,9 @@ class ActivityElement(ContainerElement):
 
     from watchFaceParser.models.watchState import WatchState
 
+    def drawActivityElement(self, drawer, images, state: WatchState):
+        self.draw3(drawer, images, state)
+
     def draw3(self, drawer, images, state: WatchState):
         if self.getIcon():
             self.getIcon().draw3(drawer, images, None)
@@ -44,13 +48,13 @@ class ActivityElement(ContainerElement):
         max_number_length = 1
         padding_zero_length = None
         image_progress_state = None
-        unit = ('', '')
+        unit = ('', '', '')
         if self.getType() == 1 and state.getBatteryLevel() is not None: # Battery
             number = state.getBatteryLevel()
             max_number = 100
             max_number_length = 3
             image_progress_state = ( number, max_number)
-            unit = ("%", '%')
+            unit = ('%', "%", '%')
         elif self.getType() == 2 and state.getSteps() is not None:      # Steps
             number = state.getSteps()
             numberMin = state.getGoal()
@@ -58,19 +62,19 @@ class ActivityElement(ContainerElement):
             max_number = state.getGoal()
             max_number_length = 5
             image_progress_state = (number, max_number)
-            unit = ("Steps", 'STEPS')
+            unit = ('', "Steps", 'STEPS')
         elif self.getType() == 3 and state.getCalories() is not None:   # Calories
             number = state.getCalories()
             max_number = 700
             max_number_length = 4
             image_progress_state = (number, max_number)
-            unit = ("kcal", 'Cal')
+            unit = ('', "kcal", 'Cal')
         elif self.getType() == 4 and state.getPulse() is not None:      # Pulse
             number = state.getPulse()
             max_number = 250
             max_number_length = 3
             image_progress_state = (number, max_number)
-            unit = ("bpm", 'BPM')
+            unit = ('', "bpm", 'BPM')
         elif self.getType() == 5 and state.getPai() is not None:        # PAI
             number = state.getPai()
             max_number = 100
@@ -80,7 +84,7 @@ class ActivityElement(ContainerElement):
             number = state.getDistance() 
             max_number = state.getGoal() / 1000
             max_number_length = 4
-            unit = ("km", 'KM')
+            unit = ('', "km", 'KM')
         elif self.getType() == 7 and state.getStand() is not None:      # Stand
             number = state.getStand()
             max_number = 12
@@ -94,7 +98,7 @@ class ActivityElement(ContainerElement):
             image_progress_state = (state.getCurrentWeather(), 29)
             max_number_length = 2
             padding_zero_length = 3
-            unit = ('°C', '°C')
+            unit = ('°C', '°C', '°C')
         elif self.getType() == 9:                                       # UV Index
             number = state.getUVindex()
             max_number = 12
@@ -110,6 +114,7 @@ class ActivityElement(ContainerElement):
             max_number = 100
             max_number_length = 3
             image_progress_state = (number, max_number)
+            unit = ('°C', '%', '%')
         elif self.getType() == 12:                                      # Sunrise
             number = random.randint(1, 2)
             number = "06:33"
@@ -133,6 +138,7 @@ class ActivityElement(ContainerElement):
             max_number = 999
             max_number_length = 3
             image_progress_state = (number, max_number)
+            unit = ('', 'KPA', 'KPA')
         elif self.getType() == 16:                                      # Stress
             number = random.randint(1, 999)
             max_number = 999
@@ -157,14 +163,23 @@ class ActivityElement(ContainerElement):
             self.getIcon().draw3(drawer, images, None)
         if number is not None:
             if self.getImageProgress():
-                self.getImageProgress().draw3(drawer, images, image_progress_state)
+                self.getImageProgress().drawImageProgressElement(drawer, images, image_progress_state)
             if self.getProgressBar():
-                self.getProgressBar().draw4(drawer, images, number, max_number)
+                self.getProgressBar().drawProgressBarElement(drawer, images, number, max_number)
             if self.getPointerProgress():
-                self.getPointerProgress().draw4(drawer, images, number, max_number)
+                self.getPointerProgress().drawClockHandElement(drawer, images, number, max_number)
             if self.getDigits():
+                follow_object = FollowObject()
                 for d in self.getDigits():
-                    d.draw4(drawer, images, number, numberMin, numberMax, max_number_length, padding_zero_length, unit)
+                    follow_object = d.drawDigitalCommonDigitElement(drawer,
+                                                                    images,
+                                                                    number,
+                                                                    numberMin,
+                                                                    numberMax,
+                                                                    max_number_length,
+                                                                    padding_zero_length,
+                                                                    unit,
+                                                                    follow_object)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

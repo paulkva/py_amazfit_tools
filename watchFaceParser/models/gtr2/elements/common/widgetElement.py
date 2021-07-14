@@ -19,12 +19,15 @@ class WidgetElement(ContainerElement):
     def getActivity(self):
         return self._activity
 
+    def drawWidgetElement(self, drawer, images, state):
+        self.draw3(drawer, images, state)
+
     def draw3(self, drawer, images, state):
         if self.getDate():
-            self.getDate().draw3(drawer, images, state)
+            self.getDate().drawDateElement(drawer, images, state)
         if self.getActivity():
             for a in self.getActivity():
-                a.draw3(drawer, images, state)
+                a.drawActivityElement(drawer, images, state)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

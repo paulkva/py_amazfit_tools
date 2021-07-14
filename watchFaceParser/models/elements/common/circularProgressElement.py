@@ -54,6 +54,8 @@ class CircularProgressElement(CoordinatesElement):
             value = total
         sectorAngle = int(1.0 * (self.getEndAngle() - self.getStartAngle()) * value / total)
 
+        if not self._radiusX:
+            return
         #print ("_imageIndex",self._imageIndex)
         if self._imageIndex:
             temp = resources[self._imageIndex].getBitmap()

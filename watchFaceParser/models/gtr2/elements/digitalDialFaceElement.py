@@ -1,6 +1,7 @@
 ﻿import logging
 
 from watchFaceParser.models.gtr2.elements.basic.containerElement import ContainerElement
+from watchFaceParser.models.gtr2.elements.common.followObject import FollowObject
 
 
 class DigitalDialFaceElement(ContainerElement):
@@ -20,20 +21,22 @@ class DigitalDialFaceElement(ContainerElement):
     def getPm(self):
         return self._pm
 
+    def drawDigitalDialFaceElement(self, drawer, images, state):
+        self.draw3(drawer, images, state)
+
     def draw3(self, drawer, images, state):
         assert(type(images) == list)
 
         if self.getDigits():
-            followxy = None
+            follow_object = FollowObject()
             for d in self.getDigits():
-                if self.getAm() or self.getPm():
-                    followxy = d.draw4(drawer, images, state, True, followxy)
-                else:
-                    followxy = d.draw4(drawer, images, state, False, followxy)
+                follow_object = d.drawDigitalTimeDigitElement(drawer, images, state,
+                                                              (self.getAm() or self.getPm()),
+                                                              follow_object)
         if self.getAm():
-            self.getAm().draw3(drawer, images, state)
+            self.getAm().drawAmMultilangImageCoordsElement(drawer, images, state)
         if self.getPm():
-            self.getPm().draw3(drawer, images, state)
+            self.getPm().drawPmMultilangImageCoordsElement(drawer, images, state)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

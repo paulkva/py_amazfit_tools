@@ -25,7 +25,7 @@ class LinearSettingsElement(CompositeElement):
     def getEndY(self):
         return self._endY
 
-    def draw4(self, drawer, resources,
+    def drawLinearSettingsElement(self, drawer, resources,
               value,
               total,
               width,

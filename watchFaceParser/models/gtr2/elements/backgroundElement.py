@@ -17,6 +17,9 @@ class BackgroundElement(ContainerElement):
     def getColor(self):
         return self._color
 
+    def drawBackgroundElement(self, drawer, resources, state):
+        self.draw3(drawer, resources, state)
+
     def draw3(self, drawer, resources, state):
         self.draw2(drawer, resources, None)
 

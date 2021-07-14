@@ -4,6 +4,8 @@ from watchFaceParser.config import Config
 
 from watchFaceParser.models.elements.basic.containerElement import ContainerElement
 from watchFaceParser.helpers.drawerHelper import DrawerHelper
+from watchFaceParser.models.gtr2.elements.common.followObject import FollowObject
+
 
 class SystemFontElement(ContainerElement):
     def __init__(self, parameter, parent, name=None):
@@ -33,34 +35,62 @@ class SystemFontElement(ContainerElement):
     def getShowUnitCheck(self):
         return self._showUnitCheck
 
-    def draw4(self, 
-              drawer, 
-              images,
-              number,
-              alignment,
-              spacing = 1,
-              paddingZero = False,
-              minimumDigits = 1,
-              paddingZeroLength = 1,
-              displayFormAnalog = False,
-              unit = ('', '')):
+    def drawSystemFont(self,
+                       drawer,
+                       number,
+                       spacing=1,
+                       padding_zero=False,
+                       minimum_digits=1,
+                       unit=('', '', ''),
+                       separator=False,
+                       follow_object=FollowObject()) -> FollowObject:
 
-        stringNumber = number if isinstance(number, str) else str(abs(number))
-        if paddingZero:
-            stringNumber = stringNumber.zfill(minimumDigits)
+        string_number = number if isinstance(number, str) else str(abs(number))
+        if padding_zero:
+            string_number = string_number.zfill(minimum_digits)
         if not isinstance(number, str) and number < 0:
-            stringNumber = '-' + stringNumber
-        if self._showUnitCheck == 1:
-            stringNumber = stringNumber + unit[0]
+            string_number = '-' + string_number
+        if self._showUnitCheck == -1:
+            string_number = string_number + unit[0]
+        elif self._showUnitCheck == 1:
+            string_number = string_number + unit[1]
         elif self._showUnitCheck == 2:
-            stringNumber = stringNumber + unit[1]
+            string_number = string_number + unit[2]
+        if separator:
+            string_number = string_number + "/"
+
+        string_number = follow_object.getText() + string_number
+
+        if follow_object:
+            if follow_object.getCombing() != 1:
+                self._size = follow_object.getSize()
+                self._color = follow_object.getColor()
+            else:
+                follow_object.setSize(self.getSize())
+                follow_object.setColor(self.getColor())
 
         if self.getFontRotate():
-            self.getFontRotate().draw4(drawer, stringNumber, self.getAngle(), self.getSize(), self.getColor(), spacing)
+            follow_object = self.getFontRotate().drawFontRotateElement(drawer, string_number, self.getAngle(), self.getSize(), self.getColor(), spacing, follow_object)
         else:
-            self.drawLinear(drawer, stringNumber, spacing)
+            follow_object = self.drawLinear(drawer, string_number, follow_object, spacing)
+
+        follow_object.setText(string_number)
+
+        return follow_object
     
-    def drawLinear(self, drawer, stringNumber, spacing = 0):
+    def drawLinear(self, drawer, string_number, follow_object: FollowObject, spacing=0):
+        x = self.getCoordinates().getX()
+        y = self.getCoordinates().getY()
+        if follow_object:
+            if follow_object.getCombing() == 1:
+                follow_object.setX(self.getCoordinates().getX())
+                follow_object.setY(self.getCoordinates().getY())
+                follow_object.setAngle(self.getAngle())
+            else:
+                x = follow_object.getX()
+                y = follow_object.getY()
+                self._angle = follow_object.getAngle()
+
         from PIL import ImageDraw, Image, ImageFont
         import os
         font_path = os.path.dirname(os.path.realpath(__file__))
@@ -69,26 +99,30 @@ class SystemFontElement(ContainerElement):
         #print(font_path)
         font = ImageFont.truetype(font_path, self.getSize())
 
-        text_size = ImageDraw.Draw(drawer).textsize(stringNumber, font=font)
-        temp = Image.new('RGBA', (text_size[0]*4,text_size[0]*4) , (0, 0, 0, 0))
+        text_size = ImageDraw.Draw(drawer).textsize(string_number, font=font)
+        temp = Image.new('RGBA', (text_size[0]*4,text_size[0]*4), (0, 0, 0, 0))
         draw = ImageDraw.Draw(temp)
-        draw.text( ( text_size[0] * 2, text_size[0]*2 - text_size[1]), stringNumber,
-               fill=self.getColor(),
-               font=font,
-               anchor=None,
-               spacing=spacing,
-               align='left',
-               direction=None,
-               features=None,
-               language=None,
-               stroke_width=0,
-               stroke_fill=None,
-               embedded_color=False)
+        draw.text(( text_size[0] * 2, text_size[0]*2 - text_size[1]), string_number,
+                  fill=self.getColor(),
+                  font=font,
+                  anchor=None,
+                  spacing=spacing,
+                  align='left',
+                  direction=None,
+                  features=None,
+                  language=None,
+                  stroke_width=0,
+                  stroke_fill=None,
+                  embedded_color=False)
         if self._angle:
-            temp = temp.rotate(-(self._angle), expand=1)
+            temp = temp.rotate(-self._angle, expand=1)
         if self.getCoordinates():
             w, h = temp.size
-            drawer.paste(temp, (self.getCoordinates().getX()-int(w/2), self.getCoordinates().getY()-int(h/2)), temp)
+            drawer.paste(temp, (x-int(w/2), y-int(h/2)), temp)
+
+
+
+        return follow_object
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

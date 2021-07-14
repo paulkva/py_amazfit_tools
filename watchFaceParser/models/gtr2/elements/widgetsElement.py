@@ -19,10 +19,13 @@ class WidgetsElement(ContainerElement):
     def getUnderMaskImageIndex(self):
         return self._underMaskImageIndex
 
+    def drawWidgetsElement(self, drawer, images, state):
+        self.draw3(drawer, images, state)
+
     def draw3(self, drawer, images, state):
         if self.getWidgets():
             for w in self.getWidgets():
-                w.draw3(drawer, images, state)
+                w.drawWidgetContainerElement(drawer, images, state)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

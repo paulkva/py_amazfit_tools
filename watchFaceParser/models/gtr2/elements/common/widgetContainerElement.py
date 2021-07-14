@@ -45,12 +45,15 @@ class WidgetContainerElement(CompositeElement):
     def getDescriptionWidthCheck(self):
         return self._descriptionWidthCheck
 
+    def drawWidgetContainerElement(self, drawer, images, state):
+        self.draw3(drawer, images, state)
+
     def draw3(self, drawer, images, state):
         if self.getWidgetElement():
             #for w in self.getWidgetElement():
             #    w.draw3(drawer, images, state)
-            # drwa only first widget
-            self.getWidgetElement()[0].draw3(drawer, images, state)
+            # draw only first widget
+            self.getWidgetElement()[0].drawWidgetElement(drawer, images, state)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

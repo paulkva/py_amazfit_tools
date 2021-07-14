@@ -22,6 +22,9 @@ class StatusElement(ContainerElement):
     def getDoNotDisturb(self):
         return self._doNotDisturb
 
+    def drawStatusElement(self, drawer, images, state):
+        self.draw3(drawer, images, state)
+
     def draw3(self, drawer, images, state):
         if self.getBluetooth():
             self.getBluetooth().draw3(drawer, images, state)

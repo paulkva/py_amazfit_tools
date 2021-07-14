@@ -1,6 +1,8 @@
 ﻿import logging
 
 from watchFaceParser.models.elements.basic.containerElement import ContainerElement
+from watchFaceParser.models.gtr2.elements.common.followObject import FollowObject
+
 
 class DateElement(ContainerElement):
     def __init__(self, parameter, parent = None, name = None):
@@ -22,13 +24,17 @@ class DateElement(ContainerElement):
     def getDOWProgress(self):
         return self._dowProgress
 
+    def drawDateElement(self, drawer, images, state):
+        self.draw3(drawer, images, state)
+
     def draw3(self, drawer, images, state):
         if self.getDateDigits():
-            followxy = None
+            follow_object = FollowObject()
             for d in self.getDateDigits():
-                followxy = d.draw4(drawer, images, state, followxy)
+                follow_object = d.drawDigitalDateDigitElement(drawer, images, state, follow_object)
         if self.getWeeksDigits():
-            self.getWeeksDigits().draw4(drawer, images, state.getTime().weekday(), numberMin=1, numberMax=31, minimumDigits=2, paddingZeroLength=2)
+            self.getWeeksDigits().drawDigitalCommonDigitElement(drawer, images, state.getTime().weekday(), number_min=1,
+                                                                number_max=31, minimum_digits=2, padding_zero_length=2)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

@@ -19,7 +19,7 @@ class AnalogDialElement(ContainerElement):
     def getSeconds(self):
         return self._seconds
 
-    def draw3(self, drawer, resources, state):
+    def drawAnalogDialElement(self, drawer, resources, state):
 
         # display order of clock hand by Amazfit:
         # 1 All hands are centered - hour > minute > second
@@ -36,25 +36,25 @@ class AnalogDialElement(ContainerElement):
                         (self.getMinutes() and (self.getSeconds().getX() != self.getMinutes().getX() or
                                                 self.getSeconds().getY() != self.getMinutes().getY()))):
                     if self.getSeconds():
-                        self.getSeconds().draw3(drawer, resources, state)
+                        self.getSeconds().drawSecondsClockHandElement(drawer, resources, state)
                     if self.getHours():
-                        self.getHours().draw3(drawer, resources, state)
+                        self.getHours().drawHoursClockHandElement(drawer, resources, state)
                     if self.getMinutes():
-                        self.getMinutes().draw3(drawer, resources, state)
+                        self.getMinutes().drawMinutesClockHandElement(drawer, resources, state)
                 else:
                     if self.getHours():
-                        self.getHours().draw3(drawer, resources, state)
+                        self.getHours().drawHoursClockHandElement(drawer, resources, state)
                     if self.getMinutes():
-                        self.getMinutes().draw3(drawer, resources, state)
+                        self.getMinutes().drawMinutesClockHandElement(drawer, resources, state)
                     if self.getSeconds():
-                        self.getSeconds().draw3(drawer, resources, state)
+                        self.getSeconds().drawSecondsClockHandElement(drawer, resources, state)
             else:
-                self.getSeconds().draw3(drawer, resources, state)
+                self.getSeconds().drawSecondsClockHandElement(drawer, resources, state)
         else:
             if self.getHours():
-                self.getHours().draw3(drawer, resources, state)
+                self.getHours().drawHoursClockHandElement(drawer, resources, state)
             if self.getMinutes():
-                self.getMinutes().draw3(drawer, resources, state)
+                self.getMinutes().drawMinutesClockHandElement(drawer, resources, state)
                 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

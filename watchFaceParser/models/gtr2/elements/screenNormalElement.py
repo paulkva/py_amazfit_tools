@@ -22,14 +22,16 @@ class ScreenNormalElement(ContainerElement):
     def getProgressDialFace(self):
         return self._progressdialface
 
+    def drawScreenNormalElement(self, drawer, images, state):
+        self.draw3(drawer, images, state)
+
     def draw3(self, drawer, images, state):
-        print(state.getTime())
         if self.getDigitalDialFace():
-            self.getDigitalDialFace().draw3(drawer, images, state)
+            self.getDigitalDialFace().drawDigitalDialFaceElement(drawer, images, state)
         if self.getProgressDialFace():
-            self.getProgressDialFace().draw3(drawer, images, state)
+            self.getProgressDialFace().drawProgressDialFaceElement(drawer, images, state)
         if self.getAnalogDialFace():
-            self.getAnalogDialFace().draw3(drawer, images, state)
+            self.getAnalogDialFace().drawAnalogDialElement(drawer, images, state)
 
 
     def createChildForParameter(self, parameter):

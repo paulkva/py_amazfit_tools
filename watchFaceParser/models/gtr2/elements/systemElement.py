@@ -19,14 +19,17 @@ class SystemElement(ContainerElement):
     def getActivity(self):
         return self._activity
 
+    def drawSystemElement(self, drawer, images, state):
+        self.draw3(drawer, images, state)
+
     def draw3(self, drawer, images, state):
         if self.getStatus():
-            self.getStatus().draw3(drawer, images, state)
+            self.getStatus().drawStatusElement(drawer, images, state)
         if self.getDate():
-            self.getDate().draw3(drawer, images, state)
+            self.getDate().drawDateElement(drawer, images, state)
         if self.getActivity():
-            for a in self.getActivity():
-                a.draw3(drawer, images, state)
+            for activity in self.getActivity():
+                activity.drawActivityElement(drawer, images, state)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

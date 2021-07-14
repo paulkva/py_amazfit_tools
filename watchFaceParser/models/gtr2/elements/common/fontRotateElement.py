@@ -1,10 +1,7 @@
 ﻿import logging
-from watchFaceParser.config import Config
 
 from watchFaceParser.models.gtr2.elements.basic.compositeElement import CompositeElement
-from watchFaceParser.models.gtr2.elements.common.multilangImageElement import MultilangImageElement
-from watchFaceParser.helpers.drawerHelper import DrawerHelper
-
+from watchFaceParser.models.gtr2.elements.common.followObject import FollowObject
 
 class FontRotateElement(CompositeElement):
     def __init__(self, parameter, parent, name=None):
@@ -27,12 +24,25 @@ class FontRotateElement(CompositeElement):
     def getRotateDirection(self):
         return self._rotateDirection
 
-    def draw4(self, drawer, stringNumber, startAngle, size, color, spacing):
+    def drawFontRotateElement(self, drawer, string_number, start_angle, size, color, spacing, follow_object: FollowObject):
         spacing = 0 if spacing is None else spacing
-        temp = self.drawText(stringNumber, size, color, spacing, startAngle)
+        if follow_object:
+            if follow_object.getCombing() != 1:
+                self._x = follow_object.getX()
+                self._y = follow_object.getY()
+                self._radius = follow_object.getRadius()
+                start_angle = follow_object.getAngle()
+            else:
+                follow_object.setX(self.getX())
+                follow_object.setY(self.getY())
+                follow_object.setAngle(start_angle)
+                follow_object.setRadius(self._radius)
+
+        temp = self.drawText(string_number, size, color, spacing, start_angle)
         if temp:
             (wt, ht) = temp.size
             drawer.paste(temp, (self.getX() - int(wt / 2), self.getY() - int(ht / 2)), temp)
+        return follow_object
 
     def drawText(self, text, size, color, spacing=0, startAngle=0):
         from PIL import ImageDraw, Image, ImageFont, ImageOps

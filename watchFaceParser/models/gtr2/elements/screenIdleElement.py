@@ -26,15 +26,18 @@ class ScreenIdleElement(ContainerElement):
     def getBackgroundImageIndex(self):
         return self._backgroundImageIndex
 
+    def drawScreenIdleElement(self, drawer, images, state):
+        self.draw3(drawer, images, state)
+
     def draw3(self, drawer, images, state):
         self.drawBackground(drawer, images)
         if self.getDate():
-            self.getDate().draw3(drawer, images, state)
+            self.getDate().drawDateElement(drawer, images, state)
         if self.getActivity():
             for a in self.getActivity():
-                a.draw3(drawer, images, state)
+                a.drawActivityElement(drawer, images, state)
         if self.getScreenNormal():
-            self.getScreenNormal().draw3(drawer, images, state)
+            self.getScreenNormal().drawScreenNormalElement(drawer, images, state)
 
     def drawBackground(self, drawer, images):
         x = 0
