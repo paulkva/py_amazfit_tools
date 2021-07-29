@@ -87,8 +87,8 @@ class ImageElement(CompositeElement):
 
     def setBox(self, images, spacing, followObject: Optional[FollowObject]):
         (bitmapWidth, bitmapHeight) = DrawerHelper.calculateBounds(images, spacing)
-        x = self.getX() if followObject is None or not followObject.getCombing() else followObject.getX()
-        y = self.getY() if followObject is None or not followObject.getCombing() else followObject.getY()
+        x = followObject.getX() if followObject and followObject.getCombing() != 1 else self.getX()
+        y = followObject.getY() if followObject and followObject.getCombing() != 1 else self.getY()
         if bitmapWidth > self._maxTextWidth:
             self._box = Box(x, y, bitmapWidth, bitmapHeight)
         else:
