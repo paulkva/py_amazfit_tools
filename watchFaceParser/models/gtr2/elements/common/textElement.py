@@ -45,7 +45,8 @@ class TextElement(ContainerElement):
                         padding_zero=None,
                         unit=('', ''),
                         check_display_form_analog=True,
-                        separator=False) -> FollowObject:
+                        separator=False,
+                        activityType=0) -> FollowObject:
 
         if not self.getPaddingZero():
             self._paddingZero = padding_zero
@@ -59,7 +60,8 @@ class TextElement(ContainerElement):
                 minimum_digits=minimum_digits,
                 unit=unit,
                 separator=separator,
-                follow_object=follow_object)
+                follow_object=follow_object,
+                activityType=activityType)
 
         elif self.getImage():
             return self.getImage().drawImageElement(

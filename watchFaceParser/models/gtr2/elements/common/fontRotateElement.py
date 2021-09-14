@@ -74,10 +74,10 @@ class FontRotateElement(CompositeElement):
             alpha = math.degrees(2 * math.asin((w + spacing) / (2 * self.getRadius())))
             if clockwise:
                 draw.text((int(x - w), int(y - self.getRadius() - h)), tx, font=font, fill=color)
-                rotated_text_layer = text_layer.rotate(initial_angle - angle - alpha , expand=1)
+                rotated_text_layer = text_layer.rotate(initial_angle - angle - alpha , resample=Image.BICUBIC, expand=1)
             else:
                 draw.text((int(x - w), int(y + self.getRadius() - h)), tx, font=font, fill=color)
-                rotated_text_layer = text_layer.rotate(180 - initial_angle + angle + alpha , expand=1)
+                rotated_text_layer = text_layer.rotate(180 - initial_angle + angle + alpha, resample=Image.BICUBIC, expand=1)
             (rtw, rth) = rotated_text_layer.size
             temp.paste(rotated_text_layer, (x - int(rtw / 2), y - int(rth / 2)), rotated_text_layer)
             angle = angle + alpha

@@ -43,9 +43,12 @@ class SystemFontElement(ContainerElement):
                        minimum_digits=1,
                        unit=('', '', ''),
                        separator=False,
-                       follow_object=FollowObject()) -> FollowObject:
+                       follow_object=FollowObject(),
+                       activityType=0) -> FollowObject:
 
         string_number = number if isinstance(number, str) else str(abs(number))
+        if activityType == 6 :   # Distance
+            string_number = string_number[0:-2] + "." + string_number[-2: len(string_number)]
         if padding_zero:
             string_number = string_number.zfill(minimum_digits)
         if not isinstance(number, str) and number < 0:
@@ -115,7 +118,7 @@ class SystemFontElement(ContainerElement):
                   stroke_fill=None,
                   embedded_color=False)
         if self._angle:
-            temp = temp.rotate(-self._angle, expand=1)
+            temp = temp.rotate(-self._angle, resample=Image.BICUBIC, expand=1)
         if self.getCoordinates():
             w, h = temp.size
             drawer.paste(temp, (x-int(w/2), y-int(h/2)), temp)

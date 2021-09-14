@@ -33,7 +33,8 @@ class DigitalCommonDigitElement(ContainerElement):
                                       minimum_digits=1,
                                       padding_zero_length=1,
                                       unit=('', '', ''),
-                                      follow_object=FollowObject()):
+                                      follow_object=FollowObject(),
+                                      activityType=0):
         assert (type(images) == list)
 
         number = number_max if self._type == 2 else number_min if self._type == 1 else number
@@ -56,7 +57,8 @@ class DigitalCommonDigitElement(ContainerElement):
                                                    padding_zero=None,
                                                    unit=unit,
                                                    check_display_form_analog=False,
-                                                   separator=separator)
+                                                   separator=separator,
+                                                   activityType=activityType)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

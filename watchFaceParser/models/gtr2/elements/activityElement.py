@@ -179,7 +179,8 @@ class ActivityElement(ContainerElement):
                                                                     max_number_length,
                                                                     padding_zero_length,
                                                                     unit,
-                                                                    follow_object)
+                                                                    follow_object,
+                                                                    self.getType())
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
