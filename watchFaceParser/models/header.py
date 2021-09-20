@@ -112,10 +112,14 @@ class Header:
             Header.headerSize = 40 - 16
             Header.unknownPos = 32 - 16
             Header.parametersSizePos = 36 - 16
-        elif Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode() or Config.isGts2MiniMode():
+        elif Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode():
             Header.headerSize = 88 - 16
             Header.unknownPos = 76 - 16
             Header.parametersSizePos = 80 - 16
+        elif Config.isGts2MiniMode():
+            Header.headerSize = 87 - 16
+            Header.unknownPos = 79 - 16
+            Header.parametersSizePos = 83 - 16
         else:
             Header.headerSize = 64 - 16
             Header.unknownPos = 52 - 16

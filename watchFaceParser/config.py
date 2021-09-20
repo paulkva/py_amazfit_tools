@@ -196,7 +196,7 @@ class Config:
             Config._autodetect = False
             Config._is_gts2 = 40
             Config._image_size = Config._size_gts
-            Config._preview_size = (254,323)
+            Config._preview_size = (254, 323)
             if not oldformat:
                  Config._startImageIndex = 1
     
@@ -216,8 +216,9 @@ class Config:
             Config._autodetect = False
             Config._is_gts2mini = 40
             Config._image_size = Config._size_gts
-            Config._preview_size = (242,304)
-            Config._startImageIndex = 1
+            Config._preview_size = (242, 304)
+            Config._startImageIndex = 0
+            Config._oldformat = True
 
     @staticmethod
     def isGtsMode():
