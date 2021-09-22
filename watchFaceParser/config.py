@@ -22,6 +22,7 @@ class Config:
     _size_gtr_42 = (390, 390)
     _size_trex = (360, 360)
     _size_gts = (348,442)
+    _size_gtsmini = (306,354)
     _size_amazfitx = (206,640)
     _oldformat = False
 
@@ -215,8 +216,8 @@ class Config:
         if gts2mini:
             Config._autodetect = False
             Config._is_gts2mini = 40
-            Config._image_size = Config._size_gts
-            Config._preview_size = (242, 304)
+            Config._image_size = Config._size_gtsmini
+            Config._preview_size = (210, 242)
             Config._startImageIndex = 0
             Config._oldformat = True
 
