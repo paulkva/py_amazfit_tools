@@ -59,8 +59,10 @@ class Parser:
         assert(type(outputFileName) == str)
         assert(type(imagesDirectory) == str)
         try:
-            if not Config.isOldFormat() and (Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode() or Config.isGts2MiniMode()): 
+            if not Config.isOldFormat() and (Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode()): 
                 from watchFaceParser.watchFaceGTR2 import WatchFace
+            elif Config.isGts2MiniMode():
+                from watchFaceParser.watchFaceGTS2Mini import WatchFace
             else:
                 from watchFaceParser.watchFace import WatchFace
             logging.debug(f"Reading referenced images from '{imagesDirectory}'")
@@ -276,8 +278,10 @@ class Parser:
     @staticmethod
     def parseResources(reader):
         logging.debug("Parsing parameters...")
-        if not Config.isOldFormat() and (Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode() or Config.isGts2MiniMode()): 
+        if not Config.isOldFormat() and (Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode()): 
             from watchFaceParser.watchFaceGTR2 import WatchFace
+        elif Config.isGts2MiniMode():
+            from watchFaceParser.watchFaceGTS2Mini import WatchFace
         else:
             from watchFaceParser.watchFace import WatchFace
         try:

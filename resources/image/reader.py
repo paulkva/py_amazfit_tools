@@ -37,7 +37,7 @@ class Reader():
             return self.readImage16E()
         elif self._bmc:
             logging.info("The image is bmc.")
-            self.readHeader16()
+            self.readHeader16C()
             if self._bitsPerPixel == 32:
                 return self.readImage()
             elif self._bitsPerPixel == 24:
@@ -89,7 +89,7 @@ class Reader():
             _start = int.from_bytes(self._reader.read(2), byteorder='little')
             _width = int.from_bytes(self._reader.read(2), byteorder='little')
             dataIndex += 6
-            # logging.info(f"y: {_y}, start: {_start}, _width: {_width}")
+            #logging.info(f"y: {_y}, start: {_start}, _width: {_width}")
 
             rowBytes = self._reader.read(_width*2)
 
@@ -102,7 +102,14 @@ class Reader():
                 b = (firstByte & 0x1f) << 3
                 alpha = 255
                 color = resources.image.color.Color.fromArgb(alpha, r, g, b)
-                image.putpixel(( _start + x, _y), color)
+                try:
+                    if _start + x < self._width and _y < self._height:
+                        image.putpixel(( _start + x, _y), color)
+                except Exception as e:
+                    logging.fatal(f"start: {_start}, x: {x}, y: {_y}")
+                    logging.exception(e)
+                    raise e
+
 
         return image
 
@@ -134,18 +141,10 @@ class Reader():
                 secondByte = rowBytes[x * self._step + 1]
                 thirddByte = rowBytes[x * self._step + 2]
 
-                r = ((secondByte >> 3) & 0x1f) << 3
-                g = (((firstByte >> 5) & 0x7) | ((secondByte & 0x07) << 3)) << 2
-                b = (firstByte & 0x1f) << 3
-
-#                r = pixel & 0xff
-#                g = (pixel >> 8) & 0xff
-#                b = (pixel >> 16) & 0xff
-
-                a = (firstByte & 0x3f) << 2
-                b = (((firstByte >> 6) & 0x03) | ((secondByte & 0x0F) << 4))
-                g = (secondByte & 0x3f) << 2
-                r = (((secondByte >> 6) & 0x03) | ((thirddByte & 0x0F) << 4))
+                a = 255 - firstByte
+                g = ((thirddByte >> 3) & 0x1f) << 3
+                b = (((secondByte >> 5) & 0x7) | ((thirddByte & 0x07) << 3)) << 2
+                r = (secondByte & 0x1f) << 3
 
                 color = resources.image.color.Color.fromArgb(a, r, g, b)
                 image.putpixel((x, y), color)
@@ -163,6 +162,21 @@ class Reader():
         logging.info("Image header was read:")
         logging.info(f"Width: {self._width}, Height: {self._height}, RowLength: {self._rowLengthInBytes}")
         logging.info(f"unknown1: {self._unknown1}, _step: {self._step}")
+        logging.info(f"BPP: {self._bitsPerPixel}, Transparency: {self._transparency}")
+
+    def readHeader16C(self):
+        logging.info("Reading image header(readHeader16)...")
+        self._width = int.from_bytes(self._reader.read(2), byteorder='little')
+        self._height = int.from_bytes(self._reader.read(2), byteorder='little')
+        self._unknown1 = int.from_bytes(self._reader.read(2), byteorder='little')
+        self._bitsPerPixel = int.from_bytes(self._reader.read(2), byteorder='little')
+        self._unknown2 = int.from_bytes(self._reader.read(4), byteorder='little')
+        self._step = int(self._bitsPerPixel / 8)
+        self._rowLengthInBytes = self._width * self._step
+        self._transparency = False
+        logging.info("Image header was read:")
+        logging.info(f"Width: {self._width}, Height: {self._height}, RowLength: {self._rowLengthInBytes}")
+        logging.info(f"unknown1: {self._unknown1}, _step: {self._step}, unknown2: {self._unknown1},")
         logging.info(f"BPP: {self._bitsPerPixel}, Transparency: {self._transparency}")
 
     def readHeader16E(self):
@@ -198,3 +212,9 @@ class Reader():
         logging.info(f"unknown1: {self._unknown1}, _unknown2: {self._datasize}, _step: {self._step}")
         logging.info(f"BPP: {self._bitsPerPixel}, Transparency: {self._transparency}")
 
+    def convert16olorto32(self, pixel):
+        (r, g, b, a) = pixel
+        r = r << 3
+        g = g << 3
+        b = b << 3
+        return r, g, b

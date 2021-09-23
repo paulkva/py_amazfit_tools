@@ -22,15 +22,23 @@ class Writer:
         self._width = image.size[0]
         self._height = image.size[1]
         self._bitsPerPixel = 16
+        self._unknown2 = 0
         import math
         self._rowLengthInBytes = math.ceil(self._width * self._bitsPerPixel / 8)
 
         if self.has_transparency(self._image):
             rawData = self.getImageDataBme()
             self._dataSize = len(rawData)
-            self._writer.write(Writer.signatureMini16BME)
-            self.writeHeaderMini16E()
-            self._writer.write(rawData)
+            if self._hasHalfAlpha:
+                self._bitsPerPixel = 24
+                self._rowLengthInBytes = math.ceil(self._width * self._bitsPerPixel / 8)
+                self._writer.write(Writer.signatureMini24)
+                self.writeHeaderMini24()
+                self.writeImageMini24()
+            else:
+                self._writer.write(Writer.signatureMini16BME)
+                self.writeHeaderMini16E()
+                self._writer.write(rawData)
         else:
             self._writer.write(Writer.signatureMini16)
             self.writeHeaderMini16()
@@ -72,7 +80,6 @@ class Writer:
         self._writer.write(self._rowLengthInBytes.to_bytes(2, byteorder='little'))
         self._writer.write(self._bitsPerPixel.to_bytes(2, byteorder='little'))
 
-
     def writeHeaderMini16E(self):
         logging.debug("Writing image header mini...")
         logging.debug(f"Width: {self._width}, Height: {self._height}, RowLength: {self._rowLengthInBytes}")
@@ -84,6 +91,16 @@ class Writer:
         self._writer.write(self._bitsPerPixel.to_bytes(2, byteorder='little'))
         self._writer.write(self._dataSize.to_bytes(4, byteorder='little'))
 
+    def writeHeaderMini24(self):
+        logging.debug("Writing image header mini...")
+        logging.debug(f"Width: {self._width}, Height: {self._height}, RowLength: {self._rowLengthInBytes}")
+        logging.debug(f"BPP: {self._bitsPerPixel}, unknown2: {self._unknown2}")
+
+        self._writer.write(self._width.to_bytes(2, byteorder='little'))
+        self._writer.write(self._height.to_bytes(2, byteorder='little'))
+        self._writer.write(self._rowLengthInBytes.to_bytes(2, byteorder='little'))
+        self._writer.write(self._bitsPerPixel.to_bytes(2, byteorder='little'))
+        self._writer.write(self._unknown2.to_bytes(4, byteorder='little'))
 
     def writeHeader(self):
         logging.debug("Writing image header...")
@@ -141,6 +158,11 @@ class Writer:
         for pixel in data:
             (r, g, b, a) = pixel
 
+            #r = ((secondByte >> 3) & 0x1f) << 3
+            #g = (((firstByte >> 5) & 0x7) | ((secondByte & 0x07) << 3)) << 2
+            #b = (firstByte & 0x1f) << 3
+            #alpha = 255
+
             temp_b = ((b >> 3) & 0x1f)
             temp_g = (((g >> 2) & 0x7) << 5)
             firstByte = (temp_b | temp_g)
@@ -148,6 +170,34 @@ class Writer:
             temp_g2 = ((g >> 5) & 0x07)
             temp_r = (((r >> 3) & 0x1f) << 3)
             secondByte = (temp_g2 | temp_r)
+            self._writer.write(firstByte.to_bytes(1, byteorder='little'))
+            self._writer.write(secondByte.to_bytes(1, byteorder='little'))
+
+    def writeImageMini24(self):
+        logging.debug("Writing image mini 24 bit/pixel...")
+
+        pixels = self._image.convert('RGBA')
+        data = pixels.getdata()
+
+        for pixel in data:
+            (r, g, b, a) = pixel
+
+            #a = 255 - firstByte
+            #g = ((thirddByte >> 3) & 0x1f) << 3
+            #b = (((secondByte >> 5) & 0x7) | ((thirddByte & 0x07) << 3)) << 2
+            #r = (secondByte & 0x1f) << 3
+
+            alphaByte = 255 - a
+
+            temp_r = ((r >> 3) & 0x1f)
+            temp_b1 = (((b >> 2) & 0x7) << 5)
+            temp_b2 = ((b >> 5) & 0x07)
+            temp_g = (((g >> 3) & 0x1f) << 3)
+
+            firstByte = (temp_r | temp_b1)
+            secondByte = (temp_b2 | temp_g)
+
+            self._writer.write(alphaByte.to_bytes(1, byteorder='little'))
             self._writer.write(firstByte.to_bytes(1, byteorder='little'))
             self._writer.write(secondByte.to_bytes(1, byteorder='little'))
 
@@ -180,7 +230,7 @@ class Writer:
                 pixel = image_data[y * self._width + x]
 
                 (r, g, b, a) = pixel
-                if r > 0 and g > 0 and b > 0:
+                if r > 0 or g > 0 or b > 0:
                     if len(temp_data) == 0:
                         start_x = x
                     temp_b = ((b >> 3) & 0x1f)
@@ -222,3 +272,10 @@ class Writer:
                 return True
 
         return False
+
+    def convert32Colorto16(self, pixel):
+        (r, g, b, a) = pixel
+        r = r >> 3
+        g = g >> 3
+        b = b >> 3
+        return r, g, b
