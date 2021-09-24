@@ -137,14 +137,14 @@ class Reader():
         for y in range(self._height):
             rowBytes = self._reader.read(self._rowLengthInBytes)
             for x in range(self._width):
-                firstByte = rowBytes[x * self._step]
+                alphaByte = rowBytes[x * self._step]
+                firstByte = rowBytes[x * self._step + 2]
                 secondByte = rowBytes[x * self._step + 1]
-                thirddByte = rowBytes[x * self._step + 2]
 
-                a = 255 - firstByte
-                g = ((thirddByte >> 3) & 0x1f) << 3
-                b = (((secondByte >> 5) & 0x7) | ((thirddByte & 0x07) << 3)) << 2
-                r = (secondByte & 0x1f) << 3
+                a = 255 - alphaByte
+                b = (firstByte & 0x1f) << 3
+                g = (((firstByte >> 5) & 0x7) | ((secondByte & 0x07) << 3)) << 2
+                r = ((secondByte >> 3) & 0x1f) << 3
 
                 color = resources.image.color.Color.fromArgb(a, r, g, b)
                 image.putpixel((x, y), color)

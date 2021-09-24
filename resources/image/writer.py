@@ -182,20 +182,16 @@ class Writer:
         for pixel in data:
             (r, g, b, a) = pixel
 
-            #a = 255 - firstByte
-            #g = ((thirddByte >> 3) & 0x1f) << 3
-            #b = (((secondByte >> 5) & 0x7) | ((thirddByte & 0x07) << 3)) << 2
-            #r = (secondByte & 0x1f) << 3
-
             alphaByte = 255 - a
 
-            temp_r = ((r >> 3) & 0x1f)
-            temp_b1 = (((b >> 2) & 0x7) << 5)
-            temp_b2 = ((b >> 5) & 0x07)
-            temp_g = (((g >> 3) & 0x1f) << 3)
+            temp_b = ((b >> 3) & 0x1f)
+            temp_g = (((g >> 2) & 0x7) << 5)
+            secondByte = (temp_b | temp_g)
 
-            firstByte = (temp_r | temp_b1)
-            secondByte = (temp_b2 | temp_g)
+            temp_g2 = ((g >> 5) & 0x07)
+            temp_r = (((r >> 3) & 0x1f) << 3)
+            firstByte = (temp_g2 | temp_r)
+
 
             self._writer.write(alphaByte.to_bytes(1, byteorder='little'))
             self._writer.write(firstByte.to_bytes(1, byteorder='little'))
