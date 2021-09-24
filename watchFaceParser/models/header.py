@@ -154,15 +154,16 @@ class Header:
     
     @staticmethod
     def patchHeaderAfter( outputFileName ):
-        if Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode():
+        if Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode() or Config.isGts2MiniMode():
             with open(outputFileName, 'rb+') as fileStream:
                 logging.debug(f"Injecting additional header info") 
                 header = bytearray( fileStream.read(40) )       
                 data = bytearray( fileStream.read() )                 
                 #write size
                 size = len(data)
-                header[32:32+4] = int(size).to_bytes(4, byteorder='little')
-                logging.debug(f"Injected size: {size}")
+                if not Config.isGts2MiniMode():
+                    header[32:32+4] = int(size).to_bytes(4, byteorder='little')
+                    logging.debug(f"Injected size: {size}")
                 
                 # write basename as 7 bit hash
                 import hashlib, os
@@ -179,7 +180,6 @@ class Header:
                 fileStream.write(header)
                 fileStream.write(data)
                 fileStream.flush()
-    
     @staticmethod
     def crc16(data : bytearray, offset , length):
         if data is None or offset < 0 or offset > len(data)- 1 and offset+length > len(data):
