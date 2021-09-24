@@ -26,16 +26,20 @@ class Writer:
         import math
         self._rowLengthInBytes = math.ceil(self._width * self._bitsPerPixel / 8)
 
-        if self.has_transparency(self._image):
-            rawData = self.getImageDataBme()
-            self._dataSize = len(rawData)
-            if self._hasHalfAlpha:
+        _hasHalfAlpha = self.hasHalfTransparency()
+        _hasFullAlpha = self.hasFullTransparency()
+        logging.debug(f" hasHalfAlpha: {_hasHalfAlpha}, has_transparency: {_hasFullAlpha}")
+
+        if _hasFullAlpha or _hasHalfAlpha:
+            if _hasHalfAlpha:
                 self._bitsPerPixel = 24
                 self._rowLengthInBytes = math.ceil(self._width * self._bitsPerPixel / 8)
                 self._writer.write(Writer.signatureMini24)
                 self.writeHeaderMini24()
                 self.writeImageMini24()
             else:
+                rawData = self.getImageDataBme()
+                self._dataSize = len(rawData)
                 self._writer.write(Writer.signatureMini16BME)
                 self.writeHeaderMini16E()
                 self._writer.write(rawData)
@@ -210,12 +214,10 @@ class Writer:
         start_x = 0
         pixel_width = 0
 
-        self._hasHalfAlpha = False
-
         for y in range(self._height):
             if len(temp_data) > 0:
                 #logging.debug(f"1 y: {y}, x: {start_x}, data_length: {len(temp_data)}")
-                result.extend(y.to_bytes(2, byteorder='little'))
+                result.extend((y-1).to_bytes(2, byteorder='little'))
                 result.extend(start_x.to_bytes(2, byteorder='little'))
                 result.extend(pixel_width.to_bytes(2, byteorder='little'))
                 result.extend(temp_data)
@@ -226,7 +228,7 @@ class Writer:
                 pixel = image_data[y * self._width + x]
 
                 (r, g, b, a) = pixel
-                if r > 0 or g > 0 or b > 0:
+                if a > 0: # skip full transparent pixels
                     if len(temp_data) == 0:
                         start_x = x
                     temp_b = ((b >> 3) & 0x1f)
@@ -250,20 +252,27 @@ class Writer:
                     temp_data.clear()
                     start_x = 0
                     pixel_width = 0
-                if 0 < a < 255:
-                    self._hasHalfAlpha = True
 
-        logging.debug(f" hasHalfAlpha: {self._hasHalfAlpha}, has_transparency: {self.has_transparency(self._image)}")
         return result
 
-    def has_transparency(self, img):
-        if img.mode == "P":
-            transparent = img.info.get("transparency", -1)
-            for _, index in img.getcolors():
+    def hasHalfTransparency(self):
+        pixels = self._image.convert('RGBA')
+        image_data = pixels.getdata()
+        for pixel in image_data:
+            (r, g, b, a) = pixel
+            if 0 < a < 255:
+                return True
+
+        return False
+
+    def hasFullTransparency(self):
+        if self._image.mode == "P":
+            transparent = self._image.info.get("transparency", -1)
+            for _, index in self._image.getcolors():
                 if index == transparent:
                     return True
-        elif img.mode == "RGBA":
-            extrema = img.getextrema()
+        elif self._image.mode == "RGBA":
+            extrema = self._image.getextrema()
             if extrema[3][0] < 255:
                 return True
 
