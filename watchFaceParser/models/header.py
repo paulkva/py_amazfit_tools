@@ -24,11 +24,17 @@ class Header:
 
     def writeTo(self, stream): 
         val_11= 0x06
-        if Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode() or Config.isGts2MiniMode():
+        if Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode():
             Header.headerSize = 88
             Header.unknownPos = 76
             Header.parametersSizePos = 80 
             self.signature = b"UIHH\x02\x00\xff"
+            val_11 = 0x01
+        elif Config.isGts2MiniMode():
+            Header.headerSize = 87
+            Header.unknownPos = 79
+            Header.parametersSizePos = 83
+            self.signature = b"UIHH\x01\x00\xff"
             val_11 = 0x01
         else:
             Header.headerSize = 64
@@ -46,8 +52,6 @@ class Header:
 
         self.hackBuffer(1, buffer)
         stream.write(buffer)
-
-
 
     # from genuine watchfaces
     # don't know why yet
@@ -68,8 +72,8 @@ class Header:
             53 : [0x35, 0x00, 0x09, 0x00, 0x00, 0x00, 0x4b, 0x9a], # AmazfitX
             59 : [0x3B, 0x00, 0x97, 0x04, 0x00, 0x00, 0x97, 0xD1, 0x02, 0x00], #gtr2
             65 : [0x41, 0x00, 0x51, 0x04, 0x00, 0x00, 0x43, 0x01, 0x02, 0x00], #gts2: 0x51, 0x04, 0x00, 0x00, 0x43, 0x01, 0x02, 0x00 - may vary
+            73 : [0x01, 0x3C, 0x7C, 0x49, 0x00, 0x49, 0x00, 0x7D, 0x07, 0x00, 0x00, 0xB6, 0xDA, 0x04, 0x00], #gts2mini
             83 : [0x53, 0x00, 0x36, 0x04, 0x00, 0x00, 0x1E, 0xAB, 0x03, 0x00], #trex
-            71 : [0x47, 0x00, 0x51, 0x04, 0x00, 0x00, 0x43, 0x01, 0x02, 0x00], #gts2mini: 0x51, 0x04, 0x00, 0x00, 0x43, 0x01, 0x02, 0x00 - may vary
         }
 
         if Config.isGtrMode():
@@ -81,7 +85,7 @@ class Header:
         elif Config.isTrexProMode():
             index = 83
         elif Config.isGts2MiniMode():
-            index = 71
+            index = 73
         elif Config.isGtsMode():
             index = Config.isGtsMode()
         elif Config.isTrexMode():
@@ -90,15 +94,20 @@ class Header:
             index = Config.isAmazfitXMode()
         p_0x10 = data_0x10[index]
         for i in range(len(p_0x10)):
-            buffer[0x10 + i] = p_0x10[i]
+            if not Config.isGts2MiniMode():
+                buffer[0x10 + i] = p_0x10[i]
+            else:
+                buffer[0x0B + i] = p_0x10[i]
         # hard coding?
-        if Config.isGtr2Mode() or Config.isGts2Mode() or Config.isGts2MiniMode() or Config.isTrexProMode():
+        if Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode():
             buffer[12:12+4] = int(57305).to_bytes(4, byteorder='little') #some size??
             buffer[84:84+4] = int(48).to_bytes(4, byteorder='little')
             if Config._oldformat:
                 buffer[75] = 0x00
             else:
                 buffer[75] = 0x01
+        elif Config.isGts2MiniMode():
+            buffer[32] = 0x00
         else:
             buffer[60:60+4] = int(64).to_bytes(4, byteorder='little')
 
@@ -145,7 +154,7 @@ class Header:
     
     @staticmethod
     def patchHeaderAfter( outputFileName ):
-        if Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode() or Config.isGts2MiniMode(): 
+        if Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode():
             with open(outputFileName, 'rb+') as fileStream:
                 logging.debug(f"Injecting additional header info") 
                 header = bytearray( fileStream.read(40) )       
