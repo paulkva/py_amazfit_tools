@@ -1,4 +1,4 @@
-﻿from watchFaceParser.models.elements.common.clockHandElement import ClockHandElement
+﻿from watchFaceParser.models.gts2mini.elements.common.clockHandElement import ClockHandElement
 
 class MinutesClockHandElement(ClockHandElement):
     def __init__(self, parameter, parent = None, name = None):

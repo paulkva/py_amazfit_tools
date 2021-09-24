@@ -1,4 +1,4 @@
-﻿from watchFaceParser.models.elements.basic.compositeElement import CompositeElement
+﻿from watchFaceParser.models.gts2mini.elements.basic.compositeElement import CompositeElement
 import logging
 
 class ContainerElement(CompositeElement):

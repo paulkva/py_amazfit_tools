@@ -1,6 +1,6 @@
 ﻿import logging
 
-from watchFaceParser.models.elements.basic.containerElement import ContainerElement
+from watchFaceParser.models.gts2mini.elements.basic.containerElement import ContainerElement
 
 class StatusElement(ContainerElement):
     def __init__(self, parameter, parent = None, name = None):
@@ -30,19 +30,19 @@ class StatusElement(ContainerElement):
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
         if parameterId == 1:
-            from watchFaceParser.models.elements.status.bluetoothElement import BluetoothElement
+            from watchFaceParser.models.gts2mini.elements.status.bluetoothElement import BluetoothElement
             self._bluetooth = BluetoothElement(parameter = parameter, parent = self, name = 'Bluetooth')
             return self._bluetooth
         elif parameterId == 3:
-            from watchFaceParser.models.elements.status.unlockedElement import UnlockedElement
+            from watchFaceParser.models.gts2mini.elements.status.unlockedElement import UnlockedElement
             self._unlocked = UnlockedElement(parameter = parameter, parent = self, name = 'Unlocked')
             return self._unlocked
         elif parameterId == 2:
-            from watchFaceParser.models.elements.status.alarmElement import AlarmElement
+            from watchFaceParser.models.gts2mini.elements.status.alarmElement import AlarmElement
             self._alarm = AlarmElement(parameter = parameter, parent = self, name = 'Alarm')
             return self._alarm
         elif parameterId == 4:
-            from watchFaceParser.models.elements.status.doNotDisturbElement import DoNotDisturbElement
+            from watchFaceParser.models.gts2mini.elements.status.doNotDisturbElement import DoNotDisturbElement
             self._doNotDisturb = DoNotDisturbElement(parameter = parameter, parent = self, name = 'DoNotDisturb')
             return self._doNotDisturb
         else:

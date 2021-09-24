@@ -1,6 +1,6 @@
 ﻿import logging
 
-from watchFaceParser.models.elements.basic.compositeElement import CompositeElement
+from watchFaceParser.models.gts2mini.elements.basic.compositeElement import CompositeElement
 
 
 class SwitchElement(CompositeElement):
@@ -40,15 +40,15 @@ class SwitchElement(CompositeElement):
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
         if parameterId == 1:
-            from watchFaceParser.models.elements.common.coordinatesElement import CoordinatesElement
+            from watchFaceParser.models.gts2mini.elements.common.coordinatesElement import CoordinatesElement
             self._coordiates = CoordinatesElement(parameter = parameter, parent = self, name = 'CoordinatesElement')
             return self._coordiates
         elif parameterId == 2:
-            from watchFaceParser.models.elements.basic.valueElement import ValueElement
+            from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
             self._imageIndexOn = parameter.getValue()
             return ValueElement(parameter = parameter, parent = self, name = 'ImageIndexOn')
         elif parameterId == 3:
-            from watchFaceParser.models.elements.basic.valueElement import ValueElement
+            from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
             self._imageIndexOff = parameter.getValue()
             return ValueElement(parameter = parameter, parent = self, name = 'ImageIndexOff')
         else:

@@ -1,4 +1,4 @@
-from watchFaceParser.models.elements.common.switchElement import SwitchElement
+from watchFaceParser.models.gts2mini.elements.common.switchElement import SwitchElement
 
 
 class UnlockedElement(SwitchElement):

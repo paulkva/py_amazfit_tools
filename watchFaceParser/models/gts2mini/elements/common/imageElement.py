@@ -1,6 +1,6 @@
 ﻿import logging
 
-from watchFaceParser.models.elements.common.coordinatesElement import CoordinatesElement
+from watchFaceParser.models.gts2mini.elements.common.coordinatesElement import CoordinatesElement
 from watchFaceParser.config import Config
 
 
@@ -46,7 +46,9 @@ class ImageElement(CoordinatesElement):
     def createChildForParameter(self, parameter):
         if parameter.getId() == 3:
             self._imageIndex = parameter.getValue()
-            from watchFaceParser.models.elements.basic.valueElement import ValueElement
-            return ValueElement(parameter, self, '?ImageIndex?')
+            if not self._imageIndex:
+                self._imageIndex = 0
+            from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
+            return ValueElement(parameter, self, 'ImageIndex')
         else:
             super(ImageElement, self).createChildForParameter(parameter)

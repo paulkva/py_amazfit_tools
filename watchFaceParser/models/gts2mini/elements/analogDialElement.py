@@ -1,6 +1,6 @@
 ﻿import logging
 
-from watchFaceParser.models.elements.basic.containerElement import ContainerElement
+from watchFaceParser.models.gts2mini.elements.basic.containerElement import ContainerElement
 
 
 class AnalogDialElement(ContainerElement):
@@ -22,36 +22,23 @@ class AnalogDialElement(ContainerElement):
     def getSeconds(self):
         return self._seconds
 
-
-    def getCenterImage(self):
-        return self._centerImage
-
-
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
         if parameterId == 1:
-            from watchFaceParser.models.elements.analogDial.hoursClockHandElement import HoursClockHandElement
+            pass
+        elif parameterId == 2:
+            pass
+        elif parameterId == 3:
+            from watchFaceParser.models.gts2mini.elements.analogDial.hoursClockHandElement import HoursClockHandElement
             self._hours = HoursClockHandElement(parameter = parameter, parent = self, name = 'Hours')
             return self._hours
-        elif parameterId == 2:
-            from watchFaceParser.models.elements.analogDial.minutesClockHandElement import MinutesClockHandElement
+        elif parameterId == 4:
+            from watchFaceParser.models.gts2mini.elements.analogDial.minutesClockHandElement import MinutesClockHandElement
             self._minutes = MinutesClockHandElement(parameter = parameter, parent = self, name = 'Minutes')
             return self._minutes
-        elif parameterId == 3:
-            from watchFaceParser.models.elements.analogDial.secondsClockHandElement import SecondsClockHandElement
+        elif parameterId == 5:
+            from watchFaceParser.models.gts2mini.elements.analogDial.secondsClockHandElement import SecondsClockHandElement
             self._seconds = SecondsClockHandElement(parameter = parameter, parent = self, name = 'Seconds')
             return self._seconds
-        elif parameterId == 4:
-            from watchFaceParser.models.elements.common.imageElement import ImageElement
-            self._centerImage = ImageElement(parameter = parameter, parent = self, name = 'SecCenterImage') # SecCenterImage
-            return self._centerImage
-        elif parameterId == 5:
-            from watchFaceParser.models.elements.common.imageElement import ImageElement
-            self._centerImage = ImageElement(parameter = parameter, parent = self, name = 'HourCenterImage') # HourCenterImage
-            return self._centerImage
-        elif parameterId == 6:
-            from watchFaceParser.models.elements.common.imageElement import ImageElement
-            self._centerImage = ImageElement(parameter = parameter, parent = self, name = 'MinCenterImage')  # MinCenterImage
-            return self._centerImage			
         else:
             return super(AnalogDialElement, self).createChildForParameter(parameter)
