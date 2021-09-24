@@ -8,4 +8,5 @@ class Background:
         3: { 'Name': 'Preview', 'Type': Image},
         4: { 'Name': 'UnknownImage4', 'Type': Image},
         5: { 'Name': 'UnknownImage5', 'Type': Image},
+        6: { 'Name': 'UnknownImage6', 'Type': Image},
     }

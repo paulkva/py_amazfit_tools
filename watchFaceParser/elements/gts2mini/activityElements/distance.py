@@ -9,5 +9,6 @@ class Distance:
         3: { 'Name': 'DecimalPointImageIndex', 'Type': 'long?'},
         4: {'Name': 'SuffixImageIndexMI', 'Type': 'long?'},
         5: {'Name': 'Icon', 'Type': Image},
+        6: {'Name': 'Shortcut', 'Type': ShortcutElement},
     }
 

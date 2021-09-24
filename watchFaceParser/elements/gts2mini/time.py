@@ -10,9 +10,9 @@ class Time:
         5: { 'Name': 'Unknown5', 'Type': 'long'},
         6: {'Name': 'Unknown6', 'Type': 'long?'},
         7: {'Name': 'Unknown7', 'Type': 'long?'},
-        8: { 'Name': 'Unknown8', 'Type': 'long'},
-        9: { 'Name': 'Unknown9', 'Type': 'long'},
-        10: { 'Name': 'Unknown10', 'Type': 'long'},
+        8: { 'Name': 'MinutesFollowHours', 'Type': 'bool'},
+        9: { 'Name': 'SecondsFollowMinutes', 'Type': 'bool'},
+        10: { 'Name': 'UnknownCoordinates10', 'Type': Coordinates},
         11: {'Name': 'UnknownCoordinates11', 'Type': Coordinates},
     }
 
