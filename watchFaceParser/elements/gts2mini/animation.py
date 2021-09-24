@@ -1,11 +1,8 @@
-from watchFaceParser.elements.gts2mini.basicElements.imageSet import ImageSet
+from watchFaceParser.elements.gts2mini.animationElements.imageSetAnimation import ImageSetAnimation
 from watchFaceParser.elements.gts2mini.basicElements.iconSet import IconSet
 
-class Progress:
+class Animation:
     definitions = {
-        1: {'Name': 'Unknown1', 'Type': 'long?'},
-        2: { 'Name': 'ImageProgress', 'Type': ImageSet},
-        3: { 'Name': 'IconSetProgress', 'Type': IconSet},
-        4: {'Name': 'Unknown4', 'Type': 'long?'},
+        1: {'Name': 'ImageSetAnimation', 'Type': ImageSetAnimation},
     }
 

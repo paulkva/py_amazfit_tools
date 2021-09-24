@@ -1,15 +1,11 @@
 ﻿from watchFaceParser.models.color import Color
 
-class CircleScale:
+class PointerScale:
     definitions = {
         1: { 'Name': 'CenterX', 'Type': 'long'},
         2: { 'Name': 'CenterY', 'Type': 'long'},
-        3: { 'Name': 'RadiusX', 'Type': 'long'},
-        4: { 'Name': 'RadiusY', 'Type': 'long'},
-        5: { 'Name': 'StartAngle', 'Type': 'long'},
-        6: { 'Name': 'EndAngle', 'Type': 'long'},
-        7: { 'Name': 'Width', 'Type': 'long'},
-        8: { 'Name': 'Color', 'Type': Color},
-        9: { 'Name': 'Flatness', 'Type': 'long'}, #verge
-       10: { 'Name': 'ImageIndex', 'Type': 'long'}, #gts circle.bin
+        3: { 'Name': 'Unknown3', 'Type': 'long'},
+        4: { 'Name': 'Unknown4', 'Type': 'long'},
+        5: { 'Name': 'PointerImageIndex', 'Type': 'long'},
+        6: { 'Name': 'Unknown6', 'Type': 'long'},
     }

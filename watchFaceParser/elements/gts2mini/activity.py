@@ -7,6 +7,7 @@ from watchFaceParser.elements.gts2mini.activityElements.pai import PAI
 class Activity:
     definitions = {
         1: { 'Name': 'Steps', 'Type': Steps},
+        2: { 'Name': 'UnknownActivity2', 'Type': 'long?'},
         3: { 'Name': 'Calories', 'Type': Calories},
         4: { 'Name': 'HeartRate', 'Type': HeartRate},
         5: { 'Name': 'Distance', 'Type': Distance},

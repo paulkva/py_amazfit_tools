@@ -5,9 +5,9 @@ from watchFaceParser.elements.gts2mini.shortcutElement import ShortcutElement
 class Distance:
     definitions = {
         1: { 'Name': 'Number', 'Type': Number},
-        2: { 'Name': 'SuffixImageIndex', 'Type': 'long?'},
+        2: { 'Name': 'SuffixImageIndexKM', 'Type': 'long?'},
         3: { 'Name': 'DecimalPointImageIndex', 'Type': 'long?'},
-        4: {'Name': 'Icon', 'Type': Image},
-        5: {'Name': 'Shortcut', 'Type': ShortcutElement},
+        4: {'Name': 'SuffixImageIndexMI', 'Type': 'long?'},
+        5: {'Name': 'Icon', 'Type': Image},
     }
 
