@@ -1,6 +1,6 @@
 ﻿import logging
 
-from watchFaceParser.models.elements.common.coordinatesElement import CoordinatesElement
+from watchFaceParser.models.gts2mini.elements.common.coordinatesElement import CoordinatesElement
 from watchFaceParser.config import Config
 
 
@@ -39,7 +39,7 @@ class IconSetElement(CoordinatesElement):
 
 #    def createChildForParameter(self, parameter):
 #        #elif parameter.getId() == 2:
-#        #    from watchFaceParser.models.elements.common.coordinatesElement import CoordinatesElement
+#        #    from watchFaceParser.models.gts2mini.elements.common.coordinatesElement import CoordinatesElement
 #            #print ( parameter.getValue(),parameter.getChildren())
 #            #print (self.getName(),[c.getValue() for c in parameter.getChildren()])
 #            #self._coordinates = [ CoordinatesElement(parameter = c, parent = self, name = 'CenterOffset') for c in parameter.getChildren()]

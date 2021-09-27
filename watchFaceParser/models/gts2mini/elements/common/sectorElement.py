@@ -1,6 +1,6 @@
 ﻿import logging
 
-from watchFaceParser.models.elements.basic.compositeElement import CompositeElement
+from watchFaceParser.models.gts2mini.elements.basic.compositeElement import CompositeElement
 
 
 class SectorElement(CompositeElement):
@@ -21,11 +21,11 @@ class SectorElement(CompositeElement):
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
         if parameterId == 1:
-            from watchFaceParser.models.elements.basic.valueElement import ValueElement
+            from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
             self._startAngle = parameter.getValue()
             return ValueElement(parameter = parameter, parent = self, name = '?startAngle?')
         elif parameterId == 2:
-            from watchFaceParser.models.elements.basic.valueElement import ValueElement
+            from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
             self._endAngle = parameter.getValue()
             return ValueElement(parameter = parameter, parent = self, name = '?endAngle?')
         else:

@@ -1,4 +1,4 @@
-﻿from watchFaceParser.models.elements.basic.element import Element
+﻿from watchFaceParser.models.gts2mini.elements.basic.element import Element
 
 class ValueElement(Element):
     def __init__(self, parameter, parent, name):

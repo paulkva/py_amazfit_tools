@@ -1,4 +1,4 @@
-﻿from watchFaceParser.models.elements.common.coordinatesElement import CoordinatesElement
+﻿from watchFaceParser.models.gts2mini.elements.common.coordinatesElement import CoordinatesElement
 import logging
 #import locale
 
@@ -41,7 +41,7 @@ class AmPmElement(CoordinatesElement):
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
-        from watchFaceParser.models.elements.basic.valueElement import ValueElement
+        from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
         if parameterId == 3:
             self._imageIndexAmCn = parameter.getValue()
             return ValueElement(parameter = parameter, parent = self, name = 'ImageIndexAmCn')

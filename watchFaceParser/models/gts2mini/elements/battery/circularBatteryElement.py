@@ -1,6 +1,6 @@
 ﻿import logging
 
-from watchFaceParser.models.elements.common.circularProgressElement import CircularProgressElement
+from watchFaceParser.models.gts2mini.elements.common.circularProgressElement import CircularProgressElement
 
 
 class CircularBatteryElement(CircularProgressElement):

@@ -1,6 +1,6 @@
 ﻿import logging
 
-from watchFaceParser.models.elements.basic.compositeElement import CompositeElement
+from watchFaceParser.models.gts2mini.elements.basic.compositeElement import CompositeElement
 
 class PercentElement(CompositeElement):
     def __init__(self, parameter, parent, name = None):

@@ -1,6 +1,6 @@
 ﻿import logging
 
-from watchFaceParser.models.elements.common.coordinatesElement import CoordinatesElement
+from watchFaceParser.models.gts2mini.elements.common.coordinatesElement import CoordinatesElement
 
 
 class CircularProgressElement(CoordinatesElement):

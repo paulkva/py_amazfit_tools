@@ -1,6 +1,6 @@
 ﻿import logging
 
-from watchFaceParser.models.elements.basic.compositeElement import CompositeElement
+from watchFaceParser.models.gts2mini.elements.basic.compositeElement import CompositeElement
 
 
 class TwoDigitsElement(CompositeElement):
@@ -34,11 +34,11 @@ class TwoDigitsElement(CompositeElement):
         parameterId = parameter.getId()
 
         if parameterId == 1:
-            from watchFaceParser.models.elements.common.imageSetElement import ImageSetElement
+            from watchFaceParser.models.gts2mini.elements.common.imageSetElement import ImageSetElement
             self._tens = ImageSetElement(parameter, self, 'Tens')
             return self._tens
         elif parameterId == 2:
-            from watchFaceParser.models.elements.common.imageSetElement import ImageSetElement
+            from watchFaceParser.models.gts2mini.elements.common.imageSetElement import ImageSetElement
             self._ones = ImageSetElement(parameter, self, 'Ones')
             return self._ones
         else:

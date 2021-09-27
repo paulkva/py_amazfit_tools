@@ -1,5 +1,5 @@
 ﻿import logging
-from watchFaceParser.models.elements.common.imageElement import ImageElement
+from watchFaceParser.models.gts2mini.elements.common.imageElement import ImageElement
 
 
 class ImageSetElement(ImageElement):
@@ -23,7 +23,7 @@ class ImageSetElement(ImageElement):
     def createChildForParameter(self, parameter):
         if parameter.getId() == 4:
             self._imagesCount = parameter.getValue()
-            from watchFaceParser.models.elements.basic.valueElement import ValueElement
+            from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
             return ValueElement(parameter, self, '?_imagesCount?')
         else:
             super(ImageSetElement, self).createChildForParameter(parameter)

@@ -1,4 +1,4 @@
-﻿from watchFaceParser.models.elements.common.coordinatesElement import CoordinatesElement
+﻿from watchFaceParser.models.gts2mini.elements.common.coordinatesElement import CoordinatesElement
 import logging
 
 
@@ -31,7 +31,7 @@ class PmElement(CoordinatesElement):
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
-        from watchFaceParser.models.elements.basic.valueElement import ValueElement
+        from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
         if parameterId == 3:
             self._x2 = parameter.getValue()
             return ValueElement(parameter = parameter, parent = self, name = 'X2')
