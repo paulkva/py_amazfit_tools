@@ -28,6 +28,10 @@ def uint2int(n):
             return -(0xffffffff - n + 1)
     return n
 
+def toSigned32(n):
+    n = n & 0xffffffff
+    return (n ^ 0x80000000) - 0x80000000
+
 class ParametersConverter:
     @staticmethod
     def getValue(propertyInfo, serializable):
@@ -251,6 +255,8 @@ class ParametersConverter:
                 setattr(result, propertyInfoName, parameter.getValue() > 0)
             elif propertyType == 'long':
                 setattr(result, propertyInfoName, ulong2long(parameter.getValue()))
+            elif propertyType == 'slong':
+                setattr(result, propertyInfoName, toSigned32(parameter.getValue()))
             elif propertyType == 'int':
                 setattr(result, propertyInfoName, uint2int(parameter.getValue()))
             elif propertyType == 'float':

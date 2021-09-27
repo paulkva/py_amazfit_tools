@@ -12,18 +12,18 @@ from watchFaceParser.elements.gts2mini.animation import Animation
 
 class WatchFace:
     definitions = {
-        0: { 'Name': 'Info', 'Type': DeviceId},
+        0: {'Name': 'Info', 'Type': DeviceId},
         1: {'Name': 'Unknown1', 'Type': 'long?'},
-        2: { 'Name': 'Background', 'Type': Background},
+        2: {'Name': 'Background', 'Type': Background},
         3: {'Name': 'Unknown3', 'Type': 'long?'},
-        4: { 'Name': 'Activity', 'Type': Activity},
-        5: { 'Name': 'DateBlock', 'Type': DateBlock},
-        6: { 'Name': 'Weather', 'Type': Weather},
+        4: {'Name': 'Activity', 'Type': Activity},
+        5: {'Name': 'DateBlock', 'Type': DateBlock},
+        6: {'Name': 'Weather', 'Type': Weather},
         7: {'Name': 'StepProgress', 'Type': Progress},
         8: {'Name': 'Status', 'Type': Status},
-        9: { 'Name': 'Battery', 'Type': Battery},
+        9: {'Name': 'Battery', 'Type': Battery},
         10: {'Name': 'Unknown10', 'Type': 'long?'},
-        11: { 'Name': 'Animation', 'Type': Animation}, # Animation ?
+        11: {'Name': 'Animation', 'Type': Animation},
         12: {'Name': 'HearthProgress', 'Type': Progress},
         13: {'Name': 'Unknown13', 'Type': 'long?'},
         14: {'Name': 'Unknown14', 'Type': 'long?'},
