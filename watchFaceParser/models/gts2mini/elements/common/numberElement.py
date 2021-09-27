@@ -59,6 +59,12 @@ class NumberElement(ContainerElement):
         self._followxy = None
         super(NumberElement, self).__init__(None, parameter = parameter, parent = parent, name = name)
 
+    def getTopLeftX(self):
+        return self._topLeftX
+
+    def getTopLeftY(self):
+        return self._topLeftY
+
     def getBox(self):
         #return Box(self._topLeftX, self._topLeftY, self._bottomRightX - self._topLeftX, self._bottomRightY - self._topLeftY)
         return self._box
@@ -83,32 +89,40 @@ class NumberElement(ContainerElement):
                 self._maxTextWidth += spacing
         self._maxTextWidth += width
 
-    def draw4(self, drawer, images, number, minimumDights = 1, force_padding = False, followxy = None):
+    def draw4(self, drawer, images, number, minimumDights = 1, force_padding = False, followxy = None, decimal_pointer = None):
         from watchFaceParser.helpers.drawerHelper import DrawerHelper
 
         print("NumberVor", number)
         if force_padding:
             self._paddingzero = True
-        padding_length = 1
-        if self._paddingzero:
-            padding_length = minimumDights
 
-        ar = self.getImagesForNumber(images, number, padding_length)
+        ar = self.getImagesForNumber(images, number, minimumDights, decimal_pointer)
+
         self.setBox(ar, self._spacing, followxy)
+
         DrawerHelper.drawImages(drawer,
                                 ar,
                                 self._spacing,
                                 self._alignment,
                                 self._box)
+
         self._followxy = (self._box.getX() + self._box.getWidth() + 1, self._box.getY())
         return self._followxy
 
-    def getImagesForNumber(self, images, number, minimumDigits = 1):
-        self._maxTextWidth = 0
-        stringNumber = str(number).zfill(minimumDigits)
-        ar = []
+    def getImagesForNumber(self, images, number, minimumDigits = 1, decimal_pointer = None):
+        padding_length = 1
+        if self._paddingzero:
+            padding_length = minimumDigits
+        stringNumber = stringNumber = str(number).zfill(padding_length)
 
-        for digit in stringNumber:
+        self._maxTextWidth = 0
+        ar = []
+        for digitIndex in range(len(stringNumber)):
+            if decimal_pointer and digitIndex == len(stringNumber)-2:
+                imageIndex = decimal_pointer
+                ar.append(images[imageIndex])
+                self.addTextWidth(images[imageIndex].getBitmap().size[0], self._spacing)
+            digit = stringNumber[digitIndex]
             if int(digit) < self._imagesCount:
                 imageIndex = self._imageIndex + int(digit)
                 ar.append(images[imageIndex])
@@ -118,7 +132,6 @@ class NumberElement(ContainerElement):
             self.addTextWidth(images[self._imageIndex].getBitmap().size[0], self._spacing)
             i = i - 1
         return ar
-
 
     def createChildForParameter(self, parameter):
         from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
