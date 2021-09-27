@@ -1,10 +1,12 @@
 from watchFaceParser.elements.timeElements.twoDigits import TwoDigits
+from watchFaceParser.elements.basicElements.imageSet import ImageSet
 
 class Time:
     definitions = {
         1: {'Name': 'Hours', 'Type': TwoDigits},
         2: {'Name': 'Minutes', 'Type': TwoDigits},
         3: {'Name': 'Seconds', 'Type': TwoDigits},
+        5: {'Name': 'Separator', 'Type': ImageSet},
         7: {'Name': 'Unknown7', 'Type': 'long?'},
         8: {'Name': 'Unknown8', 'Type': 'long?'},
     }
