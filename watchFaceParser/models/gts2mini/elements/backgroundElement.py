@@ -9,8 +9,8 @@ class BackgroundElement(ContainerElement):
     def __init__(self, parameter, parent = None, name = None):
         self._image = None
         self._color = None
+        self._floating = None
         super(BackgroundElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
-
 
     def getBackgroundImageIndex(self):
         return self._image
@@ -36,6 +36,8 @@ class BackgroundElement(ContainerElement):
         else:
             self._image.draw2(drawer, images, angle, center)
 
+        if self._floating:
+            self._floating.draw2(drawer, images, angle, center)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
@@ -46,13 +48,15 @@ class BackgroundElement(ContainerElement):
         elif parameterId == 2: # color
             self._color = Color.fromArgdBackground(0xff0000 | parameter.getValue())
             return ValueElement(parameter = parameter, parent = self, name = 'BackgroundColor')
-        elif parameterId == 3:
+        elif parameterId == 3: # Preview
             pass
-        elif parameterId == 4:
+        elif parameterId == 4: # Preview Korean
             pass
-        elif parameterId == 5:
+        elif parameterId == 5: # Preview Chinese
             pass
         elif parameterId == 6:
-            pass
+            from watchFaceParser.models.gts2mini.elements.common.imageElement import ImageElement
+            self._floating = ImageElement(parameter=parameter, parent=self, name='FloatingLayer')
+            return self._floating
         else:
             return super(BackgroundElement, self).createChildForParameter(parameter)
