@@ -5,6 +5,8 @@ from watchFaceParser.elements.gts2mini.basicElements.circleScale import CircleSc
 
 class Temperature:
     definitions = {
-        1: { 'Name': 'Current', 'Type': TextTemperature},
+        1: {'Name': 'Current', 'Type': TextTemperature},
+        3: {'Name': 'Lowest', 'Type': TextTemperature},
+        4: {'Name': 'Highest', 'Type': TextTemperature},
     }
 
