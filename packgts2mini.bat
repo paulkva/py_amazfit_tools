@@ -7,7 +7,7 @@ set mPath=%~dp1
 set mPathScript=%~dp0
 echo %file%
 
-python %mPathScript%\main.py --gtr2 47 --file %1
+python %mPathScript%\main.py --gts2mini --file %1
 ren "%mPath%%file%_packed.bin.cmp" "%file%_packed_cmp.bin"
 
 echo.
