@@ -37,14 +37,14 @@ class DrawerHelper:
         elif alignmentFlag.hasFlag(TextAlignment.Right):
             x = box.getRight() - bitmapWidth + 1
         else:
-            x = (box.getLeft() + box.getRight() - bitmapWidth) >> 1
+            x = box.getLeft() + int((box.getRight() - box.getLeft() - bitmapWidth) / 2)
 
         if alignmentFlag.hasFlag(TextAlignment.Top):
             y = box.getTop()
         elif alignmentFlag.hasFlag(TextAlignment.Bottom):
             y = box.getBottom() - bitmapHeight + 1
         else:
-            y = (box.getTop() + box.getBottom() - bitmapHeight) >> 1
+            y = box.getTop() + int((box.getBottom() - box.getTop() - bitmapHeight) / 2)
 
         if x < box.getLeft():
             x = box.getLeft()
@@ -57,3 +57,9 @@ class DrawerHelper:
 
             imageWidth = image.getBitmap().size[0]
             x += imageWidth + int(spacing)
+
+        from watchFaceParser.config import Config
+        if Config.getBorderAlignment():
+            from PIL import ImageDraw
+            d = ImageDraw.Draw(drawer)
+            d.rectangle((box.getLeft(), box.getTop(), box.getRight(), box.getBottom()), outline=(200, 200, 200))
