@@ -10,23 +10,15 @@ class PulseElement(CompositeElement):
         super(PulseElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
 
     def draw3(self, drawer, resources, state):
-        followxy = (self._image_number.getTopLeftX(), self._image_number.getTopLeftY())
-
         if self._image_number:
-            if self._prefix:
-                temp = resources[self._prefix].getBitmap()
-                drawer.paste(temp, (followxy[0], followxy[1]), temp)
-                followxy = followxy[0] + temp.size[0], followxy[1]
-            followxy = self._image_number.draw4(drawer,
+            self._image_number.draw4(drawer,
                                                 resources,
                                                 state.getPulse(),
                                                 minimumDights = 3,
                                                 force_padding = False,
-                                                followxy = followxy)
-            if self._suffix and followxy:
-                temp = resources[self._suffix].getBitmap()
-                drawer.paste(temp, (followxy[0], followxy[1]), temp)
-                followxy = followxy[0] + temp.size[0], followxy[1]
+                                                prefix = self._prefix,
+                                                suffix = self._suffix
+                                                )
         if self._icon:
             self._icon.draw3(drawer, resources, state)
 

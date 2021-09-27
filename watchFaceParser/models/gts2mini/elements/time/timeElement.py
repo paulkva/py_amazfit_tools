@@ -24,24 +24,16 @@ class TimeElement(ContainerElement):
                                            state.getTime().minute,
                                            minimumDights = 2,
                                            force_padding = True,
-                                           followxy = followxy if self._minutes_follow_hours else None)
-            if self._delimiter_minutes:
-                temp = images[self._delimiter_minutes].getBitmap()
-                if followxy:
-                    drawer.paste(temp, (followxy[0], followxy[1]), temp)
-                    followxy = followxy[0] + temp.size[0], followxy[1]
+                                           followxy = followxy if self._minutes_follow_hours else None,
+                                           suffix = self._delimiter_minutes)
         if self._seconds:
             followxy = self._seconds.draw4(drawer,
                                            images,
                                            state.getTime().second,
                                            minimumDights = 2,
                                            force_padding = True,
-                                           followxy = followxy if self._seconds_follow_minutes else None)
-            if self._delimiter_seconds:
-                temp = images[self._delimiter_seconds].getBitmap()
-                if followxy:
-                    drawer.paste(temp, (followxy[0], followxy[1]), temp)
-                    followxy = followxy[0] + temp.size[0], followxy[1]
+                                           followxy = followxy if self._seconds_follow_minutes else None,
+                                           suffix = self._delimiter_seconds)
 
     def createChildForParameter(self, parameter):
         from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement

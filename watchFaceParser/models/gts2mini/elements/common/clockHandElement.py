@@ -53,9 +53,9 @@ class ClockHandElement(CompositeElement):
             self._pointer_center_of_rotation = parameter.getValue()
             from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
             return ValueElement(parameter, self, 'PointerCenterOfRotationY')
-        elif parameterId == 3:	
+        elif parameterId == 3:
             from watchFaceParser.models.gts2mini.elements.common.coordinatesElement import CoordinatesElement
-            self._center = CoordinatesElement(parameter = parameter, parent = self, name = 'CenterCoordinates')
+            self._center = CoordinatesElement(parameter=parameter, parent=self, name='CenterCoordinates')
             return self._center
         if parameterId == 4:
             from watchFaceParser.models.gts2mini.elements.common.imageElement import ImageElement

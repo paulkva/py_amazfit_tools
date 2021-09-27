@@ -87,9 +87,9 @@ class WatchFace(ContainerElement):
             # return self._date
         elif parameterId == 6:
             pass
-            # from watchFaceParser.models.gts2mini.elements.weatherElement import WeatherElement
-            # self._weather = WeatherElement(parameter)
-            # return self._weather
+            from watchFaceParser.models.gts2mini.elements.weatherElement import WeatherElement
+            self._weather = WeatherElement(parameter)
+            return self._weather
         elif parameterId == 7:
             pass
             # from watchFaceParser.models.gts2mini.elements.progressElement import ProgressElement
@@ -101,9 +101,9 @@ class WatchFace(ContainerElement):
             return self._status
         elif parameterId == 9:
             pass
-            # from watchFaceParser.models.gts2mini.elements.batteryElement import BatteryElement
-            # self._battery = BatteryElement(parameter)
-            # return self._battery
+            from watchFaceParser.models.gts2mini.elements.batteryElement import BatteryElement
+            self._battery = BatteryElement(parameter)
+            return self._battery
         elif parameterId == 10:
             pass
         elif parameterId == 11: # animation

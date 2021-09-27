@@ -10,8 +10,9 @@ class CompositeElement(Element):
                 self._child.append(self.createChildForParameter(parameterChild))
         else:
             super(CompositeElement, self).__init__(parameter = parameter, parent = parent, name = name)
-            for parameterChild in parameter.getChildren():
-                self._child.append(self.createChildForParameter(parameterChild))
+            if parameter.getChildren():
+                for parameterChild in parameter.getChildren():
+                    self._child.append(self.createChildForParameter(parameterChild))
 
 
     def getChildren(self):

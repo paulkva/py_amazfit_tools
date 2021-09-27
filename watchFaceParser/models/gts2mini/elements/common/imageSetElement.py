@@ -10,6 +10,12 @@ class ImageSetElement(ImageElement):
     def getImagesCount(self):
         return self._imagesCount
 
+    def draw4(self, drawer, resources, number, total):
+        percent = (number * 100) / total
+        if self._imagesCount:
+            index = int((self._imagesCount * percent) / 100)
+            self.draw3(drawer, resources, index)
+
     def draw3(self, drawer, resources, index):
         assert(type(resources) == list)
         assert(type(index) == int)
@@ -24,7 +30,7 @@ class ImageSetElement(ImageElement):
         if parameter.getId() == 4:
             self._imagesCount = parameter.getValue()
             from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
-            return ValueElement(parameter, self, '?_imagesCount?')
+            return ValueElement(parameter, self, 'ImagesCount')
         else:
             super(ImageSetElement, self).createChildForParameter(parameter)
 

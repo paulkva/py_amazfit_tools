@@ -14,20 +14,13 @@ class DistanceElement(CompositeElement):
     def draw3(self, drawer, resources, state):
 
         if self._image_number:
-            followxy = self._image_number.draw4(drawer,
+            self._image_number.draw4(drawer,
                                                 resources,
                                                 state.getDistance(),
                                                 minimumDights = 3,
                                                 force_padding = False,
-                                                followxy = None,
-                                                decimal_pointer = self._decimalpointer)
-            if followxy:
-                if self._suffix_km:
-                    temp = resources[self._suffix_km].getBitmap()
-                    drawer.paste(temp, (followxy[0], followxy[1]), temp)
-                elif self._suffix_mi:
-                    temp = resources[self._suffix_mi].getBitmap()
-                    drawer.paste(temp, (followxy[0], followxy[1]), temp)
+                                                decimal_pointer = self._decimalpointer,
+                                                suffix = self._suffix_km if self._suffix_km else self._suffix_mi)
         if self._icon:
             self._icon.draw3(drawer, resources, state)
 

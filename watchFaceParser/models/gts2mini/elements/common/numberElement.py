@@ -89,13 +89,14 @@ class NumberElement(ContainerElement):
                 self._maxTextWidth += spacing
         self._maxTextWidth += width
 
-    def draw4(self, drawer, images, number, minimumDights = 1, force_padding = False, followxy = None, decimal_pointer = None):
+    def draw4(self, drawer, images, number, minimumDights = 1,
+              force_padding = False, followxy = None, decimal_pointer = None, minus = None, prefix = None, suffix = None):
         from watchFaceParser.helpers.drawerHelper import DrawerHelper
 
         if force_padding:
             self._paddingzero = True
 
-        ar = self.getImagesForNumber(images, number, minimumDights, decimal_pointer)
+        ar = self.getImagesForNumber(images, number, minimumDights, decimal_pointer, minus, prefix, suffix)
 
         self.setBox(ar, self._spacing, followxy)
 
@@ -108,24 +109,38 @@ class NumberElement(ContainerElement):
         self._followxy = (self._box.getX() + self._box.getWidth() + 1, self._box.getY())
         return self._followxy
 
-    def getImagesForNumber(self, images, number, minimumDigits = 1, decimal_pointer = None):
+    def getImagesForNumber(self, images, number, minimumDigits = 1, decimal_pointer = None, minus = None, prefix = None,
+                           suffix = None):
         padding_length = 1
         if self._paddingzero:
             padding_length = minimumDigits
-        stringNumber = stringNumber = str(number).zfill(padding_length)
+
+        stringNumber = ''
+        if number < 0:
+            stringNumber = str(-number).zfill(padding_length)
+        else:
+            stringNumber = str(number).zfill(padding_length)
 
         self._maxTextWidth = 0
         ar = []
+        if prefix:
+            ar.append(images[prefix])
+            self.addTextWidth(images[prefix].getBitmap().size[0], self._spacing)
+        if number < 0 and minus:
+            ar.append(images[minus])
+            self.addTextWidth(images[minus].getBitmap().size[0], self._spacing)
         for digitIndex in range(len(stringNumber)):
             if decimal_pointer and digitIndex == len(stringNumber)-2:
-                imageIndex = decimal_pointer
-                ar.append(images[imageIndex])
-                self.addTextWidth(images[imageIndex].getBitmap().size[0], self._spacing)
+                ar.append(images[decimal_pointer])
+                self.addTextWidth(images[decimal_pointer].getBitmap().size[0], self._spacing)
             digit = stringNumber[digitIndex]
             if int(digit) < self._imagesCount:
                 imageIndex = self._imageIndex + int(digit)
                 ar.append(images[imageIndex])
                 self.addTextWidth(images[imageIndex].getBitmap().size[0], self._spacing)
+        if suffix:
+            ar.append(images[suffix])
+            self.addTextWidth(images[suffix].getBitmap().size[0], self._spacing)
         i = minimumDigits - len(stringNumber)
         while i > 0:
             self.addTextWidth(images[self._imageIndex].getBitmap().size[0], self._spacing)
