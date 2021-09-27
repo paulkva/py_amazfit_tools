@@ -77,9 +77,9 @@ class WatchFace(ContainerElement):
             pass
         elif parameterId == 4:
             pass
-            # from watchFaceParser.models.gts2mini.elements.activityElement import ActivityElement
-            # self._activity = ActivityElement(parameter)
-            # return self._activity
+            from watchFaceParser.models.gts2mini.elements.activityElement import ActivityElement
+            self._activity = ActivityElement(parameter)
+            return self._activity
         elif parameterId == 5:
             pass
             # from watchFaceParser.models.gts2mini.elements.dateElement import DateElement
