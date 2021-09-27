@@ -92,7 +92,6 @@ class NumberElement(ContainerElement):
     def draw4(self, drawer, images, number, minimumDights = 1, force_padding = False, followxy = None, decimal_pointer = None):
         from watchFaceParser.helpers.drawerHelper import DrawerHelper
 
-        print("NumberVor", number)
         if force_padding:
             self._paddingzero = True
 

@@ -18,7 +18,6 @@ class TimeElement(ContainerElement):
     def draw_time_element(self, drawer, images, state, followxy):
         assert(type(images) == list)
 
-        print(f"Minutes. followxy = {followxy}")
         if self._minutes:
             followxy = self._minutes.draw4(drawer,
                                            images,
@@ -31,7 +30,6 @@ class TimeElement(ContainerElement):
                 if followxy:
                     drawer.paste(temp, (followxy[0], followxy[1]), temp)
                     followxy = followxy[0] + temp.size[0], followxy[1]
-        print(f"Seconds. followxy = {followxy}")
         if self._seconds:
             followxy = self._seconds.draw4(drawer,
                                            images,
