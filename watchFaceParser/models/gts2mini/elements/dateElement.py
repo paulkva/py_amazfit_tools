@@ -2,48 +2,44 @@
 
 from watchFaceParser.models.elements.basic.containerElement import ContainerElement
 
+
 class DateElement(ContainerElement):
     def __init__(self, parameter, parent = None, name = None):
+        self._padding_zero_day = False
         self._monthAndDay = None
-        self._weekDay = None
-        self._year = None
-        self._weekDayProgress = None		
+        self._padding_zero_month = False
         super(DateElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
 
-
-    def getMonthAndDay(self):
-        #print ("DEBUG: getMonthAndDay")
-        return self._monthAndDay
-
-    def getWeekDay(self):
-        #print ("DEBUG: getWeekDay")
-        return self._weekDay
-
-    def getYear(self):
-        #print ("DEBUG: getYear")
-        return self._year
+    def draw3(self, drawer, images, state):
+        if self._monthAndDay:
+            self._monthAndDay.draw4(drawer, images, state,
+                                    padding_zero_day = self._padding_zero_day,
+                                    padding_zero_month= self._padding_zero_month)
 
     def createChildForParameter(self, parameter):
+        from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
         parameterId = parameter.getId()
         if parameterId == 1:
-            from watchFaceParser.models.elements.date.monthAndDayElement import MonthAndDayElement
-            self._monthAndDay = MonthAndDayElement(parameter = parameter, parent = self, name = 'MonthAndDay')
-            return self._monthAndDay
+            pass
         elif parameterId == 2:
-            from watchFaceParser.models.elements.date.weekDayElement import WeekDayElement
-            self._weekDay = WeekDayElement(parameter = parameter, parent = self, name = 'WeekDay')
-            return self._weekDay
+            pass
+        elif parameterId == 3:
+            pass
+        elif parameterId == 4:
+            self._padding_zero_month = parameter.getValue()
+            return ValueElement(parameter, self, 'PaddingZeroMonth')
         elif parameterId == 5:
-            from watchFaceParser.models.elements.date.yearElement import YearElement
-            self._year = YearElement(parameter = parameter, parent = self, name = 'Year')
-            return self._year
+            self._padding_zero_day = parameter.getValue()
+            return ValueElement(parameter, self, 'PaddingZeroDay')
         elif parameterId == 6:
-            from watchFaceParser.models.elements.date.weekDayProgressElement import WeekDayProgressElement
-            self._weekDayProgress = WeekDayProgressElement(parameter = parameter, parent = self, name = 'WeekDayProgress')
-            #import jsonpickle
-            #import json
-            #print ("self._weekDayProgress",json.dumps(json.loads(jsonpickle.encode(self._weekDayProgress.__dict__)), indent=4))
-            #print ("DATELELEMENT6")
-            return self._weekDayProgress
+            pass
+        elif parameterId == 7:
+            pass
+        elif parameterId == 8:
+            pass
+        elif parameterId == 9:
+            from watchFaceParser.models.elements.date.monthAndDayElement import MonthAndDayElement
+            self._monthAndDay = MonthAndDayElement(parameter=parameter, parent=self, name='MonthAndDay')
+            return self._monthAndDay
         else:
             return super(DateElement, self).createChildForParameter(parameter)

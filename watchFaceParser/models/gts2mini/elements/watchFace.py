@@ -21,47 +21,6 @@ class WatchFace(ContainerElement):
         self._weather = None
         super(WatchFace, self).__init__(parameters, parameter = None, parent = None, name = '')
 
-
-    def getBackground(self):
-        return self._background
-
-
-    def getTime(self):
-        print ("GETTIME")
-        return self._digitalTime
-
-
-    def getActivity(self):
-        return self._activity
-
-
-    def getDate(self):
-        return self._date
-
-
-    def getWeather(self):
-        return self._weather
-
-
-    def getStepsProgress(self):
-        return self._stepsProgress
-
-
-    def getDaysProgress(self):
-        return self._daysProgress
-
-
-    def getStatus(self):
-        return self._status
-
-
-    def getBattery(self):
-        return self._battery
-
-
-    def getAnalogDial(self):
-        return self._analogDial
-
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
         logging.debug(f'>>>>>>>>>>>> {parameterId} {parameter}')
@@ -82,9 +41,9 @@ class WatchFace(ContainerElement):
             return self._activity
         elif parameterId == 5:
             pass
-            # from watchFaceParser.models.gts2mini.elements.dateElement import DateElement
-            # self._date = DateElement(parameter)
-            # return self._date
+            from watchFaceParser.models.gts2mini.elements.dateBlockElement import DateBlockElement
+            self._date = DateBlockElement(parameter)
+            return self._date
         elif parameterId == 6:
             pass
             from watchFaceParser.models.gts2mini.elements.weatherElement import WeatherElement

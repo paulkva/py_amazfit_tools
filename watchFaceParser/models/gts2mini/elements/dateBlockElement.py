@@ -6,10 +6,7 @@ class DateBlockElement(ContainerElement):
     def __init__(self, parameter, parent = None, name = None):
         self._date = None
         self._ampm = None
-        self._weekDay1 = None
-        self._weekDay2 = None
-        self._weekDay3 = None
-
+        self._weekDay = None
         super(DateBlockElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
 
     def createChildForParameter(self, parameter):
@@ -26,15 +23,11 @@ class DateBlockElement(ContainerElement):
             pass
         elif parameterId == 4:
             from watchFaceParser.models.gts2mini.elements.date.weekDayElement import WeekDayElement
-            self._weekDay1 = WeekDayElement(parameter = parameter, parent = self, name = 'Weekday1')
-            return self._weekDay1
-        elif parameterId == 5:
-            from watchFaceParser.models.gts2mini.elements.date.weekDayElement import WeekDayElement
-            self._weekDay2 = WeekDayElement(parameter = parameter, parent = self, name = 'Weekday2')
-            return self._weekDay2
-        elif parameterId == 6:
-            from watchFaceParser.models.gts2mini.elements.date.weekDayElement import WeekDayElement
-            self._weekDay3 = WeekDayElement(parameter = parameter, parent = self, name = 'Weekday3')
-            return self._weekDay3
+            self._weekDay = WeekDayElement(parameter = parameter, parent = self, name = 'Weekday')
+            return self._weekDay
+        elif parameterId == 5: # WeekdayChinese
+            pass
+        elif parameterId == 6: # WeekdayKorean
+            pass
         else:
             return super(DateBlockElement, self).createChildForParameter(parameter)
