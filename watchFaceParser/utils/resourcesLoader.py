@@ -70,7 +70,7 @@ class ResourcesLoader:
                 raise IndexError(
                     f"Property {propertyInfo} can't have both ParameterImageIndexAttribute and ParameterImagesCountAttribute")
 
-            if propertyType == 'long' or propertyType == 'long?' or propertyType == list or propertyType == type:
+            if propertyType == 'long' or propertyType == 'long?' or propertyType == 'slong' or propertyType == list or propertyType == type:
                 if imageIndexAttribute != None:
                     if propertyValue == None:
                         continue
