@@ -6,105 +6,58 @@ from watchFaceParser.models.gts2mini.elements.basic.containerElement import Cont
 class DigitalDialElement(ContainerElement):
     def __init__(self, parameter, parent = None, name = None):
         self._hours = None
-        self._minutes = None
-        self._seconds = None
-        self._delimiter = None
-        self._delimiter2 = None
-        self._pm = None
+        self._hoursdelimiter = None
+        self._delimiter3 = None
+        self._delimiter4 = None
+        self._time = None
         super(DigitalDialElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
-
-
-    def getHours(self):
-        return self._hours
-
-
-    def getMinutes(self):
-        return self._minutes
-
-
-    def getSeconds(self):
-        return self._seconds
-
-
-    def getAmPm(self):
-        return self._amPm
-
-
-    # def getDrawingOrder(self):
-    #     return self._drawingOrder
-
-
-    def getDelimiter(self):
-        return self._delimiter
-
-    def getDelimiter2(self):
-        return self._delimiter2
-
-    def getPm(self):
-        return self._pm
-
 
     def draw3(self, drawer, images, state):
         assert(type(images) == list)
 
-        if self.getAmPm():
-            self.getAmPm().draw3(drawer, images, state)
+        hours = state.getTime().hour
 
-        hours = state.getTime().hour if self.getAmPm() is None else state.getTime().hour % 12
-        # drawingOrder = 0x1234 if self.getDrawingOrder() is None else self.getDrawingOrder()
+        followxy = None
 
-        if self.getHours() and self.getHours().getTens():
-            self.getHours().getTens().draw3(drawer, images, int(hours % 100 / 10))
-        if self.getHours() and self.getHours().getOnes():
-            self.getHours().getOnes().draw3(drawer, images, hours % 10)
-        if self.getMinutes() and self.getMinutes().getTens():
-            self.getMinutes().getTens().draw3(drawer, images, int(state.getTime().minute % 100 / 10))
-        if self.getMinutes() and self.getMinutes().getOnes():
-            self.getMinutes().getOnes().draw3(drawer, images, state.getTime().minute % 10)
+        if self._hours:
+            print("Hours")
+            followxy = self._hours.draw4(drawer, images, hours, 2, True)
+            print("Hours followx : ", followxy)
+            if self._hoursdelimiter:
+                temp = images[self._hoursdelimiter].getBitmap()
+                if followxy:
+                    drawer.paste(temp, (followxy[0], followxy[1]), temp)
+                    followxy = followxy[0] + temp.size[0], followxy[1]
 
-        if self.getSeconds():
-            self.getSeconds().draw3(drawer, images, state.getTime().second)
-        if self.getDelimiter():
-            self.getDelimiter().draw3(drawer, images, state)
-        if self.getDelimiter2():
-            self.getDelimiter2().draw3(drawer, images, state)
-
-        # if self.getPm():
-        #     self.getPm().draw3(drawer, images, state)
-
+        if self._time:
+            self._time.draw_time_element(drawer, images, state, followxy)
 
     def createChildForParameter(self, parameter):
+        from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
+
         parameterId = parameter.getId()
         if parameterId == 1:
-            from watchFaceParser.models.gts2mini.elements.common.twoDigitsElement import TwoDigitsElement
-            self._hours = TwoDigitsElement(parameter = parameter, parent = self, name = 'Hours')
+            from watchFaceParser.models.gts2mini.elements.common.numberElement import NumberElement
+            self._hours = NumberElement(parameter = parameter, parent = self, name = 'Hours')
             return self._hours
         elif parameterId == 2:
-            from watchFaceParser.models.gts2mini.elements.common.twoDigitsElement import TwoDigitsElement
-            self._minutes = TwoDigitsElement(parameter = parameter, parent = self, name = 'Minutes')
-            return self._minutes
+            self._hoursdelimiter = parameter.getValue()
+            return ValueElement(parameter, self, 'HoursDelimiterImageIndex')
         elif parameterId == 3:
-            from watchFaceParser.models.gts2mini.elements.common.twoDigitsElement import TwoDigitsElement
-            self._seconds = TwoDigitsElement(parameter = parameter, parent = self, name = 'Seconds')
-            return self._seconds
+            pass
         elif parameterId == 4:
-            from watchFaceParser.models.gts2mini.elements.time.amPmElement import AmPmElement
-            self._amPm = AmPmElement(parameter = parameter, parent = self, name = 'AmPm')
-            return self._amPm
+            self._delimiter4 = parameter.getValue()
+            return ValueElement(parameter, self, 'Delimiter4')
         elif parameterId == 5:
             pass
-        elif parameterId == 10:
-            from watchFaceParser.models.gts2mini.elements.common.imageElement import ImageElement
-            self._delimiter = ImageElement(parameter = parameter, parent = self, name = 'Delimiter')
-            return self._delimiter
-        elif parameterId == 11:
-            from watchFaceParser.models.gts2mini.elements.common.imageElement import ImageElement
-            self._delimiter2 = ImageElement(parameter = parameter, parent = self, name = 'Delimiter2')
-            return self._delimiter2
-        elif parameterId == 12:
-            from watchFaceParser.models.gts2mini.elements.time.pmElement import PmElement
-            self._pm = PmElement(parameter = parameter, parent = self, name = 'Pm')
-            return self._pm
+        elif parameterId == 6:
+            pass
+        elif parameterId == 7:
+            pass
+        elif parameterId == 8:
+            from watchFaceParser.models.gts2mini.elements.time.timeElement import  TimeElement
+            self._time = TimeElement(parameter = parameter, parent = self, name = 'Time')
+            return self._time
         else:
             print ("Unknown TimeElement",parameterId)
             return super(DigitalDialElement, self).createChildForParameter(parameter)

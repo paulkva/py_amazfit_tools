@@ -135,10 +135,9 @@ class WatchFace(ContainerElement):
             self._analogDial = AnalogDialElement(parameter)
             return self._analogDial
         elif parameterId == 21:
-            pass
-            # from watchFaceParser.models.gts2mini.elements.digitalDialElement import DigitalDialElement
-            # self._digitalTime = DigitalDialElement(parameter)
-            # return self._digitalTime
+            from watchFaceParser.models.gts2mini.elements.digitalDialElement import DigitalDialElement
+            self._digitalTime = DigitalDialElement(parameter)
+            return self._digitalTime
         elif parameterId == 21:  #
             pass
         elif parameterId == 22: #
