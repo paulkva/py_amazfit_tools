@@ -3,14 +3,16 @@ from watchFaceParser.elements.gts2mini.activityElements.calories import Calories
 from watchFaceParser.elements.gts2mini.activityElements.heartrate import HeartRate
 from watchFaceParser.elements.gts2mini.activityElements.distance import Distance
 from watchFaceParser.elements.gts2mini.activityElements.pai import PAI
+from watchFaceParser.elements.gts2mini.activityElements.standup import StandUp
 
 class Activity:
     definitions = {
         1: { 'Name': 'Steps', 'Type': Steps},
-        2: { 'Name': 'UnknownActivity2', 'Type': 'long?'},
+        2: { 'Name': 'Unknown2', 'Type': 'long?'},
         3: { 'Name': 'Calories', 'Type': Calories},
         4: { 'Name': 'HeartRate', 'Type': HeartRate},
         5: { 'Name': 'Distance', 'Type': Distance},
         6: { 'Name': 'PAI', 'Type': PAI},
         7: { 'Name': 'UnknownLongValue7', 'Type': 'long'},
+        8: { 'Name': 'StandUp', 'Type': StandUp},
     }
