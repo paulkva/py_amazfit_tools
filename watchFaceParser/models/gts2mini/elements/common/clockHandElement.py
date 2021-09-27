@@ -32,7 +32,7 @@ class ClockHandElement(CompositeElement):
 
         temp = Image.new('RGBA', Config.getImageSize())
         temp.paste(bitmap, (Config.getImageSizeHalf()[0] - offset_x, Config.getImageSizeHalf()[1] - offset_y), bitmap)
-        temp = temp.rotate(angle)
+        temp = temp.rotate(angle, resample=Image.BICUBIC)
 
         if self._center is None:
             drawer.paste(temp, (0, 0), temp)
