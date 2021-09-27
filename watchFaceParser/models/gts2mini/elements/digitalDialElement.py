@@ -8,7 +8,7 @@ class DigitalDialElement(ContainerElement):
         self._hours = None
         self._hoursdelimiter = None
         self._delimiter3 = None
-        self._delimiter4 = None
+        self._delimiter_hours = None
         self._time = None
         super(DigitalDialElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
 
@@ -20,11 +20,14 @@ class DigitalDialElement(ContainerElement):
         followxy = None
 
         if self._hours:
-            print("Hours")
             followxy = self._hours.draw4(drawer, images, hours, 2, True)
-            print("Hours followx : ", followxy)
             if self._hoursdelimiter:
                 temp = images[self._hoursdelimiter].getBitmap()
+                if followxy:
+                    drawer.paste(temp, (followxy[0], followxy[1]), temp)
+                    followxy = followxy[0] + temp.size[0], followxy[1]
+            elif self._delimiter_hours:
+                temp = images[self._delimiter_hours].getBitmap()
                 if followxy:
                     drawer.paste(temp, (followxy[0], followxy[1]), temp)
                     followxy = followxy[0] + temp.size[0], followxy[1]
@@ -46,8 +49,8 @@ class DigitalDialElement(ContainerElement):
         elif parameterId == 3:
             pass
         elif parameterId == 4:
-            self._delimiter4 = parameter.getValue()
-            return ValueElement(parameter, self, 'Delimiter4')
+            self._delimiter_hours = parameter.getValue()
+            return ValueElement(parameter, self, 'DelimiterHours')
         elif parameterId == 5:
             pass
         elif parameterId == 6:

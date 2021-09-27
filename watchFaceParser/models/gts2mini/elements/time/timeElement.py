@@ -7,6 +7,8 @@ class TimeElement(ContainerElement):
     def __init__(self, parameter, parent, name = None):
         self._minutes = None
         self._seconds = None
+        self._delimiter_minutes = None
+        self._delimiter_seconds = None
         self._minutes_follow_hours = False
         self._seconds_follow_minutes = False
         self._coords10 = None
@@ -24,6 +26,11 @@ class TimeElement(ContainerElement):
                                            minimumDights = 2,
                                            force_padding = True,
                                            followxy = followxy if self._minutes_follow_hours else None)
+            if self._delimiter_minutes:
+                temp = images[self._delimiter_minutes].getBitmap()
+                if followxy:
+                    drawer.paste(temp, (followxy[0], followxy[1]), temp)
+                    followxy = followxy[0] + temp.size[0], followxy[1]
         print(f"Seconds. followxy = {followxy}")
         if self._seconds:
             followxy = self._seconds.draw4(drawer,
@@ -32,6 +39,11 @@ class TimeElement(ContainerElement):
                                            minimumDights = 2,
                                            force_padding = True,
                                            followxy = followxy if self._seconds_follow_minutes else None)
+            if self._delimiter_seconds:
+                temp = images[self._delimiter_seconds].getBitmap()
+                if followxy:
+                    drawer.paste(temp, (followxy[0], followxy[1]), temp)
+                    followxy = followxy[0] + temp.size[0], followxy[1]
 
     def createChildForParameter(self, parameter):
         from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
@@ -53,9 +65,11 @@ class TimeElement(ContainerElement):
         elif parameterId == 5:
             pass
         elif parameterId == 6:
-            pass
+            self._delimiter_minutes = parameter.getValue()
+            return ValueElement(parameter, self, 'DelimiterMinutes')
         elif parameterId == 7:
-            pass
+            self._delimiter_seconds = parameter.getValue()
+            return ValueElement(parameter, self, 'DelimiterSeconds')
         elif parameterId == 8:
             self._minutes_follow_hours = parameter.getValue()
             return ValueElement(parameter, self, 'MinutesFollowHours')
