@@ -51,12 +51,12 @@ class NumberElement(ContainerElement):
         self._bottomRightY = None
         self._alignment = None
         self._spacing = 0
-        self._paddingzero = False
         self._imageIndex = None
         self._imagesCount = None
         self._maxTextWidth = None
         self._box = None
         self._followxy = None
+        self._paddingzero = False
         super(NumberElement, self).__init__(None, parameter = parameter, parent = parent, name = name)
 
     def getTopLeftX(self):
@@ -68,7 +68,6 @@ class NumberElement(ContainerElement):
     def getBox(self):
         #return Box(self._topLeftX, self._topLeftY, self._bottomRightX - self._topLeftX, self._bottomRightY - self._topLeftY)
         return self._box
-
 
     def getAltBox(self, altCoordinates):
         return Box(altCoordinates._x, altCoordinates._y, self._bottomRightX - self._topLeftX, self._bottomRightY - self._topLeftY)
@@ -170,8 +169,7 @@ class NumberElement(ContainerElement):
             self._spacing = parameter.getValue()
             return ValueElement(parameter, self, 'Spacing')
         elif parameterId == 7:
-            self._paddingzero = parameter.getValue()
-            return ValueElement(parameter, self, 'PaddingZero')
+            pass
         elif parameterId == 8:
             self._imageIndex = parameter.getValue()
             return ValueElement(parameter, self, 'ImageIndex')

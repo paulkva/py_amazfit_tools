@@ -7,6 +7,8 @@ class TimeElement(ContainerElement):
     def __init__(self, parameter, parent, name = None):
         self._minutes = None
         self._seconds = None
+        self._padding_zero_minutes = None
+        self._padding_zero_seconds = None
         self._delimiter_minutes = None
         self._delimiter_seconds = None
         self._minutes_follow_hours = False
@@ -23,7 +25,7 @@ class TimeElement(ContainerElement):
                                            images,
                                            state.getTime().minute,
                                            minimumDights = 2,
-                                           force_padding = True,
+                                           force_padding = self._padding_zero_minutes,
                                            followxy = followxy if self._minutes_follow_hours else None,
                                            suffix = self._delimiter_minutes)
         if self._seconds:
@@ -31,7 +33,7 @@ class TimeElement(ContainerElement):
                                            images,
                                            state.getTime().second,
                                            minimumDights = 2,
-                                           force_padding = True,
+                                           force_padding = self._padding_zero_seconds,
                                            followxy = followxy if self._seconds_follow_minutes else None,
                                            suffix = self._delimiter_seconds)
 
@@ -51,9 +53,11 @@ class TimeElement(ContainerElement):
             self._seconds = NumberElement(parameter, self, 'Seconds')
             return self._seconds
         elif parameterId == 4:
-            pass
+            self._padding_zero_minutes = parameter.getValue()
+            return ValueElement(parameter, self, 'PaddingZeroMinutes')
         elif parameterId == 5:
-            pass
+            self._padding_zero_seconds = parameter.getValue()
+            return ValueElement(parameter, self, 'PaddingZeroSeconds')
         elif parameterId == 6:
             self._delimiter_minutes = parameter.getValue()
             return ValueElement(parameter, self, 'DelimiterMinutes')
