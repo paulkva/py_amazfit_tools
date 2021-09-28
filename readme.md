@@ -1,5 +1,5 @@
 # py amazfit tool for GTS2
-An python port of valeronm's amazfitbiptools(v.1.0.3.1) with some hacks for verge lite/gtr.
+A python port of valeronm's amazfitbiptools(v.1.0.3.1) with some hacks for verge lite/gtr.
 
 Added support of GTR2 and GTS2 by bigdigital
 
@@ -56,8 +56,14 @@ All credit goes to Валерий Миронов(https://bitbucket.org/valeronm/
     * python main.py --gts2 --file WATCH_FACE_FILE.bin
   * to pack 
     * python main.py --gts2 --file WATCH_FACE_FILE.json
+    
+* for GTS2 Mini
+  * to unpack 
+    * python main.py --gts2mini --file WATCH_FACE_FILE.bin
+  * to pack 
+    * python main.py --gts2mini --file WATCH_FACE_FILE.json
 
-Can also unpack and pack watcface resources without parsing header parameters (useful if watchface has some uknnown parapeters)
+Can also unpack and pack watchface resources without parsing header parameters (useful if watchface has some unknown parameters)
  * to unpack 
     * python main.py --gtr2 --to_raw 47 --file WATCH_FACE_FILE.bin
   * to pack 
@@ -95,7 +101,7 @@ usage: gtr-packer
     "Bluetooth": {
 ```
 
-### analog hands' releative position (only works for GTR)
+### analog hands' relative position (only works for GTR)
 
 ## why python instead of C#
 just for fun!
