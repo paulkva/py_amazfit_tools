@@ -39,31 +39,26 @@ class WatchFace(ContainerElement):
             self._time_separate_digits = TimeSeparateDigitsContainerElement(parameter)
             return self._time_separate_digits
         elif parameterId == 4:
-            pass
             from watchFaceParser.models.gts2mini.elements.activityElement import ActivityElement
             self._activity = ActivityElement(parameter)
             return self._activity
         elif parameterId == 5:
-            pass
             from watchFaceParser.models.gts2mini.elements.dateBlockElement import DateBlockElement
             self._date = DateBlockElement(parameter)
             return self._date
         elif parameterId == 6:
-            pass
             from watchFaceParser.models.gts2mini.elements.weatherElement import WeatherElement
             self._weather = WeatherElement(parameter)
             return self._weather
         elif parameterId == 7:
-            pass
-            # from watchFaceParser.models.gts2mini.elements.progressElement import ProgressElement
-            # self._stepsProgress = ProgressElement(parameter)
-            # return self._stepsProgress
+            from watchFaceParser.models.gts2mini.elements.activity.stepProgressElement import StepProgressElement
+            self._stepsProgress = StepProgressElement(parameter)
+            return self._stepsProgress
         elif parameterId == 8:
             from watchFaceParser.models.gts2mini.elements.statusElement import StatusElement
             self._status = StatusElement(parameter)
             return self._status
         elif parameterId == 9:
-            pass
             from watchFaceParser.models.gts2mini.elements.batteryElement import BatteryElement
             self._battery = BatteryElement(parameter)
             return self._battery
@@ -72,19 +67,17 @@ class WatchFace(ContainerElement):
         elif parameterId == 11: # animation
             pass
         elif parameterId == 12: # hearth progress
-            pass
-            # from watchFaceParser.models.gts2mini.elements.progressElement import ProgressElement
-            # self._hearthProgress = ProgressElement(parameter)
-            # return self._hearthProgress
+            from watchFaceParser.models.gts2mini.elements.activity.pulseProgressElement import PulseProgressElement
+            self._hearthProgress = PulseProgressElement(parameter)
+            return self._hearthProgress
         elif parameterId == 13: #
             pass
         elif parameterId == 14: #
             pass
         elif parameterId == 15: # calories progress
-            pass
-            # from watchFaceParser.models.gts2mini.elements.progressElement import ProgressElement
-            # self._caloriesProgress = ProgressElement(parameter)
-            # return self._caloriesProgress
+            from watchFaceParser.models.gts2mini.elements.activity.caloriesProgressElement import CaloriesProgressElement
+            self._caloriesProgress = CaloriesProgressElement(parameter)
+            return self._caloriesProgress
         elif parameterId == 16:  #
             pass
         elif parameterId == 17:  #

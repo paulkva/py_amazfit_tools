@@ -24,9 +24,8 @@ class BatteryElement(ContainerElement):
             self._text = BatteryTextElement(parameter = parameter, parent = self, name = 'BatteryText')
             return self._text
         elif parameterId == 2:
-            pass
             from watchFaceParser.models.gts2mini.elements.common.imageSetElement import ImageSetElement
-            self._icon = ImageSetElement(parameter = parameter, parent = self, name ='BatteryIcon')
+            self._icon = ImageSetElement(parameter = parameter, parent = self, name ='ImageProgress')
             return self._icon
         elif parameterId == 3:
             pass
