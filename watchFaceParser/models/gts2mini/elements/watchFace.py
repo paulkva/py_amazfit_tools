@@ -21,6 +21,7 @@ class WatchFace(ContainerElement):
         self._shorcuts = None
         self._digitalTime = None
         self._weather = None
+        self._activity_separate_digits = None
         super(WatchFace, self).__init__(parameters, parameter = None, parent = None, name = '')
 
     def createChildForParameter(self, parameter):
@@ -116,6 +117,10 @@ class WatchFace(ContainerElement):
             pass
         elif parameterId == 29: #
             pass
+        elif parameterId == 30: #
+            from watchFaceParser.models.gts2mini.elements.activity.activitySeparateDigitsElement import ActivitySeparateDigitsElement
+            self._activity_separate_digits = ActivitySeparateDigitsElement(parameter)
+            return self._activity_separate_digits
         else:
             print ("Unknown WatchFace",parameterId)
             return super(WatchFace, self).createChildForParameter(parameter)

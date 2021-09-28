@@ -22,6 +22,7 @@ class ImageSetElement(ImageElement):
         if index >= self.getImagesCount():
             index = int(self.getImagesCount()) - 1
         imageIndex = int(self.getImageIndex() + index)
+
         temp = resources[imageIndex].getBitmap()
         drawer.paste(temp, (self._x, self._y), temp)
 
