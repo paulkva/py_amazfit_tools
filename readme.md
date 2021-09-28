@@ -62,6 +62,12 @@ All credit goes to Валерий Миронов(https://bitbucket.org/valeronm/
     * python main.py --gts2mini --file WATCH_FACE_FILE.bin
   * to pack 
     * python main.py --gts2mini --file WATCH_FACE_FILE.json
+    
+* for BipU
+   * to unpack
+     *  python main.py --bipu --file WATCH_FACE_FILE.bin
+   * to pack
+     * python main.py --bipu --file WATCH_FACE_FILE.json
 
 Can also unpack and pack watchface resources without parsing header parameters (useful if watchface has some unknown parameters)
  * to unpack 
