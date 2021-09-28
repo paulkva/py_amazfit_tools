@@ -11,6 +11,7 @@ from watchFaceParser.elements.gts2mini.weather import Weather
 from watchFaceParser.elements.gts2mini.animation import Animation
 from watchFaceParser.elements.gts2mini.timeSeparateDigits import TimeSeparateDigits
 from watchFaceParser.elements.gts2mini.activitySeparateDigits import ActivitySeparateDigits
+from watchFaceParser.elements.gts2mini.shortcuts import Shortcuts
 
 class WatchFace:
     definitions = {
@@ -33,7 +34,7 @@ class WatchFace:
         16: {'Name': 'Unknown16', 'Type': 'long?'},
         17: {'Name': 'Unknown17', 'Type': 'long?'},
         18: {'Name': 'Unknown18', 'Type': 'long?'},
-        19: {'Name': 'Unknown19', 'Type': 'long?'},
+        19: {'Name': 'Shortcuts', 'Type': Shortcuts},
         20: {'Name': 'TimeAnalog', 'Type': AnalogDialFace},
         21: {'Name': 'TimeDigital', 'Type': TimeDigital},
         22: {'Name': 'Unknown22', 'Type': 'long?'},

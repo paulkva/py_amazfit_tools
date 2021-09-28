@@ -15,6 +15,7 @@ from watchFaceParser.models.gtr2.imageprogressDisplayType import ImageProgressDi
 from watchFaceParser.models.gtr2.langCodeType import LangCodeType
 from watchFaceParser.models.gtr2.textAlignment import TextAlignmentGTR2
 from watchFaceParser.models.gtr2.activityType import ActivityType
+from watchFaceParser.models.gts2mini.shortcutType import ShortcutType
 
 def ulong2long(n):
     if type(n) == int:
@@ -68,6 +69,7 @@ class ParametersConverter:
                     propertyType == TextAlignment or 
                     propertyType == TextAlignmentGTR2 or 
                     propertyType == ActivityType or 
+                    propertyType == ShortcutType or 
                     propertyType == Color or 
                     propertyType == LangCodeType or 
                     propertyType == TimeType or 
@@ -93,6 +95,8 @@ class ParametersConverter:
                     value = Color.fromJSON(propertyValue)
                 elif propertyType == ActivityType:
                     value = ActivityType.fromJSON(propertyValue)
+                elif propertyType == ShortcutType:
+                    value = ShortcutType.fromJSON(propertyValue)
                 elif propertyType == TimeType:
                     value = TimeType.fromJSON(propertyValue)
                 elif propertyType == DigitType:
@@ -239,6 +243,8 @@ class ParametersConverter:
                 setattr(result, propertyInfoName, TimeType(parameter.getValue()))
             elif propertyType == ActivityType:
                 setattr(result, propertyInfoName, ActivityType(parameter.getValue()))
+            elif propertyType == ShortcutType:
+                setattr(result, propertyInfoName, ShortcutType(parameter.getValue()))
             elif propertyType == DateType:
                 setattr(result, propertyInfoName, DateType(parameter.getValue()))
             elif propertyType == CombingModeType:
