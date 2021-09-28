@@ -18,6 +18,7 @@ class WatchFace(ContainerElement):
         self._status = None
         self._battery = None
         self._analogDial = None
+        self._shorcuts = None
         self._digitalTime = None
         self._weather = None
         super(WatchFace, self).__init__(parameters, parameter = None, parent = None, name = '')
@@ -91,7 +92,9 @@ class WatchFace(ContainerElement):
         elif parameterId == 18:  #
             pass
         elif parameterId == 19: #
-            pass
+            from watchFaceParser.models.gts2mini.elements.shortcutsElement import ShortcutsElement
+            self._shorcuts = ShortcutsElement(parameter)
+            return self._shorcuts
         elif parameterId == 20:
             from watchFaceParser.models.gts2mini.elements.analogDialElement import AnalogDialElement
             self._analogDial = AnalogDialElement(parameter)
