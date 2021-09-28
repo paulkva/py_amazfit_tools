@@ -61,7 +61,7 @@ class Parser:
         try:
             if not Config.isOldFormat() and (Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode()): 
                 from watchFaceParser.watchFaceGTR2 import WatchFace
-            elif Config.isGts2MiniMode():
+            elif Config.isGts2MiniMode() or Config.isBipUMode():
                 from watchFaceParser.watchFaceGTS2Mini import WatchFace
             else:
                 from watchFaceParser.watchFace import WatchFace
@@ -278,7 +278,7 @@ class Parser:
         logging.debug("Parsing parameters...")
         if not Config.isOldFormat() and (Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode()): 
             from watchFaceParser.watchFaceGTR2 import WatchFace
-        elif Config.isGts2MiniMode():
+        elif Config.isGts2MiniMode() or Config.isBipUMode():
             from watchFaceParser.watchFaceGTS2Mini import WatchFace
         else:
             from watchFaceParser.watchFace import WatchFace
@@ -414,7 +414,8 @@ class Parser:
                 PAI=i*8,
                 Humidity=i*8,
                 UVindex=i,
-                AirQuality=i*41
+                AirQuality=i*41,
+                Animation=i
             )
 
             watchState.setCurrentWeather(i)

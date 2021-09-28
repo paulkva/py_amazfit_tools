@@ -30,7 +30,7 @@ class Header:
             Header.parametersSizePos = 80 
             self.signature = b"UIHH\x02\x00\xff"
             val_11 = 0x01
-        elif Config.isGts2MiniMode():
+        elif Config.isGts2MiniMode() or Config.isBipUMode():
             Header.headerSize = 87
             Header.unknownPos = 79
             Header.parametersSizePos = 83
@@ -72,6 +72,7 @@ class Header:
             53 : [0x35, 0x00, 0x09, 0x00, 0x00, 0x00, 0x4b, 0x9a], # AmazfitX
             59 : [0x3B, 0x00, 0x97, 0x04, 0x00, 0x00, 0x97, 0xD1, 0x02, 0x00], #gtr2
             65 : [0x41, 0x00, 0x51, 0x04, 0x00, 0x00, 0x43, 0x01, 0x02, 0x00], #gts2: 0x51, 0x04, 0x00, 0x00, 0x43, 0x01, 0x02, 0x00 - may vary
+            71 : [0x01, 0xA2, 0x44, 0x47, 0x00, 0x47, 0x00, 0x43, 0x06, 0x00, 0x00, 0x96, 0x2C, 0x0B, 0x00], #bipu
             73 : [0x01, 0x3C, 0x7C, 0x49, 0x00, 0x49, 0x00, 0x7D, 0x07, 0x00, 0x00, 0xB6, 0xDA, 0x04, 0x00], #gts2mini
             83 : [0x53, 0x00, 0x36, 0x04, 0x00, 0x00, 0x1E, 0xAB, 0x03, 0x00], #trex
         }
@@ -86,6 +87,8 @@ class Header:
             index = 83
         elif Config.isGts2MiniMode():
             index = 73
+        elif Config.isBipUMode():
+            index = 71
         elif Config.isGtsMode():
             index = Config.isGtsMode()
         elif Config.isTrexMode():
@@ -94,7 +97,7 @@ class Header:
             index = Config.isAmazfitXMode()
         p_0x10 = data_0x10[index]
         for i in range(len(p_0x10)):
-            if not Config.isGts2MiniMode():
+            if not Config.isGts2MiniMode() and not Config.isBipUMode():
                 buffer[0x10 + i] = p_0x10[i]
             else:
                 buffer[0x0B + i] = p_0x10[i]
@@ -106,7 +109,7 @@ class Header:
                 buffer[75] = 0x00
             else:
                 buffer[75] = 0x01
-        elif Config.isGts2MiniMode():
+        elif Config.isGts2MiniMode()  or Config.isBipUMode():
             buffer[32] = 0x00
         else:
             buffer[60:60+4] = int(64).to_bytes(4, byteorder='little')
@@ -125,7 +128,7 @@ class Header:
             Header.headerSize = 88 - 16
             Header.unknownPos = 76 - 16
             Header.parametersSizePos = 80 - 16
-        elif Config.isGts2MiniMode():
+        elif Config.isGts2MiniMode() or Config.isBipUMode():
             Header.headerSize = 87 - 16
             Header.unknownPos = 79 - 16
             Header.parametersSizePos = 83 - 16
@@ -137,7 +140,7 @@ class Header:
         if Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode():
            Header.dialSignature = b"UIHH\x02\x00\xff"
 
-        if Config.isGts2MiniMode():
+        if Config.isGts2MiniMode() or Config.isBipUMode():
            Header.dialSignature = b"UIHH\x01\x00\xff"
 
         buffer = stream.read(Header.headerSize)
@@ -154,14 +157,14 @@ class Header:
     
     @staticmethod
     def patchHeaderAfter( outputFileName ):
-        if Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode() or Config.isGts2MiniMode():
+        if Config.isGtr2Mode() or Config.isGts2Mode() or Config.isTrexProMode() or Config.isGts2MiniMode() or Config.isBipUMode():
             with open(outputFileName, 'rb+') as fileStream:
                 logging.debug(f"Injecting additional header info") 
                 header = bytearray( fileStream.read(40) )       
                 data = bytearray( fileStream.read() )                 
                 #write size
                 size = len(data)
-                if not Config.isGts2MiniMode():
+                if not Config.isGts2MiniMode() or Config.isBipUMode():
                     header[32:32+4] = int(size).to_bytes(4, byteorder='little')
                     logging.debug(f"Injected size: {size}")
                 

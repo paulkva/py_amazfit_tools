@@ -17,6 +17,7 @@ class WatchFace(ContainerElement):
         self._daysProgress = None
         self._status = None
         self._battery = None
+        self._animation = None
         self._analogDial = None
         self._shorcuts = None
         self._digitalTime = None
@@ -66,7 +67,9 @@ class WatchFace(ContainerElement):
         elif parameterId == 10:
             pass
         elif parameterId == 11: # animation
-            pass
+            from watchFaceParser.models.gts2mini.elements.animationContainerElement import AnimationContainerElement
+            self._animation = AnimationContainerElement(parameter)
+            return self._animation
         elif parameterId == 12: # hearth progress
             from watchFaceParser.models.gts2mini.elements.activity.pulseProgressElement import PulseProgressElement
             self._hearthProgress = PulseProgressElement(parameter)

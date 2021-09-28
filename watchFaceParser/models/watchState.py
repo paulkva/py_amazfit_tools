@@ -6,7 +6,7 @@ from watchFaceParser.models.weatherCondition import WeatherCondition
 class WatchState:
     def __init__(self, BatteryLevel=67, Pulse=62, Steps=14876, Calories=764, Distance=2367,
                  Bluetooth=False, Unlocked=True, Alarm=True, DoNotDisturb=True,
-                 CurrentTemperature=-10, Stand=3, PAI=30, Humidity=50, UVindex=5, AirQuality=5):
+                 CurrentTemperature=-10, Stand=3, PAI=30, Humidity=50, UVindex=5, AirQuality=5, Animation = 0):
         self._time = datetime.datetime.now().replace(hour = 10, minute = 10, second = 30)
         self._steps = Steps
         self._goal = 8000
@@ -26,6 +26,7 @@ class WatchState:
         self._screenidle = None
         self._currentWeather = WeatherCondition.PartlyCloudy
         self._currentTemperature = CurrentTemperature
+        self._animation = Animation
 
     def getTime(self):
         return self._time
@@ -99,6 +100,9 @@ class WatchState:
     def setScreenIdle(self, screenIdle):
         self._screenidle = screenIdle
 
+    def getAnimation(self):
+        return self._animation
+
     def toJSON(self):
         return {
             'Time': self.datetimeToJson(),
@@ -119,7 +123,8 @@ class WatchState:
             'Humidity': self._humidity,
             'UVindex': self._uvindex,
             'AirQuality': self._airquality,
-            'ScreenIdle': self._screenidle
+            'ScreenIdle': self._screenidle,
+            'Animation': self._animation
         }
 
     def datetimeToJson(self):
@@ -156,5 +161,6 @@ class WatchState:
         watch_state._uvindex = json['UVindex'] if 'UVindex' in json else watch_state._uvindex
         watch_state._airquality = json['AirQuality'] if 'AirQuality' in json else watch_state._airquality
         watch_state._screenidle = json['ScreenIdle'] if 'ScreenIdle' in json else watch_state._screenidle
+        watch_state._animation = json['Animation'] if 'Animation' in json else watch_state._animation
         return watch_state
 
