@@ -6,8 +6,10 @@ class Time:
         1: {'Name': 'Hours', 'Type': TwoDigits},
         2: {'Name': 'Minutes', 'Type': TwoDigits},
         3: {'Name': 'Seconds', 'Type': TwoDigits},
-        5: {'Name': 'Separator', 'Type': ImageSet},
-        7: {'Name': 'Unknown7', 'Type': 'long?'},
+        4: {'Name': 'Unknown7', 'Type': 'long?'},
+        5: {'Name': 'Separator', 'Type': ImageSet}, # separator hours ?
+        6: {'Name': 'Unknown7', 'Type': 'long?'}, # separator minutes ?
+        7: {'Name': 'Unknown7', 'Type': 'long?'}, # separator seconds ?
         8: {'Name': 'Unknown8', 'Type': 'long?'},
     }
 
