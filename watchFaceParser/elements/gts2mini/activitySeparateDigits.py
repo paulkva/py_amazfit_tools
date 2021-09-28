@@ -5,6 +5,6 @@ class ActivitySeparateDigits:
         1: {'Name': 'Calories', 'Type': FourDigits},
         2: {'Name': 'Battery', 'Type': ThreeDigits},
         3: {'Name': 'Steps', 'Type': FiveDigits},
-        4: {'Name': 'HeartRate', 'Type': FourDigits},
+        4: {'Name': 'HeartRate', 'Type': ThreeDigits},
     }
 

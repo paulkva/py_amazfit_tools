@@ -6,6 +6,7 @@ class ThreeDigits:
         2: { 'Name': 'Hundreds', 'Type': ImageSet},
         3: { 'Name': 'Tens', 'Type': ImageSet},
         4: { 'Name': 'Ones', 'Type': ImageSet},
+        7: {'Name': 'NoDataImage', 'Type': ImageSet},
     }
 
 class FourDigits:
@@ -26,4 +27,5 @@ class FiveDigits:
         4: { 'Name': 'Hundreds', 'Type': ImageSet},
         5: { 'Name': 'Tens', 'Type': ImageSet},
         6: { 'Name': 'Ones', 'Type': ImageSet},
+        7: {'Name': 'NoDataImage', 'Type': ImageSet},
     }
