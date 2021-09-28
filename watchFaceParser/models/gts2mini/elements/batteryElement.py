@@ -16,6 +16,8 @@ class BatteryElement(ContainerElement):
             self._text.draw3(drawer, resources, state)
         if self._icon:
             self._icon.draw4(drawer, resources, state.getBatteryLevel(), 100)
+        if self._iconset_progress:
+            self._iconset_progress.draw4(drawer, resources, state.getBatteryLevel(), 100)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
@@ -28,10 +30,9 @@ class BatteryElement(ContainerElement):
             self._icon = ImageSetElement(parameter = parameter, parent = self, name ='ImageProgress')
             return self._icon
         elif parameterId == 3:
-            pass
-            #from watchFaceParser.models.gts2mini.elements.common.iconSetElement import IconSetElement
-            #self._iconset_progress = IconSetElement(parameter = parameter, parent = self, name ='IconSetProgress')
-            #return self._iconset_progress
+            from watchFaceParser.models.gts2mini.elements.common.iconSetElement import IconSetElement
+            self._iconset_progress = IconSetElement(parameter = parameter, parent = self, name ='IconSetProgress')
+            return self._iconset_progress
         elif parameterId == 4:
             pass
         elif parameterId == 5:

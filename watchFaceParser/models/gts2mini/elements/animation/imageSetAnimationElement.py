@@ -18,7 +18,7 @@ class ImageSetAnimationElement(ContainerElement):
             if animationindex > self._image_progress.getImagesCount() - 1:
                 if self._repeat:
                     while animationindex > self._image_progress.getImagesCount() - 1:
-                        animationindex = animationindex - self._image_progress.getImagesCount() 
+                        animationindex = animationindex - self._image_progress.getImagesCount()
                     print("Animation endindex", animationindex)
                     self._image_progress.draw3(drawer, resources, animationindex)
             else:

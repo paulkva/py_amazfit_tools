@@ -6,13 +6,15 @@ class StepProgressElement(ContainerElement):
     def __init__(self, parameter, parent = None, name = None):
         self._circular = None
         self._image_progress = None
-        self._iconsetprogress = None
+        self._iconset_progress = None
         self._scale = None
         super(StepProgressElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
 
     def draw3(self, drawer, resources, state):
         if self._image_progress:
             self._image_progress.draw4(drawer, resources, state.getSteps(), state.getGoal())
+        if self._iconset_progress:
+            self._iconset_progress.draw4(drawer, resources, state.getSteps(), state.getGoal())
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
@@ -23,10 +25,9 @@ class StepProgressElement(ContainerElement):
             self._image_progress = ImageSetElement(parameter=parameter, parent=self, name='ImageProgress')
             return self._image_progress
         elif parameterId == 3:
-            pass
-            # from watchFaceParser.models.gts2mini.elements.common.iconSetElement import IconSetElement
-            # self._iconsetprogress = IconSetElement(parameter = parameter, parent = self, name ='IconSetProgress')
-            # return self._iconsetprogress
+            from watchFaceParser.models.gts2mini.elements.common.iconSetElement import IconSetElement
+            self._iconset_progress = IconSetElement(parameter = parameter, parent = self, name ='IconSetProgress')
+            return self._iconset_progress
         elif parameterId == 4:
             pass
         elif parameterId == 5:
