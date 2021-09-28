@@ -6,6 +6,7 @@ from watchFaceParser.models.gts2mini.elements.basic.containerElement import Cont
 class WatchFace(ContainerElement):
     def __init__(self, parameters):
         self._background = None
+        self._time_separate_digits = None
         self._activity = None
         self._date = None
         self._weather = None
@@ -33,7 +34,9 @@ class WatchFace(ContainerElement):
             self._background = BackgroundElement(parameter)
             return self._background
         elif parameterId == 3:
-            pass
+            from watchFaceParser.models.gts2mini.elements.timeSeparateDigitsContainerElement import TimeSeparateDigitsContainerElement
+            self._time_separate_digits = TimeSeparateDigitsContainerElement(parameter)
+            return self._time_separate_digits
         elif parameterId == 4:
             pass
             from watchFaceParser.models.gts2mini.elements.activityElement import ActivityElement
