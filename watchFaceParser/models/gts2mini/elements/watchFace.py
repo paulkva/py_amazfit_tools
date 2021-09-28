@@ -103,10 +103,9 @@ class WatchFace(ContainerElement):
         elif parameterId == 23: #
             pass
         elif parameterId == 24:  # standup progress
-            pass
-            # from watchFaceParser.models.gts2mini.elements.progressElement import ProgressElement
-            # self._standUpProgress = ProgressElement(parameter)
-            # return self._standUpProgress
+            from watchFaceParser.models.gts2mini.elements.activity.standupProgressElement import StandUpProgressElement
+            self._standUpProgress = StandUpProgressElement(parameter)
+            return self._standUpProgress
         elif parameterId == 25:  #
             pass
         elif parameterId == 26:  #
