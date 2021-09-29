@@ -1,6 +1,6 @@
 ﻿import logging
 
-from watchFaceParser.models.elements.common.imageSetElement import ImageSetElement
+from watchFaceParser.models.gts2mini.elements.common.imageSetElement import ImageSetElement
 
 class ExtendedWeatherElement(ImageSetElement):
     def __init__(self, parameter, parent, name = None):
@@ -22,17 +22,17 @@ class ExtendedWeatherElement(ImageSetElement):
 #        print ("ExtendedWeatherElement:",parameterId)
         if parameterId == 1:
 #            print ("ExtendedWeatherElement(1=images?!)",parameterId) # images!?!?
-            from watchFaceParser.models.elements.weather.imagesElement import ImagesElement
+            from watchFaceParser.models.gts2mini.elements.weather.imagesElement import ImagesElement
             self._images = ImagesElement(parameter = parameter, parent = self, name = 'Images')
             return self._images	
         elif parameterId == 2:
  #           print ("ExtendedWeatherElement(2=NoWeatherImageIndex?!)",parameterId) # NoWeatherImageIndex!?!?
             pass
-#            from watchFaceParser.models.elements.basic.valueElement import ValueElement
+#            from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
 #            self._suffixImageIndex = parameter.getValue()
 #            return ValueElement(parameter, self, 'SuffixImageIndex')
 #        elif parameterId == 3:
-#            from watchFaceParser.models.elements.basic.valueElement import ValueElement
+#            from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
 #            self._decimalPointImageIndex = parameter.getValue()
 #            return ValueElement(parameter, self, 'DecimalPointImageIndex')
         else:

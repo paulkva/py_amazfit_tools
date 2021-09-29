@@ -1,4 +1,4 @@
-﻿from watchFaceParser.models.elements.common.clockHandElement import ClockHandElement
+﻿from watchFaceParser.models.gts2mini.elements.common.clockHandElement import ClockHandElement
 
 #fixme... implement angle and more in CLockhandElement
 class CaloriesClockHandElement(ClockHandElement):

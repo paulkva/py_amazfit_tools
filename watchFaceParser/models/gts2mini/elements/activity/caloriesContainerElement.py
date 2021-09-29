@@ -1,6 +1,6 @@
 ﻿import logging
 
-from watchFaceParser.models.elements.basic.compositeElement import CompositeElement
+from watchFaceParser.models.gts2mini.elements.basic.compositeElement import CompositeElement
 
 class CaloriesContainerElement(CompositeElement):
     def __init__(self, parameter, parent, name = None):
@@ -30,10 +30,10 @@ class CaloriesContainerElement(CompositeElement):
         parameterId = parameter.getId()
 
         if parameterId == 1:
-            from watchFaceParser.models.elements.activity.circularCaloriesElement import CircularCaloriesElement
+            from watchFaceParser.models.gts2mini.elements.activity.circularCaloriesElement import CircularCaloriesElement
             self._circularCalories = CircularCaloriesElement(parameter = parameter, parent = self, name = '_circularCalories')
         elif parameterId == 3:
-            from watchFaceParser.models.elements.activity.caloriesClockHandElement import CaloriesClockHandElement
+            from watchFaceParser.models.gts2mini.elements.activity.caloriesClockHandElement import CaloriesClockHandElement
             self._clockHandCalories = CaloriesClockHandElement(parameter = parameter, parent = self, name = '_clockHandCalories')
         else:
             super(CaloriesContainerElement, self).createChildForParameter(parameter)

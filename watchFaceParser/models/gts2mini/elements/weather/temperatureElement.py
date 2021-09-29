@@ -17,9 +17,9 @@ class TemperatureElement(CompositeElement):
         if self._current:
             self._current.draw4(drawer, resources, state.getCurrentTemperature())
         if self._lowest:
-            self._lowest.draw4(drawer, resources, state.getCurrentTemperature())
+            self._lowest.draw4(drawer, resources, state.getCurrentTemperature()-10)
         if self._highes:
-            self._highes.draw4(drawer, resources, state.getCurrentTemperature())
+            self._highes.draw4(drawer, resources, state.getCurrentTemperature()+10)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

@@ -1,6 +1,6 @@
 ﻿import logging
 
-from watchFaceParser.models.elements.common.imageSetElement import ImageSetElement
+from watchFaceParser.models.gts2mini.elements.common.imageSetElement import ImageSetElement
 
 class ImagesElement(ImageSetElement):
 

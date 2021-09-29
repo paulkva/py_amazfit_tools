@@ -1,7 +1,7 @@
 import logging
 
-from watchFaceParser.models.elements.basic.compositeElement import CompositeElement
-#from watchFaceParser.models.elements.basic.containerElement import ContainerElement
+from watchFaceParser.models.gts2mini.elements.basic.compositeElement import CompositeElement
+#from watchFaceParser.models.gts2mini.elements.basic.containerElement import ContainerElement
 from watchFaceParser.utils.parametersConverter import uint2int
 
 
@@ -57,7 +57,7 @@ class TodayElement(CompositeElement):
 
         #if parameterId == 1:
             #separate
-        #    from watchFaceParser.models.elements.common.numberElement import NumberElement
+        #    from watchFaceParser.models.gts2mini.elements.common.numberElement import NumberElement
         #    self._current = NumberElement(parameter, self, '?_current?')
         #    return self._current
         #el
@@ -65,14 +65,14 @@ class TodayElement(CompositeElement):
         # oneline
 #       #     #print ("TodayElement: (Temperature->Today)", parameterId)
 #       #     pass
-            from watchFaceParser.models.elements.weather.oneLineTemperatureElement import OneLineTemperatureElement
+            from watchFaceParser.models.gts2mini.elements.weather.oneLineTemperatureElement import OneLineTemperatureElement
             self._oneLine = OneLineTemperatureElement(parameter = parameter, parent = self, name = 'OneLineTemperature')
             return self._oneLine
         elif parameterId == 3:
         #AppendDegreesForBoth
             self._appendDegreesForBoth = parameter.getValue()
             print ("_appendDegreesForBoth",self._appendDegreesForBoth)
-            from watchFaceParser.models.elements.basic.valueElement import ValueElement
+            from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
             return ValueElement(parameter = parameter, parent = self, name = '?_appendDegreesForBoth?')
         else:
             print ("Unknown TodayElement",parameterId)

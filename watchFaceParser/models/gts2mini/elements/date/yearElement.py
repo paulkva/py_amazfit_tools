@@ -1,6 +1,6 @@
 ﻿import logging
 
-from watchFaceParser.models.elements.basic.containerElement import ContainerElement
+from watchFaceParser.models.gts2mini.elements.basic.containerElement import ContainerElement
 
 
 class YearElement(ContainerElement):
@@ -15,7 +15,7 @@ class YearElement(ContainerElement):
         parameterId = parameter.getId()
         #print ("YEARELEMENT:",parameterId)
         if parameterId == 1:
-            from watchFaceParser.models.elements.date.year.oneLineYearElement import OneLineYearElement
+            from watchFaceParser.models.gts2mini.elements.date.year.oneLineYearElement import OneLineYearElement
             self._oneLine = OneLineYearElement(parameter = parameter, parent = self, name = 'OneLineYearElement')
             return self._oneLine
         else:

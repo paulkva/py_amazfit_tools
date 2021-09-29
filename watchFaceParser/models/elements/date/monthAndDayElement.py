@@ -8,50 +8,71 @@ class MonthAndDayElement(ContainerElement):
         self._year = None
         self._month = None
         self._day = None
+        self._month_follow_year = False
+        self._day_follow_month = False
+        self._month_as_word = None
+        self._year_data_type_image_index = None
+        self._month_data_type_image_index = None
+        self._day_data_type_image_index = None
+        self._delimiter_year = None
         self._delimiter_month = None
         self._delimiter_day = None
-        self._delimiter_year = None
-        self._month_as_word = None
+        self._delimiter_year_coords = None
+        self._delimiter_month_coords = None
+        self._delimiter_day_coords = None
         super(MonthAndDayElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
-    #
-    #     if self.getDigit().getPaddingZero():
-    #         return self.getDigit().draw4(drawer, resources, state.getTime().year % 2000, 2, 2)
-    #     else:
-    #         return self.getDigit().draw4(drawer, resources, state.getTime().year, 4, 4)
-    #
-    # if self._dateType == 1:
-    #     return self.getDigit().draw4(drawer, resources, state.getTime().month, 2, 2, followxy)
-    # if self._dateType == 2:
-    #     return self.getDigit().draw4(drawer, resources, state.getTime().day, 2, 2, followxy)
 
     def draw4(self, drawer, images, state, padding_zero_day = False, padding_zero_month = False, padding_zero_year = False):
-        if self._day:
-            self._day.draw4(drawer, images, state.getTime().day, 2,
-                            force_padding = padding_zero_day,
-                            followxy = None,
-                            decimal_pointer = None,
-                            minus = None,
-                            prefix = None,
-                            suffix = self._delimiter_day)
-        if self._month:
-            self._month.draw4(drawer, images, state.getTime().month, 2,
-                            force_padding = padding_zero_month,
-                            followxy = None,
-                            decimal_pointer = None,
-                            minus = None,
-                            prefix = None,
-                            suffix = self._delimiter_month)
-        if self._month_as_word:
-            self._month_as_word.draw3(drawer, images, state.getTime().month)
-            
+        followxy = None
         if self._year:
-            self._year.draw4(drawer, images, state.getTime().year, 4,
+            followxy = self._year.draw4(drawer, images, state.getTime().year, 4,
                             force_padding = padding_zero_year,
                             followxy = None,
                             decimal_pointer = None,
                             minus = None,
                             prefix = None,
                             suffix = self._delimiter_year)
+            if self._delimiter_year:
+                if self._delimiter_year_coords:
+                    self.drawDelimiter(drawer, images, self._delimiter_year, self._delimiter_year_coords)
+                else:
+                    followxy = self.drawDelimiter(drawer, images, self._delimiter_year, followxy)
+
+        if self._month:
+            followxy = self._month.draw4(drawer, images, state.getTime().month, 2,
+                            force_padding = padding_zero_month,
+                            followxy = followxy,
+                            decimal_pointer = None,
+                            minus = None,
+                            prefix = None,
+                            suffix = self._delimiter_month)
+            if self._delimiter_month:
+                if self._delimiter_month_coords:
+                    self.drawDelimiter(drawer, images, self._delimiter_month, self._delimiter_month_coords)
+                else:
+                    followxy = self.drawDelimiter(drawer, images, self._delimiter_month, followxy)
+
+        if self._day:
+            followxy = self._day.draw4(drawer, images, state.getTime().day, 2,
+                            force_padding = padding_zero_day,
+                            followxy = None,
+                            decimal_pointer = None,
+                            minus = None,
+                            prefix = None,
+                            suffix = self._day_data_type_image_index)
+            if self._delimiter_day:
+                if self._delimiter_day_coords:
+                    self.drawDelimiter(drawer, images, self._delimiter_day, self._delimiter_day_coords)
+                else:
+                    followxy = self.drawDelimiter(drawer, images, self._delimiter_day, followxy)
+
+        if self._month_as_word:
+            self._month_as_word.draw3(drawer, images, state.getTime().month)
+
+    def drawDelimiter(self, drawer, images, index, coordinates):
+        temp = images[index].getBitmap()
+        drawer.paste(temp, (coordinates[0], coordinates[1]), temp)
+        return (coordinates[0] + temp.size[0], coordinates[1])
 
     def createChildForParameter(self, parameter):
         from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
@@ -69,28 +90,47 @@ class MonthAndDayElement(ContainerElement):
             self._day = NumberElement(parameter=parameter, parent=self, name='Day')
             return self._day
         elif parameterId == 4:
-            pass
+            self._month_follow_year = parameter.getValue()
+            return ValueElement(parameter, self, 'MonthFollowsYear')
         elif parameterId == 5:
-            pass
+            self._day_follow_month = parameter.getValue()
+            return ValueElement(parameter, self, 'DayFollowsMonth')
         elif parameterId == 6:
             from watchFaceParser.models.gts2mini.elements.common.imageSetElement import ImageSetElement
             self._month_as_word = ImageSetElement(parameter=parameter, parent=self, name='MonthAsWord')
             return self._month_as_word
-        elif parameterId == 7:
+        elif parameterId == 7: # MonthAsWordChinese
             pass
         elif parameterId == 8:
-            pass
+            self._year_data_type_image_index = parameter.getValue()
+            return ValueElement(parameter, self, 'YearDataTypeImageIndex')
         elif parameterId == 9:
-            pass
+            self._month_data_type_image_index = parameter.getValue()
+            return ValueElement(parameter, self, 'MonthDataTypeImageIndex')
         elif parameterId == 10:
-            pass
+            self._day_data_type_image_index = parameter.getValue()
+            return ValueElement(parameter, self, 'DayDataTypeImageIndex')
         elif parameterId == 11:
-            pass
+            self._delimiter_year = parameter.getValue()
+            return ValueElement(parameter, self, 'DelimiterYearImageIndex')
         elif parameterId == 12:
             self._delimiter_month = parameter.getValue()
             return ValueElement(parameter, self, 'DelimiterMonthImageIndex')
         elif parameterId == 13:
-            pass
+            self._delimiter_day = parameter.getValue()
+            return ValueElement(parameter, self, 'DelimiterDayImageIndex')
+        elif parameterId == 14:
+            from watchFaceParser.models.gts2mini.elements.common.coordinatesElement import CoordinatesElement
+            self._delimiter_year_coords = CoordinatesElement(parameter=parameter, parent=self, name='DelimiterYearCoordinates')
+            return self._delimiter_year_coords
+        elif parameterId == 15:
+            from watchFaceParser.models.gts2mini.elements.common.coordinatesElement import CoordinatesElement
+            self._delimiter_month_coords = CoordinatesElement(parameter=parameter, parent=self, name='DelimiterMonthCoordinates')
+            return self._delimiter_month_coords
+        elif parameterId == 16:
+            from watchFaceParser.models.gts2mini.elements.common.coordinatesElement import CoordinatesElement
+            self._delimiter_day_coords = CoordinatesElement(parameter=parameter, parent=self, name='DelimiterDayCoordinates')
+            return self._delimiter_day_coords
         else:
             return super(MonthAndDayElement, self).createChildForParameter(parameter)
 

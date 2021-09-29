@@ -1,6 +1,6 @@
 ﻿import logging
 
-from watchFaceParser.models.elements.basic.containerElement import ContainerElement
+from watchFaceParser.models.gts2mini.elements.basic.containerElement import ContainerElement
 
 
 class DateElement(ContainerElement):
@@ -38,7 +38,7 @@ class DateElement(ContainerElement):
         elif parameterId == 8:
             pass
         elif parameterId == 9:
-            from watchFaceParser.models.elements.date.monthAndDayElement import MonthAndDayElement
+            from watchFaceParser.models.gts2mini.elements.date.monthAndDayElement import MonthAndDayElement
             self._monthAndDay = MonthAndDayElement(parameter=parameter, parent=self, name='MonthAndDay')
             return self._monthAndDay
         else:

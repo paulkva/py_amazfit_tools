@@ -1,6 +1,6 @@
 ﻿import logging
 
-from watchFaceParser.models.elements.basic.compositeElement import CompositeElement
+from watchFaceParser.models.gts2mini.elements.basic.compositeElement import CompositeElement
 
 class PulseContainerElement(CompositeElement):
     def __init__(self, parameter, parent, name = None):
@@ -24,7 +24,7 @@ class PulseContainerElement(CompositeElement):
         parameterId = parameter.getId()
 
         if parameterId == 2:
-            from watchFaceParser.models.elements.activity.pulseClockHandElement import PulseClockHandElement
+            from watchFaceParser.models.gts2mini.elements.activity.pulseClockHandElement import PulseClockHandElement
             self._pulseClockHand = PulseClockHandElement(parameter = parameter, parent = self, name = '?ClockHand?')
             return self._pulseClockHand
         else:

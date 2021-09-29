@@ -1,4 +1,4 @@
-﻿from watchFaceParser.models.elements.common.imageElement import ImageElement
+﻿from watchFaceParser.models.gts2mini.elements.common.imageElement import ImageElement
 
 
 class StarImageElement(ImageElement):

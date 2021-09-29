@@ -1,6 +1,6 @@
 ﻿import logging
 
-from watchFaceParser.models.elements.basic.compositeElement import CompositeElement
+from watchFaceParser.models.gts2mini.elements.basic.compositeElement import CompositeElement
 from watchFaceParser.utils.parametersConverter import uint2int
 
 
@@ -36,11 +36,11 @@ class OneLineMonthAndDayElement(CompositeElement):
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
         if parameterId == 1:
-            from watchFaceParser.models.elements.common.numberElement import NumberElement
+            from watchFaceParser.models.gts2mini.elements.common.numberElement import NumberElement
             self._number = NumberElement(parameter = parameter, parent = self, name = 'MonthAndDay')
             return self._number
         elif parameterId == 2:
-            from watchFaceParser.models.elements.basic.valueElement import ValueElement
+            from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
             self._delimiterImageIndex = ValueElement(parameter = parameter, parent = self, name = 'WeekDay')
             return self._delimiterImageIndex
         else:

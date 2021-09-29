@@ -1,4 +1,4 @@
-﻿from watchFaceParser.models.elements.common.numberElement import NumberElement
+﻿from watchFaceParser.models.gts2mini.elements.common.numberElement import NumberElement
 
 class Goal2Element(NumberElement):
     def __init__(self, parameter, parent, name = 'None'):

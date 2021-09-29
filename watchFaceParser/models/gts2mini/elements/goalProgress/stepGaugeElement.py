@@ -1,6 +1,6 @@
 ﻿import logging
 
-from watchFaceParser.models.elements.common.imageSetElement import ImageSetElement
+from watchFaceParser.models.gts2mini.elements.common.imageSetElement import ImageSetElement
 
 class StepGaugeElement(ImageSetElement):
     def __init__(self, parameter, parent, name = None):

@@ -155,7 +155,7 @@ class CircularProgressElement(CoordinatesElement):
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
-        from watchFaceParser.models.elements.basic.valueElement import ValueElement
+        from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
         if parameterId == 3:
             self._radiusX = parameter.getValue()
             return ValueElement(parameter = parameter, parent = self, name = '?_radiusX?')
@@ -180,7 +180,7 @@ class CircularProgressElement(CoordinatesElement):
             return ValueElement(parameter = parameter, parent = self, name = '?_flatness?')
         elif parameterId == 10:
             self._imageIndex = parameter.getValue()
-            from watchFaceParser.models.elements.basic.valueElement import ValueElement
+            from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
             return ValueElement(parameter, self, '?ImageIndex?')
         else:
             return super(CircularProgressElement, self).createChildForParameter(parameter)

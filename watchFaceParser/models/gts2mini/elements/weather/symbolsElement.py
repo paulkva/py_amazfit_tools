@@ -1,6 +1,6 @@
 ﻿import logging
 
-from watchFaceParser.models.elements.basic.compositeElement import CompositeElement
+from watchFaceParser.models.gts2mini.elements.basic.compositeElement import CompositeElement
 
 
 class SymbolsElement(CompositeElement):
@@ -34,19 +34,19 @@ class SymbolsElement(CompositeElement):
 
         if parameterId == 1:
             self._unknown0800 = parameter.getValue()
-            from watchFaceParser.models.elements.basic.valueElement import ValueElement
+            from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
             return ValueElement(parameter = parameter, parent = self, name = '?_unknown0800?')
         elif parameterId == 2:
             self._minusImageIndex = parameter.getValue()
-            from watchFaceParser.models.elements.basic.valueElement import ValueElement
+            from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
             return ValueElement(parameter = parameter, parent = self, name = '?_minusImageIndex?')
         elif parameterId == 3:
             self._degreesImageIndex = parameter.getValue()
-            from watchFaceParser.models.elements.basic.valueElement import ValueElement
+            from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
             return ValueElement(parameter = parameter, parent = self, name = '?_degreesImageIndex?')
         elif parameterId == 4:
             self._noDataImageIndex = parameter.getValue()
-            from watchFaceParser.models.elements.basic.valueElement import ValueElement
+            from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
             return ValueElement(parameter = parameter, parent = self, name = '?_noDataImageIndex?')
         else:
             super(SymbolsElement, self).createChildForParameter(parameter)

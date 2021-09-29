@@ -1,4 +1,4 @@
-from watchFaceParser.models.elements.common.circularProgressElement import CircularProgressElement
+from watchFaceParser.models.gts2mini.elements.common.circularProgressElement import CircularProgressElement
 
 class PulseMeterElement(CircularProgressElement):
     def __init__(self, parameter, parent, name = 'None'):

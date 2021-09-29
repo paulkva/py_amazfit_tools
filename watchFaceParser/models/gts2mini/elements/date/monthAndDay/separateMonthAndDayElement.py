@@ -1,6 +1,6 @@
 ﻿import logging
 
-from watchFaceParser.models.elements.basic.compositeElement import CompositeElement
+from watchFaceParser.models.gts2mini.elements.basic.compositeElement import CompositeElement
 
 
 class SeparateMonthAndDayElement(CompositeElement):
@@ -38,15 +38,15 @@ class SeparateMonthAndDayElement(CompositeElement):
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
         if parameterId == 1:
-            from watchFaceParser.models.elements.common.numberElement import NumberElement
+            from watchFaceParser.models.gts2mini.elements.common.numberElement import NumberElement
             self._month = NumberElement(parameter = parameter, parent = self, name = 'Month')
             return self._month
         elif parameterId == 2:
-            from watchFaceParser.models.elements.common.imageSetElement import ImageSetElement
+            from watchFaceParser.models.gts2mini.elements.common.imageSetElement import ImageSetElement
             self._monthName = ImageSetElement(parameter = parameter, parent = self, name = 'MonthName')
             return self._monthName
         elif parameterId == 3:
-            from watchFaceParser.models.elements.common.numberElement import NumberElement
+            from watchFaceParser.models.gts2mini.elements.common.numberElement import NumberElement
             self._day = NumberElement(parameter = parameter, parent = self, name = 'Day')
             return self._day
         else:

@@ -39,7 +39,7 @@ class ActivityElement(ContainerElement):
             self._pai = PaiElement(parameter=parameter, parent=self, name='PAI')
             return self._pai
         elif parameterId == 7:
-            from watchFaceParser.models.elements.basic.valueElement import ValueElement
+            from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
             self._unknown7 = parameter.getValue()
             return ValueElement(parameter, self, 'UnknownLongValue7')
         elif parameterId == 8:

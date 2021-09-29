@@ -1,6 +1,6 @@
 ﻿import logging
 
-from watchFaceParser.models.elements.common.iconSetElement import IconSetElement
+from watchFaceParser.models.gts2mini.elements.common.iconSetElement import IconSetElement
 
 class PulseLinearElement(IconSetElement):
     # private static readonly Dictionary<DayOfWeek, int> DaysOfWeek = new Dictionary<DayOfWeek, int>
@@ -37,12 +37,12 @@ class PulseLinearElement(IconSetElement):
         if parameter.getId() == 1:
             self._imageIndex = parameter.getValue()
             #print ("ARRAY",self._imageIndex)
-            from watchFaceParser.models.elements.basic.valueElement import ValueElement
+            from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
             return ValueElement(parameter, self, '?ImageIndex?')
             #print ( parameter.getValue(),parameter.getChildren())
         elif parameter.getId() == 2:
             #print ( [ c.getValue() for c in  parameter.getChildren()])
-            from watchFaceParser.models.elements.common.coordinatesElement import CoordinatesElement
+            from watchFaceParser.models.gts2mini.elements.common.coordinatesElement import CoordinatesElement
             #print ( parameter.getValue(),parameter.getChildren())
             #print (self.getName(),[c.getValue() for c in parameter.getChildren()])
             #self._coordinates = [ CoordinatesElement(parameter = c, parent = self, name = 'CenterOffset') for c in parameter.getChildren()]
