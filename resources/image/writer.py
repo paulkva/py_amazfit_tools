@@ -83,6 +83,7 @@ class Writer:
         self._writer.write(self._height.to_bytes(2, byteorder='little'))
         self._writer.write(self._rowLengthInBytes.to_bytes(2, byteorder='little'))
         self._writer.write(self._bitsPerPixel.to_bytes(2, byteorder='little'))
+        self._writer.write(self._unknown2.to_bytes(4, byteorder='little'))
 
     def writeHeaderMini16E(self):
         logging.debug("Writing image header mini...")
