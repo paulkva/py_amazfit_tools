@@ -7,5 +7,5 @@ class PointerScale:
         3: { 'Name': 'RangeFrom', 'Type': 'slong'},
         4: { 'Name': 'RangeTo', 'Type': 'slong'},
         5: { 'Name': 'PointerImageIndex', 'Type': 'long'},
-        6: { 'Name': 'Unknown6', 'Type': 'long'},
+        6: { 'Name': 'PointerCenterOfRotationY', 'Type': 'long'},
     }
