@@ -39,8 +39,10 @@ class PreviewGenerator:
 
         if Config.isGtrMode() or Config.isGtr2Mode() or Config.isTrexMode() or Config.isTrexProMode():
             graphics = PreviewGenerator.cutCircled(graphics)
-        elif Config.isGtsMode() or Config.isGts2Mode() or Config.isGts2MiniMode() or Config.isBipUMode():
-            graphics = PreviewGenerator.cutRoudedRectangle(graphics, 38)
+        elif Config.isGtsMode() or Config.isGts2Mode() or Config.isBipUMode():
+            graphics = PreviewGenerator.cutRoundedRectangle(graphics, 38)
+        elif Config.isGts2MiniMode():
+            graphics = PreviewGenerator.cutRoundedRectangle(graphics, 48)
 
         #graphics.show()
         return graphics
@@ -56,7 +58,7 @@ class PreviewGenerator:
         return image
 
     @staticmethod
-    def cutRoudedRectangle(image, radius):
+    def cutRoundedRectangle(image, radius):
         from PIL import Image, ImageDraw
         l, t, r, b = (0, 0, image.size[0], image.size[1])
         d = radius * 2
