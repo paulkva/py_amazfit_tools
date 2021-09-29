@@ -26,7 +26,7 @@ class TimeExtendedElement(ContainerElement):
             self._sunset_time.draw4(drawer, images, number, minimumDights = 1,
                                     force_padding = False,
                                     followxy = None,
-                                    decimal_pointer = self._delimiter_sunset if self._delimiter_sunset else None,
+                                    delimiter_time = self._delimiter_sunset if self._delimiter_sunset else None,
                                     minus = None,
                                     prefix = None,
                                     suffix = None)
@@ -38,7 +38,7 @@ class TimeExtendedElement(ContainerElement):
             self._sunrise_time.draw4(drawer, images, number, minimumDights = 1,
                                     force_padding = False,
                                     followxy = None,
-                                    decimal_pointer = self._delimiter_sunrise if self._delimiter_sunrise else None,
+                                    delimiter_time = self._delimiter_sunrise if self._delimiter_sunrise else None,
                                     minus = None,
                                     prefix = None,
                                     suffix = None)

@@ -19,6 +19,10 @@ class WeatherElement(ContainerElement):
             from watchFaceParser.models.gts2mini.elements.weather.temperatureElement import TemperatureElement # temp.
             self._temperature = TemperatureElement(parameter = parameter, parent = self, name = 'Temperature')
             return self._temperature
+        elif parameterId == 4:
+            from watchFaceParser.models.gts2mini.elements.weather.humidityElement import HumidityElement
+            self._temperature = HumidityElement(parameter = parameter, parent = self, name = 'Humidity')
+            return self._temperature
         else:
             print ("Unknown WeatherElement",parameterId)
             return super(WeatherElement, self).createChildForParameter(parameter)

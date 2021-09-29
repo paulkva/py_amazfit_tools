@@ -16,7 +16,7 @@ class DistanceElement(CompositeElement):
         if self._image_number:
             self._image_number.draw4(drawer,
                                                 resources,
-                                                state.getDistance(),
+                                                int(state.getDistance() / 10),
                                                 minimumDights = 3,
                                                 force_padding = False,
                                                 decimal_pointer = self._decimalpointer,
