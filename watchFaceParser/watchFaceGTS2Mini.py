@@ -9,7 +9,7 @@ from watchFaceParser.elements.gts2mini.progress import Progress
 from watchFaceParser.elements.gts2mini.status import Status
 from watchFaceParser.elements.gts2mini.weather import Weather
 from watchFaceParser.elements.gts2mini.animation import Animation
-from watchFaceParser.elements.gts2mini.timeSeparateDigits import TimeSeparateDigits
+from watchFaceParser.elements.gts2mini.timeExtended import TimeExtended
 from watchFaceParser.elements.gts2mini.activitySeparateDigits import ActivitySeparateDigits
 from watchFaceParser.elements.gts2mini.shortcuts import Shortcuts
 
@@ -18,7 +18,7 @@ class WatchFace:
         0: {'Name': 'Info', 'Type': DeviceId},
         1: {'Name': 'Unknown1', 'Type': 'long?'},
         2: {'Name': 'Background', 'Type': Background},
-        3: {'Name': 'TimeSeparateDigits', 'Type': TimeSeparateDigits}, #b29f1f0bd97cf0712b72dfe50fed2577.bin
+        3: {'Name': 'TimeExtended', 'Type': TimeExtended}, #b29f1f0bd97cf0712b72dfe50fed2577.bin
         4: {'Name': 'Activity', 'Type': Activity},
         5: {'Name': 'DateBlock', 'Type': DateBlock},
         6: {'Name': 'Weather', 'Type': Weather},

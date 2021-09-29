@@ -1,21 +1,24 @@
-﻿from watchFaceParser.elements.gts2mini.dateElements.separateMonthAndDay import SeparateMonthAndDay
-from watchFaceParser.elements.gts2mini.basicElements.number import Number
+﻿from watchFaceParser.elements.gts2mini.basicElements.number import Number
 from watchFaceParser.elements.gts2mini.basicElements.imageSet import ImageSet
+from watchFaceParser.elements.gts2mini.basicElements.coordinates import Coordinates
 
 
 class MonthAndDay:
     definitions = {
-        1: { 'Name': 'Year', 'Type': Number},
-        2: { 'Name': 'Month', 'Type': Number},
-        3: { 'Name': 'Day', 'Type': Number},
-        4: {'Name': 'Unknown4', 'Type': 'long'},
-        5: {'Name': 'Unknown5', 'Type': 'long'},
+        1: {'Name': 'Year', 'Type': Number},
+        2: {'Name': 'Month', 'Type': Number},
+        3: {'Name': 'Day', 'Type': Number},
+        4: {'Name': 'MonthFollowsYear', 'Type': 'bool'},
+        5: {'Name': 'DayFollowsMonth', 'Type': 'bool'},
         6: {'Name': 'MonthAsWord', 'Type': ImageSet},
-        7: {'Name': 'Month2', 'Type': ImageSet},
-        8: {'Name': 'Unknown8', 'Type': 'long?'},
-        9: {'Name': 'Unknown9', 'Type': 'long?'},
-        10: {'Name': 'Unknown10', 'Type': 'long?'},
-        11: {'Name': 'Unknown11', 'Type': 'long?'},
+        7: {'Name': 'MonthAsWordChinese', 'Type': ImageSet},
+        8: {'Name': 'YearDataTypeImageIndex', 'Type': 'long'},
+        9: {'Name': 'MonthDataTypeImageIndex', 'Type': 'long'},
+        10: {'Name': 'DayDataTypeImageIndex', 'Type': 'long'},
+        11: {'Name': 'DelimiterYearImageIndex', 'Type': 'long'},
         12: {'Name': 'DelimiterMonthImageIndex', 'Type': 'long'},
-        13: {'Name': 'UnknownImageIndex13', 'Type': 'long'},
+        13: {'Name': 'DelimiterDayImageIndex', 'Type': 'long'},
+        14: {'Name': 'DelimiterYearCoordinates', 'Type': Coordinates},
+        15: {'Name': 'DelimiterMonthCoordinates', 'Type': Coordinates},
+        16: {'Name': 'DelimiterDayCoordinates', 'Type': Coordinates},
     }

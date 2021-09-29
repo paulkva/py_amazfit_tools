@@ -3,6 +3,7 @@ from watchFaceParser.elements.gts2mini.dateElements.oneLineMonthAndDay import On
 
 class Date:
     definitions = {
+        1: { 'Name': 'UnknownDate', 'Type': 'long?'},
         2: { 'Name': 'OneLineMonthAndDay', 'Type': OneLineMonthAndDay},
         4: { 'Name': 'PaddingZeroMonth', 'Type': 'bool'},
         5: { 'Name': 'PaddingZeroDay', 'Type': 'bool'},

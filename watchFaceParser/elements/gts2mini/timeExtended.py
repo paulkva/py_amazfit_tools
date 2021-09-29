@@ -1,0 +1,31 @@
+from watchFaceParser.elements.gts2mini.timeElements.twoDigits import TwoDigits
+from watchFaceParser.elements.gts2mini.basicElements.imageSet import ImageSet
+from watchFaceParser.elements.gts2mini.basicElements.number import Number
+from watchFaceParser.elements.gts2mini.basicElements.image import Image
+from watchFaceParser.elements.gts2mini.shortcutsElements.element import Element
+
+class TimeSeparateDigits:
+    definitions = {
+        1: {'Name': 'Hours', 'Type': TwoDigits},
+        2: {'Name': 'Minutes', 'Type': TwoDigits},
+        3: {'Name': 'Seconds', 'Type': TwoDigits},
+        4: {'Name': 'Unknown7', 'Type': 'long?'},
+        5: {'Name': 'Separator', 'Type': ImageSet}, # separator hours ?
+        6: {'Name': 'Unknown7', 'Type': 'long?'}, # separator minutes ?
+        7: {'Name': 'Unknown7', 'Type': 'long?'}, # separator seconds ?
+        8: {'Name': 'Unknown8', 'Type': 'long?'},
+    }
+
+class TimeExtended:
+    definitions = {
+        1: {'Name': 'TimeSeparateDigits', 'Type': TimeSeparateDigits},
+        2: {'Name': 'SunsetTimeOneLine', 'Type': Number}, # sunset ?
+        3: {'Name': 'DelimiterSunsetImageIndex', 'Type': 'long'},
+        4: {'Name': 'SunriseTimeOneLine', 'Type': Number}, # Sunrise ?
+        5: {'Name': 'DelimiterSunriseImageIndex', 'Type': 'long'},
+        6: {'Name': 'SunsetIcon', 'Type': Image}, # sunset icon ?
+        7: {'Name': 'SunriseIcon', 'Type': Image}, # sunrise icon ?
+        8: {'Name': 'SunsetShortcut', 'Type': Element}, # sunset shortuct
+        9: {'Name': 'SunriseShortcut', 'Type': Element}, # sunrise shortcut
+    }
+

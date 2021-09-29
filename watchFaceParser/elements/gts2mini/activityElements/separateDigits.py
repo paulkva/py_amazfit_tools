@@ -1,4 +1,4 @@
-﻿from watchFaceParser.elements.basicElements.imageSet import ImageSet
+﻿from watchFaceParser.elements.gts2mini.basicElements.imageSet import ImageSet
 
 class ThreeDigits:
     definitions = {
