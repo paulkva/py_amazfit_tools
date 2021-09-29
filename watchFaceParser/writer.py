@@ -8,7 +8,7 @@ class Writer:
         self._images = images
 
 
-    def write(self, descriptor):
+    def write(self, descriptor, specialPadding):
         logging.debug("Encoding parameters...")
         encodedParameters = {}
         for parameter in descriptor:
@@ -64,5 +64,5 @@ class Writer:
 
         logging.debug("Writing images...")
         from resources.writer import Writer
-        Writer(self._stream).write(self._images)
+        Writer(self._stream).write(self._images, specialPadding)
         

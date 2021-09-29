@@ -11,7 +11,7 @@ class Writer:
         self._stream = stream
 
 
-    def write(self, resources):
+    def write(self, resources, specialPadding):
         assert(type(resources) == list)
         offsetsTableLength = len(resources) * self.OffsetTableItemLength
         offsetsTable = bytearray(offsetsTableLength)
@@ -20,8 +20,11 @@ class Writer:
         encodedResources = []
 
         cur_pos = self._stream.tell()
-        num_padding = 4 - cur_pos % 4
         #num_padding = cur_pos % 4 #gts
+        if specialPadding:
+            num_padding = 0
+        else:
+            num_padding = 4 - cur_pos % 4
         offset = num_padding
         #print ("o",cur_pos)
         #print ("padding_orig",4 - cur_pos % 4)
