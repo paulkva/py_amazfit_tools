@@ -18,6 +18,8 @@ class BatteryElement(ContainerElement):
             self._icon.draw4(drawer, resources, state.getBatteryLevel(), 100)
         if self._iconset_progress:
             self._iconset_progress.draw4(drawer, resources, state.getBatteryLevel(), 100)
+        if self._scale:
+            self._scale.draw4(drawer, resources, state.getBatteryLevel(), 100)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
@@ -36,10 +38,9 @@ class BatteryElement(ContainerElement):
         elif parameterId == 4:
             pass
         elif parameterId == 5:
-            pass
-            #from watchFaceParser.models.gts2mini.elements.common.scaleElement import ScaleElement
-            #self._scale = ScaleElement(parameter = parameter, parent = self, name = '_scale')
-            #return self._scale
+            from watchFaceParser.models.gts2mini.elements.common.scaleElement import ScaleElement
+            self._scale = ScaleElement(parameter = parameter, parent = self, name = '_scale')
+            return self._scale
         else:
             print ("batteryElement - unimplemented:", parameterId)
             return super(BatteryElement, self).createChildForParameter(parameter)

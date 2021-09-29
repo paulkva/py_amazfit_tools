@@ -15,6 +15,8 @@ class CaloriesProgressElement(ContainerElement):
             self._image_progress.draw4(drawer, resources, state.getCalories(), 400)
         if self._iconset_progress:
             self._iconset_progress.draw4(drawer, resources, state.getCalories(), 400)
+        if self._scale:
+            self._scale.draw4(drawer, resources, state.getCalories(), 400)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
@@ -34,10 +36,9 @@ class CaloriesProgressElement(ContainerElement):
         elif parameterId == 5:
             pass
         elif parameterId == 6:
-            pass
-            # from watchFaceParser.models.gts2mini.elements.common.scaleElement import ScaleElement
-            # self._scale = ScaleElement(parameter = parameter, parent = self, name = '_scale')
-            # return self._scale
+            from watchFaceParser.models.gts2mini.elements.common.scaleElement import ScaleElement
+            self._scale = ScaleElement(parameter = parameter, parent = self, name = 'Scale')
+            return self._scale
         else:
             print ("Unknown StepsProgressElement",parameterId)
             return super(CaloriesProgressElement, self).createChildForParameter(parameter)

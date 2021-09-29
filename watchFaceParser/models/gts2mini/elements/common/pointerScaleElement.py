@@ -2,28 +2,34 @@
 
 from watchFaceParser.models.gts2mini.elements.basic.compositeElement import CompositeElement
 from watchFaceParser.config import Config
+from watchFaceParser.utils.parametersConverter import toSigned32
 
 class PointerScaleElement(CompositeElement):
     def __init__(self, parameter, parent, name = None):
         self._center_x = None
         self._center_y = None
+        self._range_from = None
+        self._range_to = None
         self._pointer_image_index = None
+        self._pointer_center_of_rotation_y = None
         super(PointerScaleElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
 
     def draw4(self, drawer, resources, value, total):
         assert(type(resources) == list)
 
-        _startAngle = 0
-        _endAngle = 360
+        _startAngle = toSigned32(self._range_from) if self._range_from else 0
+        _endAngle = toSigned32(self._range_to) if self._range_to else 360
+
+        print("Scale", _startAngle, _endAngle, value, total)
 
         angle = 360 - _startAngle - int(value * (_endAngle - _startAngle) / total)
 
         bitmap = resources[self._pointer_image_index].getBitmap()
         (w, h) = bitmap.size
-        offset_x = int(w/2)
-        offset_y = int(h/2)
-        if self._center_y:
-            offset_y = self._center_y
+        offset_x = int(w / 2)
+        offset_y = int(h / 2)
+        if self._pointer_center_of_rotation_y:
+            offset_y = self._pointer_center_of_rotation_y
 
         from PIL import Image
 
@@ -47,15 +53,21 @@ class PointerScaleElement(CompositeElement):
             from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
             return ValueElement(parameter, self, 'CenterY')
         elif parameterId == 3:
-            pass
+            self._range_from = parameter.getValue()
+            from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
+            return ValueElement(parameter, self, 'RangeFrom')
         elif parameterId == 4:
-            pass
+            self._range_to = parameter.getValue()
+            from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
+            return ValueElement(parameter, self, 'RangeTo')
         elif parameterId == 5:
             self._pointer_image_index = parameter.getValue()
             from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
             return ValueElement(parameter, self, 'PointerImageIndex')
         elif parameterId == 6:
-            pass
+            self._pointer_center_of_rotation_y = parameter.getValue()
+            from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
+            return ValueElement(parameter, self, 'PointerCenterOfRotationY')
         else:
             return super(PointerScaleElement, self).createChildForParameter(parameter)
 

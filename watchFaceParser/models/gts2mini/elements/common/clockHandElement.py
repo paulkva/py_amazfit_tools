@@ -6,7 +6,7 @@ from watchFaceParser.config import Config
 class ClockHandElement(CompositeElement):
     def __init__(self, parameter, parent, name = None):
         self._imageIndex = None
-        self._pointer_center_of_rotation = None
+        self._pointer_center_of_rotation_y = None
         self._center = None
         self._centerImage = None
         super(ClockHandElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
@@ -25,8 +25,8 @@ class ClockHandElement(CompositeElement):
         (w, h) = bitmap.size
         offset_x = int(w/2)
         offset_y = int(h/2)
-        if self._pointer_center_of_rotation:
-            offset_y = self._pointer_center_of_rotation
+        if self._pointer_center_of_rotation_y:
+            offset_y = self._pointer_center_of_rotation_y
 
         from PIL import Image
 
@@ -50,7 +50,7 @@ class ClockHandElement(CompositeElement):
             from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
             return ValueElement(parameter, self, 'ImageIndex')
         elif parameterId == 2:
-            self._pointer_center_of_rotation = parameter.getValue()
+            self._pointer_center_of_rotation_y = parameter.getValue()
             from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
             return ValueElement(parameter, self, 'PointerCenterOfRotationY')
         elif parameterId == 3:
