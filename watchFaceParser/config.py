@@ -232,7 +232,7 @@ class Config:
         if bipu:
             Config._autodetect = False
             Config._is_bip_u = 40
-            Config._image_size = Config._size_gtsmini
+            Config._image_size = Config._size_bip_u
             Config._preview_size = (202, 214)
             Config._startImageIndex = 0
             Config._oldformat = True
