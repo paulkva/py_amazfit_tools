@@ -31,7 +31,7 @@ class Writer:
         logging.debug(f" hasHalfAlpha: {_hasHalfAlpha}, has_transparency: {_hasFullAlpha}")
 
         if _hasFullAlpha or _hasHalfAlpha:
-            if _hasFullAlpha:
+            if _hasHalfAlpha:
                 self._bitsPerPixel = 24
                 self._rowLengthInBytes = math.ceil(self._width * self._bitsPerPixel / 8)
                 self._writer.write(Writer.signatureMini24)
