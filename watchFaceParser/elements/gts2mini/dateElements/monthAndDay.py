@@ -2,7 +2,6 @@
 from watchFaceParser.elements.gts2mini.basicElements.imageSet import ImageSet
 from watchFaceParser.elements.gts2mini.basicElements.coordinates import Coordinates
 
-
 class MonthAndDay:
     definitions = {
         1: {'Name': 'Year', 'Type': Number},
