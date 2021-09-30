@@ -10,8 +10,8 @@ class TimeSeparateDigits:
         2: {'Name': 'Minutes', 'Type': TwoDigits},
         3: {'Name': 'Seconds', 'Type': TwoDigits},
         4: {'Name': 'Unknown4', 'Type': 'long?'},
-        5: {'Name': 'Separator', 'Type': ImageSet}, # separator hours ?
-        6: {'Name': 'Unknown6', 'Type': ImageSet}, # separator minutes ?
+        5: {'Name': 'Separator', 'Type': Image}, # separator hours ?
+        6: {'Name': 'Unknown6', 'Type': Image}, # separator minutes ?
         7: {'Name': 'Unknown7', 'Type': 'long?'}, # separator seconds ?
         8: {'Name': 'Unknown8', 'Type': 'long?'},
     }
