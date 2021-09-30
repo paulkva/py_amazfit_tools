@@ -81,7 +81,7 @@ class Parser:
             logging.debug(f"Writing watch face to '{outputFileName}'")
             with open(outputFileName, 'wb') as fileStream:
                 writer = Writer(fileStream, imagesReader.resources())
-                writer.write(descriptor, Config.isGts2MiniMode())
+                writer.write(descriptor, ( Config.isGts2MiniMode() or Config.isBipUMode() ) )
                 fileStream.flush() 
             from watchFaceParser.models.header import Header
             Header.patchHeaderAfter( outputFileName )

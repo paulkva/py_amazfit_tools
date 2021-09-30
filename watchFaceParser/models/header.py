@@ -164,11 +164,11 @@ class Header:
                 data = bytearray( fileStream.read() )                 
                 #write size
                 size = len(data)
-                if Config.isGts2MiniMode():
+                if Config.isGts2MiniMode() or Config.isBipUMode(): # BipU is some as Gts2Mini
                     size += len(header)
                     header[22:22+4] = int(size).to_bytes(4, byteorder='little')
                     logging.debug(f"Injected size: {size}")
-                elif Config.isBipUMode():
+                else:
                     header[32:32+4] = int(size).to_bytes(4, byteorder='little')
                     logging.debug(f"Injected size: {size}")
                 
@@ -181,7 +181,7 @@ class Header:
                 logging.debug("basename 7 byte hash " + "".join("%02x" % b for b in basenamehash))
                 header[12:12+2] = basenamehash[0:2]#.to_bytes(2, byteorder='little')
                 header[18:18+2] = basenamehash[2:4]#.to_bytes(2, byteorder='little')
-                if not Config.isGts2MiniMode():
+                if not Config.isGts2MiniMode() and not Config.isBipUMode():
                     header[22:22+3] = basenamehash[4:7]#.to_bytes(3, byteorder='little')
                 
                 fileStream.seek(0)
