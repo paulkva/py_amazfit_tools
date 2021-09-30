@@ -164,7 +164,11 @@ class Header:
                 data = bytearray( fileStream.read() )                 
                 #write size
                 size = len(data)
-                if not Config.isGts2MiniMode() or Config.isBipUMode():
+                if Config.isGts2MiniMode():
+                    size += len(header)
+                    header[22:22+4] = int(size).to_bytes(4, byteorder='little')
+                    logging.debug(f"Injected size: {size}")
+                elif Config.isBipUMode():
                     header[32:32+4] = int(size).to_bytes(4, byteorder='little')
                     logging.debug(f"Injected size: {size}")
                 
@@ -173,11 +177,12 @@ class Header:
                 baseName, _ = os.path.splitext(os.path.basename(outputFileName))
                 basenamehash = bytearray(hashlib.shake_128(baseName.encode()).digest(7)) # 7 bit hash
                 logging.debug(f"basename: {baseName}")
-                logging.debug(f"hash lenght: {len(basenamehash)}")
+                logging.debug(f"hash length: {len(basenamehash)}")
                 logging.debug("basename 7 byte hash " + "".join("%02x" % b for b in basenamehash))
                 header[12:12+2] = basenamehash[0:2]#.to_bytes(2, byteorder='little')
                 header[18:18+2] = basenamehash[2:4]#.to_bytes(2, byteorder='little')
-                header[22:22+3] = basenamehash[4:7]#.to_bytes(3, byteorder='little')
+                if not Config.isGts2MiniMode():
+                    header[22:22+3] = basenamehash[4:7]#.to_bytes(3, byteorder='little')
                 
                 fileStream.seek(0)
                 fileStream.write(header)
