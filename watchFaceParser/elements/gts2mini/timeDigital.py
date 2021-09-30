@@ -8,7 +8,7 @@ class TimeDigital:
         3: {'Name': 'PaddingZeroHours', 'Type': 'bool'},
         4: {'Name': 'DelimiterHours', 'Type': 'long'},
         5: {'Name': 'DelimiterMinutes', 'Type': 'long'}, # should be checked on watch whether this is true
-        6: {'Name': 'UnknownBoolean6', 'Type': 'bool'}, # should be checked on watch, what does this do
+        6: {'Name': 'HoursFollowPosition', 'Type': 'bool'}, # should be checked on watch, what does this do
         7: {'Name': 'Unknown7', 'Type': 'long?'},
         8: {'Name': 'Time', 'Type': Time},
     }
