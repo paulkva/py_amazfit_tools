@@ -86,7 +86,7 @@ class NumberElement(ContainerElement):
             self._box = Box(x, y, self._maxTextWidth, bitmapHeight)
         if self._bottomRightX > self._box.getX() + self._box.getWidth():
             self._box.setWidth(self._bottomRightX - self._box.getX())
-        if self._bottomRightX > self._box.getY() + self._box.getHeight():
+        if self._bottomRightY > self._box.getY() + self._box.getHeight():
             self._box.setHeight(self._bottomRightY - self._box.getY())
         return self._box
 
