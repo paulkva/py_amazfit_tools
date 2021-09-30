@@ -11,6 +11,8 @@ class CaloriesElement(CompositeElement):
         super(CaloriesElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
 
     def draw3(self, drawer, resources, state):
+        if self._icon:
+            self._icon.draw3(drawer, resources, state)
         if self._image_number:
             self._image_number.draw4(drawer,
                                      resources,
@@ -18,8 +20,6 @@ class CaloriesElement(CompositeElement):
                                      minimumDights = 3,
                                      force_padding = False,
                                      followxy = None)
-        if self._icon:
-            self._icon.draw3(drawer, resources, state)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

@@ -13,6 +13,8 @@ class DistanceElement(CompositeElement):
 
     def draw3(self, drawer, resources, state):
 
+        if self._icon:
+            self._icon.draw3(drawer, resources, state)
         if self._image_number:
             self._image_number.draw4(drawer,
                                                 resources,
@@ -21,8 +23,6 @@ class DistanceElement(CompositeElement):
                                                 force_padding = False,
                                                 decimal_pointer = self._decimalpointer,
                                                 suffix = self._suffix_km if self._suffix_km else self._suffix_mi)
-        if self._icon:
-            self._icon.draw3(drawer, resources, state)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

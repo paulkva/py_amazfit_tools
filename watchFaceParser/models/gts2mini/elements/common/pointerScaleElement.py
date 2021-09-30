@@ -20,8 +20,6 @@ class PointerScaleElement(CompositeElement):
         _startAngle = toSigned32(self._range_from) if self._range_from else 0
         _endAngle = toSigned32(self._range_to) if self._range_to else 360
 
-        print("Scale", _startAngle, _endAngle, value, total)
-
         angle = 360 - _startAngle - int(value * (_endAngle - _startAngle) / total)
 
         bitmap = resources[self._pointer_image_index].getBitmap()

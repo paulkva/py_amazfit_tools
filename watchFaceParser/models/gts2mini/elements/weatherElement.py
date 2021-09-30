@@ -7,6 +7,8 @@ class WeatherElement(ContainerElement):
     def __init__(self, parameter, parent = None, name = None):
         self._icon = None
         self._temperature = None
+        self._humidity = None
+        self._uv = None
         super(WeatherElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
 
     def createChildForParameter(self, parameter):
@@ -21,8 +23,12 @@ class WeatherElement(ContainerElement):
             return self._temperature
         elif parameterId == 4:
             from watchFaceParser.models.gts2mini.elements.weather.humidityElement import HumidityElement
-            self._temperature = HumidityElement(parameter = parameter, parent = self, name = 'Humidity')
-            return self._temperature
+            self._humidity = HumidityElement(parameter = parameter, parent = self, name = 'Humidity')
+            return self._humidity
+        elif parameterId == 6:
+            from watchFaceParser.models.gts2mini.elements.weather.uvindexElement import UvindexElement
+            self._uv = UvindexElement(parameter = parameter, parent = self, name = 'UVindex')
+            return self._uv
         else:
             print ("Unknown WeatherElement",parameterId)
             return super(WeatherElement, self).createChildForParameter(parameter)

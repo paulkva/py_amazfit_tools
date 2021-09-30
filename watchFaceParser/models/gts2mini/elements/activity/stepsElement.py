@@ -11,6 +11,8 @@ class StepsElement(CompositeElement):
         super(StepsElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
 
     def draw3(self, drawer, resources, state):
+        if self._icon:
+            self._icon.draw3(drawer, resources, state)
         if self._image_number:
             self._image_number.draw4(drawer,
                                      resources,
@@ -18,8 +20,6 @@ class StepsElement(CompositeElement):
                                      minimumDights = 5,
                                      force_padding = False,
                                      prefix = self._prefix)
-        if self._icon:
-            self._icon.draw3(drawer, resources, state)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

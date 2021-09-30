@@ -10,6 +10,8 @@ class PulseElement(CompositeElement):
         super(PulseElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
 
     def draw3(self, drawer, resources, state):
+        if self._icon:
+            self._icon.draw3(drawer, resources, state)
         if self._image_number:
             self._image_number.draw4(drawer,
                                                 resources,
@@ -19,8 +21,6 @@ class PulseElement(CompositeElement):
                                                 prefix = self._prefix,
                                                 suffix = self._suffix
                                                 )
-        if self._icon:
-            self._icon.draw3(drawer, resources, state)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
