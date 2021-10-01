@@ -19,7 +19,7 @@ class DistanceElement(CompositeElement):
             self._image_number.draw4(drawer,
                                                 resources,
                                                 int(state.getDistance() / 10),
-                                                minimumDights = 3,
+                                                minimumDigits = 3,
                                                 force_padding = False,
                                                 decimal_pointer = self._decimalpointer,
                                                 suffix = self._suffix_km if self._suffix_km else self._suffix_mi)

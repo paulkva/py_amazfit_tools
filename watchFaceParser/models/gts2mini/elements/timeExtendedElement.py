@@ -23,7 +23,7 @@ class TimeExtendedElement(ContainerElement):
             self._sunset_icon.draw3(drawer, images, state)
         if self._sunset_time:
             number = random.randint(17, 21) * 100 + random.randint(00, 59)
-            self._sunset_time.draw4(drawer, images, number, minimumDights = 1,
+            self._sunset_time.draw4(drawer, images, number, minimumDigits = 1,
                                     force_padding = False,
                                     followxy = None,
                                     delimiter_time = self._delimiter_sunset if self._delimiter_sunset else None,
@@ -35,7 +35,7 @@ class TimeExtendedElement(ContainerElement):
             self._sunrise_icon.draw3(drawer, images, state)
         if self._sunrise_time:
             number = random.randint(4, 10) * 100 + random.randint(00, 59)
-            self._sunrise_time.draw4(drawer, images, number, minimumDights = 1,
+            self._sunrise_time.draw4(drawer, images, number, minimumDigits = 1,
                                     force_padding = False,
                                     followxy = None,
                                     delimiter_time = self._delimiter_sunrise if self._delimiter_sunrise else None,

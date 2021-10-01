@@ -26,54 +26,48 @@ class MonthAndDayElement(ContainerElement):
     def draw4(self, drawer, images, state, padding_zero_day = False, padding_zero_month = False, padding_zero_year = False):
         followxy = None
         if self._year:
+            suffix = None if self._delimiter_year_coords else self._delimiter_year
             followxy = self._year.draw4(drawer, images, state.getTime().year, 4,
                             force_padding = padding_zero_year,
                             followxy = None,
                             decimal_pointer = None,
                             minus = None,
                             prefix = None,
-                            suffix = self._delimiter_year)
-            if self._delimiter_year:
-                if self._delimiter_year_coords:
-                    self.drawDelimiter(drawer, images, self._delimiter_year, self._delimiter_year_coords)
-                else:
-                    followxy = self.drawDelimiter(drawer, images, self._delimiter_year, followxy)
+                            suffix = suffix)
+            if self._delimiter_year and self._delimiter_year_coords:
+                self.drawDelimiter(drawer, images, self._delimiter_year, self._delimiter_year_coords)
 
         if self._month:
+            suffix = None if self._delimiter_month_coords else self._delimiter_month
             followxy = self._month.draw4(drawer, images, state.getTime().month, 2,
                             force_padding = padding_zero_month,
                             followxy = followxy,
                             decimal_pointer = None,
                             minus = None,
                             prefix = None,
-                            suffix = self._delimiter_month)
-            if self._delimiter_month:
-                if self._delimiter_month_coords:
-                    self.drawDelimiter(drawer, images, self._delimiter_month, self._delimiter_month_coords)
-                else:
-                    followxy = self.drawDelimiter(drawer, images, self._delimiter_month, followxy)
+                            suffix = suffix)
+            if self._delimiter_month and self._delimiter_month_coords:
+                self.drawDelimiter(drawer, images, self._delimiter_month, self._delimiter_month_coords)
 
         if self._day:
+            suffix = None if self._delimiter_day_coords else self._delimiter_day
             followxy = self._day.draw4(drawer, images, state.getTime().day, 2,
                             force_padding = padding_zero_day,
-                            followxy = None,
+                            followxy = followxy,
                             decimal_pointer = None,
                             minus = None,
                             prefix = None,
-                            suffix = self._day_data_type_image_index)
-            if self._delimiter_day:
-                if self._delimiter_day_coords:
-                    self.drawDelimiter(drawer, images, self._delimiter_day, self._delimiter_day_coords)
-                else:
-                    followxy = self.drawDelimiter(drawer, images, self._delimiter_day, followxy)
+                            suffix = suffix)
+            if self._delimiter_day and self._delimiter_day_coords:
+                self.drawDelimiter(drawer, images, self._delimiter_day, self._delimiter_day_coords)
 
         if self._month_as_word:
             self._month_as_word.draw3(drawer, images, state.getTime().month)
 
     def drawDelimiter(self, drawer, images, index, coordinates):
         temp = images[index].getBitmap()
-        drawer.paste(temp, (coordinates[0], coordinates[1]), temp)
-        return (coordinates[0] + temp.size[0], coordinates[1])
+        drawer.paste(temp, (coordinates._x, coordinates._y), temp)
+        return (coordinates._x + temp.size[0], coordinates._y)
 
 
     def createChildForParameter(self, parameter):

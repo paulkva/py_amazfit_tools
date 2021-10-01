@@ -17,7 +17,7 @@ class CaloriesElement(CompositeElement):
             self._image_number.draw4(drawer,
                                      resources,
                                      state.getCalories(),
-                                     minimumDights = 3,
+                                     minimumDigits = 3,
                                      force_padding = False,
                                      followxy = None)
 

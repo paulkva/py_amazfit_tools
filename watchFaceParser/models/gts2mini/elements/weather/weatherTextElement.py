@@ -17,7 +17,7 @@ class WeatherTextElement(ContainerElement):
             self._image_number.draw4(drawer,
                                      resources,
                                      value,
-                                     minimumDights = 3,
+                                     minimumDigits = 2,
                                      force_padding = False,
                                      minus = self._minus,
                                      suffix = self._suffixC if self._suffixC else self._suffixF)

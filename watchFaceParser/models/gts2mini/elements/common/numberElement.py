@@ -91,14 +91,14 @@ class NumberElement(ContainerElement):
                 self._maxTextWidth += spacing
         self._maxTextWidth += width
 
-    def draw4(self, drawer, images, number, minimumDights = 1,
+    def draw4(self, drawer, images, number, minimumDigits = 1,
               force_padding = False, followxy = None, decimal_pointer = None, minus = None, prefix = None, suffix = None, delimiter_time = None):
         from watchFaceParser.helpers.drawerHelper import DrawerHelper
 
         if force_padding:
             self._paddingzero = True
 
-        ar = self.getImagesForNumber(images, number, minimumDights, decimal_pointer, minus, prefix, suffix, delimiter_time)
+        ar = self.getImagesForNumber(images, number, minimumDigits, decimal_pointer, minus, prefix, suffix, delimiter_time)
 
         self.setBox(ar, self._spacing, followxy)
 

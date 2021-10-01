@@ -86,9 +86,9 @@ class NumberElement(CoordinatesElement):
         return Box(altCoordinates._x, altCoordinates._y, self._bottomRightX - self._x, self._bottomRightY - self._y)
 
 
-    def draw4(self, drawer, images, number, minimumDights = 1):
+    def draw4(self, drawer, images, number, minimumDigits = 1):
         from watchFaceParser.helpers.drawerHelper import DrawerHelper
-        DrawerHelper.drawImages(drawer, self.getImagesForNumber(images, number, minimumDights), self._spacing, self._alignment, self.getBox())
+        DrawerHelper.drawImages(drawer, self.getImagesForNumber(images, number, minimumDigits), self._spacing, self._alignment, self.getBox())
 
 
     def getImagesForNumber(self, images, number, minimumDigits = 1):

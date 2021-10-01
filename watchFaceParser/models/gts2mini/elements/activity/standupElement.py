@@ -16,7 +16,7 @@ class StandUpElement(CompositeElement):
             self._image_number.draw4(drawer,
                                      resources,
                                      state.getStand(),
-                                     minimumDights = 2,
+                                     minimumDigits = 2,
                                      force_padding = False,
                                      followxy = None)
 

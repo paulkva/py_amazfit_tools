@@ -14,7 +14,7 @@ class BatteryNumberElement(CompositeElement):
             self._image_number.draw4(drawer,
                                                 resources,
                                                 state.getPulse(),
-                                                minimumDights = 3,
+                                                minimumDigits = 3,
                                                 force_padding = False,
                                                 prefix = self._prefix,
                                                 suffix = self._suffix
