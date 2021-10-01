@@ -3,6 +3,7 @@
 from watchFaceParser.models.gts2mini.elements.basic.containerElement import ContainerElement
 from watchFaceParser.helpers.drawerHelper import DrawerHelper
 
+
 class Box:
     def __init__(self, x, y, width, height):
         self._x = x
@@ -10,14 +11,11 @@ class Box:
         self._width = width
         self._height = height
 
-
     def getX(self):
         return self._x
 
-
     def getY(self):
         return self._y
-
 
     def getWidth(self):
         return self._width
@@ -34,14 +32,11 @@ class Box:
     def getLeft(self):
         return self._x
 
-
     def getRight(self):
         return self._x + self._width
 
-
     def getTop(self):
         return self._y
-
 
     def getBottom(self):
         return self._y + self._height
@@ -122,7 +117,6 @@ class NumberElement(ContainerElement):
         if self._paddingzero:
             padding_length = minimumDigits
 
-        stringNumber = ''
         if number < 0:
             stringNumber = str(-number).zfill(padding_length)
         else:
@@ -155,10 +149,12 @@ class NumberElement(ContainerElement):
         if suffix:
             ar.append(images[suffix])
             self.addTextWidth(images[suffix].getBitmap().size[0], self._spacing)
+
+        print("Nik1", number, stringNumber, len(ar), self._maxTextWidth)
         i = minimumDigits - len(stringNumber)
-        while i > 0:
-            self.addTextWidth(images[self._imageIndex].getBitmap().size[0], self._spacing)
-            i = i - 1
+        self.addTextWidth(images[self._imageIndex].getBitmap().size[0] * i, self._spacing)
+
+        print("Nik2", number, stringNumber, len(ar), self._maxTextWidth)
         return ar
 
     def createChildForParameter(self, parameter):
