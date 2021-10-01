@@ -12,7 +12,7 @@ class Time:
         7: {'Name': 'DelimiterSeconds', 'Type': 'long?'},
         8: { 'Name': 'MinutesFollowHours', 'Type': 'bool'},
         9: { 'Name': 'SecondsFollowMinutes', 'Type': 'bool'},
-        10: { 'Name': 'UnknownCoordinates10', 'Type': Coordinates},
-        11: {'Name': 'UnknownCoordinates11', 'Type': Coordinates},
+        10: { 'Name': 'DelimiterHoursCoordinates', 'Type': Coordinates},
+        11: {'Name': 'DelimiterMinutesCoordinates', 'Type': Coordinates},
     }
 
