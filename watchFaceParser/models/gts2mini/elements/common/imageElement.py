@@ -40,7 +40,7 @@ class ImageElement(CoordinatesElement):
             if center is None:
                 drawer.paste(temp, (0,0), temp)
             else:
-                drawer.paste(temp, (center.getX(),center.getY()), temp)
+                drawer.paste(temp, (center.getX() - int(temp.size[0]/2), center.getY() - int(temp.size[1]/2)), temp)
 
 
     def createChildForParameter(self, parameter):
