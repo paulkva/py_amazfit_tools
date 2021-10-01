@@ -9,16 +9,16 @@ class ShortcutType:
     Unknown7 = 7
     Unknown8 = 8
     Unknown9 = 9
-    Unknown10 = 10
+    CycleTracking = 10
     Unknown11 = 11
     Unknown12 = 12
     Unknown13 = 13
     Unknown14 = 14
     Unknown15 = 15
     Weather = 16
-    Unknown17 = 17
-    Unknown18 = 18
-    Unknown19 = 19
+    Countdown = 17
+    StopWatch = 18
+    Pomodoro = 19
     Unknown20 = 20
     Unknown21 = 21
     Unknown22 = 22
@@ -37,16 +37,16 @@ class ShortcutType:
         Unknown7: "Unknown7",
         Unknown8: "Unknown8",
         Unknown9: "Unknown9",
-        Unknown10: "Unknown10",
+        CycleTracking: "CycleTracking",
         Unknown11: "Unknown11",
         Unknown12: "Unknown12",
         Unknown13: "Unknown13",
         Unknown14: "Unknown14",
         Unknown15: "Unknown15",
         Weather  : "Weather",
-        Unknown17: "Unknown17",
-        Unknown18: "Unknown18",
-        Unknown19: "Unknown19",
+        Countdown: "Countdown",
+        StopWatch: "StopWatch",
+        Pomodoro: "Pomodoro",
         Unknown20: "Unknown20",
         Unknown21: "Unknown21",
         Unknown22: "Unknown22",
