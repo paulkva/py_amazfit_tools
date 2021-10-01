@@ -9,7 +9,7 @@ class Battery:
         1: { 'Name': 'BatteryText', 'Type': Text},
         2: { 'Name': 'ImageProgress', 'Type': ImageSet},
         3: { 'Name': 'IconSetProgress', 'Type': IconSet},
-        4: {'Name': 'Unknown4', 'Type': 'long?'},
+        4: {'Name': 'Unknown4', 'Type': 'long?'}, #CircleScale
         5: {'Name': 'Scale', 'Type': Scale},
         6: {'Name': 'Icon', 'Type': Image},
     }
