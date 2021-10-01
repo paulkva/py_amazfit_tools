@@ -40,8 +40,8 @@ class ClockHandElement(CompositeElement):
             drawer.paste(temp, (self._center.getX() - int(temp.size[0]/2), self._center.getY()- int(temp.size[1]/2)), temp)
 
         if self._centerImage:
-            angle = 360 - _startAngle - int(value * (_endAngle - _startAngle) / total)
-            self._centerImage.draw2(drawer, resources, angle, self._center)
+            #angle = 360 - _startAngle - int(value * (_endAngle - _startAngle) / total)
+            self._centerImage.draw2(drawer, resources, None)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
