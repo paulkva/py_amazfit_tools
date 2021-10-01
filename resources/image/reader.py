@@ -97,9 +97,12 @@ class Reader():
                 firstByte = rowBytes[x * self._step]
                 secondByte = rowBytes[x * self._step + 1]
                 dataIndex += 2
-                r = ((secondByte >> 3) & 0x1f) << 3
-                g = (((firstByte >> 5) & 0x7) | ((secondByte & 0x07) << 3)) << 2
-                b = (firstByte & 0x1f) << 3
+                b = (firstByte & 0x1f)
+                g = (((firstByte >> 5) & 0x7) | ((secondByte & 0x07) << 3))
+                r = ((secondByte >> 3) & 0x1f)
+                b = int(255*b/31.0)
+                g = int(255*g/63.0)
+                r = int(255*r/31.0)
                 alpha = 255
                 color = resources.image.color.Color.fromArgb(alpha, r, g, b)
                 try:
@@ -121,9 +124,12 @@ class Reader():
             for x in range(self._width):
                 firstByte = rowBytes[x * self._step]
                 secondByte = rowBytes[x * self._step + 1]
-                r = ((secondByte >> 3) & 0x1f) << 3
-                g = (((firstByte >> 5) & 0x7) | ((secondByte & 0x07) << 3)) << 2
-                b = (firstByte & 0x1f) << 3
+                b = (firstByte & 0x1f)
+                g = (((firstByte >> 5) & 0x7) | ((secondByte & 0x07) << 3))
+                r = ((secondByte >> 3) & 0x1f)
+                b = int(255*b/31.0)
+                g = int(255*g/63.0)
+                r = int(255*r/31.0)
                 alpha = 255
                 color = resources.image.color.Color.fromArgb(alpha, r, g, b)
                 image.putpixel((x, y), color)
@@ -142,9 +148,12 @@ class Reader():
                 secondByte = rowBytes[x * self._step + 1]
 
                 a = 255 - alphaByte
-                b = (firstByte & 0x1f) << 3
-                g = (((firstByte >> 5) & 0x7) | ((secondByte & 0x07) << 3)) << 2
-                r = ((secondByte >> 3) & 0x1f) << 3
+                b = (firstByte & 0x1f)
+                g = (((firstByte >> 5) & 0x7) | ((secondByte & 0x07) << 3))
+                r = ((secondByte >> 3) & 0x1f)
+                b = int(255*b/31.0)
+                g = int(255*g/63.0)
+                r = int(255*r/31.0)
 
                 color = resources.image.color.Color.fromArgb(a, r, g, b)
                 image.putpixel((x, y), color)
@@ -165,34 +174,32 @@ class Reader():
         logging.info(f"BPP: {self._bitsPerPixel}, Transparency: {self._transparency}")
 
     def readHeader16C(self):
-        logging.info("Reading image header(readHeader16)...")
+        logging.info("Reading image header(readHeader16C)...")
         self._width = int.from_bytes(self._reader.read(2), byteorder='little')
         self._height = int.from_bytes(self._reader.read(2), byteorder='little')
-        self._unknown1 = int.from_bytes(self._reader.read(2), byteorder='little')
+        self._rowLengthInBytes = int.from_bytes(self._reader.read(2), byteorder='little')
         self._bitsPerPixel = int.from_bytes(self._reader.read(2), byteorder='little')
         self._unknown2 = int.from_bytes(self._reader.read(4), byteorder='little')
         self._step = int(self._bitsPerPixel / 8)
-        self._rowLengthInBytes = self._width * self._step
         self._transparency = False
         logging.info("Image header was read:")
         logging.info(f"Width: {self._width}, Height: {self._height}, RowLength: {self._rowLengthInBytes}")
-        logging.info(f"unknown1: {self._unknown1}, _step: {self._step}, unknown2: {self._unknown1},")
+        logging.info(f"_step: {self._step}, unknown2: {self._unknown2},")
         logging.info(f"BPP: {self._bitsPerPixel}, Transparency: {self._transparency}")
 
     def readHeader16E(self):
         logging.info("Reading image header(readHeader16E)...")
         self._width = int.from_bytes(self._reader.read(2), byteorder='little')
         self._height = int.from_bytes(self._reader.read(2), byteorder='little')
-        self._unknown1 = int.from_bytes(self._reader.read(2), byteorder='little')
+        self._rowLengthInBytes = int.from_bytes(self._reader.read(2), byteorder='little')
         self._bitsPerPixel = int.from_bytes(self._reader.read(2), byteorder='little')
         self._datasize = int.from_bytes(self._reader.read(4), byteorder='little')
         self._step = int(self._bitsPerPixel / 8)
-        self._rowLengthInBytes = self._width * self._step
         #self._rowLengthInBytes = self._unknown1
         self._transparency = False
         logging.info("Image header was read:")
         logging.info(f"Width: {self._width}, Height: {self._height}, RowLength: {self._rowLengthInBytes}")
-        logging.info(f"unknown1: {self._unknown1}, datalength: {self._datasize}, _step: {self._step}")
+        logging.info(f"datalength: {self._datasize}, _step: {self._step}")
         logging.info(f"BPP: {self._bitsPerPixel}, Transparency: {self._transparency}")
 
     def readHeader(self):
