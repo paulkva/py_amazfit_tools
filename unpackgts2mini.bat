@@ -6,12 +6,10 @@ set file=%~n1
 set mPath=%~dp1
 set mPathScript=%~dp0
 
-%mPathScript%\GTR2_Packer.exe -unc2 %1
-ren "%1.unc" "%file%_unpacked.bin"
-python %mPathScript%\main.py --gts2mini --file "%mPath%%file%_unpacked.bin"
+python %mPathScript%\main.py --gts2mini --file "%mPath%%file%"
 
 echo.
-echo Resources and JSON in "%mPath%%file%_unpacked"
+echo Resources and JSON in "%mPath%%file%"
 echo.
 pause
 
