@@ -13,6 +13,7 @@ from watchFaceParser.elements.gts2mini.timeExtended import TimeExtended
 from watchFaceParser.elements.gts2mini.activitySeparateDigits import ActivitySeparateDigits
 from watchFaceParser.elements.gts2mini.shortcuts import Shortcuts
 from watchFaceParser.elements.gts2mini.alarm import Alarm
+from watchFaceParser.elements.gts2mini.alwaysOnDisplay import AlwaysOnDisplay
 
 class WatchFace:
     definitions = {
@@ -45,6 +46,6 @@ class WatchFace:
         26: {'Name': 'UviProgress', 'Type': ProgressAlt2}, #9ab2ccafb3b7b67fd47cc350236ddffe.bin
         27: {'Name': 'Unknown27', 'Type': 'long?'},
         28: {'Name': 'Unknown28', 'Type': 'long?'},
-        29: {'Name': 'AOD', 'Type': 'long?'}, # is this aod screen?
+        29: {'Name': 'AlwaysOnDisplay', 'Type': AlwaysOnDisplay}, # is this aod screen?
         30: {'Name': 'ActivitySeparateDigits', 'Type': ActivitySeparateDigits}, #468da72c923467e6ac1c2752a238a4b3.bin
     }
