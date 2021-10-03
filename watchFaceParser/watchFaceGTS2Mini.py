@@ -5,13 +5,14 @@ from watchFaceParser.elements.gts2mini.activity import Activity
 from watchFaceParser.elements.gts2mini.dateblock import DateBlock
 from watchFaceParser.elements.gts2mini.battery import Battery
 from watchFaceParser.elements.gts2mini.analogDialFace import AnalogDialFace
-from watchFaceParser.elements.gts2mini.progress import Progress
+from watchFaceParser.elements.gts2mini.progress import Progress, ProgressAlt1, ProgressAlt2, ProgressAlt3
 from watchFaceParser.elements.gts2mini.status import Status
 from watchFaceParser.elements.gts2mini.weather import Weather
 from watchFaceParser.elements.gts2mini.animation import Animation
 from watchFaceParser.elements.gts2mini.timeExtended import TimeExtended
 from watchFaceParser.elements.gts2mini.activitySeparateDigits import ActivitySeparateDigits
 from watchFaceParser.elements.gts2mini.shortcuts import Shortcuts
+from watchFaceParser.elements.gts2mini.alarm import Alarm
 
 class WatchFace:
     definitions = {
@@ -32,16 +33,16 @@ class WatchFace:
         14: {'Name': 'Unknown14', 'Type': 'long?'},
         15: {'Name': 'CaloriesProgress', 'Type': Progress},
         16: {'Name': 'Unknown16', 'Type': 'long?'},
-        17: {'Name': 'Unknown17', 'Type': 'long?'},
-        18: {'Name': 'Unknown18', 'Type': 'long?'},
+        17: {'Name': 'HumidityProgress', 'Type': ProgressAlt3},
+        18: {'Name': 'Alarm', 'Type': Alarm},
         19: {'Name': 'Shortcuts', 'Type': Shortcuts},
         20: {'Name': 'TimeAnalog', 'Type': AnalogDialFace},
         21: {'Name': 'TimeDigital', 'Type': TimeDigital},
         22: {'Name': 'Unknown22', 'Type': 'long?'},
-        23: {'Name': 'Unknown23', 'Type': 'long?'},
+        23: {'Name': 'PaiProgress', 'Type': ProgressAlt1}, #9ab2ccafb3b7b67fd47cc350236ddffe.bin
         24: {'Name': 'StandUpProgress', 'Type': Progress},
         25: {'Name': 'Unknown25', 'Type': 'long?'},
-        26: {'Name': 'Unknown26', 'Type': 'long?'},
+        26: {'Name': 'UviProgress', 'Type': ProgressAlt2}, #9ab2ccafb3b7b67fd47cc350236ddffe.bin
         27: {'Name': 'Unknown27', 'Type': 'long?'},
         28: {'Name': 'Unknown28', 'Type': 'long?'},
         29: {'Name': 'AOD', 'Type': 'long?'}, # is this aod screen?

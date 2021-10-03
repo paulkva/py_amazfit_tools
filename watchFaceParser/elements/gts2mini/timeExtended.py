@@ -25,7 +25,7 @@ class TimeExtended:
         5: {'Name': 'DelimiterSunriseImageIndex', 'Type': 'long'},
         6: {'Name': 'SunsetIcon', 'Type': Image}, # sunset icon ?
         7: {'Name': 'SunriseIcon', 'Type': Image}, # sunrise icon ?
-        8: {'Name': 'SunsetShortcut', 'Type': Element}, # sunset shortuct
+        8: {'Name': 'SunsetShortcut', 'Type': Element}, # sunset shortcut
         9: {'Name': 'SunriseShortcut', 'Type': Element}, # sunrise shortcut
     }
 
