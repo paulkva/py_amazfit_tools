@@ -14,8 +14,8 @@ class DateElement(ContainerElement):
     def draw3(self, drawer, images, state):
         if self._monthAndDayAlt:
             self._monthAndDayAlt.draw4(drawer, images, state,
-                                    padding_zero_day = self._padding_zero_day,
-                                    padding_zero_month= self._padding_zero_month)
+                                       padding_zero_day = self._padding_zero_day,
+                                       padding_zero_month= self._padding_zero_month)
         if self._monthAndDay:
             self._monthAndDay.draw4(drawer, images, state,
                                     padding_zero_day = self._padding_zero_day,

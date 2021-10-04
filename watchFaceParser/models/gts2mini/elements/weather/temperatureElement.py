@@ -7,6 +7,7 @@ from watchFaceParser.utils.parametersConverter import uint2int
 class TemperatureElement(CompositeElement):
     def __init__(self, parameter, parent, name = None):
         self._current = None
+        self._oneline = None
         self._lowest = None
         self._highes = None
         super(TemperatureElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
@@ -16,6 +17,8 @@ class TemperatureElement(CompositeElement):
 
         if self._current:
             self._current.draw4(drawer, resources, state.getCurrentTemperature())
+        if self._oneline:
+            self._oneline.draw3(drawer, resources, state)
         if self._lowest:
             self._lowest.draw4(drawer, resources, state.getCurrentTemperature()-10)
         if self._highes:
@@ -28,7 +31,11 @@ class TemperatureElement(CompositeElement):
             from watchFaceParser.models.gts2mini.elements.weather.weatherTextElement import WeatherTextElement
             self._current = WeatherTextElement(parameter, self, 'Current')
             return self._current
-        if parameterId == 3:
+        elif parameterId == 2: # OneLine
+            from watchFaceParser.models.gts2mini.elements.weather.oneLineTemperatureElement import OneLineTemperatureElement
+            self._oneline = OneLineTemperatureElement(parameter, self, 'OneLine')
+            return self._current
+        elif parameterId == 3:
             from watchFaceParser.models.gts2mini.elements.weather.weatherTextElement import WeatherTextElement
             self._lowest = WeatherTextElement(parameter, self, 'Lowest')
             return self._lowest

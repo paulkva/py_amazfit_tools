@@ -91,6 +91,32 @@ class NumberElement(ContainerElement):
                 self._maxTextWidth += spacing
         self._maxTextWidth += width
 
+    def draw5(self, drawer, images, numberMin, numberMax, minimumDigits = 1,
+              force_padding = False, followxy = None, prefix=None, minus=None, suffix=None, delimiter=None):
+        from watchFaceParser.helpers.drawerHelper import DrawerHelper
+
+        if force_padding:
+            self._paddingzero = True
+
+        self._maxTextWidth = 0
+        ar = self.getImagesForNumber(images, numberMin, minimumDigits, prefix=prefix, minus=minus)
+
+        if delimiter:
+            ar.append(images[delimiter])
+            self.addTextWidth(images[delimiter].getBitmap().size[0], self._spacing)
+
+        ar.extend(self.getImagesForNumber(images, numberMax, minimumDigits, minus=minus, suffix=suffix))
+        self.setBox(ar, self._spacing, followxy)
+
+        DrawerHelper.drawImages(drawer,
+                                ar,
+                                self._spacing,
+                                self._alignment,
+                                self._box)
+
+        self._followxy = (self._box.getX() + self._box.getWidth() + 1, self._box.getY())
+        return self._followxy
+
     def draw4(self, drawer, images, number, minimumDigits = 1,
               force_padding = False, followxy = None, decimal_pointer = None, minus = None, prefix = None, suffix = None, delimiter_time = None):
         from watchFaceParser.helpers.drawerHelper import DrawerHelper
@@ -98,6 +124,7 @@ class NumberElement(ContainerElement):
         if force_padding:
             self._paddingzero = True
 
+        self._maxTextWidth = 0
         ar = self.getImagesForNumber(images, number, minimumDigits, decimal_pointer, minus, prefix, suffix, delimiter_time)
 
         self.setBox(ar, self._spacing, followxy)
@@ -122,7 +149,6 @@ class NumberElement(ContainerElement):
         else:
             stringNumber = str(number).zfill(padding_length)
 
-        self._maxTextWidth = 0
         ar = []
         if prefix:
             ar.append(images[prefix])
@@ -150,11 +176,9 @@ class NumberElement(ContainerElement):
             ar.append(images[suffix])
             self.addTextWidth(images[suffix].getBitmap().size[0], self._spacing)
 
-        print("Nik1", number, stringNumber, len(ar), self._maxTextWidth)
         i = minimumDigits - len(stringNumber)
         self.addTextWidth(images[self._imageIndex].getBitmap().size[0] * i, self._spacing)
 
-        print("Nik2", number, stringNumber, len(ar), self._maxTextWidth)
         return ar
 
     def createChildForParameter(self, parameter):

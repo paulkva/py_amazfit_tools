@@ -7,16 +7,20 @@ class StandUpProgressElement(ContainerElement):
         self._circular = None
         self._image_progress = None
         self._iconset_progress = None
+        self._circle_scale = None
         self._scale = None
         super(StandUpProgressElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
 
     def draw3(self, drawer, resources, state):
+        goal = 12
         if self._image_progress:
-            self._image_progress.draw4(drawer, resources, state.getStand(), 12)
+            self._image_progress.draw4(drawer, resources, state.getStand(), goal)
         if self._iconset_progress:
-            self._iconset_progress.draw4(drawer, resources, state.getStand(), 12)
+            self._iconset_progress.draw4(drawer, resources, state.getStand(), goal)
+        if self._circle_scale:
+            self._circle_scale.draw4(drawer, resources, state.getStand(), goal)
         if self._scale:
-            self._scale.draw4(drawer, resources, state.getStand(), 12)
+            self._scale.draw4(drawer, resources, state.getStand(), goal)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
@@ -32,7 +36,9 @@ class StandUpProgressElement(ContainerElement):
             self._iconset_progress = IconSetElement(parameter = parameter, parent = self, name ='IconSetProgress')
             return self._iconset_progress
         elif parameterId == 4:
-            pass
+            from watchFaceParser.models.gts2mini.elements.common.circularProgressElement import CircularProgressElement
+            self._circle_scale = CircularProgressElement(parameter=parameter, parent=self, name='CircleScale')
+            return self._circle_scale
         elif parameterId == 5:
             pass
         elif parameterId == 6:
