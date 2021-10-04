@@ -2,5 +2,5 @@ from watchFaceParser.elements.gts2mini.weatherElements.oneLineMinMax import OneL
 
 class OneLine:
     definitions = {
-        2: { 'Name': 'Number', 'Type': OneLineMinMax},
+        2: { 'Name': 'OneLineMinMax', 'Type': OneLineMinMax},
     }
