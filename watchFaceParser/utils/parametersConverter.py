@@ -108,11 +108,11 @@ class ParametersConverter:
                 elif propertyType == CombingModeType:
                     value = CombingModeType.fromJSON(propertyValue)
                 elif propertyType == 'long' or propertyType == 'long?':
-                    value = int(value)	
+                    value = int(value)
                 elif propertyType == 'int':
-                    value = int(value)	 
+                    value = int(value)
                 elif propertyType == 'float':
-                    value = float(value)                    
+                    value = float(value)
                 logging.debug(f"{currentPath} '{propertyInfo['Name']}': {value}")
                 result.append(Parameter(_id, value, None, propertyType))
             #elif isinstance(propertyValue,list): 
@@ -260,8 +260,6 @@ class ParametersConverter:
             elif propertyType == 'bool':
                 setattr(result, propertyInfoName, parameter.getValue() > 0)
             elif propertyType == 'long':
-                setattr(result, propertyInfoName, ulong2long(parameter.getValue()))
-            elif propertyType == 'slong':
                 setattr(result, propertyInfoName, toSigned32(parameter.getValue()))
             elif propertyType == 'int':
                 setattr(result, propertyInfoName, uint2int(parameter.getValue()))
