@@ -85,5 +85,11 @@ usage: gtr-packer
 
  ## GTS2Mini. Additional features (not in online editor of Huami)
  * TimeSeparateDigits in TimeExtended
+ * ActivitySeparateDigits
  * CircleScale in Progress element
+ * Negative spacing and vertical offset for Number
  * ...
+
+ ## GTS2Mini. Fixed features (broken in online editor of Huami)
+ * Animation #3 (Huami does not export it)
+ * TimeDigital AOD
