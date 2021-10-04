@@ -91,21 +91,32 @@ class NumberElement(ContainerElement):
                 self._maxTextWidth += spacing
         self._maxTextWidth += width
 
-    def draw5(self, drawer, images, numberMin, numberMax, minimumDigits = 1,
+    def draw5(self, drawer, images, numberArray=None, minimumDigits = 1,
               force_padding = False, followxy = None, prefix=None, minus=None, suffix=None, delimiter=None):
         from watchFaceParser.helpers.drawerHelper import DrawerHelper
+
+        if not numberArray:
+            return followxy
 
         if force_padding:
             self._paddingzero = True
 
         self._maxTextWidth = 0
-        ar = self.getImagesForNumber(images, numberMin, minimumDigits, prefix=prefix, minus=minus)
+        ar = []
+        if prefix:
+            ar.append(images[prefix])
+            self.addTextWidth(images[prefix].getBitmap().size[0], self._spacing)
+        for index in range(len(numberArray)):
+            ar.extend(self.getImagesForNumber(images, numberArray[index], minimumDigits, minus=minus))
 
-        if delimiter:
-            ar.append(images[delimiter])
-            self.addTextWidth(images[delimiter].getBitmap().size[0], self._spacing)
+            if delimiter and index < len(numberArray)-1:
+                ar.append(images[delimiter])
+                self.addTextWidth(images[delimiter].getBitmap().size[0], self._spacing)
 
-        ar.extend(self.getImagesForNumber(images, numberMax, minimumDigits, minus=minus, suffix=suffix))
+        if suffix:
+            ar.append(images[suffix])
+            self.addTextWidth(images[suffix].getBitmap().size[0], self._spacing)
+
         self.setBox(ar, self._spacing, followxy)
 
         DrawerHelper.drawImages(drawer,

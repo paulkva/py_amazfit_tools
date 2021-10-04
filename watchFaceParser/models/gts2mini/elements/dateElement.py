@@ -8,6 +8,8 @@ class DateElement(ContainerElement):
         self._padding_zero_day = False
         self._monthAndDay = None
         self._monthAndDayAlt = None
+        self._oneLineMonthAndDay = None
+        self._oneLineYearMonthAndDay = None
         self._padding_zero_month = False
         super(DateElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
 
@@ -16,6 +18,13 @@ class DateElement(ContainerElement):
             self._monthAndDayAlt.draw4(drawer, images, state,
                                        padding_zero_day = self._padding_zero_day,
                                        padding_zero_month= self._padding_zero_month)
+
+        if self._oneLineMonthAndDay:
+            self._oneLineMonthAndDay.draw4(drawer, images, state, padding_zero_month= self._padding_zero_month)
+
+        if self._oneLineYearMonthAndDay:
+            self._oneLineYearMonthAndDay.draw4(drawer, images, state, padding_zero_month= self._padding_zero_month)
+
         if self._monthAndDay:
             self._monthAndDay.draw4(drawer, images, state,
                                     padding_zero_day = self._padding_zero_day,
@@ -29,9 +38,13 @@ class DateElement(ContainerElement):
             self._monthAndDayAlt = MonthAndDayAltElement(parameter=parameter, parent=self, name='MonthAndDayAlt')
             return self._monthAndDayAlt
         elif parameterId == 2:
-            pass
+            from watchFaceParser.models.gts2mini.elements.date.oneLineMonthAndDayElement import OneLineMonthAndDayElement
+            self._oneLineMonthAndDay = OneLineMonthAndDayElement(parameter=parameter, parent=self, name='OneLineMonthAndDay')
+            return self._oneLineMonthAndDay
         elif parameterId == 3:
-            pass
+            from watchFaceParser.models.gts2mini.elements.date.oneLineYearMonthAndDayElement import OneLineYearMonthAndDayElement
+            self._oneLineYearMonthAndDay = OneLineYearMonthAndDayElement(parameter=parameter, parent=self, name='OneLineYearMonthAndDay')
+            return self._oneLineYearMonthAndDay
         elif parameterId == 4:
             self._padding_zero_month = parameter.getValue()
             return ValueElement(parameter, self, 'PaddingZeroMonth')
