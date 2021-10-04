@@ -8,12 +8,12 @@ class Time:
         3: { 'Name': 'Seconds', 'Type': Number},
         4: { 'Name': 'PaddingZeroMinutes', 'Type': 'bool'},
         5: { 'Name': 'PaddingZeroSeconds', 'Type': 'bool'},
-        6: { 'Name': 'DelimiterMinutes', 'Type': 'long'}, #probably MinutesDataTypeImageIndex
-        7: { 'Name': 'DelimiterSeconds', 'Type': 'long'}, #probably SecondsDataTypeImageIndex
+        6: { 'Name': 'MinutesDataTypeImageIndex', 'Type': 'long'},
+        7: { 'Name': 'SecondsDataTypeImageIndex', 'Type': 'long'},
         8: { 'Name': 'MinutesFollowHours', 'Type': 'bool'},
         9: { 'Name': 'SecondsFollowMinutes', 'Type': 'bool'},
-        10: { 'Name': 'DelimiterHoursCoordinates', 'Type': Coordinates}, #probably DataTypeHoursCoordinates
-        11: { 'Name': 'DelimiterMinutesCoordinates', 'Type': Coordinates}, #probably DataTypeMinutesCoordinates
-        12: { 'Name': 'DataTypeSecondsCoordinates', 'Type': Coordinates},
+        10: { 'Name': 'HoursDataTypeCoordinates', 'Type': Coordinates},
+        11: { 'Name': 'MinutesDataTypeCoordinates', 'Type': Coordinates},
+        12: { 'Name': 'SecondsDataTypeCoordinates', 'Type': Coordinates},
     }
 
