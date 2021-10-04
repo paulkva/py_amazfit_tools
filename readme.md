@@ -2,11 +2,12 @@
 A python port of valeronm's amazfitbiptools(v.1.0.3.1) with some hacks for verge lite/gtr.
 
 Added support of GTR2 and GTS2 by bigdigital
+Added support of GTS2mini
 
 All credit goes to Валерий Миронов(https://bitbucket.org/valeronm/amazfitbiptools/src/master/)
 
 ## what is...
-* can pack/unpack .bin file for amazfit verge lite/gtr(original watchfaces)
+* can pack/unpack .bin file for amazfit gts2mini
 
 ## what isn't...
 * 100% compatibility with amazfit_bip_tool
@@ -75,39 +76,14 @@ Can also unpack and pack watchface resources without parsing header parameters (
   * to pack 
     * python main.py --gtr2 --from_raw 47 --file WATCH_FACE_FOLDER , where WATCH_FACE_FOLDER is the folder which should contain raw_header.bin file and set of resource images
 
-Also this project contain a GTR2_Packer.exe tool which allow to compress and decompress bin files.
+Also this project contain a GTR2_Packer.exe tool which allow to compress and decompress bin files (only needed for GTS2 and GTR2, not for GTS2mini and not for BipU).
 usage: gtr-packer
  -cmp <filename>    Compress
  -cmp2 <filename>   Compress gtr2 format
  -unc <filename>    Decompress
  -unc2 <filename>   Decompress gtr2 format
 
-## known issues in json
-### Date/Weekday/ImageCount (GTR)
-* Unlike verge lite, Date/Weekday/ImagesCount should be 21 instead of 7
-
-```
-  "Date": {
-    "WeekDay": {
-      "X": 242,
-      "Y": 122,
-      "ImageIndex": 128,
-      "ImagesCount": 21
-    }
-  },
-```
-### lock icons (only works for GTR)
-```
-  "Status": {
-    "Lock": {
-```
-### bluetooth icons (not working?)
-```
-  "Status": {
-    "Bluetooth": {
-```
-
-### analog hands' relative position (only works for GTR)
-
-## why python instead of C#
-just for fun!
+ ## GTS2Mini. Additional features (not in online editor of Huami)
+ * TimeSeparateDigits in TimeExtended
+ * CircleScale in Progress element
+ * ...
