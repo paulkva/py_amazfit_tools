@@ -12,8 +12,8 @@ class Progress:
         4: {'Name': 'CircleScale', 'Type': CircleScale},
         5: {'Name': 'Unknown5', 'Type': 'long?'},
         6: {'Name': 'Scale', 'Type': Scale},
-        7: {'Name': 'NoDataImageIndex', 'Type': Image},
-        8: {'Name': 'UnknownImageIndex', 'Type': Image},
+        7: {'Name': 'NoDataImageIndex', 'Type': 'long?'},
+        8: {'Name': 'UnknownImageIndex', 'Type': 'long?'},
     }
 
 class ProgressAlt1:
