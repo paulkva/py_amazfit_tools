@@ -19,13 +19,13 @@ class TimeSeparateDigits:
 class TimeExtended:
     definitions = {
         1: {'Name': 'TimeSeparateDigits', 'Type': TimeSeparateDigits},
-        2: {'Name': 'SunsetTimeOneLine', 'Type': Number}, # sunset ?
+        2: {'Name': 'SunsetTimeOneLine', 'Type': Number},
         3: {'Name': 'DelimiterSunsetImageIndex', 'Type': 'long'},
-        4: {'Name': 'SunriseTimeOneLine', 'Type': Number}, # Sunrise ?
+        4: {'Name': 'SunriseTimeOneLine', 'Type': Number},
         5: {'Name': 'DelimiterSunriseImageIndex', 'Type': 'long'},
-        6: {'Name': 'SunsetIcon', 'Type': Image}, # sunset icon ?
-        7: {'Name': 'SunriseIcon', 'Type': Image}, # sunrise icon ?
-        8: {'Name': 'SunsetShortcut', 'Type': Element}, # sunset shortcut
-        9: {'Name': 'SunriseShortcut', 'Type': Element}, # sunrise shortcut
+        6: {'Name': 'SunsetIcon', 'Type': Image},
+        7: {'Name': 'SunriseIcon', 'Type': Image},
+        8: {'Name': 'SunsetShortcut', 'Type': Element},
+        9: {'Name': 'SunriseShortcut', 'Type': Element},
     }
 
