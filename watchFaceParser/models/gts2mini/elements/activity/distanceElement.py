@@ -34,7 +34,7 @@ class DistanceElement(CompositeElement):
         elif parameterId == 2:
             from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
             self._suffix_km = parameter.getValue()
-            return ValueElement(parameter, self, 'SuffixImageIndexKM')
+            return ValueElement(parameter, self, 'SuffixKMImageIndex')
         elif parameterId == 3:
             from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
             self._decimalpointer = parameter.getValue()
@@ -42,7 +42,7 @@ class DistanceElement(CompositeElement):
         elif parameterId == 4:
             from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
             self._suffix_mi = parameter.getValue()
-            return ValueElement(parameter, self, 'SuffixImageIndexMI')
+            return ValueElement(parameter, self, 'SuffixMIImageIndex')
         elif parameterId == 5:
             from watchFaceParser.models.gts2mini.elements.common.imageElement import ImageElement
             self._icon = ImageElement(parameter=parameter, parent=self, name='Icon')
