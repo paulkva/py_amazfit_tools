@@ -5,9 +5,9 @@ from watchFaceParser.elements.basicElements.coordinates import Coordinates
 class Distance:
     definitions = {
         1: { 'Name': 'ImageNumber', 'Type': Number},
-        2: { 'Name': 'SuffixImageIndexKM', 'Type': 'long'},
+        2: { 'Name': 'SuffixKMImageIndex', 'Type': 'long'},
         3: { 'Name': 'DecimalPointImageIndex', 'Type': 'long'},
-        4: {'Name': 'SuffixImageIndexMI', 'Type': 'long'},
+        4: {'Name': 'SuffixMIImageIndex', 'Type': 'long'},
         5: {'Name': 'Icon', 'Type': Image},
         6: {'Name': 'Shortcut', 'Type': ShortcutElement},
         8: {'Name': 'SuffixImageCoordinates', 'Type': Coordinates},
