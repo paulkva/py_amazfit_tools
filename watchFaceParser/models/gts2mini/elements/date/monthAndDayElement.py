@@ -11,9 +11,9 @@ class MonthAndDayElement(ContainerElement):
         self._month_follow_year = False
         self._day_follow_month = False
         self._month_as_word = None
-        self._year_data_type_image_index = None
-        self._month_data_type_image_index = None
-        self._day_data_type_image_index = None
+        self._year_data_type = None
+        self._month_data_type = None
+        self._day_data_type = None
         self._delimiter_year = None
         self._delimiter_month = None
         self._delimiter_day = None
@@ -30,32 +30,47 @@ class MonthAndDayElement(ContainerElement):
                                         force_padding = padding_zero_year,
                                         followxy = None,
                                         suffix = self._delimiter_year)
-            if self._year_data_type_image_index and self._delimiter_year_coords:
-                self.drawDelimiter(drawer, images, self._year_data_type_image_index, self._delimiter_year_coords)
+            if self._year_data_type:
+                if self._month_follow_year:
+                    followxy = self.drawDelimiter(drawer, images, self._year_data_type, followxy[0], followxy[1])
+                elif self._delimiter_year_coords:
+                    self.drawDelimiter(drawer, images, self._year_data_type,
+                                       self._delimiter_year_coords.getX(),
+                                       self._delimiter_year_coords.getY())
 
         if self._month:
             followxy = self._month.draw4(drawer, images, state.getTime().month, 2,
                                          force_padding = padding_zero_month,
                                          followxy = followxy if self._month_follow_year else None,
                                          suffix = self._delimiter_month)
-            if self._month_data_type_image_index and self._delimiter_month_coords:
-                self.drawDelimiter(drawer, images, self._month_data_type_image_index, self._delimiter_month_coords)
+            if self._month_data_type:
+                if self._day_follow_month:
+                    followxy = self.drawDelimiter(drawer, images, self._month_data_type, followxy[0], followxy[1])
+                elif self._delimiter_month_coords:
+                    self.drawDelimiter(drawer, images, self._month_data_type,
+                                       self._delimiter_month_coords.getX(),
+                                       self._delimiter_month_coords.getY())
 
         if self._day:
             followxy = self._day.draw4(drawer, images, state.getTime().day, 2,
                                        force_padding = padding_zero_day,
                                        followxy = followxy if self._day_follow_month else None,
                                        suffix = self._delimiter_day)
-            if self._day_data_type_image_index and self._delimiter_day_coords:
-                self.drawDelimiter(drawer, images, self._day_data_type_image_index, self._delimiter_day_coords)
+            if self._day_data_type:
+                if self._day_follow_month:
+                    followxy = self.drawDelimiter(drawer, images, self._day_data_type, followxy[0], followxy[1])
+                elif self._delimiter_day_coords:
+                    self.drawDelimiter(drawer, images, self._day_data_type,
+                                       self._delimiter_day_coords.getX(),
+                                       self._delimiter_day_coords.getY())
 
         if self._month_as_word:
             self._month_as_word.draw3(drawer, images, state.getTime().month)
 
-    def drawDelimiter(self, drawer, images, index, coordinates):
+    def drawDelimiter(self, drawer, images, index, x, y):
         temp = images[index].getBitmap()
-        drawer.paste(temp, (coordinates._x, coordinates._y), temp)
-        return (coordinates._x + temp.size[0], coordinates._y)
+        drawer.paste(temp, (x, y), temp)
+        return x + temp.size[0], y
 
 
     def createChildForParameter(self, parameter):
@@ -86,13 +101,13 @@ class MonthAndDayElement(ContainerElement):
         elif parameterId == 7: # MonthAsWordChinese
             pass
         elif parameterId == 8:
-            self._year_data_type_image_index = parameter.getValue()
+            self._year_data_type = parameter.getValue()
             return ValueElement(parameter, self, 'YearDataTypeImageIndex')
         elif parameterId == 9:
-            self._month_data_type_image_index = parameter.getValue()
+            self._month_data_type = parameter.getValue()
             return ValueElement(parameter, self, 'MonthDataTypeImageIndex')
         elif parameterId == 10:
-            self._day_data_type_image_index = parameter.getValue()
+            self._day_data_type = parameter.getValue()
             return ValueElement(parameter, self, 'DayDataTypeImageIndex')
         elif parameterId == 11:
             self._delimiter_year = parameter.getValue()

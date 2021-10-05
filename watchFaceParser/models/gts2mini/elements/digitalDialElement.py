@@ -22,16 +22,23 @@ class DigitalDialElement(ContainerElement):
 
         if self._hours:
             followxy = self._hours.draw4(drawer, images, hours, 2, self._padding_zero_hours, suffix=self._delimiter_hours)
-            if self._hours_data_type and self._time.getHoursDataTypeCoordinates():
-                self.drawDelimiter(drawer, images, self._hours_data_type, self._time.getHoursDataTypeCoordinates())
+
+            if self._hours_data_type:
+                if self._time.getMinutesFollowHours():
+                    followxy = self.drawDelimiter(drawer, images, self._hours_data_type,
+                                                  followxy[0], followxy[1])
+                elif self._time.getHoursDataTypeCoordinates():
+                    self.drawDelimiter(drawer, images, self._hours_data_type,
+                                       self._time.getHoursDataTypeCoordinates().getX(),
+                                       self._time.getHoursDataTypeCoordinates().getY())
 
         if self._time:
             self._time.draw_time_element(drawer, images, state, followxy, delimiter_minutes=self._delimiter_minutes)
 
-    def drawDelimiter(self, drawer, images, index, coordinates):
+    def drawDelimiter(self, drawer, images, index, x, y):
         temp = images[index].getBitmap()
-        drawer.paste(temp, (coordinates._x, coordinates._y), temp)
-        return coordinates._x + temp.size[0], coordinates._y
+        drawer.paste(temp, (x, y), temp)
+        return x + temp.size[0], y
 
     def createChildForParameter(self, parameter):
         from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement

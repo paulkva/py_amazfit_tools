@@ -142,8 +142,10 @@ class NumberElement(ContainerElement):
         from watchFaceParser.helpers.drawerHelper import DrawerHelper
 
         self._maxTextWidth = 0
-        ar = self.getImagesForNumber(images, number, minimum_digits, decimal_pointer, minus, prefix, suffix,
-                                     delimiter_time, padding_zero=force_padding)
+        ar = self.getImagesForNumber(images, number, minimum_digits,
+                                     decimal_pointer=decimal_pointer, minus=minus,
+                                     prefix=prefix, suffix=suffix,
+                                     delimiter_time=delimiter_time, padding_zero=force_padding)
 
         self.setBox(ar, self._spacing, followxy)
 

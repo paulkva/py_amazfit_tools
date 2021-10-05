@@ -21,6 +21,9 @@ class TimeElement(ContainerElement):
     def getHoursDataTypeCoordinates(self):
         return self._hours_data_type_coordinates
 
+    def getMinutesFollowHours(self):
+        return self._minutes_follow_hours
+
     def draw_time_element(self, drawer, images, state, followxy, delimiter_minutes=None, delimiter_seconds=None):
         assert(type(images) == list)
 
@@ -32,8 +35,13 @@ class TimeElement(ContainerElement):
                                            force_padding = self._padding_zero_minutes,
                                            followxy = followxy if self._minutes_follow_hours else None,
                                            suffix = delimiter_minutes)
-            if self._minutes_data_type_coordinates and self._minutes_data_type:
-                self.drawDelimiter(drawer, images, self._minutes_data_type, self._minutes_data_type_coordinates)
+            if self._minutes_data_type:
+                if self._seconds_follow_minutes:
+                    followxy = self.drawDelimiter(drawer, images, self._minutes_data_type, followxy[0], followxy[1])
+                elif self._minutes_data_type_coordinates:
+                    self.drawDelimiter(drawer, images, self._minutes_data_type,
+                                       self._minutes_data_type_coordinates.getX(),
+                                       self._minutes_data_type_coordinates.getY())
 
         if self._seconds:
             followxy = self._seconds.draw4(drawer,
@@ -43,13 +51,18 @@ class TimeElement(ContainerElement):
                                            force_padding = self._padding_zero_seconds,
                                            followxy = followxy if self._seconds_follow_minutes else None,
                                            suffix = delimiter_seconds)
-            if self._seconds_data_type_coordinates and self._seconds_data_type:
-                self.drawDelimiter(drawer, images, self._seconds_data_type, self._seconds_data_type_coordinates)
+            if self._seconds_data_type:
+                if self._seconds_follow_minutes:
+                    followxy = self.drawDelimiter(drawer, images, self._seconds_data_type, followxy[0], followxy[1])
+                elif self._seconds_data_type_coordinates:
+                    self.drawDelimiter(drawer, images, self._seconds_data_type,
+                                       self._seconds_data_type_coordinates.getX(),
+                                       self._seconds_data_type_coordinates.getY())
 
-    def drawDelimiter(self, drawer, images, index, coordinates):
+    def drawDelimiter(self, drawer, images, index, x, y):
         temp = images[index].getBitmap()
-        drawer.paste(temp, (coordinates._x, coordinates._y), temp)
-        return coordinates._x + temp.size[0], coordinates._y
+        drawer.paste(temp, (x, y), temp)
+        return x + temp.size[0], y
 
     def createChildForParameter(self, parameter):
         from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
