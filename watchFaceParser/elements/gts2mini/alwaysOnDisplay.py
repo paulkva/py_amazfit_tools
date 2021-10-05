@@ -39,6 +39,7 @@ class AoDDate:
     definitions = {
         1: {'Name': 'Month', 'Type': Number},
         2: {'Name': 'Day', 'Type': Number},
+        3: {'Name': 'UnknownImageIndex', 'Type': 'long'},
         5: {'Name': 'SeparatorImageIndex', 'Type': 'long'},
         7: {'Name': 'PaddingZeroMonth', 'Type': 'bool'},
         8: {'Name': 'PaddingZeroDay', 'Type': 'bool'},

@@ -1,5 +1,4 @@
 from watchFaceParser.elements.gts2mini.timeElements.twoDigits import TwoDigits
-from watchFaceParser.elements.gts2mini.basicElements.imageSet import ImageSet
 from watchFaceParser.elements.gts2mini.basicElements.number import Number
 from watchFaceParser.elements.gts2mini.basicElements.image import Image
 from watchFaceParser.elements.gts2mini.shortcutsElements.element import Element
