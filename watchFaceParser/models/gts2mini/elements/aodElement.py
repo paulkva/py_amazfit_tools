@@ -14,7 +14,9 @@ class AodElement(ContainerElement):
 
     def draw3(self, drawer, images, state):
         if state.getScreenIdle() is None:
-            return 
+            return
+        else:
+            super(AodElement, self).draw3(drawer, images, state)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

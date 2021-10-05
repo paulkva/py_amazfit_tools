@@ -35,12 +35,20 @@ class WatchFace(ContainerElement):
             super(WatchFace, self).draw3(drawer, images, state)
         else:
             if self._aod:
-                if self._background:
-                    self._background.draw3(drawer, images, state)
+                self.drawBlackBackground(drawer)
                 self._aod.draw3(drawer, images, state)
             else: # no AOD - normal Screen
                 super(WatchFace, self).draw3(drawer, images, state)
             return
+
+    def drawBlackBackground(self, drawer):
+        from resources.image.color import Color
+        from PIL import ImageDraw, Image
+        from watchFaceParser.config import Config
+        _color = Color.fromArgb(0xff000000)
+        size = Config.getImageSize()
+        d = ImageDraw.Draw(drawer)
+        d.rectangle([(0, 0), size], fill=_color)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
