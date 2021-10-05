@@ -46,7 +46,7 @@ class BackgroundElement(ContainerElement):
             self._image = ImageElement(parameter = parameter, parent = self, name = 'Image')
             return self._image
         elif parameterId == 2: # color
-            self._color = Color.fromArgdBackground(0xff0000 | parameter.getValue())
+            self._color = Color.fromArgb(0xff000000 | parameter.getValue())
             return ValueElement(parameter = parameter, parent = self, name = 'BackgroundColor')
         elif parameterId == 3: # Preview
             pass
