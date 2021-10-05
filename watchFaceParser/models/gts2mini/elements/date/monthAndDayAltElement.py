@@ -7,6 +7,7 @@ class MonthAndDayAltElement(ContainerElement):
     def __init__(self, parameter, parent = None, name = None):
 
         self._month = None
+        self._month_name = None
         self._day = None
 
         super(MonthAndDayAltElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
@@ -23,6 +24,9 @@ class MonthAndDayAltElement(ContainerElement):
                             prefix = None,
                             suffix = None)
 
+        if self._month_name:
+            self._month_name.draw3(drawer, images, state.getTime().month)
+
         if self._day:
             followxy = self._day.draw4(drawer, images, state.getTime().day, 2,
                             force_padding = padding_zero_day,
@@ -33,15 +37,16 @@ class MonthAndDayAltElement(ContainerElement):
                             suffix = None)
 
     def createChildForParameter(self, parameter):
-        from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
         parameterId = parameter.getId()
         if parameterId == 1:
             from watchFaceParser.models.gts2mini.elements.common.numberElement import NumberElement
             self._month = NumberElement(parameter=parameter, parent=self, name='Month')
             return self._month
         elif parameterId == 2:
-            pass
-        elif parameterId == 3:
+            from watchFaceParser.models.gts2mini.elements.common.imageSetElement import ImageSetElement
+            self._month_name = ImageSetElement(parameter=parameter, parent=self, name='MonthName')
+            return self._month_name
+        elif parameterId == 3: # MonthNameChinese
             pass
         elif parameterId == 4:
             from watchFaceParser.models.gts2mini.elements.common.numberElement import NumberElement

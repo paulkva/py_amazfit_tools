@@ -17,7 +17,7 @@ class StepsElement(CompositeElement):
             self._image_number.draw4(drawer,
                                      resources,
                                      state.getSteps(),
-                                     minimumDigits = 5,
+                                     minimum_digits= 5,
                                      force_padding = False,
                                      prefix = self._prefix)
 

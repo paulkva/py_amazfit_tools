@@ -14,6 +14,8 @@ class WatchFace(ContainerElement):
         self._caloriesProgress = None
         self._hearthProgress = None
         self._standUpProgress = None
+        self._humidityProgress = None
+        self._uviProgress = None
         self._daysProgress = None
         self._status = None
         self._battery = None
@@ -23,7 +25,22 @@ class WatchFace(ContainerElement):
         self._digitalTime = None
         self._weather = None
         self._activity_separate_digits = None
+        self._paiProgress = None
+        self._alarm = None
+        self._aod = None
         super(WatchFace, self).__init__(parameters, parameter = None, parent = None, name = '')
+
+    def draw3(self, drawer, images, state):
+        if state.getScreenIdle() is None:
+            super(WatchFace, self).draw3(drawer, images, state)
+        else:
+            if self._aod:
+                if self._background:
+                    self._background.draw3(drawer, images, state)
+                self._aod.draw3(drawer, images, state)
+            else: # no AOD - normal Screen
+                super(WatchFace, self).draw3(drawer, images, state)
+            return
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
@@ -85,9 +102,13 @@ class WatchFace(ContainerElement):
         elif parameterId == 16:  #
             pass
         elif parameterId == 17:  #
-            pass
-        elif parameterId == 18:  #
-            pass
+            from watchFaceParser.models.gts2mini.elements.weather.humidityProgressElement import HumidityProgressElement
+            self._humidityProgress = HumidityProgressElement(parameter)
+            return self._humidityProgress
+        elif parameterId == 18:  # Alarm
+            from watchFaceParser.models.gts2mini.elements.alarmElement import AlarmElement
+            self._alarm = AlarmElement(parameter)
+            return self._alarm
         elif parameterId == 19: #
             from watchFaceParser.models.gts2mini.elements.shortcutsElement import ShortcutsElement
             self._shorcuts = ShortcutsElement(parameter)
@@ -105,23 +126,30 @@ class WatchFace(ContainerElement):
         elif parameterId == 22: #
             pass
         elif parameterId == 23: #
-            pass
-        elif parameterId == 24:  # standup progress
+            from watchFaceParser.models.gts2mini.elements.activity.paiProgressElement import PaiProgressElement
+            self._paiProgress = PaiProgressElement(parameter)
+            return self._paiProgress
+        elif parameterId == 24:
             from watchFaceParser.models.gts2mini.elements.activity.standupProgressElement import StandUpProgressElement
             self._standUpProgress = StandUpProgressElement(parameter)
             return self._standUpProgress
         elif parameterId == 25:  #
             pass
         elif parameterId == 26:  #
-            pass
+            from watchFaceParser.models.gts2mini.elements.weather.uviProgressElement import UviProgressElement
+            self._uviProgress = UviProgressElement(parameter)
+            return self._uviProgress
         elif parameterId == 27:  #
             pass
         elif parameterId == 28: #
             pass
-        elif parameterId == 29: #
-            pass
-        elif parameterId == 30: #
-            from watchFaceParser.models.gts2mini.elements.activity.activitySeparateDigitsElement import ActivitySeparateDigitsElement
+        elif parameterId == 29:
+            from watchFaceParser.models.gts2mini.elements.aodElement import AodElement
+            self._aod = AodElement(parameter)
+            return self._aod
+        elif parameterId == 30:
+            from watchFaceParser.models.gts2mini.elements.activity.activitySeparateDigitsElement import \
+                ActivitySeparateDigitsElement
             self._activity_separate_digits = ActivitySeparateDigitsElement(parameter)
             return self._activity_separate_digits
         else:

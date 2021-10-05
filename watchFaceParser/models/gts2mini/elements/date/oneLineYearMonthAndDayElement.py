@@ -8,14 +8,14 @@ class OneLineYearMonthAndDayElement(CompositeElement):
         self._delimiter = None
         super(OneLineYearMonthAndDayElement, self).__init__(parameters=None, parameter=parameter, parent=parent, name=name)
 
-    def draw4(self, drawer, resources, state, padding_zero_day=None, padding_zero_month=None):
+    def draw4(self, drawer, resources, state, padding_zero_day=False, padding_zero_month=False, padding_zero_year=False):
 
         if self._image_number:
             self._image_number.draw5(drawer,
                                      resources,
-                                     [ state.getTime().month, state.getTime().day, state.getTime().year],
-                                     minimumDigits=2,
-                                     force_padding=padding_zero_month,
+                                     number_array=[state.getTime().month, state.getTime().day, state.getTime().year],
+                                     minimum_digits_array=[2, 2, 4],
+                                     force_padding_array=[padding_zero_month, padding_zero_day, padding_zero_year],
                                      delimiter=self._delimiter)
 
     def createChildForParameter(self, parameter):

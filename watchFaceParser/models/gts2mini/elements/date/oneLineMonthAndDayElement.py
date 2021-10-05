@@ -13,9 +13,9 @@ class OneLineMonthAndDayElement(CompositeElement):
         if self._image_number:
             self._image_number.draw5(drawer,
                                      resources,
-                                     state.getTime().month, state.getTime().day,
-                                     minimumDigits=2,
-                                     force_padding=padding_zero_month,
+                                     number_array=[state.getTime().month, state.getTime().day],
+                                     minimum_digits_array=[2, 2],
+                                     force_padding_array=[padding_zero_month, padding_zero_day],
                                      delimiter=self._delimiter)
 
     def createChildForParameter(self, parameter):

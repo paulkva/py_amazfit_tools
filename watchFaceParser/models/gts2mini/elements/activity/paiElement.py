@@ -16,7 +16,7 @@ class PaiElement(CompositeElement):
             self._image_number.draw4(drawer,
                                      resources,
                                      state.getPai(),
-                                     minimumDigits = 3,
+                                     minimum_digits= 3,
                                      force_padding = False,
                                      followxy = None)
 

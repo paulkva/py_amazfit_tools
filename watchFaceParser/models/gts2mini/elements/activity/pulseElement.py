@@ -14,13 +14,13 @@ class PulseElement(CompositeElement):
             self._icon.draw3(drawer, resources, state)
         if self._image_number:
             self._image_number.draw4(drawer,
-                                                resources,
-                                                state.getPulse(),
-                                                minimumDigits = 3,
-                                                force_padding = False,
-                                                prefix = self._prefix,
-                                                suffix = self._suffix
-                                                )
+                                     resources,
+                                     state.getPulse(),
+                                     minimum_digits= 3,
+                                     force_padding = False,
+                                     prefix = self._prefix,
+                                     suffix = self._suffix
+                                     )
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

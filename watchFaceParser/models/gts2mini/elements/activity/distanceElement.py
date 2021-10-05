@@ -17,12 +17,12 @@ class DistanceElement(CompositeElement):
             self._icon.draw3(drawer, resources, state)
         if self._image_number:
             self._image_number.draw4(drawer,
-                                                resources,
-                                                int(state.getDistance() / 10),
-                                                minimumDigits = 3,
-                                                force_padding = False,
-                                                decimal_pointer = self._decimalpointer,
-                                                suffix = self._suffix_km if self._suffix_km else self._suffix_mi)
+                                     resources,
+                                     int(state.getDistance() / 10),
+                                     minimum_digits= 3,
+                                     force_padding = False,
+                                     decimal_pointer = self._decimalpointer,
+                                     suffix = self._suffix_km if self._suffix_km else self._suffix_mi)
 
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()

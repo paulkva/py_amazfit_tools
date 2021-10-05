@@ -1,56 +1,50 @@
 ﻿import logging
 
-from watchFaceParser.models.gts2mini.elements.common.iconSetElement import IconSetElement
+from watchFaceParser.models.gts2mini.elements.basic.containerElement import ContainerElement
 
-class WeekDayProgressElement(IconSetElement):
-    # private static readonly Dictionary<DayOfWeek, int> DaysOfWeek = new Dictionary<DayOfWeek, int>
-    # {
-    #     {DayOfWeek.Monday, 0},
-    #     {DayOfWeek.Tuesday, 1},
-    #     {DayOfWeek.Wednesday, 2},
-    #     {DayOfWeek.Thursday, 3},
-    #     {DayOfWeek.Friday, 4},
-    #     {DayOfWeek.Saturday, 5},
-    #     {DayOfWeek.Sunday, 6}
-    # };
 
+class WeekDayProgressElement(ContainerElement):
     def __init__(self, parameter, parent, name = None):
-        self._ar = []
-        #self._slices = 0
-        super(WeekDayProgressElement, self).__init__(parameter = parameter, parent = parent, name = name)
-
-    def getCoordinatesArray(self):
-        return self._ar
+        self._circular = None
+        self._image_progress = None
+        self._iconset_progress = None
+        self._circle_scale = None
+        self._scale = None
+        super(WeekDayProgressElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
 
     def draw3(self, drawer, resources, state):
-        assert(type(resources) == list)
-        # super(WeekDayElement, self).draw3(drawer, resources, DaysOfWeek[state.time.DayOfWeek]);
-        #super(WeekDayProgressElement, self).draw3(drawer, resources, state.getTime().weekday())
-        #print ("self.getCoordinates()",[c.getValue() for c in self.getCoordinates().getChildren()], self._slices, self._ar, len(self._ar))
-        #print ("XXXX",len(self._ar))
-        #for d in [c.getChildren() for c in self._ar]:
-        #    print ("self.getCoordinates()",[c.getValue() for c in d])
-        #if 
-        super(WeekDayProgressElement, self).draw3(drawer, resources, state.getTime().weekday(), cursor = True)
+        goal = 7
+        if self._image_progress:
+            self._image_progress.draw4(drawer, resources, state.getTime().weekday(), goal)
+        if self._iconset_progress:
+            self._iconset_progress.draw4(drawer, resources, state.getTime().weekday(), goal)
+        if self._circle_scale:
+            self._circle_scale.draw4(drawer, resources, state.getTime().weekday(), goal)
+        if self._scale:
+            self._scale.draw4(drawer, resources, state.getTime().weekday(), goal)
 
     def createChildForParameter(self, parameter):
-        if parameter.getId() == 1:
-            self._imageIndex = parameter.getValue()
-            #print ("ARRAY",self._imageIndex)
-            from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
-            return ValueElement(parameter, self, '?ImageIndex?')
-            #print ( parameter.getValue(),parameter.getChildren())
-        elif parameter.getId() == 2:
-            #print ( [ c.getValue() for c in  parameter.getChildren()])
-            from watchFaceParser.models.gts2mini.elements.common.coordinatesElement import CoordinatesElement
-            #print ( parameter.getValue(),parameter.getChildren())
-            #print (self.getName(),[c.getValue() for c in parameter.getChildren()])
-            #self._coordinates = [ CoordinatesElement(parameter = c, parent = self, name = 'CenterOffset') for c in parameter.getChildren()]
-            #print (self._coordinates)
-            self._coordinates = CoordinatesElement(parameter = parameter, parent = self, name = 'CenterOffset')
-            self._ar.append(self._coordinates)
-            #print (self._slices)
-            #self._slices += 1
-            #return self._coordinates
+        parameterId = parameter.getId()
+        if parameterId == 1:
+            pass
+        elif parameterId == 2:
+            from watchFaceParser.models.gts2mini.elements.common.imageSetElement import ImageSetElement
+            self._image_progress = ImageSetElement(parameter=parameter, parent=self, name='ImageProgress')
+            return self._image_progress
+        elif parameterId == 3:
+            from watchFaceParser.models.gts2mini.elements.common.iconSetElement import IconSetElement
+            self._iconset_progress = IconSetElement(parameter = parameter, parent = self, name ='IconSetProgress')
+            return self._iconset_progress
+        elif parameterId == 4:
+            from watchFaceParser.models.gts2mini.elements.common.circularProgressElement import CircularProgressElement
+            self._circle_scale = CircularProgressElement(parameter=parameter, parent=self, name='CircleScale')
+            return self._circle_scale
+        elif parameterId == 5:
+            pass
+        elif parameterId == 6:
+            from watchFaceParser.models.gts2mini.elements.common.scaleElement import ScaleElement
+            self._scale = ScaleElement(parameter = parameter, parent = self, name = 'Scale')
+            return self._scale
         else:
-            super(IconSetElement, self).createChildForParameter(parameter)
+            print ("Unknown WeekDayProgressElement",parameterId)
+            return super(WeekDayProgressElement, self).createChildForParameter(parameter)

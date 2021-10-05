@@ -28,7 +28,7 @@ class TimeElement(ContainerElement):
             followxy = self._minutes.draw4(drawer,
                                            images,
                                            state.getTime().minute,
-                                           minimumDigits = 2,
+                                           minimum_digits= 2,
                                            force_padding = self._padding_zero_minutes,
                                            followxy = followxy if self._minutes_follow_hours else None,
                                            suffix = delimiter_minutes)
@@ -39,7 +39,7 @@ class TimeElement(ContainerElement):
             followxy = self._seconds.draw4(drawer,
                                            images,
                                            state.getTime().second,
-                                           minimumDigits = 2,
+                                           minimum_digits= 2,
                                            force_padding = self._padding_zero_seconds,
                                            followxy = followxy if self._seconds_follow_minutes else None,
                                            suffix = delimiter_seconds)

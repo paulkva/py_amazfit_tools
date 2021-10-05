@@ -2,6 +2,7 @@
 
 from watchFaceParser.models.gts2mini.elements.basic.compositeElement import CompositeElement
 
+
 class OneLineMinMaxTemperatureElement(CompositeElement):
     def __init__(self, parameter, parent, name=None):
         self._image_number = None
@@ -16,9 +17,9 @@ class OneLineMinMaxTemperatureElement(CompositeElement):
         if self._image_number:
             self._image_number.draw5(drawer,
                                      resources,
-                                     min, max,
-                                     minimumDigits=2,
-                                     force_padding=False,
+                                     number_array=[min, max],
+                                     minimum_digits_array=[2, 2],
+                                     force_padding_array=[False, False],
                                      minus=self._minus,
                                      delimiter=self._delimiter,
                                      suffix=self._degrees)

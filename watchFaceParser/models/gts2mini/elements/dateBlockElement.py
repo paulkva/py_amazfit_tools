@@ -2,11 +2,13 @@
 
 from watchFaceParser.models.gts2mini.elements.basic.containerElement import ContainerElement
 
+
 class DateBlockElement(ContainerElement):
     def __init__(self, parameter, parent = None, name = None):
         self._date = None
         self._ampm = None
         self._weekDay = None
+        self._weekDayProgress = None
         super(DateBlockElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
 
     def createChildForParameter(self, parameter):
@@ -29,5 +31,9 @@ class DateBlockElement(ContainerElement):
             pass
         elif parameterId == 6: # WeekdayKorean
             pass
+        elif parameterId == 7:
+            from watchFaceParser.models.gts2mini.elements.date.weekDayProgressElement import WeekDayProgressElement
+            self._weekDayProgress = WeekDayProgressElement(parameter=parameter, parent=self, name='WeekdayProgress')
+            return self._weekDayProgress
         else:
             return super(DateBlockElement, self).createChildForParameter(parameter)

@@ -3,6 +3,7 @@
 from watchFaceParser.models.gts2mini.elements.basic.compositeElement import CompositeElement
 from watchFaceParser.config import Config
 
+
 class ClockHandElement(CompositeElement):
     def __init__(self, parameter, parent, name = None):
         self._imageIndex = None

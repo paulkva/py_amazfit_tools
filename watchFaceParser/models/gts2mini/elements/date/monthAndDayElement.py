@@ -22,8 +22,8 @@ class MonthAndDayElement(ContainerElement):
         self._delimiter_day_coords = None
         super(MonthAndDayElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
 
-
-    def draw4(self, drawer, images, state, padding_zero_day = False, padding_zero_month = False, padding_zero_year = False):
+    def draw4(self, drawer, images, state,
+              padding_zero_day = False, padding_zero_month = False, padding_zero_year = False):
         followxy = None
         if self._year:
             followxy = self._year.draw4(drawer, images, state.getTime().year, 4,

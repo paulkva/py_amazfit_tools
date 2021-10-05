@@ -7,6 +7,7 @@ class WeatherElement(ContainerElement):
     def __init__(self, parameter, parent = None, name = None):
         self._icon = None
         self._temperature = None
+        self._airquality = None
         self._humidity = None
         self._uv = None
         super(WeatherElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
@@ -21,6 +22,10 @@ class WeatherElement(ContainerElement):
             from watchFaceParser.models.gts2mini.elements.weather.temperatureElement import TemperatureElement # temp.
             self._temperature = TemperatureElement(parameter = parameter, parent = self, name = 'Temperature')
             return self._temperature
+        elif parameterId == 3:
+            from watchFaceParser.models.gts2mini.elements.weather.airQualityElement import AirQualityElement
+            self._airquality = AirQualityElement(parameter = parameter, parent = self, name = 'AirQuality')
+            return self._airquality
         elif parameterId == 4:
             from watchFaceParser.models.gts2mini.elements.weather.humidityElement import HumidityElement
             self._humidity = HumidityElement(parameter = parameter, parent = self, name = 'Humidity')

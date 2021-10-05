@@ -20,10 +20,14 @@ class DateElement(ContainerElement):
                                        padding_zero_month= self._padding_zero_month)
 
         if self._oneLineMonthAndDay:
-            self._oneLineMonthAndDay.draw4(drawer, images, state, padding_zero_month= self._padding_zero_month)
+            self._oneLineMonthAndDay.draw4(drawer, images, state,
+                                           padding_zero_day = self._padding_zero_day,
+                                           padding_zero_month=self._padding_zero_month)
 
         if self._oneLineYearMonthAndDay:
-            self._oneLineYearMonthAndDay.draw4(drawer, images, state, padding_zero_month= self._padding_zero_month)
+            self._oneLineYearMonthAndDay.draw4(drawer, images, state,
+                                               padding_zero_day = self._padding_zero_day,
+                                               padding_zero_month=self._padding_zero_month)
 
         if self._monthAndDay:
             self._monthAndDay.draw4(drawer, images, state,

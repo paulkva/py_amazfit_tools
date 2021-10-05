@@ -16,7 +16,7 @@ class BatteryTextElement(ContainerElement):
             followxy = self._image_number.draw4(drawer,
                                                 resources,
                                                 state.getBatteryLevel(),
-                                                minimumDigits = 3,
+                                                minimum_digits= 3,
                                                 force_padding = False,
                                                 prefix = self._prefix,
                                                 suffix = self._suffix)

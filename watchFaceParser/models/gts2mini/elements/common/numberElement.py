@@ -55,7 +55,6 @@ class NumberElement(ContainerElement):
         self._maxTextWidth = None
         self._box = None
         self._followxy = None
-        self._paddingzero = False
         super(NumberElement, self).__init__(None, parameter = parameter, parent = parent, name = name)
 
     def getTopLeftX(self):
@@ -91,25 +90,33 @@ class NumberElement(ContainerElement):
                 self._maxTextWidth += spacing
         self._maxTextWidth += width
 
-    def draw5(self, drawer, images, numberArray=None, minimumDigits = 1,
-              force_padding = False, followxy = None, prefix=None, minus=None, suffix=None, delimiter=None):
+    def draw5(self, drawer, images, number_array=None, minimum_digits_array=None,
+              force_padding_array=None, followxy=None, prefix=None, minus=None, suffix=None, delimiter=None):
         from watchFaceParser.helpers.drawerHelper import DrawerHelper
 
-        if not numberArray:
+        if not number_array:
             return followxy
-
-        if force_padding:
-            self._paddingzero = True
 
         self._maxTextWidth = 0
         ar = []
         if prefix:
             ar.append(images[prefix])
             self.addTextWidth(images[prefix].getBitmap().size[0], self._spacing)
-        for index in range(len(numberArray)):
-            ar.extend(self.getImagesForNumber(images, numberArray[index], minimumDigits, minus=minus))
+        for index in range(len(number_array)):
+            padding_zero = False
+            if force_padding_array:
+                if index <= len(force_padding_array):
+                    padding_zero = force_padding_array[index]
 
-            if delimiter and index < len(numberArray)-1:
+            minimum_digits = 1
+            if minimum_digits_array:
+                if index <= len(minimum_digits_array) and minimum_digits_array[index]:
+                    minimum_digits = minimum_digits_array[index]
+
+            ar.extend(self.getImagesForNumber(images, number_array[index], minimum_digits,
+                                              minus=minus, padding_zero=padding_zero))
+
+            if delimiter and index < len(number_array)-1:
                 ar.append(images[delimiter])
                 self.addTextWidth(images[delimiter].getBitmap().size[0], self._spacing)
 
@@ -128,15 +135,15 @@ class NumberElement(ContainerElement):
         self._followxy = (self._box.getX() + self._box.getWidth() + 1, self._box.getY())
         return self._followxy
 
-    def draw4(self, drawer, images, number, minimumDigits = 1,
-              force_padding = False, followxy = None, decimal_pointer = None, minus = None, prefix = None, suffix = None, delimiter_time = None):
+    def draw4(self, drawer, images, number, minimum_digits=1,
+              force_padding=False, followxy=None, decimal_pointer=None,
+              minus=None, prefix=None, suffix=None, delimiter_time=None):
+
         from watchFaceParser.helpers.drawerHelper import DrawerHelper
 
-        if force_padding:
-            self._paddingzero = True
-
         self._maxTextWidth = 0
-        ar = self.getImagesForNumber(images, number, minimumDigits, decimal_pointer, minus, prefix, suffix, delimiter_time)
+        ar = self.getImagesForNumber(images, number, minimum_digits, decimal_pointer, minus, prefix, suffix,
+                                     delimiter_time, padding_zero=force_padding)
 
         self.setBox(ar, self._spacing, followxy)
 
@@ -149,16 +156,16 @@ class NumberElement(ContainerElement):
         self._followxy = (self._box.getX() + self._box.getWidth() + 1, self._box.getY())
         return self._followxy
 
-    def getImagesForNumber(self, images, number, minimumDigits = 1, decimal_pointer = None, minus = None, prefix = None,
-                           suffix = None, delimiter_time = None):
+    def getImagesForNumber(self, images, number, minimum_digits = 1, decimal_pointer = None, minus = None, prefix = None,
+                           suffix = None, delimiter_time = None, padding_zero=False):
         padding_length = 1
-        if self._paddingzero:
-            padding_length = minimumDigits
+        if padding_zero:
+            padding_length = minimum_digits
 
         if number < 0:
-            stringNumber = str(-number).zfill(padding_length)
+            string_number = str(-number).zfill(padding_length)
         else:
-            stringNumber = str(number).zfill(padding_length)
+            string_number = str(number).zfill(padding_length)
 
         ar = []
         if prefix:
@@ -167,27 +174,27 @@ class NumberElement(ContainerElement):
         if number < 0 and minus:
             ar.append(images[minus])
             self.addTextWidth(images[minus].getBitmap().size[0], self._spacing)
-        for digitIndex in range(len(stringNumber)):
+        for digitIndex in range(len(string_number)):
             if decimal_pointer:
-                if digitIndex == len(stringNumber)-1:
+                if digitIndex == len(string_number)-1:
                     ar.append(images[decimal_pointer])
                     self.addTextWidth(images[decimal_pointer].getBitmap().size[0], self._spacing)
-            if delimiter_time and digitIndex == len(stringNumber)-2:
+            if delimiter_time and digitIndex == len(string_number)-2:
                 ar.append(images[delimiter_time])
                 self.addTextWidth(images[delimiter_time].getBitmap().size[0], self._spacing)
-            digit = stringNumber[digitIndex]
+            digit = string_number[digitIndex]
             if int(digit) < self._imagesCount:
-                imageIndex = self._imageIndex + int(digit)
-                ar.append(images[imageIndex])
-                self.addTextWidth(images[imageIndex].getBitmap().size[0], self._spacing)
+                image_index = self._imageIndex + int(digit)
+                ar.append(images[image_index])
+                self.addTextWidth(images[image_index].getBitmap().size[0], self._spacing)
             if decimal_pointer:
-                if digitIndex == len(stringNumber)-1:
+                if digitIndex == len(string_number)-1:
                     break
         if suffix:
             ar.append(images[suffix])
             self.addTextWidth(images[suffix].getBitmap().size[0], self._spacing)
 
-        i = minimumDigits - len(stringNumber)
+        i = minimum_digits - len(string_number)
         self.addTextWidth(images[self._imageIndex].getBitmap().size[0] * i, self._spacing)
 
         return ar
