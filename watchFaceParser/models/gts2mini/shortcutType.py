@@ -4,7 +4,7 @@ class ShortcutType:
     Unknown2 = 2
     Unknown3 = 3
     Unknown4 = 4
-    Calories = 5
+    Workout = 5
     Unknown6 = 6
     Unknown7 = 7
     Unknown8 = 8
@@ -32,7 +32,7 @@ class ShortcutType:
         Unknown2: "Unknown2",
         Unknown3: "Unknown3",
         Unknown4: "Unknown4",
-        Calories : "Calories",
+        Workout: "Workout",
         Unknown6: "Unknown6",
         Unknown7: "Unknown7",
         Unknown8: "Unknown8",
@@ -43,7 +43,7 @@ class ShortcutType:
         Unknown13: "Unknown13",
         Unknown14: "Unknown14",
         Unknown15: "Unknown15",
-        Weather  : "Weather",
+        Weather: "Weather",
         Countdown: "Countdown",
         StopWatch: "StopWatch",
         Pomodoro: "Pomodoro",
