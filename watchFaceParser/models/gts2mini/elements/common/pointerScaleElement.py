@@ -17,6 +17,9 @@ class PointerScaleElement(CompositeElement):
     def draw4(self, drawer, resources, value, total):
         assert(type(resources) == list)
 
+        if value > total:
+            value = total
+
         _startAngle = toSigned32(self._range_from) if self._range_from else 0
         _endAngle = toSigned32(self._range_to) if self._range_to else 360
 
