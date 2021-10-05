@@ -12,8 +12,8 @@ class Time:
         7: { 'Name': 'SecondsDataTypeImageIndex', 'Type': 'long'},
         8: { 'Name': 'MinutesFollowHours', 'Type': 'bool'},
         9: { 'Name': 'SecondsFollowMinutes', 'Type': 'bool'},
-        10: { 'Name': 'HoursDataTypeCoordinates', 'Type': Coordinates},
-        11: { 'Name': 'MinutesDataTypeCoordinates', 'Type': Coordinates},
+        10: { 'Name': 'HoursDataTypeCoordinates', 'Type': Coordinates}, # needed only when MinutesFollowHours == False
+        11: { 'Name': 'MinutesDataTypeCoordinates', 'Type': Coordinates}, # needed only when SecondsFollowMinutes == False
         12: { 'Name': 'SecondsDataTypeCoordinates', 'Type': Coordinates},
     }
 
