@@ -43,7 +43,7 @@ class TimeSeparateDigitsElement(ContainerElement):
             self.getSeconds().draw3(drawer, images, state.getTime().second)
 
         if self._separator_hours:
-            self._separator_hours().draw3(drawer, images, state)
+            self._separator_hours.draw3(drawer, images, state)
 
 
     def createChildForParameter(self, parameter):
@@ -63,9 +63,9 @@ class TimeSeparateDigitsElement(ContainerElement):
         elif parameterId == 4:
             pass
         elif parameterId == 5:
-            self._separator_hours = parameter.getValue()
-            from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
-            return ValueElement(parameter, self, 'Separator')
+            from watchFaceParser.models.gts2mini.elements.common.imageElement import ImageElement
+            self._separator_hours = ImageElement(parameter=parameter, parent=self, name='Separator')
+            return self._separator_hours
         elif parameterId == 6:
             pass
         elif parameterId == 7:
