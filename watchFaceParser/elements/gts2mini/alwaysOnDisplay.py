@@ -15,6 +15,15 @@ class AoDTimeSeparateDigits:
         4: {'Name': 'PaddingZeroHours', 'Type': 'bool'},
     }
 
+class AoDTimeDigital:
+    definitions = {
+        1: {'Name': 'Hours', 'Type': Number},
+        2: {'Name': 'Minutes', 'Type': Number},
+        7: {'Name': 'PaddingZeroHours', 'Type': 'bool'},
+        8: {'Name': 'PaddingZeroMinutes', 'Type': 'bool'},
+        11: {'Name': 'MinutesFollowHours', 'Type': 'bool'},
+    }
+
 class AoDAnalogDialFace:
     definitions = {
     1: {'Name': 'CommonCenterCoordinates', 'Type': Coordinates},
@@ -27,6 +36,7 @@ class AoDTimeExtended:
         1: {'Name': 'TimeSeparateDigits', 'Type': AoDTimeSeparateDigits},
         3: {'Name': 'TimeAnalog', 'Type': AoDAnalogDialFace},
         4: {'Name': 'AmPm', 'Type': AmPmIcon},
+        5: {'Name': 'TimeDigital', 'Type': AoDTimeDigital},
     }
 
 class AoDDateOneLine:
