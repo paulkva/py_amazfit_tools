@@ -66,6 +66,8 @@ class AoDWeek:
 class Steps:
     definitions = {
         1: { 'Name': 'ImageNumber', 'Type': Number},
+        2: { 'Name': 'PrefixImageIndex', 'Type': 'long'},
+        3: { 'Name': 'SuffixImageIndex', 'Type': 'long'},
     }
 
 class AlwaysOnDisplay:

@@ -9,4 +9,5 @@ class Steps:
         3: {'Name': 'NoDataImageIndex', 'Type': 'long'},
         4: {'Name': 'Icon', 'Type': Image},
         6: {'Name': 'Shortcut', 'Type': ShortcutElement},
+        7: {'Name': 'SuffixImageIndex', 'Type': 'long'},
     }
