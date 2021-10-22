@@ -20,7 +20,7 @@ class DrawerHelper:
 
 
     @staticmethod
-    def drawImages(drawer, images, spacing, alignment, box):
+    def drawImages(drawer, images, spacing, alignment, box, verticalOffset=0):
         assert(type(images) == list)
         assert(type(spacing) == int)
         assert(type(alignment) == int)
@@ -57,6 +57,10 @@ class DrawerHelper:
 
             imageWidth = image.getBitmap().size[0]
             x += imageWidth + int(spacing)
+            if alignmentFlag.hasFlag(TextAlignment.Right):
+                y -= verticalOffset
+            else:
+                y += verticalOffset
 
         from watchFaceParser.config import Config
         if Config.getBorderAlignment():

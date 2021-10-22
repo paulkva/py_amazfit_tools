@@ -55,6 +55,7 @@ class NumberElement(ContainerElement):
         self._maxTextWidth = None
         self._box = None
         self._followxy = None
+        self._verticalOffset = None
         super(NumberElement, self).__init__(None, parameter = parameter, parent = parent, name = name)
 
     def getTopLeftX(self):
@@ -153,7 +154,8 @@ class NumberElement(ContainerElement):
                                 ar,
                                 self._spacing,
                                 self._alignment,
-                                self._box)
+                                self._box,
+                                self._verticalOffset)
 
         self._followxy = (self._box.getX() + self._box.getWidth() + 1, self._box.getY())
         return self._followxy
@@ -224,7 +226,8 @@ class NumberElement(ContainerElement):
             self._spacing = parameter.getValue()
             return ValueElement(parameter, self, 'Spacing')
         elif parameterId == 7:
-            pass
+            self._verticalOffset = parameter.getValue()
+            return ValueElement(parameter, self, 'VerticalOffset')
         elif parameterId == 8:
             self._imageIndex = parameter.getValue()
             return ValueElement(parameter, self, 'ImageIndex')
