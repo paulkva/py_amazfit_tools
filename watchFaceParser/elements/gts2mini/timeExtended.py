@@ -9,10 +9,10 @@ class TimeSeparateDigits:
         2: {'Name': 'Minutes', 'Type': TwoDigits},
         3: {'Name': 'Seconds', 'Type': TwoDigits},
         4: {'Name': 'Unknown4', 'Type': 'long?'},
-        5: {'Name': 'Separator', 'Type': Image}, # separator hours ?
-        6: {'Name': 'Unknown6', 'Type': Image}, # separator minutes ?
-        7: {'Name': 'Unknown7', 'Type': 'long?'},
-        8: {'Name': 'Unknown8', 'Type': 'long?'},
+        5: {'Name': 'SeparatorHours', 'Type': Image}, # separator hours ?
+        6: {'Name': 'SeparatorMinutes', 'Type': Image}, # separator minutes ?
+        7: {'Name': 'PaddingZeroHours', 'Type': 'bool'},
+        8: {'Name': 'PaddingZeroMinutes', 'Type': 'bool'},
     }
 
 class TimeExtended:
