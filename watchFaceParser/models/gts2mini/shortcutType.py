@@ -15,7 +15,7 @@ class ShortcutType:
     Unknown13 = 13
     Unknown14 = 14
     Unknown15 = 15
-    Weather = 16
+    Music = 16
     Countdown = 17
     StopWatch = 18
     Pomodoro = 19
@@ -24,7 +24,7 @@ class ShortcutType:
     Unknown22 = 22
     Unknown23 = 23
     Unknown24 = 24
-    Pulse = 25
+    Voice = 25
 
     Converter = {
         Unknown0: "Unknown0",
@@ -43,7 +43,7 @@ class ShortcutType:
         Unknown13: "Unknown13",
         Unknown14: "Unknown14",
         Unknown15: "Unknown15",
-        Weather: "Weather",
+        Music: "Music",
         Countdown: "Countdown",
         StopWatch: "StopWatch",
         Pomodoro: "Pomodoro",
@@ -52,7 +52,7 @@ class ShortcutType:
         Unknown22: "Unknown22",
         Unknown23: "Unknown23",
         Unknown24: "Unknown24",
-        Pulse: "Pulse",
+        Voice: "Voice",
     }
 
     def __init__(self, flag):
