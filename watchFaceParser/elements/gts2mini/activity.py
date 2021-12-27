@@ -4,11 +4,12 @@ from watchFaceParser.elements.gts2mini.activityElements.heartrate import HeartRa
 from watchFaceParser.elements.gts2mini.activityElements.distance import Distance
 from watchFaceParser.elements.gts2mini.activityElements.pai import PAI
 from watchFaceParser.elements.gts2mini.activityElements.standup import StandUp
+from watchFaceParser.elements.gts2mini.basicElements.image import Image
 
 class Activity:
     definitions = {
         1: { 'Name': 'Steps', 'Type': Steps},
-        2: { 'Name': 'Unknown2', 'Type': 'long?'},
+        2: { 'Name': 'Icon', 'Type': Image},
         3: { 'Name': 'Calories', 'Type': Calories},
         4: { 'Name': 'HeartRate', 'Type': HeartRate},
         5: { 'Name': 'Distance', 'Type': Distance},
