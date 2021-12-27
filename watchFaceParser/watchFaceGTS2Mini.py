@@ -2,7 +2,7 @@ from watchFaceParser.elements.gts2mini.deviceId import DeviceId
 from watchFaceParser.elements.gts2mini.background import Background
 from watchFaceParser.elements.gts2mini.timeDigital import TimeDigital
 from watchFaceParser.elements.gts2mini.activity import Activity
-from watchFaceParser.elements.gts2mini.dateblock import DateBlock
+from watchFaceParser.elements.gts2mini.dateblock import DateBlock, WeekDayImages
 from watchFaceParser.elements.gts2mini.battery import Battery
 from watchFaceParser.elements.gts2mini.analogDialFace import AnalogDialFace
 from watchFaceParser.elements.gts2mini.progress import Progress, ProgressAlt1, ProgressAlt2, ProgressAlt3
@@ -31,7 +31,7 @@ class WatchFace:
         11: {'Name': 'Animation', 'Type': Animation},
         12: {'Name': 'HearthProgress', 'Type': Progress},
         13: {'Name': 'Unknown13', 'Type': 'long?'},
-        14: {'Name': 'Unknown14', 'Type': 'long?'},
+        14: {'Name': 'WeekDayImages', 'Type': WeekDayImages}, #56bda72eb651d3cba751c9453203bd44.bin
         15: {'Name': 'CaloriesProgress', 'Type': Progress},
         16: {'Name': 'Unknown16', 'Type': 'long?'},
         17: {'Name': 'HumidityProgress', 'Type': ProgressAlt3},
