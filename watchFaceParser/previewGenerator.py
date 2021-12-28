@@ -42,7 +42,7 @@ class PreviewGenerator:
         elif Config.isGtsMode() or Config.isGts2Mode() or Config.isBipUMode():
             graphics = PreviewGenerator.cutRoundedRectangle(graphics, 38)
         elif Config.isGts2MiniMode():
-            graphics = PreviewGenerator.cutRoundedRectangle(graphics, 48)
+            graphics = PreviewGenerator.cutRoundedRectangle(graphics, 72)
 
         #graphics.show()
         return graphics

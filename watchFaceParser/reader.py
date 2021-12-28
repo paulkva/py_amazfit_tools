@@ -59,7 +59,7 @@ class Reader:
             except IndexError:
                 descriptorLength = descriptorOffset
                 descriptorOffset = 0
-                print ("parameterDescriptor lenght empty")
+                print ("parameterDescriptor length empty")
             print ("parameterDescriptor",parameterDescriptor.getId(),"%02x"%descriptorOffset,descriptorLength)
             logging.info(f"Reading descriptor for parameter {parameterDescriptor.getId()}")
             logging.info(f"Descriptor offset: {descriptorOffset}, Descriptor length: {descriptorLength}")
