@@ -8,7 +8,7 @@ class TimeSeparateDigits:
         1: {'Name': 'Hours', 'Type': TwoDigits},
         2: {'Name': 'Minutes', 'Type': TwoDigits},
         3: {'Name': 'Seconds', 'Type': TwoDigits},
-        4: {'Name': 'Unknown4', 'Type': 'long?'},
+        4: {'Name': 'DrawOrder', 'Type': 'long?'}, # fa8a3747713543ddbfebbfcf25cfe3f8.bin - 13330 0x3412 -> 3,4,1,2 -> m1,m2,h1,h2
         5: {'Name': 'SeparatorHours', 'Type': Image}, # separator hours ?
         6: {'Name': 'SeparatorMinutes', 'Type': Image}, # separator minutes ?
         7: {'Name': 'PaddingZeroHours', 'Type': 'bool'},

@@ -47,7 +47,7 @@ if __name__ == '__main__':
         isDirectory = os.path.isdir(inputFileName)
         isFile = os.path.isfile(inputFileName)
         if not isDirectory and not isFile:
-            print("File or direcotry %s doesn't exist." % (inputFileName, ))
+            print("File or directory %s doesn't exist." % (inputFileName, ))
             continue
         if isDirectory:
             if Config.isFromRaw():

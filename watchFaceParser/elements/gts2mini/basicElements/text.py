@@ -1,6 +1,6 @@
 ﻿from watchFaceParser.elements.gts2mini.basicElements.number import Number
 from watchFaceParser.elements.gts2mini.basicElements.image import Image
-from watchFaceParser.elements.gts2mini.shortcutElement import ShortcutElement
+from watchFaceParser.elements.gts2mini.shortcutsElements.element import Element
 
 class Text:
     definitions = {
@@ -9,5 +9,5 @@ class Text:
         3: {'Name': 'NoDataImageIndex', 'Type': 'long'},
         4: {'Name': 'SuffixImageIndex', 'Type': 'long'},
         5: {'Name': 'Icon', 'Type': Image},
-        6: {'Name': 'Shortcut', 'Type': ShortcutElement},
+        6: {'Name': 'Shortcut', 'Type': Element},
     }

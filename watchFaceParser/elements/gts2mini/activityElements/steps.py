@@ -1,6 +1,6 @@
 ﻿from watchFaceParser.elements.gts2mini.basicElements.number import Number
 from watchFaceParser.elements.gts2mini.basicElements.image import Image
-from watchFaceParser.elements.gts2mini.shortcutElement import ShortcutElement
+from watchFaceParser.elements.gts2mini.shortcutsElements.element import Element
 
 class Steps:
     definitions = {
@@ -8,6 +8,6 @@ class Steps:
         2: {'Name': 'PrefixImageIndex', 'Type': 'long'},
         3: {'Name': 'NoDataImageIndex', 'Type': 'long'},
         4: {'Name': 'Icon', 'Type': Image},
-        6: {'Name': 'Shortcut', 'Type': ShortcutElement},
+        6: {'Name': 'Shortcut', 'Type': Element},
         7: {'Name': 'SuffixImageIndex', 'Type': 'long'},
     }
