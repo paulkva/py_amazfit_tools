@@ -26,9 +26,9 @@ class AoDTimeDigital:
 
 class AoDAnalogDialFace:
     definitions = {
-    1: {'Name': 'CommonCenterCoordinates', 'Type': Coordinates},
-    2: {'Name': 'Hours', 'Type': ClockHand},
-    3: {'Name': 'Minutes', 'Type': ClockHand},
+        1: {'Name': 'CommonCenterCoordinates', 'Type': Coordinates},
+        2: {'Name': 'Hours', 'Type': ClockHand},
+        3: {'Name': 'Minutes', 'Type': ClockHand},
     }
 
 class AoDTimeExtended:

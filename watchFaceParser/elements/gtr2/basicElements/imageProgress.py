@@ -6,5 +6,5 @@ class ImageProgress:
     definitions = { 
         1: { 'Name': 'Coordinates', 'Type': [Coordinates]},
         2: { 'Name': 'ImageSet', 'Type': ImageSetGTR2},
-        3: { 'Name': 'DisplayType', 'Type': ImageProgressDisplayType}, # Continius / Single
+        3: { 'Name': 'DisplayType', 'Type': ImageProgressDisplayType}, # Continuous / Single
     }

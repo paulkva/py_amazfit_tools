@@ -4,7 +4,7 @@ from watchFaceParser.elements.gts2mini.time import Time
 class TimeDigital:
     definitions = {
         1: {'Name': 'Hours', 'Type': Number},
-        2: {'Name': 'HoursDataTypeImageIndex', 'Type': 'long'}, #probably HoursDataTypeImageIndex
+        2: {'Name': 'HoursDataTypeImageIndex', 'Type': 'long'},
         3: {'Name': 'PaddingZeroHours', 'Type': 'bool'},
         4: {'Name': 'DelimiterHoursImageIndex', 'Type': 'long'},
         5: {'Name': 'DelimiterMinutesImageIndex', 'Type': 'long'},

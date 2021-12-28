@@ -13,7 +13,6 @@ class Progress:
         5: {'Name': 'Unknown5', 'Type': 'long?'},
         6: {'Name': 'Scale', 'Type': Scale},
         7: {'Name': 'NoDataImage', 'Type': Image},
-        8: {'Name': 'UnknownImage', 'Type': Image},
     }
 
 class ProgressAlt1:

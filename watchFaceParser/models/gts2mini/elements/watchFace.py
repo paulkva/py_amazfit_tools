@@ -12,7 +12,7 @@ class WatchFace(ContainerElement):
         self._weather = None
         self._stepsProgress = None
         self._caloriesProgress = None
-        self._hearthProgress = None
+        self._heartProgress = None
         self._standUpProgress = None
         self._humidityProgress = None
         self._uviProgress = None
@@ -21,7 +21,7 @@ class WatchFace(ContainerElement):
         self._battery = None
         self._animation = None
         self._analogDial = None
-        self._shorcuts = None
+        self._shortcuts = None
         self._digitalTime = None
         self._weather = None
         self._activity_separate_digits = None
@@ -95,10 +95,10 @@ class WatchFace(ContainerElement):
             from watchFaceParser.models.gts2mini.elements.animationContainerElement import AnimationContainerElement
             self._animation = AnimationContainerElement(parameter)
             return self._animation
-        elif parameterId == 12: # hearth progress
+        elif parameterId == 12: # heart progress
             from watchFaceParser.models.gts2mini.elements.activity.pulseProgressElement import PulseProgressElement
-            self._hearthProgress = PulseProgressElement(parameter)
-            return self._hearthProgress
+            self._heartProgress = PulseProgressElement(parameter)
+            return self._heartProgress
         elif parameterId == 13: #
             pass
         elif parameterId == 14: #
@@ -119,8 +119,8 @@ class WatchFace(ContainerElement):
             return self._alarm
         elif parameterId == 19: #
             from watchFaceParser.models.gts2mini.elements.shortcutsElement import ShortcutsElement
-            self._shorcuts = ShortcutsElement(parameter)
-            return self._shorcuts
+            self._shortcuts = ShortcutsElement(parameter)
+            return self._shortcuts
         elif parameterId == 20:
             from watchFaceParser.models.gts2mini.elements.analogDialElement import AnalogDialElement
             self._analogDial = AnalogDialElement(parameter)
