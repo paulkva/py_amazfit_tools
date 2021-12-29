@@ -30,19 +30,19 @@ class WatchFace:
         10: {'Name': 'Unknown10', 'Type': 'long?'},
         11: {'Name': 'Animation', 'Type': Animation},
         12: {'Name': 'HearthProgress', 'Type': Progress},
-        13: {'Name': 'Unknown13', 'Type': 'long?'},
+        #13: {'Name': 'Unknown13', 'Type': 'long?'},
         14: {'Name': 'WeekDayImages', 'Type': WeekDayImages}, #56bda72eb651d3cba751c9453203bd44.bin
         15: {'Name': 'CaloriesProgress', 'Type': Progress},
-        16: {'Name': 'Unknown16', 'Type': 'long?'},
+        #16: {'Name': 'Unknown16', 'Type': 'long?'},
         17: {'Name': 'HumidityProgress', 'Type': ProgressAlt3},
         18: {'Name': 'Alarm', 'Type': Alarm},
         19: {'Name': 'Shortcuts', 'Type': Shortcuts},
         20: {'Name': 'TimeAnalog', 'Type': AnalogDialFace},
         21: {'Name': 'TimeDigital', 'Type': TimeDigital},
-        22: {'Name': 'Unknown22', 'Type': 'long?'},
+        #22: {'Name': 'Unknown22', 'Type': 'long?'},
         23: {'Name': 'PaiProgress', 'Type': ProgressAlt1}, #9ab2ccafb3b7b67fd47cc350236ddffe.bin
         24: {'Name': 'StandUpProgress', 'Type': Progress},
-        25: {'Name': 'Unknown25', 'Type': 'long?'},
+        #25: {'Name': 'Unknown25', 'Type': 'long?'},
         26: {'Name': 'UviProgress', 'Type': ProgressAlt2}, #9ab2ccafb3b7b67fd47cc350236ddffe.bin
         27: {'Name': 'StressProgress', 'Type': ProgressAlt4}, #4c8c5364650875f4aad4a90663e51f4a.bin
         28: {'Name': 'SPO2Progress', 'Type': ProgressAlt4}, #4c8c5364650875f4aad4a90663e51f4a.bin
