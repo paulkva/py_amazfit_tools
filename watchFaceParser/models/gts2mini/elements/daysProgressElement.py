@@ -9,11 +9,11 @@ class DaysProgressElement(ContainerElement):
     def createChildForParameter(self, parameter):
         parameterId = parameter.getId()
         if parameterId == 1:
-            from watchFaceParser.models.gts2mini.elements.analogDial.secondsClockHandElement import SecondsClockHandElement # must must be own. fix it!!
+            from watchFaceParser.models.gts2mini.elements.analogDial.secondsClockHandElement import SecondsClockHandElement # must be own. fix it!!
             self._clockHand = SecondsClockHandElement(parameter = parameter, parent = self, name = 'AnalogMonth')
             return self._clockHand
         elif parameterId == 3:
-            from watchFaceParser.models.gts2mini.elements.analogDial.secondsClockHandElement import SecondsClockHandElement # must must be own. fix it!!
+            from watchFaceParser.models.gts2mini.elements.analogDial.secondsClockHandElement import SecondsClockHandElement # must be own. fix it!!
             self._clockHand = SecondsClockHandElement(parameter = parameter, parent = self, name = 'AnalogDOW')
             return self._clockHand
         else:
