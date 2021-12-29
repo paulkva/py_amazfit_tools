@@ -49,11 +49,11 @@ class AoDDate:
     definitions = {
         1: {'Name': 'Month', 'Type': Number},
         2: {'Name': 'Day', 'Type': Number},
-        3: {'Name': 'UnknownImageIndex', 'Type': 'long'},
+        3: {'Name': 'DelimiterImageIndex', 'Type': 'long'}, # alternate id for day/month seperator?
         5: {'Name': 'SeparatorImageIndex', 'Type': 'long'},
         7: {'Name': 'PaddingZeroMonth', 'Type': 'bool'},
         8: {'Name': 'PaddingZeroDay', 'Type': 'bool'},
-        11: {'Name': 'Unknown11', 'Type': 'long'},
+        11: {'Name': 'UnknownBoolean11', 'Type': 'bool'}, # mostly false except in a611dc2d3574c2645bcbbb64028103ad.bin
     }
 
 class AoDWeek:

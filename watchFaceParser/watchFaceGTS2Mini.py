@@ -18,7 +18,7 @@ from watchFaceParser.elements.gts2mini.alwaysOnDisplay import AlwaysOnDisplay
 class WatchFace:
     definitions = {
         0: {'Name': 'Info', 'Type': DeviceId},
-        1: {'Name': 'Unknown1', 'Type': 'long?'},
+        #1: {'Name': 'Unknown1', 'Type': 'long?'},
         2: {'Name': 'Background', 'Type': Background},
         3: {'Name': 'TimeExtended', 'Type': TimeExtended}, #b29f1f0bd97cf0712b72dfe50fed2577.bin
         4: {'Name': 'Activity', 'Type': Activity},

@@ -6,11 +6,11 @@ from watchFaceParser.elements.gts2mini.basicElements.circleScale import CircleSc
 
 class Progress:
     definitions = {
-        1: {'Name': 'Unknown1', 'Type': 'long?'}, #Text ?
+        #1: {'Name': 'Unknown1', 'Type': 'long?'}, #Text ?
         2: {'Name': 'ImageProgress', 'Type': ImageSet},
         3: {'Name': 'IconSetProgress', 'Type': IconSet},
         4: {'Name': 'CircleScale', 'Type': CircleScale},
-        5: {'Name': 'Unknown5', 'Type': 'long?'},
+        #5: {'Name': 'Unknown5', 'Type': 'long?'},
         6: {'Name': 'Scale', 'Type': Scale},
         7: {'Name': 'NoDataImage', 'Type': Image},
     }

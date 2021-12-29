@@ -10,7 +10,7 @@ class Date:
         3: { 'Name': 'OneLineYearMonthAndDay', 'Type': OneLineYearMonthAndDay},
         4: { 'Name': 'PaddingZeroMonth', 'Type': 'bool'},
         5: { 'Name': 'PaddingZeroDay', 'Type': 'bool'},
-        6: { 'Name': 'Unknown6', 'Type': 'long'},
+        6: { 'Name': 'UnknownBoolean6', 'Type': 'bool'}, #always true?
         9: { 'Name': 'MonthAndDay', 'Type': MonthAndDay},
     }
 

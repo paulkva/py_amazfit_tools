@@ -9,7 +9,7 @@ class TimeDigital:
         4: {'Name': 'DelimiterHoursImageIndex', 'Type': 'long'},
         5: {'Name': 'DelimiterMinutesImageIndex', 'Type': 'long'},
         6: {'Name': 'HoursFollowPosition', 'Type': 'bool'}, # should be checked on watch, what does this do
-        7: {'Name': 'Unknown7', 'Type': 'long?'},
+        #7: {'Name': 'Unknown7', 'Type': 'long?'},
         8: {'Name': 'Time', 'Type': Time},
     }
 

@@ -14,6 +14,6 @@ class Activity:
         4: { 'Name': 'HeartRate', 'Type': HeartRate},
         5: { 'Name': 'Distance', 'Type': Distance},
         6: { 'Name': 'PAI', 'Type': PAI},
-        7: { 'Name': 'UnknownLongValue7', 'Type': 'long'},
+        7: { 'Name': 'UnknownLongValue7', 'Type': 'long'}, # always 0
         8: { 'Name': 'StandUp', 'Type': StandUp},
     }

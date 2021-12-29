@@ -8,7 +8,7 @@ class DateBlock:
     definitions = {
         1: { 'Name': 'Date', 'Type': Date},
         2: { 'Name': 'AmPm', 'Type': AmPmIcon},
-        3: { 'Name': 'Unknown3', 'Type': 'long?'},
+        #3: { 'Name': 'Unknown3', 'Type': 'long?'},
         4: { 'Name': 'Weekday', 'Type': ImageSet},
         5: { 'Name': 'WeekdayChinese', 'Type': ImageSet},
         6: { 'Name': 'WeekdayKorean', 'Type': ImageSet},
