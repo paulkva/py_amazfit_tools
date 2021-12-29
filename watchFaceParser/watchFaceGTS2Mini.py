@@ -29,7 +29,7 @@ class WatchFace:
         9: {'Name': 'Battery', 'Type': Battery},
         10: {'Name': 'Unknown10', 'Type': 'long?'},
         11: {'Name': 'Animation', 'Type': Animation},
-        12: {'Name': 'HearthProgress', 'Type': Progress},
+        12: {'Name': 'HeartProgress', 'Type': Progress},
         #13: {'Name': 'Unknown13', 'Type': 'long?'},
         14: {'Name': 'WeekDayImages', 'Type': WeekDayImages}, #56bda72eb651d3cba751c9453203bd44.bin
         15: {'Name': 'CaloriesProgress', 'Type': Progress},
