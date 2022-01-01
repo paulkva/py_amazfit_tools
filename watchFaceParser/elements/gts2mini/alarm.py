@@ -20,7 +20,7 @@ class Alarm:
     definitions = {
         3: {'Name': 'NoAlarmImage', 'Type': Image},
         5: {'Name': 'AlarmImage', 'Type': Image},
-        6: { 'Name': 'ShortcutArea', 'Type': Element},
+        6: {'Name': 'ShortcutArea', 'Type': Element},
         7: {'Name': 'AlarmTime', 'Type': AlarmTime},
     }
 

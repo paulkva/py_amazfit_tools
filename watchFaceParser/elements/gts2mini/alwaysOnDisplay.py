@@ -15,7 +15,7 @@ class AoDTimeSeparateDigits:
         4: {'Name': 'PaddingZeroHours', 'Type': 'bool'},
     }
 
-class AoDTimeDigital:
+class AoDTimeDigital: # similar to class AlarmTime?
     definitions = {
         1: {'Name': 'Hours', 'Type': Number},
         2: {'Name': 'Minutes', 'Type': Number},
