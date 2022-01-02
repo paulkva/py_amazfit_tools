@@ -38,3 +38,10 @@ class ProgressAlt4:
         5: {'Name': 'ImageProgress', 'Type': ImageSet},
         7: {'Name': 'NoDataImage', 'Type': Image},
     }
+
+class ProgressAlt5:
+    definitions = {
+        2: {'Name': 'ImageProgress', 'Type': ImageSet},
+        3: {'Name': 'IconSetProgress', 'Type': IconSet},
+        4: {'Name': 'PointerProgress', 'Type': Scale},
+    }

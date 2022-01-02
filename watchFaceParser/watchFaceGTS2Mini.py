@@ -5,7 +5,7 @@ from watchFaceParser.elements.gts2mini.activity import Activity
 from watchFaceParser.elements.gts2mini.dateblock import DateBlock, WeekDayImages
 from watchFaceParser.elements.gts2mini.battery import Battery
 from watchFaceParser.elements.gts2mini.analogDialFace import AnalogDialFace
-from watchFaceParser.elements.gts2mini.progress import Progress, ProgressAlt1, ProgressAlt2, ProgressAlt3, ProgressAlt4
+from watchFaceParser.elements.gts2mini.progress import Progress, ProgressAlt1, ProgressAlt2, ProgressAlt3, ProgressAlt4, ProgressAlt5
 from watchFaceParser.elements.gts2mini.status import Status
 from watchFaceParser.elements.gts2mini.weather import Weather
 from watchFaceParser.elements.gts2mini.animation import Animation
@@ -41,7 +41,7 @@ class WatchFace:
         21: {'Name': 'TimeDigital', 'Type': TimeDigital},
         #22: {'Name': 'Unknown22', 'Type': 'long?'},
         23: {'Name': 'PaiProgress', 'Type': ProgressAlt1}, #9ab2ccafb3b7b67fd47cc350236ddffe.bin
-        24: {'Name': 'StandUpProgress', 'Type': Progress},
+        24: {'Name': 'StandUpProgress', 'Type': ProgressAlt5},
         #25: {'Name': 'Unknown25', 'Type': 'long?'},
         26: {'Name': 'UviProgress', 'Type': ProgressAlt2}, #9ab2ccafb3b7b67fd47cc350236ddffe.bin
         27: {'Name': 'StressProgress', 'Type': ProgressAlt4}, #4c8c5364650875f4aad4a90663e51f4a.bin
