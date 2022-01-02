@@ -6,7 +6,7 @@ from watchFaceParser.models.gts2mini.elements.basic.containerElement import Cont
 class DateElement(ContainerElement):
     def __init__(self, parameter, parent = None, name = None):
         self._padding_zero_day = False
-        self._monthAndDay = None
+        self._yearMonthAndDay = None
         self._monthAndDayAlt = None
         self._oneLineMonthAndDay = None
         self._oneLineYearMonthAndDay = None
@@ -29,10 +29,10 @@ class DateElement(ContainerElement):
                                                padding_zero_day = self._padding_zero_day,
                                                padding_zero_month=self._padding_zero_month)
 
-        if self._monthAndDay:
-            self._monthAndDay.draw4(drawer, images, state,
-                                    padding_zero_day = self._padding_zero_day,
-                                    padding_zero_month= self._padding_zero_month)
+        if self._yearMonthAndDay:
+            self._yearMonthAndDay.draw4(drawer, images, state,
+                                        padding_zero_day = self._padding_zero_day,
+                                        padding_zero_month= self._padding_zero_month)
 
     def createChildForParameter(self, parameter):
         from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
@@ -62,8 +62,8 @@ class DateElement(ContainerElement):
         elif parameterId == 8:
             pass
         elif parameterId == 9:
-            from watchFaceParser.models.gts2mini.elements.date.monthAndDayElement import MonthAndDayElement
-            self._monthAndDay = MonthAndDayElement(parameter=parameter, parent=self, name='MonthAndDay')
-            return self._monthAndDay
+            from watchFaceParser.models.gts2mini.elements.date.yearMonthAndDayElement import YearMonthAndDayElement
+            self._yearMonthAndDay = YearMonthAndDayElement(parameter=parameter, parent=self, name='YearMonthAndDay')
+            return self._yearMonthAndDay
         else:
             return super(DateElement, self).createChildForParameter(parameter)

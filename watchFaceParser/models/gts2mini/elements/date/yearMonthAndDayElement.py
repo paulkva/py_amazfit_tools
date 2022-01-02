@@ -3,7 +3,7 @@
 from watchFaceParser.models.gts2mini.elements.basic.containerElement import ContainerElement
 
 
-class MonthAndDayElement(ContainerElement):
+class YearMonthAndDayElement(ContainerElement):
     def __init__(self, parameter, parent = None, name = None):
         self._year = None
         self._month = None
@@ -20,7 +20,7 @@ class MonthAndDayElement(ContainerElement):
         self._delimiter_year_coords = None
         self._delimiter_month_coords = None
         self._delimiter_day_coords = None
-        super(MonthAndDayElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
+        super(YearMonthAndDayElement, self).__init__(parameters = None, parameter = parameter, parent = parent, name = name)
 
     def draw4(self, drawer, images, state,
               padding_zero_day = False, padding_zero_month = False, padding_zero_year = False):
