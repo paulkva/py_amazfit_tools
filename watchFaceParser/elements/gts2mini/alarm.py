@@ -7,7 +7,7 @@ class AlarmTime:
     definitions = {
         1: { 'Name': 'Hours', 'Type': Number},
         2: { 'Name': 'Minutes', 'Type': Number},
-        3: { 'Name': 'DataTypeHoursImageIndex', 'Type': 'long'},
+        3: { 'Name': 'HoursDataTypeImageIndex', 'Type': 'long'},
         5: { 'Name': 'DelimiterHoursImageIndex', 'Type': 'long'},
         6: { 'Name': 'DelimiterMinutesImageIndex', 'Type': 'long'},
         7: { 'Name': 'PaddingZeroHours', 'Type': 'bool'},

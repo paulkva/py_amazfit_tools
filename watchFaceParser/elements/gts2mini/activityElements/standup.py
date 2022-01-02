@@ -5,7 +5,7 @@ from watchFaceParser.elements.gts2mini.shortcutsElements.element import Element
 class StandUp:
     definitions = {
         1: {'Name': 'ImageNumber', 'Type': Number},
-        2: {'Name': 'NoDataImageIndex', 'Type': 'long?'},
+        2: {'Name': 'SuffixImageIndex', 'Type': 'long'},
         3: {'Name': 'Icon', 'Type': Image},
         4: {'Name': 'Shortcut', 'Type': Element},
     }

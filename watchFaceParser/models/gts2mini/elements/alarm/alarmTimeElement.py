@@ -55,7 +55,7 @@ class AlarmTimeElement(ContainerElement):
             return self._minutes
         elif parameterId == 3:
             self._data_type_hours = parameter.getValue()
-            return ValueElement(parameter, self, 'DataTypeHoursImageIndex')
+            return ValueElement(parameter, self, 'HoursDataTypeImageIndex')
         elif parameterId == 4:
             pass
         elif parameterId == 5:
