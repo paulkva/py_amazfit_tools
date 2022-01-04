@@ -44,7 +44,7 @@ class ProgressElement(ContainerElement):
             self._images4 = StepGaugeElement(parameter = parameter, parent = self, name = '?_images?')
             return self._images4
         elif parameterId == 6:
-            from watchFaceParser.models.gts2mini.elements.goalProgress.stepsClockHandElement import StepsClockHandElement # must must be own. fix it!!
+            from watchFaceParser.models.gts2mini.elements.goalProgress.stepsClockHandElement import StepsClockHandElement # must be own. fix it!!
             self._clockHand = StepsClockHandElement(parameter = parameter, parent = self, name = 'ClockHand')
             return self._clockHand
         elif parameterId == 5:

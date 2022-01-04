@@ -207,9 +207,9 @@ class Parser:
                 mainParam = Parameter.readFrom(parametersStream)
                 logging.info("getParameters descriptor was read:")
                 parametersTableLength = mainParam.getChildren()[0].getValue()
-                headeSize = f.tell();
+                headerSize = f.tell();
                 f.seek(0) 
-                tmpArray = bytearray(f.read(headeSize + parametersTableLength)) 
+                tmpArray = bytearray(f.read(headerSize + parametersTableLength))
                 f.close()
 
                 outputFileName = os.path.join(outputDirectory, f"{Parser.raw_header_file_name}") 

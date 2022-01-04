@@ -15,20 +15,23 @@ class AoDTimeSeparateDigits:
         4: {'Name': 'PaddingZeroHours', 'Type': 'bool'},
     }
 
-class AoDTimeDigital:
+class AoDTimeDigital: # similar to class AlarmTime?
     definitions = {
         1: {'Name': 'Hours', 'Type': Number},
         2: {'Name': 'Minutes', 'Type': Number},
+        3: {'Name': 'HoursDataTypeImageIndex', 'Type': 'long'},
+        5: {'Name': 'DelimiterHoursImageIndex', 'Type': 'long'},
         7: {'Name': 'PaddingZeroHours', 'Type': 'bool'},
         8: {'Name': 'PaddingZeroMinutes', 'Type': 'bool'},
+        9: {'Name': 'DataTypeHoursCoordinates', 'Type': Coordinates},
         11: {'Name': 'MinutesFollowHours', 'Type': 'bool'},
     }
 
 class AoDAnalogDialFace:
     definitions = {
-    1: {'Name': 'CommonCenterCoordinates', 'Type': Coordinates},
-    2: {'Name': 'Hours', 'Type': ClockHand},
-    3: {'Name': 'Minutes', 'Type': ClockHand},
+        1: {'Name': 'CommonCenterCoordinates', 'Type': Coordinates},
+        2: {'Name': 'Hours', 'Type': ClockHand},
+        3: {'Name': 'Minutes', 'Type': ClockHand},
     }
 
 class AoDTimeExtended:
@@ -49,11 +52,11 @@ class AoDDate:
     definitions = {
         1: {'Name': 'Month', 'Type': Number},
         2: {'Name': 'Day', 'Type': Number},
-        3: {'Name': 'UnknownImageIndex', 'Type': 'long'},
+        3: {'Name': 'DelimiterImageIndex', 'Type': 'long'}, # alternate id for day/month seperator?
         5: {'Name': 'SeparatorImageIndex', 'Type': 'long'},
         7: {'Name': 'PaddingZeroMonth', 'Type': 'bool'},
         8: {'Name': 'PaddingZeroDay', 'Type': 'bool'},
-        11: {'Name': 'Unknown11', 'Type': 'long'},
+        11: {'Name': 'DayFollowsMonth', 'Type': 'bool'}, # mostly false except in a611dc2d3574c2645bcbbb64028103ad.bin
     }
 
 class AoDWeek:

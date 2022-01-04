@@ -5,5 +5,5 @@ class Element:
         2: { 'Name': 'TopLeftY', 'Type': 'long'},
         3: { 'Name': 'BottomRightX', 'Type': 'long'},
         4: { 'Name': 'BottomRightY', 'Type': 'long'},
-        5: { 'Name': 'UnknownBoolean5', 'Type': 'bool'},
+        5: { 'Name': 'UnknownBoolean5', 'Type': 'bool'}, #always true
     }

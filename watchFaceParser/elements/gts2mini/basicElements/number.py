@@ -10,5 +10,5 @@ class Number:
         6: { 'Name': 'Spacing', 'Type': 'long'},
         7: { 'Name': 'VerticalOffset', 'Type': 'long'},
         8: { 'Name': 'ImageIndex', 'Type': 'long'},
-        9: {'Name': 'ImagesCount', 'Type': 'long'},
+        9: { 'Name': 'ImagesCount', 'Type': 'long'},
     }

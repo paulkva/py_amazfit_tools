@@ -50,7 +50,7 @@ class ActivitySeparateDigitsElement(ContainerElement):
             return self._calories
         elif parameterId == 2: # bat
             from watchFaceParser.models.gts2mini.elements.common.threeDigitsElement import ThreeDigitsElement
-            self._battery = ThreeDigitsElement(parameter=parameter, parent=self, name='Battey')
+            self._battery = ThreeDigitsElement(parameter=parameter, parent=self, name='Battery')
             return self._battery
         elif parameterId == 3: # steps
             from watchFaceParser.models.gts2mini.elements.common.fiveDigitsElement import FiveDigitsElement
@@ -58,7 +58,7 @@ class ActivitySeparateDigitsElement(ContainerElement):
             return self._steps
         elif parameterId == 4: # pulse
             from watchFaceParser.models.gts2mini.elements.common.fourDigitsElement import FourDigitsElement
-            self._pulse = FourDigitsElement(parameter=parameter, parent=self, name='Steps')
+            self._pulse = FourDigitsElement(parameter=parameter, parent=self, name='HeartRate')
             return self._pulse
         else:
             print ("Unknown ActivitySeparateDigitsElement",parameterId)
