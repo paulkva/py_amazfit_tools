@@ -1,6 +1,6 @@
 from watchFaceParser.elements.gts2mini.deviceId import DeviceId
 from watchFaceParser.elements.gts2mini.background import Background
-from watchFaceParser.elements.gts2mini.timeDigital import TimeDigital
+from watchFaceParser.elements.gts2mini.timeDigital import TimeDigital, HourlyImages
 from watchFaceParser.elements.gts2mini.activity import Activity
 from watchFaceParser.elements.gts2mini.dateblock import DateBlock, WeekDayImages
 from watchFaceParser.elements.gts2mini.battery import Battery
@@ -39,7 +39,7 @@ class WatchFace:
         19: {'Name': 'Shortcuts', 'Type': Shortcuts},
         20: {'Name': 'TimeAnalog', 'Type': AnalogDialFace},
         21: {'Name': 'TimeDigital', 'Type': TimeDigital},
-        #22: {'Name': 'Unknown22', 'Type': 'long?'},
+        22: {'Name': 'HourlyImages', 'Type': HourlyImages}, #eddc844402b6157dfb01e2b780b64b0b.bin
         23: {'Name': 'PaiProgress', 'Type': ProgressAlt1}, #9ab2ccafb3b7b67fd47cc350236ddffe.bin
         24: {'Name': 'StandUpProgress', 'Type': ProgressAlt5},
         #25: {'Name': 'Unknown25', 'Type': 'long?'},

@@ -1,5 +1,6 @@
 from watchFaceParser.elements.gts2mini.basicElements.number import Number
 from watchFaceParser.elements.gts2mini.time import Time
+from watchFaceParser.elements.gts2mini.basicElements.iconSet import IconSet
 
 class TimeDigital:
     definitions = {
@@ -13,3 +14,21 @@ class TimeDigital:
         8: {'Name': 'Time', 'Type': Time},
     }
 
+class TimeSpan:
+    definitions = {
+        1: {'Name': 'StartHour', 'Type': 'long'},
+        2: {'Name': 'StartMin', 'Type': 'long'},
+        3: {'Name': 'StopHour', 'Type': 'long'},
+        4: {'Name': 'StopMin', 'Type': 'long'},
+    }
+
+class HourlyImage:
+    definitions = {
+        1: {'Name': 'IconSet', 'Type': IconSet},
+        2: {'Name': 'ImageIndex', 'Type': [TimeSpan]},
+    }
+
+class HourlyImages:
+    definitions = {
+        1: {'Name': 'HourlyImage', 'Type': HourlyImage},
+    }
