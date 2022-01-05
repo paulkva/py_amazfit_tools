@@ -25,7 +25,7 @@ class TimeSpan:
 class HourlyImage:
     definitions = {
         1: {'Name': 'IconSet', 'Type': IconSet},
-        2: {'Name': 'ImageIndex', 'Type': [TimeSpan]},
+        2: {'Name': 'TimeSpans', 'Type': [TimeSpan]},
     }
 
 class HourlyImages:
