@@ -52,8 +52,10 @@ class AoDDate:
     definitions = {
         1: {'Name': 'Month', 'Type': Number},
         2: {'Name': 'Day', 'Type': Number},
-        3: {'Name': 'DelimiterImageIndex', 'Type': 'long'}, # alternate id for day/month seperator?
-        5: {'Name': 'SeparatorImageIndex', 'Type': 'long'},
+        3: {'Name': 'MonthDataTypeImageIndex', 'Type': 'long'}, # used in combination with DayFollowsMonth
+        4: {'Name': 'DayDataTypeImageIndex', 'Type': 'long'},
+        5: {'Name': 'DelimiterMonthImageIndex', 'Type': 'long'},
+        6: {'Name': 'DelimiterDayImageIndex', 'Type': 'long'},
         7: {'Name': 'PaddingZeroMonth', 'Type': 'bool'},
         8: {'Name': 'PaddingZeroDay', 'Type': 'bool'},
         11: {'Name': 'DayFollowsMonth', 'Type': 'bool'}, # mostly false except in a611dc2d3574c2645bcbbb64028103ad.bin
