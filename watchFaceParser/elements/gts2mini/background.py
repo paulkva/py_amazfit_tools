@@ -6,7 +6,7 @@ class Background:
         1: { 'Name': 'Image', 'Type': Image},
         2: { 'Name': 'BackgroundColor', 'Type': Color},
         3: { 'Name': 'Preview', 'Type': Image},
-        4: { 'Name': 'PreviewKorean', 'Type': Image},
+        4: { 'Name': 'PreviewTradChinese', 'Type': Image},
         5: { 'Name': 'PreviewChinese', 'Type': Image},
         6: { 'Name': 'FloatingLayer', 'Type': Image},
         7: { 'Name': 'BackgroundZeppCustom', 'Type': Image},

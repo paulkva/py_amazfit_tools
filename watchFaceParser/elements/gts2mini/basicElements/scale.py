@@ -7,5 +7,5 @@ class Scale:
         1: { 'Name': 'PointerScale', 'Type': PointerScale},
         2: { 'Name': 'BottomImageIndex', 'Type': Image},
         3: { 'Name': 'BottomImageIndexChinese', 'Type': Image},
-        4: { 'Name': 'BottomImageIndexKorean', 'Type': Image},
+        4: { 'Name': 'BottomImageIndexTradChinese', 'Type': Image},
     }

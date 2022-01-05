@@ -11,8 +11,8 @@ class DateBlock:
         #3: { 'Name': 'Unknown3', 'Type': 'long?'},
         4: { 'Name': 'Weekday', 'Type': ImageSet},
         5: { 'Name': 'WeekdayChinese', 'Type': ImageSet},
-        6: { 'Name': 'WeekdayKorean', 'Type': ImageSet},
-        7: { 'Name': 'WeekdayProgress', 'Type': Progress},
+        6: { 'Name': 'WeekdayTradChinese', 'Type': ImageSet},
+        7: { 'Name': 'WeekdayProgress', 'Type': Progress}, # 6608e628967af66d1b74f8f9952596d7.bin
     }
 
 

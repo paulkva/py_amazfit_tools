@@ -65,7 +65,7 @@ class AoDWeek:
     definitions = {
         1: { 'Name': 'Weekday', 'Type': ImageSet},
         2: { 'Name': 'WeekdayChinese', 'Type': ImageSet},
-        3: { 'Name': 'WeekdayKorean', 'Type': ImageSet},
+        3: { 'Name': 'WeekdayTradChinese', 'Type': ImageSet},
     }
 
 class Steps:

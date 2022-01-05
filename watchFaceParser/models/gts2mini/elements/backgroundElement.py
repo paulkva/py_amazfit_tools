@@ -50,7 +50,7 @@ class BackgroundElement(ContainerElement):
             return ValueElement(parameter = parameter, parent = self, name = 'BackgroundColor')
         elif parameterId == 3: # Preview
             pass
-        elif parameterId == 4: # Preview Korean
+        elif parameterId == 4: # Preview TradChinese
             pass
         elif parameterId == 5: # Preview Chinese
             pass
