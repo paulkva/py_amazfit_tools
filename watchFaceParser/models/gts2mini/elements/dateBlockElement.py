@@ -29,7 +29,7 @@ class DateBlockElement(ContainerElement):
             return self._weekDay
         elif parameterId == 5: # WeekdayChinese
             pass
-        elif parameterId == 6: # WeekdayKorean
+        elif parameterId == 6: # WeekdayTradChinese
             pass
         elif parameterId == 7:
             from watchFaceParser.models.gts2mini.elements.date.weekDayProgressElement import WeekDayProgressElement

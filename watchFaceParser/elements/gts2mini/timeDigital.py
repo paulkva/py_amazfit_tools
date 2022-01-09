@@ -10,7 +10,7 @@ class TimeDigital:
         4: {'Name': 'DelimiterHoursImageIndex', 'Type': 'long'},
         5: {'Name': 'DelimiterMinutesImageIndex', 'Type': 'long'},
         6: {'Name': 'HoursFollowPosition', 'Type': 'bool'}, # should be checked on watch, what does this do
-        #7: {'Name': 'Unknown7', 'Type': 'long?'},
+        7: {'Name': 'DelimiterSecondsImageIndex', 'Type': 'long'},
         8: {'Name': 'Time', 'Type': Time},
     }
 
@@ -25,7 +25,7 @@ class TimeSpan:
 class HourlyImage:
     definitions = {
         1: {'Name': 'IconSet', 'Type': IconSet},
-        2: {'Name': 'ImageIndex', 'Type': [TimeSpan]},
+        2: {'Name': 'TimeSpans', 'Type': [TimeSpan]},
     }
 
 class HourlyImages:

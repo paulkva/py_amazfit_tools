@@ -20,10 +20,13 @@ class AoDTimeDigital: # similar to class AlarmTime?
         1: {'Name': 'Hours', 'Type': Number},
         2: {'Name': 'Minutes', 'Type': Number},
         3: {'Name': 'HoursDataTypeImageIndex', 'Type': 'long'},
+        4: {'Name': 'MinutesDataTypeImageIndex', 'Type': 'long'},
         5: {'Name': 'DelimiterHoursImageIndex', 'Type': 'long'},
+        6: {'Name': 'DelimiterMinutesImageIndex', 'Type': 'long'},
         7: {'Name': 'PaddingZeroHours', 'Type': 'bool'},
         8: {'Name': 'PaddingZeroMinutes', 'Type': 'bool'},
         9: {'Name': 'DataTypeHoursCoordinates', 'Type': Coordinates},
+        10: {'Name': 'DataTypeMinutesCoordinates', 'Type': Coordinates},
         11: {'Name': 'MinutesFollowHours', 'Type': 'bool'},
     }
 
@@ -52,10 +55,14 @@ class AoDDate:
     definitions = {
         1: {'Name': 'Month', 'Type': Number},
         2: {'Name': 'Day', 'Type': Number},
-        3: {'Name': 'DelimiterImageIndex', 'Type': 'long'}, # alternate id for day/month seperator?
-        5: {'Name': 'SeparatorImageIndex', 'Type': 'long'},
+        3: {'Name': 'MonthDataTypeImageIndex', 'Type': 'long'}, # used in combination with DayFollowsMonth
+        4: {'Name': 'DayDataTypeImageIndex', 'Type': 'long'},
+        5: {'Name': 'DelimiterMonthImageIndex', 'Type': 'long'},
+        6: {'Name': 'DelimiterDayImageIndex', 'Type': 'long'},
         7: {'Name': 'PaddingZeroMonth', 'Type': 'bool'},
         8: {'Name': 'PaddingZeroDay', 'Type': 'bool'},
+        9: {'Name': 'DelimiterMonthCoordinates', 'Type': Coordinates},
+        10: {'Name': 'DelimiterDayCoordinates', 'Type': Coordinates},
         11: {'Name': 'DayFollowsMonth', 'Type': 'bool'}, # mostly false except in a611dc2d3574c2645bcbbb64028103ad.bin
     }
 
@@ -63,7 +70,7 @@ class AoDWeek:
     definitions = {
         1: { 'Name': 'Weekday', 'Type': ImageSet},
         2: { 'Name': 'WeekdayChinese', 'Type': ImageSet},
-        3: { 'Name': 'WeekdayKorean', 'Type': ImageSet},
+        3: { 'Name': 'WeekdayTradChinese', 'Type': ImageSet},
     }
 
 class Steps:

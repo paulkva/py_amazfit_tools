@@ -38,7 +38,7 @@ class DateElement(CompositeElement):
         elif parameterId == 5:
             from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
             self._delimiter = parameter.getValue()
-            return ValueElement(parameter, self, 'SeparatorImageIndex')
+            return ValueElement(parameter, self, 'DelimiterMonthImageIndex')
         elif parameterId == 7:
             from watchFaceParser.models.gts2mini.elements.basic.valueElement import ValueElement
             self._padding_zero_month = parameter.getValue()
